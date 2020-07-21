@@ -13,6 +13,9 @@ import ContestDetail from '../views/contest/ContestDetail.vue'
 import ContestUpdate from '../views/contest/ContestUpdate.vue'
 
 import TeamList from '../views/team/TeamList.vue'
+import TeamEach from '../views/team/TeamEach.vue'
+import TeamUpdate from '../views/team/TeamUpdate.vue'
+import TeamWrite from '../views/team/TeamWrite.vue'
 import ApplicantList from '../views/team/ApplicantList.vue'
 
 import Study from '../views/study/Study.vue'
@@ -50,15 +53,18 @@ const routes = [
   { path: '/index', component: Index },
   { path: '/schedule', component: Schedule },
   { path: '/contest', component: ContestRoute, children: [
-      { path: '', component: ContestList },
-      { path: 'write', component: ContestWrite },
-      { path: ':contest_id', component: ContestEach, children: [
-          { path: '', component: ContestDetail },
-          { path: 'myteam', component: MyTeam },
-          { path: 'teams', component: TeamList },
-          { path: 'applicants', component: ApplicantList },
-      ]},
-      { path: ':contest_id/update', component: ContestUpdate },
+    { path: '', component: ContestList },
+    { path: 'write', component: ContestWrite },
+    { path: ':contest_id', component: ContestEach, children: [
+      { path: '', component: ContestDetail },
+      { path: 'myteam', component: MyTeam },
+      { path: 'teams', component: TeamList },
+      { path: 'teams/write', component: TeamWrite },
+      { path: 'teams/:team_id', component: TeamEach },
+      { path: 'teams/:team_id/update', component: TeamUpdate },
+      { path: 'applicants', component: ApplicantList },
+    ]},
+    { path: ':contest_id/update', component: ContestUpdate },
   ]},
   { path: '/study', component: Study },
   { path: '/jobinfo', component: Jobinfo },
