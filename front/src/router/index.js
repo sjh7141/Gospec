@@ -1,6 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '../views/Home.vue'
+import Index from '../views/Index.vue'
+import Schedule from '../views/Schedule.vue'
+
+import ContestRoute from '../views/contest/ContestRoute.vue'
+import ContestList from '../views/contest/ContestList.vue'
+import ContestWrite from '../views/contest/ContestWrite.vue'
+import ContestEach from '../views/contest/ContestEach.vue'
+import ContestDetail from '../views/contest/ContestDetail.vue'
+import ContestUpdate from '../views/contest/ContestUpdate.vue'
+
+import TeamList from '../views/team/TeamList.vue'
+import ApplicantList from '../views/team/ApplicantList.vue'
+
+import Study from '../views/study/Study.vue'
+import Jobinfo from '../views/jobinfo/Jobinfo.vue'
+import Mypage from '../views/mypage/Mypage.vue'
+import MyTeam from '../views/mypage/MyTeam.vue'
 
 /*
 - 라우팅 테이블 작성시 참고사항 정리 주석
@@ -25,72 +43,24 @@ import Home from '../views/Home.vue'
 */
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/index',
-    component: () => import('../views/Index.vue')
-  },
-  {
-    path: '/schedule',
-    component: () => import('../views/Schedule.vue'),
-  },
-  {
-    path: '/contest',
-    component: () => import('../views/contest/ContestRoute.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('../views/contest/ContestList.vue')
-      },
-      {
-        path: 'write',
-        component: () => import('../views/contest/ContestWrite.vue')
-      },
-      {
-        path: ':contest_id',
-        component: () => import('../views/contest/ContestEach.vue'),
-        children: [
-          {
-            path: '',
-            component: () => import('../views/contest/ContestDetail.vue'),
-          },
-          {
-            path: 'myteam',
-            component: () => import('../views/mypage/MyTeam.vue'),
-          },
-          {
-            path: 'teams',
-            component: () => import('../views/team/TeamList.vue'),
-          },
-          {
-            path: 'applicants',
-            component: () => import('../views/team/ApplicantList.vue'),
-          },
-        ]
-      },
-      {
-        path: ':contest_id/update',
-        component: () => import('../views/contest/ContestUpdate.vue')
-      },
-    ]
-  },
-  {
-    path: '/study',
-    component: () => import('../views/study/Study.vue'),
-  },
-  {
-    path: '/jobinfo',
-    component: () => import('../views/jobinfo/Jobinfo.vue'),
-  },
-  {
-    path: '/mypage',
-    component: () => import('../views/mypage/Mypage.vue'),
-  }
+const routes = [
+  { path: '/', name: 'Home', component: Home },
+  { path: '/index', component: Index },
+  { path: '/schedule', component: Schedule },
+  { path: '/contest', component: ContestRoute, children: [
+      { path: '', component: ContestList },
+      { path: 'write', component: ContestWrite },
+      { path: ':contest_id', component: ContestEach, children: [
+          { path: '', component: ContestDetail },
+          { path: 'myteam', component: MyTeam },
+          { path: 'teams', component: TeamList },
+          { path: 'applicants', component: ApplicantList },
+      ]},
+      { path: ':contest_id/update', component: ContestUpdate },
+  ]},
+  { path: '/study', component: Study },
+  { path: '/jobinfo', component: Jobinfo },
+  { path: '/mypage', component: Mypage },
 ]
 
 const router = new VueRouter({
