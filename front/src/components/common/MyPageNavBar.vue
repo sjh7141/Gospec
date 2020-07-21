@@ -1,7 +1,7 @@
 <template>
   <div class='middle'>
     <ul class='horizontal'>
-      <li><router-link to='/mypage/profile'>프로필</router-link></li>
+      <li><router-link to='/mypage'>프로필</router-link></li>
       <li><router-link to='/mypage/userinfo'>내정보수정</router-link></li>
       <li><router-link to='/mypage/myteam'>팀정보</router-link></li>
     </ul>

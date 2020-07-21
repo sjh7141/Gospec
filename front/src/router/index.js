@@ -63,10 +63,10 @@ const routes = [
   { path: '/study', component: Study },
   { path: '/jobinfo', component: Jobinfo },
   { path: '/mypage', component: Mypage, children: [
-    { path: 'profile', component: Profile },
+    { path: '', component: Profile },
     { path: 'userinfo', component: Userinfo },
     { path: 'myteam', component: MyTeam },
-  ] },
+  ]},
 ]
 
 const router = new VueRouter({
