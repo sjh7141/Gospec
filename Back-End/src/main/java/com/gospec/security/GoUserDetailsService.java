@@ -34,7 +34,6 @@ public class GoUserDetailsService implements UserDetailsService{
 	
 	public void save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
-		System.out.println(user.getPassword());
 		userRepo.save(user);
 	}
 }
