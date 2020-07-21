@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gospec.domain.UserDto;
+import com.gospec.mapper.UserMapper;
 import com.gospec.repository.UserRepository;
 
 @Service
@@ -19,11 +20,14 @@ public class GoUserDetailsService implements UserDetailsService{
 	private UserRepository userRepo;
 	
 	@Autowired
+	private UserMapper userMapper;
+	
+	@Autowired
 	private BCryptPasswordEncoder pwEncoding;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDto user = userRepo.findByUsername(username);
+		UserDto user = userMapper.findByUsername(username);
 		GoUserDetails principal = new GoUserDetails(user);
 		return principal;
 	}

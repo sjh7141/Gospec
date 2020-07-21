@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.gospec.filter.JwtAuthenticationFilter;
 import com.gospec.filter.JwtAuthorizationFilter;
-import com.gospec.repository.UserRepository;
+import com.gospec.mapper.UserMapper;
 import com.gospec.security.GoUserDetailsService;
 
 @Configuration
@@ -22,7 +22,7 @@ import com.gospec.security.GoUserDetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private UserRepository userRepo;
+	private UserMapper userMapper;
 
 	@Autowired
 	private GoUserDetailsService userService;
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepo)).authorizeRequests()
+			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userMapper)).authorizeRequests()
 			.antMatchers("/api/test").hasAuthority("USER_ROLE")
 			.and()
 			.formLogin()
