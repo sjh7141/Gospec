@@ -19,6 +19,8 @@ import Study from '../views/study/Study.vue'
 import Jobinfo from '../views/jobinfo/Jobinfo.vue'
 import Mypage from '../views/mypage/Mypage.vue'
 import MyTeam from '../views/mypage/MyTeam.vue'
+import Profile from '../views/mypage/Profile.vue'
+import Userinfo from '../views/mypage/Userinfo.vue'
 
 /*
 - 라우팅 테이블 작성시 참고사항 정리 주석
@@ -60,7 +62,11 @@ const routes = [
   ]},
   { path: '/study', component: Study },
   { path: '/jobinfo', component: Jobinfo },
-  { path: '/mypage', component: Mypage },
+  { path: '/mypage', component: Mypage, children: [
+    { path: 'profile', component: Profile },
+    { path: 'userinfo', component: Userinfo },
+    { path: 'myteam', component: MyTeam },
+  ] },
 ]
 
 const router = new VueRouter({
