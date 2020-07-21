@@ -11,13 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
-import com.gospec.repository.UserRepository;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
-	
-	@Autowired
-	private UserRepository userRepo;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -33,11 +29,11 @@ public class GoUserDetailsService implements UserDetailsService{
 	}
 	
 	public List<UserDto> findAll(){
-		return userRepo.findAll();
+		return userMapper.findAll();
 	}
 	
 	public void save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
-		userRepo.save(user);
+		userMapper.save(user);
 	}
 }
