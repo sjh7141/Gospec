@@ -10,31 +10,30 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gospec.domain.UserDto;
-import com.gospec.repository.UserRepository;
+import com.gospec.mapper.UserMapper;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
 	
 	@Autowired
-	private UserRepository userRepo;
+	private UserMapper userMapper;
 	
 	@Autowired
 	private BCryptPasswordEncoder pwEncoding;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDto user = userRepo.findByUsername(username);
+		UserDto user = userMapper.findByUsername(username);
 		GoUserDetails principal = new GoUserDetails(user);
 		return principal;
 	}
 	
 	public List<UserDto> findAll(){
-		return userRepo.findAll();
+		return userMapper.findAll();
 	}
 	
 	public void save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
-		System.out.println(user.getPassword());
-		userRepo.save(user);
+		userMapper.save(user);
 	}
 }
