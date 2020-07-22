@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.GoSpec</groupId>
 	<artifactId>GoSpec</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>  
 	<packaging>war</packaging>
 	<name>GoSpec</name>
 	<description>Give information on the contest</description>
