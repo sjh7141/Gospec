@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
 import com.gospec.domain.InterestFieldDto;
-import com.gospec.domain.TeamDto;
 import com.gospec.domain.UserDto;
 import com.gospec.security.GoUserDetailsService;
 
