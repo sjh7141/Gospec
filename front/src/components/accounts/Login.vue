@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label class='d-flex justify-content-left' for="loginInputEmail1">Email address</label>
                 <input
-                    v-model='loginData.email'
+                    v-model='loginData.username'
                     type="email"
                     class="form-control"
                     id="loginInputEmail1"
@@ -36,7 +36,7 @@ export default {
         return{
             modalState: '',
             loginData: {
-                email: '',
+                username: '',
                 password: '',
             }
         }

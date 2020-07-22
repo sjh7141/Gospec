@@ -4,13 +4,18 @@
   <div>
     <label for="validationServer01">닉네임</label>
     <div v-if="checkNickname">
-      <input v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
+        <input v-if='!possibleNickname' v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
+        <fieldset v-else disabled>
+          <input v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
+        </fieldset>
+        <button @click='doubleCheckNickname' class='btn btn-primary'>닉네임 중복확인</button>
       <div class="valid-feedback">
         {{ message.nickname }}
       </div>
     </div>
     <div v-else>
       <input v-model='nickname' type="text" :class=nicknameFormIsValid id="validationServer01" required>
+      <button class='btn btn-secondary'>닉네임 중복확인</button>
       <div class="invalid-feedback">
         {{ message.nickname }}
       </div>
@@ -21,7 +26,10 @@
   <div>
     <label for="validationServer02">이메일</label>
     <div v-if="checkEmail">
-      <input v-model='email' type="text" class="form-control is-valid" id="validationServer02" required>
+      <input v-if='!certificationNumberCheck' v-model='email' type="text" class="form-control is-valid" id="validationServer02" required>
+      <fieldset v-else disabled>
+        <input v-model='email' type="text" class="form-control is-valid" id="validationServer02" required>
+      </fieldset>
       <div class="valid-feedback">
         OK!
       </div>
@@ -83,14 +91,22 @@
     </div>
   </div>
 
+  <!-- 회원가입 정보 입력이 정확하지 않을 때 -->
+  <div v-if="checkError" >
+    <div v-for="errorMessage in errorMessages" :key='errorMessage'>
+      {{ errorMessage }}
+    </div>
+  </div>
+
   <button v-if="checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck" @click="signup" class="btn btn-primary">회원가입</button>
-  <button v-else class="btn btn-secondary">회원가입</button>
+  <button v-else @click='notAllowSignup' class="btn btn-secondary">회원가입</button>
 </div>
 </template>
 
 <script>
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
+import axios from 'axios'
 
 export default {
   data: () => {
@@ -124,6 +140,9 @@ export default {
       name: null,
       phone: null,
       birthday: null,
+      errorMessages: [],
+      checkError: false,
+      possibleNickname: false,
     };
   },
   created() {
@@ -224,6 +243,45 @@ export default {
         } 
       else this.certificationFail = true
     },
+    notAllowSignup() {
+      this.errorMessages = []
+      if (!this.checkEmail) {
+        this.checkError = true
+        this.errorMessages.push('이메일을 정확히 작성해주세요.')}
+      if (!this.checkPassword) {
+        this.checkError = true
+        this.errorMessages.push('패스워드를 정확히 입력해주세요.')
+      }
+      if (!this.checkPasswordConfirm) {
+        this.checkError = true
+        this.errorMessages.push('패스워드가 일치하지 않습니다.')
+      }
+      if (!this.checkNickname) {
+        this.checkError = true
+        this.errorMessages.push('닉네임을 확인해주세요.')
+      }
+      if (!this.checkCertificationNumber) {
+        this.checkError = true
+        this.errorMessages.push('이메일 인증을 완료하세요.')
+      }
+    },
+    // 닉네임 중복확인
+    doubleCheckNickname() {
+      axios.post('', { nickname: this.nickname })
+      .then(res => {
+        if (res) {
+          alert('사용 가능한 닉네임입니다.')
+          this.possibleNickname = true
+        }
+        else {
+          alert('이미 사용중인 닉네임입니다.')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      }
+      )
+    }
   },
   computed: {
     signupData() {
