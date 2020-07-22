@@ -41,7 +41,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "새로운 사용자 정보를 입력한다.", response = UserDto.class)
-	@PostMapping
+	@PostMapping(value = "/users")
 	public ResponseEntity<Boolean> save(@RequestBody UserDto user){
 		boolean check = userService.save(user);
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
@@ -62,14 +62,14 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "내정보수정, 해당 아이디 정보 수정", response = Boolean.class)
-	@PatchMapping
+	@PatchMapping(value = "/users")
 	public ResponseEntity<Boolean> updateInfo(@RequestBody UserDto user){
 		boolean check = userService.updateByUsername(user);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "회원탈퇴, 해당 아이디 계정 탈퇴", response = Boolean.class)
-	@DeleteMapping
+	@DeleteMapping(value = "/users")
 	public ResponseEntity<Boolean> deleteInfo(String username){
 		boolean check = userService.deleteByUsername(username);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
