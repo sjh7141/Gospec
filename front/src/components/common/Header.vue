@@ -9,16 +9,19 @@
                 <li><router-link to="/study">스터디</router-link></li>
                 <li><router-link to="/jobinfo">취업정보</router-link></li>
                 <li><router-link to="/mypage">마이페이지</router-link></li>
+                <li><Modal /></li>
             </ul>
         </div>
     </div>
 </template>
 
 <script> 
+import Modal from '../accounts/Modal.vue'
+
     export default {
         name: 'Header',
         components: { 
-
+            Modal,
         },
         props: ['isHeader'],
         computed:{
