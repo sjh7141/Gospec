@@ -99,8 +99,16 @@ export default {
                 console.log(res)
                 console.log('회원가입 성공')
                 this.modalState = 'completeSignup'
+                this.loginData.username = signupData.username
+                this.loginData.password = signupData.password
+                axios.post('http://localhost:8181/login', this.loginData)
+                .then(() => {
+                    console.log('로그인 성공')
+                })
+                .catch(err => console.log(err.response))
             })
             .catch(err => {
+                console.log(signupData)
                 console.log(err.response)
                 alert('회원가입에 실패했습니다.')
             })

@@ -135,8 +135,8 @@ export default {
       passwordFormIsValid: 'form-control',
       passwordConfirmFormIsValid: 'form-control',
       nicknameFormIsValid: 'form-control',
-      profile_img: null,
-      self_introduction: null,
+      profileImg: null,
+      selfIntroduction: null,
       name: null,
       phone: null,
       birthday: null,
@@ -278,7 +278,7 @@ export default {
         }
       })
       .catch(err => {
-        console.log(err)
+        console.log(err.response)
       }
       )
     }
@@ -289,9 +289,8 @@ export default {
         nickname: this.nickname,
         username: this.email,
         password: this.password,
-        passwordConfirm: this.passwordConfirm,
-        profile_img: this.profile_img,
-        self_introduction: this.self_introduction,
+        profileImg: this.profileImg,
+        selfIntroduction: this.selfIntroduction,
         name: this.name,
         phone: this.phone,
         birthday: this.birthday,
