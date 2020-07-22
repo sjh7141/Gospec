@@ -21,6 +21,6 @@ public class ContestServiceImpl implements ContestService {
 
 	@Override
 	public List<ContestDto> findDurationAll(String startDate, String endDate) {
-		return contestMapper.findByDuration(startDate, endDate);
+		return contestMapper.findByDurationAll(startDate, endDate);
 	}
 }

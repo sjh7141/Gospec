@@ -9,6 +9,6 @@ import com.gospec.domain.ContestDto;
 @Mapper
 public interface ContestMapper {
 
-	public List<ContestDto> findByDuration(String startDate, String endDate);
+	public List<ContestDto> findByDurationAll(String startDate, String endDate);
 	public List<ContestDto> findAll();
 }

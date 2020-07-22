@@ -7,7 +7,7 @@
 		select * from contest_info
 	</select>
 
-	<select id="findByDuration" resultType="com.gospec.domain.ContestDto">
+	<select id="findByDurationAll" resultType="com.gospec.domain.ContestDto">
 		select * from contest_info where start_date between #{startDate} and #{endDate}
 	</select>
 </mapper>
