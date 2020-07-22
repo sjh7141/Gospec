@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userMapper)).authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/users").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/email-duplication").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/nickname-duplication").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/password").permitAll()
 			.antMatchers(HttpMethod.GET).permitAll()
 			.anyRequest().authenticated();

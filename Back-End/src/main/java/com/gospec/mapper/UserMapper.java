@@ -22,4 +22,5 @@ public interface UserMapper {
 	public List<ActiveRegionDto> findAllActiveRegion(String username);
 	public List<BookMarkDto> findAllBookMark(String username);
 	public List<InterestFieldDto> findAllInterestField(String username);
+	public int checkNickName(String nickname);
 }

@@ -24,6 +24,12 @@
 		where username = #{username}
 	</select>
 	
+	<select id="checkNickName" resultType="Integer">
+		select count(*)
+		from user_info
+		where nickname = #{nickname}
+	</select>
+	
 	<update id="newPwd">
 		update user_info
 		set password = #{password}
