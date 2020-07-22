@@ -17,7 +17,7 @@
                     type="password"
                     class="form-control"
                     id="loginInputPassword1"
-                    placeholder="8자 이상 입력하세요.">
+                    placeholder="영문, 숫자 포함 8자 이상 입력하세요.">
             </div>
         </form>
         <div class='d-flex justify-content-center'>

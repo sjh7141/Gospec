@@ -27,16 +27,18 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="accountModalLabel" v-if="modalState == 'login'">Login</h5>
-                        <h5 class="modal-title" id="accountModalLabel" v-if="modalState == 'signup'">Signup</h5>
-                        <h5 class="modal-title" id="accountModalLabel" v-if="modalState == 'password'">비밀번호 찾기</h5>
+                        <h5 class="modal-title" id="accountModalLabel" v-if="modalState == 'signup' || modalState == 'completeSignup'">Signup</h5>
+                        <h5 class="modal-title" id="accountModalLabel" v-if="modalState == 'password' || modalState == 'completePasswordChange'">비밀번호 찾기</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <Login @clickSignupBtn="clickSignupBtn" @clickPasswordBtn="clickPasswordBtn" v-if="modalState == 'login'"/>
+                        <Login @submit-login-data='login' @clickSignupBtn="clickSignupBtn" @clickPasswordBtn="clickPasswordBtn" v-if="modalState == 'login'"/>
                         <Signup @submit-signup-data="signup" v-if="modalState == 'signup'" />
-                        <Password v-if="modalState == 'password'" />
+                        <Password @completePasswordChange="completePasswordChange" v-if="modalState == 'password'" />
+                        <CompleteSignup v-if="modalState == 'completeSignup'" />
+                        <CompletePasswordChange @loginPage="loginBtn" v-if="modalState == 'completePasswordChange'" />
                     </div>
                 </div>
             </div>
@@ -48,6 +50,9 @@
 import Login from '../accounts/Login.vue'
 import Signup from '../accounts/Signup.vue'
 import Password from '../accounts/Password.vue'
+import CompleteSignup from '../accounts/CompleteSignup.vue'
+import CompletePasswordChange from '../accounts/CompletePasswordChange.vue'
+import axios from 'axios'
 
 export default {
     name: 'Modal',
@@ -65,6 +70,8 @@ export default {
         Login,
         Signup,
         Password,
+        CompleteSignup,
+        CompletePasswordChange,
     },
     methods: {
         loginBtn() {
@@ -84,7 +91,28 @@ export default {
             this.modalSize = 'modal-dialog'
         },
         signup(signupData) {
-            console.log(signupData)
+            axios.post('http://localhost:8181/api/users', signupData)
+            .then(res => {
+                console.log(res)
+                console.log('회원가입 성공')
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            this.modalState = 'completeSignup'
+        },
+        login(loginData) {
+          axios.post('http://localhost:8181/login', loginData)
+          .then(res => {
+              console.log(res)
+              console.log('로그인 성공')
+          })
+          .catch(err => {
+              console.log(err)
+          })
+        },
+        completePasswordChange() {
+            this.modalState = 'completePasswordChange'
         }
     },
 }
