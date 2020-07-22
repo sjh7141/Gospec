@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="save">
-		insert into user_info
-		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{authority})
+		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday)
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday})
 	</insert>
 	
 	<select id="checkId" resultType="Integer">
