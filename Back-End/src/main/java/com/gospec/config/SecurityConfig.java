@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userMapper)).authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/api/user").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/users").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/email-duplication").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/password").permitAll()
 			.antMatchers(HttpMethod.GET).permitAll()
