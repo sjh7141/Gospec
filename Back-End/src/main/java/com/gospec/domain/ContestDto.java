@@ -1,14 +1,7 @@
 package com.gospec.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "contest_info")
 public class ContestDto {
 
-	@Id
 	private int contest_no;
 	private String title;
 	private String target;
