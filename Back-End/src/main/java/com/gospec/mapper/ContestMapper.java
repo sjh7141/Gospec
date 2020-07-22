@@ -11,4 +11,5 @@ public interface ContestMapper {
 
 	public List<ContestDto> findByDurationAll(String startDate, String endDate);
 	public List<ContestDto> findAll();
+	public List<ContestDto> findByBookMarkWithDurationAndEmail(String email, String startDate, String endDate);
 }

@@ -10,4 +10,10 @@
 	<select id="findByDurationAll" resultType="com.gospec.domain.ContestDto">
 		select * from contest_info where start_date between #{startDate} and #{endDate}
 	</select>
+	
+	<select id="findByBookMarkWithDurationAndEmail" resultType="com.gospec.domain.ContestDto">
+		select * from contest_info, bookmark_contest
+		where bookmark_contest.username = #{email} and contest_info.start_date between #{startDate} and #{endDate}
+		and contest_info.contest_no = bookmark_contest.contest_no 
+	</select>
 </mapper>
