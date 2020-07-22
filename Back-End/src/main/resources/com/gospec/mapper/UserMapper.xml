@@ -3,7 +3,59 @@
 <mapper namespace="com.gospec.mapper.UserMapper">
 
 	<select id="findByUsername" resultType="com.gospec.domain.UserDto">
-		select * from user_info where username = #{username}
+		select * 
+		from user_info 
+		where username = #{username}
 	</select>
-
+	
+	<select id="findAll" resultType="com.gospec.domain.UserDto">
+		select *
+		from user_info
+	</select>
+	
+	<insert id="save">
+		insert into user_info
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{authority})
+	</insert>
+	
+	<select id="checkId" resultType="Integer">
+		select count(*)
+		from user_info
+		where username = #{username}
+	</select>
+	
+	<update id="newPwd">
+		update user_info
+		set password = #{password}
+		where username = #{username}
+	</update>
+	
+	<delete id="deleteByUsername">
+		delete from user_info
+		where username = #{username}
+	</delete>
+	
+	<update id="updateByUsername">
+		update user_info
+		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}
+		where username = #{username}
+	</update>
+	
+	<select id="findAllActiveRegion" resultType="com.gospec.domain.ActiveRegionDto">
+		select *
+		from active_region
+		where username = #{username}
+	</select>
+	
+	<select id="findAllBookMark" resultType="com.gospec.domain.BookMarkDto">
+		select *
+		from bookmark_contest
+		where username = #{username}
+	</select>
+	
+	<select id="findAllInterestField" resultType="com.gospec.domain.InterestFieldDto">
+		select *
+		from interest_field
+		where username = #{username}
+	</select>
 </mapper>

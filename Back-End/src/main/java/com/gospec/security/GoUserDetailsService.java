@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.gospec.domain.ActiveRegionDto;
+import com.gospec.domain.BookMarkDto;
+import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
 
@@ -32,8 +35,53 @@ public class GoUserDetailsService implements UserDetailsService{
 		return userMapper.findAll();
 	}
 	
-	public void save(UserDto user) {
+	public boolean save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
-		userMapper.save(user);
+		if(userMapper.save(user) > 0) {
+			return true;
+		}
+		return false;
 	}
+	
+	public UserDto findByUsername(String username) {
+		return userMapper.findByUsername(username);
+	}
+	
+	public boolean checkId(String username) {
+		if(userMapper.checkId(username) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean newPwd(String username, String password) {
+		if(userMapper.newPwd(username, pwEncoding.encode(password)) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean deleteByUsername(String username) {
+		if(userMapper.deleteByUsername(username) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean updateByUsername(UserDto user) {
+		user.setPassword(pwEncoding.encode(user.getPassword()));
+		if(userMapper.updateByUsername(user) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public List<ActiveRegionDto> findAllActiveRegion(String username){
+		return userMapper.findAllActiveRegion(username);
+	}
+	public List<BookMarkDto> findAllBookMark(String username){
+		return userMapper.findAllBookMark(username);
+	}
+	public List<InterestFieldDto> findAllInterestField(String username){
+		return userMapper.findAllInterestField(username);
+	}
+	
+	
 }
