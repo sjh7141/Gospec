@@ -35,7 +35,7 @@ public class ContestController {
 	}
 
 	@ApiOperation(value = "공모전 특정 날짜 정보 가져오기")
-	@GetMapping(value = "/{startDate}/{endDate}")
+	@GetMapping(value = "/{startDate}/{endDate}") 
 	public ResponseEntity<List<ContestDto>> getContestDurationList(@PathVariable("startDate") String startDate,
 			@PathVariable("endDate") String endDate) {
 		List<ContestDto> list = contestService.findDurationAll(startDate, endDate);
