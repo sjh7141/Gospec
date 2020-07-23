@@ -111,6 +111,12 @@
 
 <script>
   export default {
+      props: {
+        contests: {
+            type: Array,
+        }
+      },
+
     data: () => ({
       focus: '',
       type: 'month',

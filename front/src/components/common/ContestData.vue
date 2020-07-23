@@ -1,8 +1,12 @@
 <template>
 <div>
 <button type="button" @click="onInputChange">공모전</button>
+
 <div v-if='view == true'>
-    <p> {{ contests }} </p>
+    <ContestItem 
+    v-for="contest in contests" 
+    :key ="contest.contest_no"
+    :contest = "contest" />
 </div>
 </div>
   
@@ -10,8 +14,13 @@
 
 <script>
 import axios from 'axios'
+import ContestItem from '../common/ContestItem.vue'
+
 const API_URL = "http://localhost:8181/api/contest/"
 export default {
+    components: {
+        ContestItem
+    },
     data() {
         return {
         view: false,

@@ -13,10 +13,12 @@
 import CalendarClassify from '../components/common/CalendarClassify.vue'
 import ContestData from '../components/common/ContestData.vue'
 
+
     export default {
         components: {
             CalendarClassify,
-            ContestData,
+            ContestData
+
         },
         created(){
         },
