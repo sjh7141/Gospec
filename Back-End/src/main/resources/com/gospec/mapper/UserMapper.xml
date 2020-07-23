@@ -14,14 +14,20 @@
 	</select>
 	
 	<insert id="save">
-		insert into user_info
-		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{authority})
+		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday)
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday})
 	</insert>
 	
 	<select id="checkId" resultType="Integer">
 		select count(*)
 		from user_info
 		where username = #{username}
+	</select>
+	
+	<select id="checkNickName" resultType="Integer">
+		select count(*)
+		from user_info
+		where nickname = #{nickname}
 	</select>
 	
 	<update id="newPwd">

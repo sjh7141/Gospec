@@ -51,7 +51,7 @@ public class ContestController {
 	}
 
 	@ApiOperation(value = "카테고리 분류 전체 데에터 가져오기")
-	@GetMapping(value = "/field/{type}/{page}")
+	@GetMapping(value = "/field/{type}/{page}") 
 	public ResponseEntity<Map<String, Object>> getContestCategoryList(@PathVariable("type") String type,
 			@PathVariable("page") int curPage) {
 		PageDto page = new PageDto(curPage);
