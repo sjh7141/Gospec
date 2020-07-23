@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 //http://localhost:8181/swagger-ui.html
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
 	@Autowired
@@ -53,7 +53,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "새로운 사용자 정보를 입력한다.", response = UserDto.class)
-	@PostMapping(value = "/users")
+	@PostMapping(value = "/")
 	public ResponseEntity<Boolean> save(@RequestBody UserDto user){
 		boolean check = userService.save(user);
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
@@ -76,14 +76,14 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "내정보수정, 해당 아이디 정보 수정", response = Boolean.class)
-	@PatchMapping(value = "/users")
+	@PatchMapping(value = "/")
 	public ResponseEntity<Boolean> updateInfo(@RequestBody UserDto user){
 		boolean check = userService.updateByUsername(user);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "회원탈퇴, 해당 아이디 계정 탈퇴", response = Boolean.class)
-	@DeleteMapping(value = "/users")
+	@DeleteMapping(value = "/")
 	public ResponseEntity<Boolean> deleteInfo(@RequestBody Map<String, Object> param){
 		String username = (String) param.get("username");
 		boolean check = userService.deleteByUsername(username);
@@ -103,7 +103,7 @@ public class UserController {
 	}
 	
 	
-	@ApiOperation(value = "활동지역 조회, 사용자 아이디로 관심영역을 전체 조회한다.", response = InterestFieldDto.class)
+	@ApiOperation(value = "관심지역 조회, 사용자 아이디로 관심영역을 전체 조회한다.", response = InterestFieldDto.class)
 	@GetMapping(value ="/fields/{username}")
 	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(@PathVariable("username") String username){
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
