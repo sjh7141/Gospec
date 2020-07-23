@@ -42,7 +42,7 @@ public class ContestController {
 		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "유저별 북마크된 공모전 가져오기")
+	@ApiOperation(value = "유저별 북마크된 공모전 가져오기") 
 	@GetMapping(value = "/bookmark/{email}/{startDate}/{endDate}")
 	public ResponseEntity<List<ContestDto>> getBookMarkOfUser(@PathVariable("email") String email,
 			@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) {
