@@ -72,7 +72,7 @@ public class ContestController {
 		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "공모전으로 팀원찾기")
+	@ApiOperation(value = "공모전으로 팀원찾기") 
 	@GetMapping(value = "/contests/team-search/{contestNo}")
 	public ResponseEntity<List<String>> getTeamSearch(@PathVariable("contestNo") int contestNo) {
 		List<String> list = contestService.teamSearchByContest(contestNo);
