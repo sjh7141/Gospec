@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gospec.domain.ContestDto;
+import com.gospec.domain.UserDto;
 import com.gospec.mapper.ContestMapper;
 
 @Service
@@ -15,8 +16,8 @@ public class ContestServiceImpl implements ContestService {
 	private ContestMapper contestMapper;
 
 	@Override
-	public List<ContestDto> findAll() {
-		return contestMapper.findAll();
+	public ContestDto findDetail(int contestNo) {
+		return contestMapper.findDetail(contestNo);
 	}
 
 	@Override
@@ -32,6 +33,16 @@ public class ContestServiceImpl implements ContestService {
 	@Override
 	public List<ContestDto> findByCategory(String type, int startPage, int perPageNum) {
 		return contestMapper.findByCategory(type, startPage, perPageNum);
+	}
+	
+	@Override
+	public List<ContestDto> findByBestView(String type) {
+		return contestMapper.findByBestView(type);
+	}
+	
+	@Override
+	public List<UserDto> teamSearchByContest(int contestNo) {
+		return contestMapper.teamSearchByContest(contestNo);
 	}
 
 	@Override

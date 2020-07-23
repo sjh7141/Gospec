@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gospec.mapper.ContestMapper">
 
-	<select id="findAll" resultType="com.gospec.domain.ContestDto">
-		select * from contest_info
+	<select id="findDetail" resultType="com.gospec.domain.ContestDto">
+		select * from contest_info where contest_no = #{contestNo}
 	</select>
 
 	<select id="findByDurationAll" resultType="com.gospec.domain.ContestDto">
@@ -31,6 +31,20 @@
 		limit #{startPage}, #{perPageNum}
 	</select>
 	
+	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		from contest_info i, contest_field f
+		<choose>
+			<when test="type.equals('all')">
+				where i.contest_no = f.contest_no
+			</when>
+			<otherwise>
+				where f.field = #{type} and i.contest_no = f.contest_no
+			</otherwise>
+		</choose>
+		limit 0, 3
+	</select>
+	
 	<select id="getCountByCategory" resultType="Integer">
 		select count(distinct i.contest_no) as total
 		from contest_info i, contest_field f
@@ -44,5 +58,9 @@
 		</choose>
 	</select>
 	
+	<select id="teamSearchByContest" resultType="com.gospec.domain.UserDto">
+		select distinct b.username from contest_info i, bookmark_contest b
+		where #{contestNo} = b.contest_no
+	</select>
 	
 </mapper>
