@@ -23,9 +23,19 @@ public class ContestServiceImpl implements ContestService {
 	public List<ContestDto> findDurationAll(String startDate, String endDate) {
 		return contestMapper.findByDurationAll(startDate, endDate);
 	}
-	
+
 	@Override
 	public List<ContestDto> findByBookMarkWithDurationAndEmail(String email, String startDate, String endDate) {
 		return contestMapper.findByBookMarkWithDurationAndEmail(email, startDate, endDate);
+	}
+
+	@Override
+	public List<ContestDto> findByCategory(String type, int startPage, int perPageNum) {
+		return contestMapper.findByCategory(type, startPage, perPageNum);
+	}
+
+	@Override
+	public int getCountByCategory(String type) {
+		return contestMapper.getCountByCategory(type);
 	}
 }
