@@ -13,5 +13,5 @@ public interface ContestService {
 	public List<ContestDto> findByCategory(String type, int startPage, int perPageNum);
 	public List<ContestDto> findByBestView(String type);
 	public int getCountByCategory(String type);
-	public List<UserDto> teamSearchByContest(int contestNo);
+	public List<String> teamSearchByContest(int contestNo);
 }

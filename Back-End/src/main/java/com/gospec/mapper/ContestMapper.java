@@ -17,5 +17,5 @@ public interface ContestMapper {
 	public List<ContestDto> findByCategory(String type, int startPage, int perPageNum);
 	public List<ContestDto> findByBestView(@Param("type") String type);
 	public int getCountByCategory(@Param("type") String type);
-	public List<UserDto> teamSearchByContest(int contestNo);
+	public List<String> teamSearchByContest(int contestNo);
 }

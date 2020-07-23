@@ -41,7 +41,7 @@ public class ContestServiceImpl implements ContestService {
 	}
 	
 	@Override
-	public List<UserDto> teamSearchByContest(int contestNo) {
+	public List<String> teamSearchByContest(int contestNo) {
 		return contestMapper.teamSearchByContest(contestNo);
 	}
 
