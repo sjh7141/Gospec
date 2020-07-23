@@ -1,6 +1,7 @@
 package com.gospec.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
 import com.gospec.domain.InterestFieldDto;
+import com.gospec.domain.TeamDto;
 import com.gospec.domain.UserDto;
 import com.gospec.security.GoUserDetailsService;
 
@@ -35,8 +38,17 @@ public class UserController {
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
 	@PostMapping(value = "/email-duplication")
-	public ResponseEntity<Boolean> checkEmail(String username){
+	public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, Object> param){
+		String username = (String) param.get("username");
 		boolean check = userService.checkId(username);
+		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "닉네임 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
+	@PostMapping(value = "/nickname-duplication")
+	public ResponseEntity<Boolean> checkNickName(@RequestBody Map<String, Object> param){
+		String nickname = (String) param.get("nickname");
+		boolean check = userService.checkNickName(nickname);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
@@ -49,7 +61,9 @@ public class UserController {
 	
 	@ApiOperation(value = "비밀번호찾기, 새로운 비밀번호로 수정한다.", response = Boolean.class)
 	@PostMapping(value = "/password")
-	public ResponseEntity<Boolean> findpwd(String username, String password){
+	public ResponseEntity<Boolean> findpwd(@RequestBody Map<String, Object> param){
+		String username = (String) param.get("username");
+		String password = (String) param.get("password");
 		boolean check = userService.newPwd(username, password);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
@@ -70,7 +84,8 @@ public class UserController {
 	
 	@ApiOperation(value = "회원탈퇴, 해당 아이디 계정 탈퇴", response = Boolean.class)
 	@DeleteMapping(value = "/users")
-	public ResponseEntity<Boolean> deleteInfo(String username){
+	public ResponseEntity<Boolean> deleteInfo(@RequestBody Map<String, Object> param){
+		String username = (String) param.get("username");
 		boolean check = userService.deleteByUsername(username);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}

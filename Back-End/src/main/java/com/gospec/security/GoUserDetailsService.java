@@ -14,6 +14,7 @@ import com.gospec.domain.BookMarkDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
+import com.gospec.security.GoUserDetails;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
@@ -49,6 +50,13 @@ public class GoUserDetailsService implements UserDetailsService{
 	
 	public boolean checkId(String username) {
 		if(userMapper.checkId(username) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkNickName(String nickname) {
+		if(userMapper.checkNickName(nickname) > 0) {
 			return true;
 		}
 		return false;
