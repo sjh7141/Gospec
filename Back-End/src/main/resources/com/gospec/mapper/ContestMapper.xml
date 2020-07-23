@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gospec.mapper.ContestMapper">
 
-
 	<select id="findAll" resultType="com.gospec.domain.ContestDto">
 		select * from contest_info
 	</select>
@@ -16,4 +15,34 @@
 		where bookmark_contest.username = #{email} and contest_info.start_date between #{startDate} and #{endDate}
 		and contest_info.contest_no = bookmark_contest.contest_no 
 	</select>
+	
+	<select id="findByCategory" resultType="com.gospec.domain.ContestDto" >
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		from contest_info i, contest_field f
+		<choose>
+			<when test="type.equals('all')">
+				where i.contest_no = f.contest_no
+			</when>
+			<otherwise>
+				where f.field = #{type} and i.contest_no = f.contest_no
+			</otherwise>
+		</choose>
+		order by contest_no desc
+		limit #{startPage}, #{perPageNum}
+	</select>
+	
+	<select id="getCountByCategory" resultType="Integer">
+		select count(distinct i.contest_no) as total
+		from contest_info i, contest_field f
+		<choose>
+			<when test="type.equals('all')">
+				where i.contest_no = f.contest_no
+			</when>
+			<otherwise>
+				where f.field = #{type} and i.contest_no = f.contest_no
+			</otherwise>
+		</choose>
+	</select>
+	
+	
 </mapper>
