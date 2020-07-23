@@ -66,6 +66,7 @@ export default {
                 password: null,
             },
             modalSize: '',
+            isLoggedIn: false,
         }
     },
     components: {
@@ -114,20 +115,25 @@ export default {
             })
         },
         login(loginData) {
-          axios.post('http://localhost:8181/login', loginData)
-          .then(res => {
-              console.log(res)
-              console.log('로그인 성공')
-              this.modalState = 'completeLogin'
-          })
-          .catch(err => {
-              console.log(err.response)
-              alert('로그인에 실패했습니다.')
-          })
+            axios.post('http://localhost:8181/login', loginData)
+            .then(res => {
+                console.log(res.headers.authorization)
+                console.log('로그인 성공')
+                this.setCookie(res.headers.authorization)
+                this.modalState = 'completeLogin'
+            })
+            .catch(err => {
+                console.log(err.response)
+                alert('로그인에 실패했습니다.')
+            })
         },
         completePasswordChange() {
             this.modalState = 'completePasswordChange'
-        }
+        },
+        setCookie(token) {
+            this.$cookies.set('auth-token', token)
+            this.isLoggedIn = true
+        },
     },
 }
 </script>
