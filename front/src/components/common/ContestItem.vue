@@ -1,5 +1,9 @@
 <template>
-  <div><p>{{ contest.title }}</p></div>
+  <div>
+    <p>{{ contest.title }}</p>
+    <p>{{ contest.startDate }}</p>
+    <p>{{ contest.endDate }}</p>
+  </div>
 </template>
 
 <script>

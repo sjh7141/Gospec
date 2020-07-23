@@ -1,5 +1,10 @@
 <template>
 <div>
+  <div>
+    <p>{{ contest.title }}</p>
+    <p>{{ contest.startDate }}</p>
+    <p>{{ contest.endDate }}</p>
+  </div>
     <v-app>
     <v-row class="fill-height">
         <v-col>
@@ -112,8 +117,8 @@
 <script>
   export default {
       props: {
-        contests: {
-            type: Array,
+        contest: {
+            type: Object,
         }
       },
 
@@ -131,8 +136,8 @@
       selectedOpen: false,
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
-    }),
+      names: ['c']  
+      }),
     mounted () {
       this.$refs.calendar.checkChange()
     },
@@ -168,12 +173,16 @@
         nativeEvent.stopPropagation()
       },
       updateRange ({ start, end }) {
+        this.name = ''
+        this.start = ''
+        this.end = ''
+        
         const events = []
         const min = new Date(`${start.date}T00:00:00`)
         const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
-        for (let i = 0; i < eventCount; i++) {
+        // const days = (max.getTime() - min.getTime()) / 86400000
+        // const eventCount = this.rnd(days, days + 20)
+        for (let i = 0; i < 3; i++) {
           const allDay = this.rnd(0, 3) === 0
           const firstTimestamp = this.rnd(min.getTime(), max.getTime())
           const first = new Date(firstTimestamp - (firstTimestamp % 900000))
