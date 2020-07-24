@@ -10,6 +10,7 @@ public class PageDto {
 	private boolean prev;
 	private boolean next;
 	private int displayPageNum = 5;
+	private int startIndex;
 
 	private void calcData() {
 		endPage = (int) (Math.ceil(curPage / (double) displayPageNum) * displayPageNum);
@@ -26,6 +27,8 @@ public class PageDto {
 
 		prev = startPage == 1 ? false : true;
 		next = endPage * perPageNum < totalCount ? true : false;
+
+		startIndex = (startPage - 1) * perPageNum;
 	}
 
 	public PageDto() {
@@ -106,6 +109,14 @@ public class PageDto {
 
 	public void setDisplayPageNum(int displayPageNum) {
 		this.displayPageNum = displayPageNum;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
 	}
 
 }
