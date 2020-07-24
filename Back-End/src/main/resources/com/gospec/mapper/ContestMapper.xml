@@ -63,4 +63,8 @@
 		where #{contestNo} = b.contest_no
 	</select>
 	
+	<insert id="registBookMark">
+		insert into bookmark_contest values(#{username}, #{contestNo})
+	</insert>
+	
 </mapper>

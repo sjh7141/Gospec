@@ -49,4 +49,9 @@ public class ContestServiceImpl implements ContestService {
 	public int getCountByCategory(String type) {
 		return contestMapper.getCountByCategory(type);
 	}
+	
+	@Override
+	public int registBookMark(String username, int contestNo) {
+		return contestMapper.registBookMark(username, contestNo);
+	}
 }
