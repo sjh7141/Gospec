@@ -1,21 +1,11 @@
 package com.gospec.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,19 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
 import com.gospec.domain.InterestFieldDto;
-import com.gospec.domain.TeamDto;
 import com.gospec.domain.UserDto;
-import com.gospec.property.FileUploadResponse;
 import com.gospec.security.GoUserDetailsService;
-import com.gospec.service.FileUploadDownloadService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -50,8 +34,6 @@ public class UserController {
 	@Autowired
 	private GoUserDetailsService userService;
 	
-	@Autowired
-	private FileUploadDownloadService fileService;
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
 	@PostMapping(value = "/email-duplication")
@@ -133,39 +115,5 @@ public class UserController {
 		return new ResponseEntity<String>(userService.sendMail(username), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "파일업로드, fileDownloadUri정보로 다운로드 가능하다.", response = FileUploadResponse.class)
-	@PostMapping(value ="/file")
-	public ResponseEntity<FileUploadResponse> uploadfile(@RequestParam("file") MultipartFile file) {
-		String fileName = fileService.storeFile(file);
-		
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-								.path("/api/users")
-								.path("/file/")
-								.path(fileName)
-								.toUriString();
-		return new ResponseEntity<FileUploadResponse>(new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize()), HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "파일다운로드, db의 profile_img로 요청", response = FileUploadResponse.class)
-	@GetMapping("/file/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
-        Resource resource = fileService.loadFileasResource(fileName);
-
-        String contentType = null;
-        try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}      
- 
-        if(contentType == null) {
-            contentType = "application/octet-stream";
-        }
- 
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
 
 }
