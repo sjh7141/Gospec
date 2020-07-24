@@ -38,14 +38,11 @@ public class FileUploadDownloadService {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		String fileExtension = fileName.substring(fileName.lastIndexOf("."));
 		String newFileName = UUID.randomUUID().toString() + fileExtension;
-		System.out.println(newFileName);
 		try {
 			Path targetLocation = this.fileLocation.resolve(newFileName);
-//			
-//			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 			File tempfile = new File(targetLocation.toString());
 			file.transferTo(tempfile);
-			return fileName;
+			return newFileName;
 		}catch(Exception e) {
 			throw new FileUploadException("["+fileName+"] 파일 업로드에 실패하였습니다.");
 		}

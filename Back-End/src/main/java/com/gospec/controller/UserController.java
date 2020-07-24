@@ -70,7 +70,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "새로운 사용자 정보를 입력한다.", response = UserDto.class)
-	@PostMapping(value = "/")
+	@PostMapping
 	public ResponseEntity<Boolean> save(@RequestBody UserDto user){
 		boolean check = userService.save(user);
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
@@ -93,14 +93,14 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "내정보수정, 해당 아이디 정보 수정", response = Boolean.class)
-	@PatchMapping(value = "/")
+	@PatchMapping
 	public ResponseEntity<Boolean> updateInfo(@RequestBody UserDto user){
 		boolean check = userService.updateByUsername(user);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "회원탈퇴, 해당 아이디 계정 탈퇴", response = Boolean.class)
-	@DeleteMapping(value = "/")
+	@DeleteMapping
 	public ResponseEntity<Boolean> deleteInfo(@RequestBody Map<String, Object> param){
 		String username = (String) param.get("username");
 		boolean check = userService.deleteByUsername(username);
@@ -125,40 +125,5 @@ public class UserController {
 	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(@PathVariable("username") String username){
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
 	}
-	
-	@ApiOperation(value = "파일업로드, fileDownloadUri정보로 다운로드 가능하다.", response = FileUploadResponse.class)
-	@PostMapping(value ="/file")
-	public ResponseEntity<FileUploadResponse> uploadfile(@RequestParam("file") MultipartFile file) {
-		String fileName = fileService.storeFile(file);
-		
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-								.path("/api/users")
-								.path("/file/")
-								.path(fileName)
-								.toUriString();
-		return new ResponseEntity<FileUploadResponse>(new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize()), HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "파일다운로드, db의 profile_img로 요청", response = FileUploadResponse.class)
-	@GetMapping("/file/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
-        Resource resource = fileService.loadFileasResource(fileName);
-
-        String contentType = null;
-        try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}      
- 
-        if(contentType == null) {
-            contentType = "application/octet-stream";
-        }
- 
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
 
 }

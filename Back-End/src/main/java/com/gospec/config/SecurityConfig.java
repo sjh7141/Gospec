@@ -49,8 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userMapper)).authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/api/users").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/users/*").permitAll()
-			.antMatchers(HttpMethod.GET, "/api/users/file/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/file/*").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/file/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/users/email-authentication/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/**").authenticated()
 			.antMatchers(HttpMethod.GET).permitAll()
 			.anyRequest().authenticated();
