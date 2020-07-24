@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gospec.mapper.BoardTeamMapper">
+
+	<select id="findByContestNo" resultType="com.gospec.domain.BoardTeamDto">
+		select * from find_team_board
+		where contest_no = #{contestNo}
+		order by post_no desc
+		limit #{startIndex}, #{perPageNum}
+	</select>
+	
+	<select id="viewDetails" resultType="com.gospec.domain.BoardTeamDto">
+		select * from find_team_board
+		where post_no = #{postNo}
+	</select>
+	
+	<insert id="save">
+		insert find_team_board into(username, title, content, member_max, member_cur, contest_no, team_id)
+		values (#{username}, #{title}, #{content}, #{memberMax}, #{memberCur}, #{contestNo}, #{teamId})
+	</insert>
+	
+	<update id="update">
+		update find_team_board set title = #{title}, content = #{content}, member_max = #{memberMax}, regist_time = CURRENT_TIMESTAMP
+		where username = #{username} and post_no = {postNo}
+	</update>
+	
+	<delete id="delete">
+		delete find_team_board
+		where username = #{username} and post_no = {postNo}
+	</delete>
+	
+	<select id="getCountByContestNo" resultType="Integer">
+		select count(*) from find_team_board
+		where contest_no = #{contestNo}
+	</select>
+</mapper>
