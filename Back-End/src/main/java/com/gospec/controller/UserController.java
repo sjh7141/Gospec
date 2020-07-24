@@ -126,6 +126,13 @@ public class UserController {
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "인증 이메일 전송, 입련된 아이디로 이메일 전송", response = String.class)
+	@GetMapping(value ="/email-authentication/{username}")
+	public ResponseEntity<String> sendEmail(@PathVariable("username") String username){
+		System.out.println(username);
+		return new ResponseEntity<String>(userService.sendMail(username), HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "파일업로드, fileDownloadUri정보로 다운로드 가능하다.", response = FileUploadResponse.class)
 	@PostMapping(value ="/file")
 	public ResponseEntity<FileUploadResponse> uploadfile(@RequestParam("file") MultipartFile file) {
