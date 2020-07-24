@@ -60,8 +60,8 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
-          <v-menu
-            v-model="selectedOpen"
+          <v-dialog v-model="dialog" width="600px"
+
             :close-on-content-click="false"
             :activator="selectedElement"
             offset-x
@@ -94,13 +94,13 @@
                 <v-btn
                   text
                   color="secondary"
-                  @click="selectedOpen = false"
+                  @click="dialog = false"
                 >
                   Cancel
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-menu>
+          </v-dialog>
         </v-sheet>
       </v-col>
     </v-row>
@@ -118,6 +118,7 @@
       },
 
     data: () => ({
+      dialog:false,
       focus: '',
       type: 'month',
       typeToLabel: {
@@ -156,6 +157,7 @@
       },
       showEvent ({ nativeEvent, event }) {
         const open = () => {
+          this.dialog=true,
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
           setTimeout(() => this.selectedOpen = true, 10)
