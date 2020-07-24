@@ -172,6 +172,7 @@
         this.name = ''
         this.start = ''
         this.end = ''
+        this.contents = ''
         
         const events = []
         for (let i = 0; i < this.contest.length; i++){
@@ -179,6 +180,7 @@
             name: this.contest[i].title,
             start: this.contest[i].startDate,
             end: this.contest[i].startDate,
+            details : this.contest[i].content,
             // 여기 시작 색상
             color: 'blue',
           })
@@ -186,6 +188,7 @@
             name: this.contest[i].title,
             start: this.contest[i].endDate,
             end: this.contest[i].endDate,
+            details: this.contest[i].content,
             // 여기 끝 색상
             color: 'orange',
           })
