@@ -35,7 +35,7 @@ export default {
       axios.get(API_URL)
         .then(response => {
             this.calState = 'total'
-            this.contests = response.data
+            this.contest = response.data
             })
         .catch(error => { console.log(error) })
       
