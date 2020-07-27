@@ -79,7 +79,8 @@
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon>
-                  <v-icon>mdi-heart</v-icon>
+                  <v-icon @click='clickLike()' >mdi-heart</v-icon>
+  
                 </v-btn>
                 <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
@@ -115,6 +116,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
       props: {
         contest: {
@@ -138,6 +140,7 @@
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       contest: null,
+      like: 0,
       }),
     mounted () {
       this.$refs.calendar.checkChange()
@@ -206,6 +209,20 @@
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+      clickLike(contestNo) {
+        if (this.like == 1) {
+          this.like = 0
+          axios.delete('/api/contest/bookmark',contestNo)
+          console.log('삭제')
+        } else {
+          this.like = 1
+          axios.post('/api/contest/bookmark',contestNo)
+          console.log('좋아요')
+
+        }
+
+
+      }
 
     },
   }
