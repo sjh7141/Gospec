@@ -64,4 +64,29 @@
 		from interest_field
 		where username = #{username}
 	</select>
+	
+	<select id="findEmailAuthByUsername"  resultType="Integer">
+		select *
+		from email_auth
+		where username = #{username} 
+	</select>
+	
+	<insert id="saveEmailAuth">
+		insert into email_auth (username,code)
+		values (#{username},#{code})
+	</insert>
+	
+	<update id="updateEmailAuth">
+		update email_auth
+		set code=#{code}
+		where username=#{username}
+	</update>
+	
+	<select id="checkEmailAuthByUsername" resultType="com.gospec.domain.EmailAuthDto">
+		select *
+		from email_auth
+		where username = #{username}
+		and code = #{code}
+	</select>
+	
 </mapper>
