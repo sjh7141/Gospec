@@ -60,16 +60,14 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
-          <v-menu
-            v-model="selectedOpen"
+          <v-dialog v-model="dialog" width="600px"
+
             :close-on-content-click="false"
             :activator="selectedElement"
             offset-x
           >
             <v-card
               color="grey lighten-4"
-              min-width="350px"
-              flat
             >
               <v-toolbar
                 :color="selectedEvent.color"
@@ -94,13 +92,13 @@
                 <v-btn
                   text
                   color="secondary"
-                  @click="selectedOpen = false"
+                  @click="dialog = false"
                 >
                   Cancel
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-menu>
+          </v-dialog>
         </v-sheet>
       </v-col>
     </v-row>
@@ -112,12 +110,13 @@
 <script>
   export default {
       props: {
-        contest: {
+        myContest: {
             type: Array,
         }
       },
 
     data: () => ({
+      dialog:false,
       focus: '',
       type: 'month',
       typeToLabel: {
@@ -131,7 +130,7 @@
       selectedOpen: false,
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      contest: null,
+      myContest: null,
       }),
     mounted () {
       this.$refs.calendar.checkChange()
@@ -156,6 +155,7 @@
       },
       showEvent ({ nativeEvent, event }) {
         const open = () => {
+          this.dialog=true,
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
           setTimeout(() => this.selectedOpen = true, 10)
@@ -172,23 +172,24 @@
         this.name = ''
         this.start = ''
         this.end = ''
-        this.contents = ''
+        this.content =''
+        
         
         const events = []
-        for (let i = 0; i < this.contest.length; i++){
+        for (let i = 0; i < this.myContest.length; i++){
           events.push({
-            name: this.contest[i].title,
-            start: this.contest[i].startDate,
-            end: this.contest[i].startDate,
-            details : this.contest[i].content,
+            name: this.myContest[i].title,
+            start: this.myContest[i].startDate,
+            end: this.myContest[i].startDate,
+            details : this.myContest[i].content,
             // 여기 시작 색상
             color: 'blue',
           })
           events.push({
-            name: this.contest[i].title,
-            start: this.contest[i].endDate,
-            end: this.contest[i].endDate,
-            details: this.contest[i].content,
+            name: this.myContest[i].title,
+            start: this.myContest[i].endDate,
+            end: this.myContest[i].endDate,
+            details : this.myContest[i].content,
             // 여기 끝 색상
             color: 'orange',
           })

@@ -6,7 +6,7 @@
   </div>
   <div class="cal-body">
     <TotalCalendar :contest='contest' v-if="calState == 'total'"/>
-    <MyCalendar :contest='contest' v-if="calState == 'my'"/>
+    <MyCalendar :myContest='myContest' v-if="calState == 'my'"/>
   </div>
 </div>
 
@@ -17,6 +17,7 @@ import TotalCalendar from '../common/TotalCalendar.vue'
 import MyCalendar from '../common/MyCalendar.vue'
 import axios from 'axios'
 const API_URL = "http://localhost:8181/api/contest/2020-07-01/2020-07-31"
+const MY_API_URL = "http://localhost:8181/api/contest/bookmark/test/2020-01-31/2020-12-31"
 export default {
   components: {
     TotalCalendar,
@@ -27,6 +28,7 @@ export default {
     return{
       calState: '',
       contest: [],
+      myContest: [],
 
     }
   },
@@ -48,13 +50,16 @@ export default {
     },
     myCalBtn() {
       
-      axios.get(API_URL)
+      axios.get(MY_API_URL)
       .then(response => {
-        this.contest = response.data
+        this.myContest = response.data
         this.calState = 'my'
+        console.log(response.data)
+        
 
       })
       .catch(error => { console.log(error) })
+      
       
     },
   }
