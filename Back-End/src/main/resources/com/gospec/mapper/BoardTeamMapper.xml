@@ -21,12 +21,12 @@
 	
 	<update id="update">
 		update find_team_board set title = #{title}, content = #{content}, member_max = #{memberMax}, regist_time = CURRENT_TIMESTAMP
-		where username = #{username} and post_no = {postNo}
+		where username = #{username} and post_no = #{postNo}
 	</update>
 	
 	<delete id="delete">
-		delete find_team_board
-		where post_no = {postNo}
+		delete from find_team_board
+		where post_no = #{postNo}
 	</delete>
 	
 	<select id="getCountByContestNo" resultType="Integer">

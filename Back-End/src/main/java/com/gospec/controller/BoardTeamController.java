@@ -78,14 +78,16 @@ public class BoardTeamController {
 	
 	@ApiOperation(value = "팀 구하기 글 삭제")
 	@DeleteMapping(value = "")
-	public ResponseEntity<String> deleteBoardTeam(@RequestParam("username") String username, @RequestParam("postNo") int postNo){
+	public ResponseEntity<String> deleteBoardTeam(@RequestBody Map<String, Object> param){
 		String originUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		String username = (String)param.get("username");
+		int postNo = (Integer)param.get("postNo");
 		if(!originUsername.equals(username)) {
-			return new ResponseEntity<String>("fail", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<String>("fail forbidden", HttpStatus.FORBIDDEN);
 		}
 		int res = boardTeamService.delete(postNo);
 		if(res == 0) {
-			return new ResponseEntity<String>("fail", HttpStatus.OK);
+			return new ResponseEntity<String>("fail delete", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
