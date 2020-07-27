@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gospec.domain.ContestDto;
 import com.gospec.domain.PageDto;
 import com.gospec.service.ContestService;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -83,10 +81,11 @@ public class ContestController {
 		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "공모전 등록하기")
+	@ApiOperation(value = "공모전 북마크 하기")
 	@PostMapping(value = "/bookmark")
-	public ResponseEntity<Integer> setBookMark(@RequestParam("contestNo") int contestNo){
+	public ResponseEntity<Integer> setBookMark(@RequestBody	Map<String, Object> param){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		int contestNo = (Integer)param.get("contestNo");
 		int temp = contestService.registBookMark(username, contestNo);
 		return new ResponseEntity<Integer>(temp, HttpStatus.OK);
 	}
