@@ -26,7 +26,7 @@
 	
 	<delete id="delete">
 		delete find_team_board
-		where username = #{username} and post_no = {postNo}
+		where post_no = {postNo}
 	</delete>
 	
 	<select id="getCountByContestNo" resultType="Integer">
