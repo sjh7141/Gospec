@@ -86,7 +86,12 @@
                 </v-btn>
               </v-toolbar>
               <v-card-text>
-                <span v-html="selectedEvent.details"></span>
+                <p>
+
+
+                  
+                </p>
+                <pre v-html="selectedEvent.details"></pre>
               </v-card-text>
               <v-card-actions>
                 <v-btn
@@ -129,7 +134,7 @@
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1', 'black','red'],
       myContest: null,
       }),
     mounted () {
@@ -183,7 +188,7 @@
             end: this.myContest[i].startDate,
             details : this.myContest[i].content,
             // 여기 시작 색상
-            color: 'blue',
+            color: 'black',
           })
           events.push({
             name: this.myContest[i].title,
@@ -191,7 +196,7 @@
             end: this.myContest[i].endDate,
             details : this.myContest[i].content,
             // 여기 끝 색상
-            color: 'orange',
+            color: 'red',
           })
           this.events = events
         }

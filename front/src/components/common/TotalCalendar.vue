@@ -60,7 +60,7 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
-          <v-dialog v-model="dialog" width="600px"
+          <v-dialog v-model="dialog"
 
             :close-on-content-click="false"
             :activator="selectedElement"
@@ -86,7 +86,14 @@
                 </v-btn>
               </v-toolbar>
               <v-card-text>
-                <span v-html="selectedEvent.details"></span>
+                <p>
+
+
+                  
+                </p>
+                <pre v-html="selectedEvent.details"></pre>
+
+
               </v-card-text>
               <v-card-actions>
                 <v-btn
@@ -129,7 +136,7 @@
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       contest: null,
       }),
     mounted () {
@@ -183,7 +190,7 @@
             end: this.contest[i].startDate,
             details : this.contest[i].content,
             // 여기 시작 색상
-            color: 'blue',
+            color: 'black',
           })
           events.push({
             name: this.contest[i].title,
@@ -191,7 +198,7 @@
             end: this.contest[i].endDate,
             details : this.contest[i].content,
             // 여기 끝 색상
-            color: 'orange',
+            color: 'red',
           })
           this.events = events
         }
@@ -199,6 +206,7 @@
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+
     },
   }
 </script>
