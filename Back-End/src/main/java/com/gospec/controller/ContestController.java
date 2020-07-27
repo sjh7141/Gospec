@@ -7,15 +7,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gospec.domain.ContestDto;
 import com.gospec.domain.PageDto;
-import com.gospec.domain.UserDto;
 import com.gospec.service.ContestService;
 
 import io.swagger.annotations.ApiOperation;
@@ -73,9 +75,18 @@ public class ContestController {
 	}
 
 	@ApiOperation(value = "공모전으로 팀원찾기") 
-	@GetMapping(value = "/contests/team-search/{contestNo}")
+	@GetMapping(value = "/team-search/{contestNo}")
 	public ResponseEntity<List<String>> getTeamSearch(@PathVariable("contestNo") int contestNo) {
 		List<String> list = contestService.teamSearchByContest(contestNo);
 		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "공모전 북마크 하기")
+	@PostMapping(value = "/bookmark")
+	public ResponseEntity<Integer> setBookMark(@RequestBody	Map<String, Object> param){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		int contestNo = (Integer)param.get("contestNo");
+		int temp = contestService.registBookMark(username, contestNo);
+		return new ResponseEntity<Integer>(temp, HttpStatus.OK);
 	}
 }
