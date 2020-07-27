@@ -20,8 +20,8 @@ public class BoardTeamServiceImpl implements BoardTeamService {
 	}
 
 	@Override
-	public BoardTeamDto viewDetails(int contestNo) {
-		return boardTeamMapper.viewDetails(contestNo);
+	public BoardTeamDto viewDetails(int postNo) {
+		return boardTeamMapper.viewDetails(postNo);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class BoardTeamServiceImpl implements BoardTeamService {
 	}
 
 	@Override
-	public int delte(BoardTeamDto dto) {
-		return boardTeamMapper.delte(dto);
+	public int delete(int postNo) {
+		return boardTeamMapper.delete(postNo);
 	}
 
 	@Override

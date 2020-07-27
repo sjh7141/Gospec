@@ -11,9 +11,9 @@ import com.gospec.domain.BoardTeamDto;
 public interface BoardTeamMapper {
 
 	public List<BoardTeamDto> findByContestNo(int contestNo, int startIndex, int perPageNum);
-	public BoardTeamDto viewDetails(int contestNo);
+	public BoardTeamDto viewDetails(int postNo);
 	public int save(BoardTeamDto dto);
 	public int update(BoardTeamDto dto);
-	public int delte(BoardTeamDto dto);
+	public int delete(int postNo);
 	public int getCountByContestNo(@Param("contestNo") int contestNo);
 }
