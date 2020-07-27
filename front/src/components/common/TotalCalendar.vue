@@ -79,7 +79,7 @@
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon>
-                  <v-icon @click='clickLike()' >mdi-heart</v-icon>
+                  <v-icon @click='clickLike(selectedEvent.contestNo)' >mdi-heart</v-icon>
   
                 </v-btn>
                 <v-btn icon>
@@ -183,6 +183,8 @@ import axios from 'axios'
         this.start = ''
         this.end = ''
         this.content =''
+        this.contestNo = ''
+        this.details = ''
         
         
         const events = []
@@ -192,6 +194,7 @@ import axios from 'axios'
             start: this.contest[i].startDate,
             end: this.contest[i].startDate,
             details : this.contest[i].content,
+            contestNo: this.contest[i].contestNo,
             // 여기 시작 색상
             color: 'black',
           })
@@ -200,6 +203,8 @@ import axios from 'axios'
             start: this.contest[i].endDate,
             end: this.contest[i].endDate,
             details : this.contest[i].content,
+            contestNo: this.contest[i].contestNo,
+
             // 여기 끝 색상
             color: 'red',
           })
@@ -211,10 +216,12 @@ import axios from 'axios'
       },
       clickLike(contestNo) {
         if (this.like == 1) {
+          console.log(contestNo)
           this.like = 0
           axios.delete('/api/contest/bookmark',contestNo)
           console.log('삭제')
         } else {
+          console.log(contestNo)
           this.like = 1
           axios.post('/api/contest/bookmark',contestNo)
           console.log('좋아요')
