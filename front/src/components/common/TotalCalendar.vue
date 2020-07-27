@@ -58,7 +58,7 @@
             @click:event="showEvent"
             @click:more="viewDay"
             @click:date="viewDay"
-            @change="check"
+            @change="updateRange"
           ></v-calendar>
           <v-menu
             v-model="selectedOpen"
@@ -131,7 +131,6 @@
       selectedOpen: false,
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      contest: null,
       }),
     mounted () {
       this.$refs.calendar.checkChange()

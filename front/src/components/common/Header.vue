@@ -8,7 +8,6 @@
                 <li><router-link to="/contest">공모전</router-link></li>
                 <li><router-link to="/study">스터디</router-link></li>
                 <li><router-link to="/jobinfo">취업정보</router-link></li>
-                <li><router-link to="/mypage">마이페이지</router-link></li>
                 <li><Modal /></li>
             </ul>
         </div>
@@ -35,8 +34,12 @@ import Modal from '../accounts/Modal.vue'
         data: function() {
            return {
                keyword : "",
+               isLoggedIn : false,
            }
         },
+        mounted() {
+            this.isLoggedIn = this.$cookies.isKey('auth-token')
+        }
     }
 </script>
 

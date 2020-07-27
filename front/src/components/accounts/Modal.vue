@@ -1,14 +1,15 @@
 <template>
     <div class='d-flex'>
+        <MypageDropdown v-if='isLoggedIn' @logout="logout" />
         <!-- Button trigger modal -->
-        <p
+        <p v-if='!isLoggedIn'
             @click="loginBtn"
             class='mr-4'
             data-toggle="modal"
             data-target="#accountModal">
             Login
         </p>
-        <p
+        <p v-if='!isLoggedIn'
         @click="signupBtn"
             data-toggle="modal"
             data-target="#accountModal">
@@ -54,6 +55,7 @@ import Password from '../accounts/Password.vue'
 import CompleteSignup from '../accounts/CompleteSignup.vue'
 import CompletePasswordChange from '../accounts/CompletePasswordChange.vue'
 import CompleteLogin from '../accounts/CompleteLogin.vue'
+import MypageDropdown from '../common/MypageDropdown.vue'
 import axios from 'axios'
 
 export default {
@@ -76,6 +78,9 @@ export default {
         CompleteSignup,
         CompletePasswordChange,
         CompleteLogin,
+        MypageDropdown,
+    },
+    watch: {
     },
     methods: {
         loginBtn() {
@@ -95,7 +100,7 @@ export default {
             this.modalSize = 'modal-dialog'
         },
         signup(signupData) {
-            axios.post('http://localhost:8181/api/users', signupData)
+            axios.post('http://localhost:8181/api/users/', signupData)
             .then(res => {
                 console.log(res)
                 console.log('회원가입 성공')
@@ -103,13 +108,13 @@ export default {
                 this.loginData.username = signupData.username
                 this.loginData.password = signupData.password
                 axios.post('http://localhost:8181/login', this.loginData)
-                .then(() => {
-                    console.log('로그인 성공')
+                .then((res) => {
+                    this.setCookie(res.headers.authorization)
+                    this.$emit('signup', this.isLoggedIn)
                 })
                 .catch(err => console.log(err.response))
             })
             .catch(err => {
-                console.log(signupData)
                 console.log(err.response)
                 alert('회원가입에 실패했습니다.')
             })
@@ -117,10 +122,9 @@ export default {
         login(loginData) {
             axios.post('http://localhost:8181/login', loginData)
             .then(res => {
-                console.log(res.headers.authorization)
-                console.log('로그인 성공')
                 this.setCookie(res.headers.authorization)
                 this.modalState = 'completeLogin'
+                this.$emit('login', this.isLoggedIn)
             })
             .catch(err => {
                 console.log(err.response)
@@ -134,7 +138,15 @@ export default {
             this.$cookies.set('auth-token', token)
             this.isLoggedIn = true
         },
+        logout(res) {
+            this.isLoggedIn = res
+            this.$router.push('/')
+        },
+
     },
+    mounted() {
+        this.isLoggedIn = this.$cookies.isKey('auth-token')
+    }
 }
 </script>
 
