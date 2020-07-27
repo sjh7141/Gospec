@@ -32,9 +32,13 @@ public class ContestController {
 
 	@ApiOperation(value = "공모전 정보 가져오기")
 	@GetMapping(value = "/{contestNo}")
-	public ResponseEntity<ContestDto> getContestDetail(@PathVariable("contestNo") int contestNo) {
+	public ResponseEntity<Map<String, Object>> getContestDetail(@PathVariable("contestNo") int contestNo) {
 		ContestDto contest = contestService.findDetail(contestNo);
-		return new ResponseEntity<ContestDto>(contest, HttpStatus.OK);
+		List<String> field = contestService.findCategoryByContestNo(contestNo);
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("contest", contest);
+		data.put("field", field);
+		return new ResponseEntity<Map<String, Object>>(data, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "공모전 특정 날짜 정보 가져오기")

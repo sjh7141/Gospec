@@ -19,4 +19,5 @@ public interface ContestMapper {
 	public int getCountByCategory(@Param("type") String type);
 	public List<String> teamSearchByContest(int contestNo);
 	public int registBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
+	public List<String> findCategoryByContestNo(int contestNo);
 }

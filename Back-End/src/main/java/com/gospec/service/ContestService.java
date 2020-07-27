@@ -15,4 +15,5 @@ public interface ContestService {
 	public int getCountByCategory(String type);
 	public List<String> teamSearchByContest(int contestNo);
 	public int registBookMark(String username,int contestNo);
+	public List<String> findCategoryByContestNo(int contestNo);
 }

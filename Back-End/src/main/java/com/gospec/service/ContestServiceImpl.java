@@ -54,4 +54,9 @@ public class ContestServiceImpl implements ContestService {
 	public int registBookMark(String username, int contestNo) {
 		return contestMapper.registBookMark(username, contestNo);
 	}
+	
+	@Override
+	public List<String> findCategoryByContestNo(int contestNo) {
+		return contestMapper.findCategoryByContestNo(contestNo);
+	}
 }

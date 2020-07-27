@@ -16,6 +16,11 @@
 		and contest_info.contest_no = bookmark_contest.contest_no 
 	</select>
 	
+	<select id="findCategoryByContestNo" resultType="String">
+		select field from contest_field
+		where contest_no = #{contestNo}
+	</select>
+	
 	<select id="findByCategory" resultType="com.gospec.domain.ContestDto" >
 		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
 		from contest_info i, contest_field f
