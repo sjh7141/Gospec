@@ -19,6 +19,7 @@ public interface UserMapper {
 	public int checkId(String username);
 	public int newPwd(String username, String password);
 	public int deleteByUsername(String username);
+	public int checkPwd(String username, String password);
 	public int updateByUsername(UserDto user);
 	public List<ActiveRegionDto> findAllActiveRegion(String username);
 	public List<BookMarkDto> findAllBookMark(String username);

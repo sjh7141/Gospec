@@ -54,7 +54,7 @@ public class UserController {
 	private FileUploadDownloadService fileService;
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
-	@PostMapping(value = "/email-duplication")
+	@GetMapping(value = "/email-duplication")
 	public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, Object> param){
 		String username = (String) param.get("username");
 		boolean check = userService.checkId(username);
@@ -62,7 +62,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "닉네임 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
-	@PostMapping(value = "/nickname-duplication")
+	@GetMapping(value = "/nickname-duplication")
 	public ResponseEntity<Boolean> checkNickName(@RequestBody Map<String, Object> param){
 		String nickname = (String) param.get("nickname");
 		boolean check = userService.checkNickName(nickname);
@@ -77,7 +77,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "비밀번호찾기, 새로운 비밀번호로 수정한다.", response = Boolean.class)
-	@PostMapping(value = "/password")
+	@PatchMapping(value = "/password")
 	public ResponseEntity<Boolean> findpwd(@RequestBody Map<String, Object> param){
 		String username = (String) param.get("username");
 		String password = (String) param.get("password");
@@ -86,43 +86,51 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "사용자 정보조회, 해당 아이디 정보조회", response = UserDto.class)
-	@GetMapping(value = "/{username}")
-	public ResponseEntity<UserDto> findInfo(@PathVariable String username){
+	@GetMapping
+	public ResponseEntity<UserDto> findInfo(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserDto user = userService.findByUsername(username);
 		return new ResponseEntity<UserDto>(user,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "내정보수정, 해당 아이디 정보 수정", response = Boolean.class)
+	@ApiOperation(value = "내정보수정, 해당 아이디 정보 수정, 헤더내용과 불일치시 403에러", response = Boolean.class)
 	@PatchMapping
 	public ResponseEntity<Boolean> updateInfo(@RequestBody UserDto user){
+		String headername = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(!headername.equals(user.getName())) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.FORBIDDEN);
+		}
 		boolean check = userService.updateByUsername(user);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "회원탈퇴, 해당 아이디 계정 탈퇴", response = Boolean.class)
+	@ApiOperation(value = "회원탈퇴, 해더내의 해당 아이디 계정 탈퇴", response = Boolean.class)
 	@DeleteMapping
-	public ResponseEntity<Boolean> deleteInfo(@RequestBody Map<String, Object> param){
-		String username = (String) param.get("username");
+	public ResponseEntity<Boolean> deleteInfo(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		boolean check = userService.deleteByUsername(username);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "활동지역 조회, 사용자 아이디로 활동지역을 전체 조회한다.", response = ActiveRegionDto.class)
-	@GetMapping(value ="/regions/{username}")
-	public ResponseEntity<List<ActiveRegionDto>> getActiveRegionList(@PathVariable("username") String username){
+	@ApiOperation(value = "활동지역 조회, 헤더의 사용자 아이디로 활동지역을 전체 조회한다.", response = ActiveRegionDto.class)
+	@GetMapping(value ="/regions")
+	public ResponseEntity<List<ActiveRegionDto>> getActiveRegionList(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return new ResponseEntity<List<ActiveRegionDto>>(userService.findAllActiveRegion(username), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "북마크 조회, 사용자 아이디로 북마크를 전체 조회한다.", response = BookMarkDto.class)
-	@GetMapping(value ="/bookmarks/{username}")
-	public ResponseEntity<List<BookMarkDto>> getBookMarkList(@PathVariable("username") String username){
+	@ApiOperation(value = "북마크 조회, 헤더의 사용자 아이디로 북마크를 전체 조회한다.", response = BookMarkDto.class)
+	@GetMapping(value ="/bookmarks")
+	public ResponseEntity<List<BookMarkDto>> getBookMarkList(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return new ResponseEntity<List<BookMarkDto>>(userService.findAllBookMark(username), HttpStatus.OK);
 	}
 	
 	
-	@ApiOperation(value = "관심지역 조회, 사용자 아이디로 관심영역을 전체 조회한다.", response = InterestFieldDto.class)
-	@GetMapping(value ="/fields/{username}")
-	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(@PathVariable("username") String username){
+	@ApiOperation(value = "관심지역 조회, 헤더의 사용자 아이디로 관심영역을 전체 조회한다.", response = InterestFieldDto.class)
+	@GetMapping(value ="/fields")
+	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
 	}
 

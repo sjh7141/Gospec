@@ -41,6 +41,13 @@
 		where username = #{username}
 	</delete>
 	
+	<select id="checkPwd" resultType= "Integer">
+		select count(*)
+		from user_info
+		where username = #{username}
+		and password = #{password}
+	</select>
+	
 	<update id="updateByUsername">
 		update user_info
 		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}
