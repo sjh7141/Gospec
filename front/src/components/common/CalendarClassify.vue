@@ -5,8 +5,8 @@
   <button @click="myCalBtn">내일정</button>
   </div>
   <div class="cal-body">
-    <TotalCalendar v-if="calState == 'total'"/>
-    <MyCalendar v-if="calState == 'my'"/>
+    <TotalCalendar :contest='contest' v-if="calState == 'total'"/>
+    <MyCalendar :myContest='myContest' v-if="calState == 'my'"/>
   </div>
 </div>
 
@@ -15,6 +15,9 @@
 <script>
 import TotalCalendar from '../common/TotalCalendar.vue'
 import MyCalendar from '../common/MyCalendar.vue'
+import axios from 'axios'
+const API_URL = "http://localhost:8181/api/contest/2020-07-01/2020-07-31"
+const MY_API_URL = "http://localhost:8181/api/contest/bookmark/"
 
 export default {
   components: {
@@ -24,16 +27,46 @@ export default {
    },
   data() {
     return{
-      calState: 'total',
+      calState: '',
+      contest: [],
+      myContest: [],
+      email:'',
 
     }
   },
+  created() {
+    this.totalCalBtn()
+
+  },
   methods: {
     totalCalBtn() {
-      this.calState = 'total'
+      
+      axios.get(API_URL)
+        .then(response => {
+            this.contest = response.data
+            this.calState = 'total'
+
+            })
+        .catch(error => { console.log(error) })
+      
     },
     myCalBtn() {
-      this.calState = 'my'
+      var ca = this.$cookies.get("auth-token")
+      var base64Url = ca.split('.')[1]
+      var decodedValue = JSON.parse(window.atob(base64Url))
+      console.log(decodedValue['sub'])
+      this.email = decodedValue['sub']
+ 
+      axios.get(MY_API_URL + this.email + "/2020-01-31/2020-12-31")
+      .then(response => {
+        this.myContest = response.data
+        this.calState = 'my'
+        console.log(response.data)
+
+      })
+      .catch(error => { console.log(error) })
+      
+      
     },
   }
 }

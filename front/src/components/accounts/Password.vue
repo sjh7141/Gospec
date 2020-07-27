@@ -87,7 +87,7 @@
 <script>
 import * as EmailValidator from "email-validator"
 import PV from "password-validator";
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'Password',
@@ -188,18 +188,19 @@ export default {
       else this.certificationFail = true
     },
     passwordChange() {
-      // axios.post('비밀번호 변경 url', this.password)
-      // .then(() => {
+      axios.post('http://localhost:8181/api/password', this.passwordData)
+      .then(() => {
         this.$emit('completePasswordChange')
-      // })
+      })
+      .catch(err => console.log(err.response))
     },
   
   },
   computed: {
-    loginData() {
+    passwordData() {
       return{
-        password: this.passowrd,
-        passwordConfirm: this.passwordConfirm,
+        password: this.password,
+        username: this.email
       }
     }
   }

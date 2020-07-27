@@ -10,9 +10,12 @@
 
 <script>
 import CalendarClassify from '../components/common/CalendarClassify.vue'
+
+
     export default {
         components: {
             CalendarClassify,
+
         },
         created(){
         },
