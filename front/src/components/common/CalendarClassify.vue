@@ -17,7 +17,8 @@ import TotalCalendar from '../common/TotalCalendar.vue'
 import MyCalendar from '../common/MyCalendar.vue'
 import axios from 'axios'
 const API_URL = "http://localhost:8181/api/contest/2020-07-01/2020-07-31"
-const MY_API_URL = "http://localhost:8181/api/contest/bookmark/test/2020-01-31/2020-12-31"
+const MY_API_URL = "http://localhost:8181/api/contest/bookmark/"
+
 export default {
   components: {
     TotalCalendar,
@@ -29,6 +30,7 @@ export default {
       calState: '',
       contest: [],
       myContest: [],
+      email:'',
 
     }
   },
@@ -50,7 +52,10 @@ export default {
     },
     myCalBtn() {
       
-      axios.get(MY_API_URL)
+      this.email = this.$cookies.get("auth-token")
+      console.log(this.$cookies.get("auth-token"))
+ 
+      axios.get(MY_API_URL + this.email + "/2020-01-31/2020-12-31")
       .then(response => {
         this.myContest = response.data
         this.calState = 'my'
