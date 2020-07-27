@@ -6,5 +6,30 @@
 		select * 
 		from find_team_board
 	</select>
-
+	
+	<insert id="saveTeamApproval">
+		insert into team_approval (team_id, leader_username, member_username, approval_flag)
+		values (#{teamId}, #{leaderUsername}, #{memberUsername}, #{approvalFlag})
+	</insert>
+	
+	<update id="updateTeamApproval">
+		update team_approval
+		set approval_flag =#{approvalFlag}
+		where team_id=#{teamId}
+		and leader_username=#{leaderUsername}
+		and member_username=#{memberUsername}
+	</update>
+	
+	<delete id="deleteTeamApproval">
+		delete from team_approval
+		where team_id=#{teamId}
+		and leader_username=#{leaderUsername}
+		and member_username=#{memberUsername}
+	</delete>
+	
+	<select id="findTeamById" resultType="com.gospec.domain.TeamApprovalDto">
+		select * from team_approval
+		where team_id=#{teamId}
+	</select>
+	
 </mapper>
