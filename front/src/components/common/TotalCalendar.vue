@@ -60,16 +60,14 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
-          <v-menu
-            v-model="selectedOpen"
+          <v-dialog v-model="dialog"
+
             :close-on-content-click="false"
             :activator="selectedElement"
             offset-x
           >
             <v-card
               color="grey lighten-4"
-              min-width="350px"
-              flat
             >
               <v-toolbar
                 :color="selectedEvent.color"
@@ -88,19 +86,26 @@
                 </v-btn>
               </v-toolbar>
               <v-card-text>
-                <span v-html="selectedEvent.details"></span>
+                <p>
+
+
+                  
+                </p>
+                <pre v-html="selectedEvent.details"></pre>
+
+
               </v-card-text>
               <v-card-actions>
                 <v-btn
                   text
                   color="secondary"
-                  @click="selectedOpen = false"
+                  @click="dialog = false"
                 >
                   Cancel
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-menu>
+          </v-dialog>
         </v-sheet>
       </v-col>
     </v-row>
@@ -118,6 +123,7 @@
       },
 
     data: () => ({
+      dialog:false,
       focus: '',
       type: 'month',
       typeToLabel: {
@@ -130,7 +136,8 @@
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
+      contest: null,
       }),
     mounted () {
       this.$refs.calendar.checkChange()
@@ -155,6 +162,7 @@
       },
       showEvent ({ nativeEvent, event }) {
         const open = () => {
+          this.dialog=true,
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
           setTimeout(() => this.selectedOpen = true, 10)
@@ -171,6 +179,8 @@
         this.name = ''
         this.start = ''
         this.end = ''
+        this.content =''
+        
         
         const events = []
         for (let i = 0; i < this.contest.length; i++){
@@ -178,15 +188,17 @@
             name: this.contest[i].title,
             start: this.contest[i].startDate,
             end: this.contest[i].startDate,
+            details : this.contest[i].content,
             // 여기 시작 색상
-            color: 'blue',
+            color: 'black',
           })
           events.push({
             name: this.contest[i].title,
             start: this.contest[i].endDate,
             end: this.contest[i].endDate,
+            details : this.contest[i].content,
             // 여기 끝 색상
-            color: 'orange',
+            color: 'red',
           })
           this.events = events
         }
@@ -194,6 +206,7 @@
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+
     },
   }
 </script>
