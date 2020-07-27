@@ -50,7 +50,7 @@ export default {
         },
         clickPasswordBtn() {
             this.$emit('clickPasswordBtn')
-        }
+        },
     }
 }
 </script>

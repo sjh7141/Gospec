@@ -98,7 +98,7 @@
     </div>
   </div>
 
-  <button v-if="checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck" @click="signup" class="btn btn-primary">회원가입</button>
+  <button v-if="checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname" @click="signup" class="btn btn-primary">회원가입</button>
   <button v-else @click='notAllowSignup' class="btn btn-secondary">회원가입</button>
 </div>
 </template>
@@ -264,12 +264,16 @@ export default {
         this.checkError = true
         this.errorMessages.push('이메일 인증을 완료하세요.')
       }
+      if (!this.possibleNickname) {
+        this.checkError = true
+        this.errorMessages.push('닉네임 중복 확인을 해주세요.')
+      }
     },
     // 닉네임 중복확인
     doubleCheckNickname() {
-      axios.post('', { nickname: this.nickname })
+      axios.post('http://localhost:8181/api/users/nickname-duplication', this.nicknameData)
       .then(res => {
-        if (res) {
+        if (!res.data) {
           alert('사용 가능한 닉네임입니다.')
           this.possibleNickname = true
         }
@@ -295,7 +299,12 @@ export default {
         phone: this.phone,
         birthday: this.birthday,
       }
-    }
+    },
+    nicknameData() {
+      return {
+        nickname: this.nickname
+      }
+    },
   }
 
 }
