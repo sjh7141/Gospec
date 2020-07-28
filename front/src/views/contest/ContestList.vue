@@ -13,7 +13,7 @@
       <tr v-for="eachContest in contestList" v-bind:key="eachContest.contestNo">
         <td>{{ eachContest.contestNo }}</td>
         <td><router-link :to="'/contest/' + eachContest.contestNo">{{ eachContest.title }}</router-link></td>
-        <td>{{ eachContest.host }}</td>
+        <td>{{ maxLengthFilter(eachContest.host) }}</td>
         <td>{{ null }}</td>
         <td>{{ eachContest.viewCount }}</td>
       </tr>
@@ -56,6 +56,9 @@ export default {
           this.contestList = response.data.list;
         })
         .catch( error => console.log(error) )
+    },
+    maxLengthFilter(string, baseLength = 15) {
+      return string.length > baseLength ? `${string.substr(0, baseLength)}...` : string;
     }
   },
   watch: {
