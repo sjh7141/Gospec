@@ -3,7 +3,6 @@ package com.gospec.service;
 import java.util.List;
 
 import com.gospec.domain.ContestDto;
-import com.gospec.domain.UserDto;
 
 public interface ContestService {
 
@@ -16,4 +15,5 @@ public interface ContestService {
 	public List<String> teamSearchByContest(int contestNo);
 	public int registBookMark(String username,int contestNo);
 	public List<String> findCategoryByContestNo(int contestNo);
+	public int deleteBookMark(String username, int contestNo);
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,6 +92,15 @@ public class ContestController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		int contestNo = (Integer)param.get("contestNo");
 		int temp = contestService.registBookMark(username, contestNo);
+		return new ResponseEntity<Integer>(temp, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "공모전 북마크 해제")
+	@DeleteMapping(value = "/bookmark")
+	public ResponseEntity<Integer> clearBookMark(@RequestBody Map<String, Object> param){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		int contestNo = (Integer)param.get("contestNo");
+		int temp = contestService.deleteBookMark(username, contestNo);
 		return new ResponseEntity<Integer>(temp, HttpStatus.OK);
 	}
 }

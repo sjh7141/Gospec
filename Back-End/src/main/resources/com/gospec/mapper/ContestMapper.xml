@@ -72,4 +72,8 @@
 		insert into bookmark_contest values(#{username}, #{contestNo})
 	</insert>
 	
+	<delete id="deleteBookMark">
+		delete from bookmark_contest where username = #{username} and contest_no = #{contestNo}
+	</delete>
+	
 </mapper>
