@@ -1,8 +1,7 @@
 <template>
   <div>
-    <prime-classify></prime-classify>
+    <prime-classify @setPrimeFilterKeyword="setPrimeFilterKeyword"></prime-classify>
     <secondary-classify></secondary-classify>
-
     <table>
       <tr>
         <th>글번호</th>
@@ -29,26 +28,42 @@ import axios from 'axios'
 import PrimeClassify from '../../components/common/ContestPrimeClassify.vue'
 import SecondaryClassify from '../../components/common/ContestSecondaryClassify.vue'
 
-const API_URL = "http://localhost:8181/api/contest/field/all/1"
+const API_URL_PART = "http://localhost:8181/api/contest/field/"
 
 export default {
-  name: 'contest list',
+  name: 'contestList',
   components: {
     PrimeClassify,
     SecondaryClassify
   },
   data() {
     return {
+      primeFilterState: '',
       contestList: [],
     }
   },
   created() {
-    axios.get(API_URL)
-      .then( response => {
-        console.dir(response.data.list);
-        this.contestList = response.data.list;
-      })
-      .catch(error => { console.log(error) })
+    this.primeFilterState = 'all'
   },
+  methods: {
+    setPrimeFilterKeyword(emittedParam) {
+      this.primeFilterState = emittedParam;
+    },
+    getContest(url) {
+      axios.get(url)
+        .then( response => {
+          // console.dir(response.data.list);
+          this.contestList = response.data.list;
+        })
+        .catch( error => console.log(error) )
+    }
+  },
+  watch: {
+    primeFilterState(newState) {
+      let fullURL = API_URL_PART + newState + '/1';
+      // console.log(fullURL);
+      this.getContest(fullURL);
+    }
+  }
 }
 </script>
