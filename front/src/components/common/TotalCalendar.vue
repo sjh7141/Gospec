@@ -79,7 +79,9 @@
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon>
-                  <v-icon @click='clickLike(selectedEvent.contestNo)' >mdi-heart</v-icon>
+                  <v-icon v-if='like == 0' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
+                  <v-icon v-if='like == 1' @click='clickLike(selectedEvent.contestNo)'>취소</v-icon>
+
   
                 </v-btn>
                 <v-btn icon>
@@ -216,33 +218,39 @@ import axios from 'axios'
       },
       clickLike(contestNo) {
         var ca = this.$cookies.get("auth-token")
-        console.log(ca)
         console.log(contestNo)
-        const config = {
-        headers: {
-          "Authorization": this.ca,
-        },
-        body: {
-          "contestNo": this.contestNo
+        const data = {
+          contestNo: contestNo,
         }
+
+        const config = {
+          
+          headers: {
+            Authorization: ca,
+          }
       } 
         if (this.like == 1) {
-          console.log(contestNo)
-          this.like = 0
-          axios.delete('/api/contest/bookmark',config)
+          console.log('삭제')
+  
+          axios.delete("http://localhost:8181/api/contest/bookmark",config)
           .then(res => {
             console.log(res.data)
+            this.like = 0
             console.log('삭제')
+            console.log(this.like)
           })
           
-        } else {
-          console.log(contestNo)
-          this.like = 1
-          axios.post('/api/contest/bookmark',config)
+        } else if(this.like == 0) {
+          console.log('좋아요')
+   
+          axios.post("http://localhost:8181/api/contest/bookmark",data,config)
           .then(res => {
+            this.like = 1
             console.log(res.data)
             console.log('좋아요')
+            console.log(this.like)
           })
+          
 
         }
 
