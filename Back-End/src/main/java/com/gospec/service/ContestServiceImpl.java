@@ -31,8 +31,8 @@ public class ContestServiceImpl implements ContestService {
 	}
 
 	@Override
-	public List<ContestDto> findByCategory(String type, int startPage, int perPageNum) {
-		return contestMapper.findByCategory(type, startPage, perPageNum);
+	public List<ContestDto> findByCategory(String type, int startIndex, int perPageNum) {
+		return contestMapper.findByCategory(type, startIndex, perPageNum);
 	}
 	
 	@Override

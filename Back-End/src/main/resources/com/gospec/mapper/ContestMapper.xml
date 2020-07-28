@@ -33,7 +33,7 @@
 			</otherwise>
 		</choose>
 		order by contest_no desc
-		limit #{startPage}, #{perPageNum}
+		limit #{startIndex}, #{perPageNum}
 	</select>
 	
 	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">

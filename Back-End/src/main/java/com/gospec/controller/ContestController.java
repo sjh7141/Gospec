@@ -64,7 +64,7 @@ public class ContestController {
 			@PathVariable("page") int curPage) {
 		PageDto page = new PageDto(curPage);
 		page.setTotalCount(contestService.getCountByCategory(type));
-		List<ContestDto> list = contestService.findByCategory(type, page.getStartPage(), page.getPerPageNum());
+		List<ContestDto> list = contestService.findByCategory(type, page.getStartIndex(), page.getPerPageNum());
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("list", list);

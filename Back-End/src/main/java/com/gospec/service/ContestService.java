@@ -11,7 +11,7 @@ public interface ContestService {
 	public ContestDto findDetail(int contestNo);
 	public List<ContestDto> findDurationAll(String startDate, String endDate);
 	public List<ContestDto> findByBookMarkWithDurationAndEmail(String email, String startDate, String endDate);
-	public List<ContestDto> findByCategory(String type, int startPage, int perPageNum);
+	public List<ContestDto> findByCategory(String type, int startIndex, int perPageNum);
 	public List<ContestDto> findByBestView(String type);
 	public int getCountByCategory(String type);
 	public List<String> teamSearchByContest(int contestNo);
