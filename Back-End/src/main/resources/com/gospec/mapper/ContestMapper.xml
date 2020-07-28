@@ -76,7 +76,7 @@
 		delete from bookmark_contest where username = #{username} and contest_no = #{contestNo}
 	</delete>
 	
-	<select id="checkBookMark">
+	<select id="checkBookMark" resultType="Integer">
 		select count(*) from bookmark_contest where username = #{username} and contest_no = #{contestNo}
 	</select>
 	
