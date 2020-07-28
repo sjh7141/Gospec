@@ -54,17 +54,15 @@ public class UserController {
 	private FileUploadDownloadService fileService;
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
-	@GetMapping(value = "/email-duplication")
-	public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, Object> param){
-		String username = (String) param.get("username");
+	@GetMapping(value = "/email-duplication/{username}")
+	public ResponseEntity<Boolean> checkEmail(@PathVariable String username){
 		boolean check = userService.checkId(username);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "닉네임 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
-	@GetMapping(value = "/nickname-duplication")
-	public ResponseEntity<Boolean> checkNickName(@RequestBody Map<String, Object> param){
-		String nickname = (String) param.get("nickname");
+	@GetMapping(value = "/nickname-duplication/{nickname}")
+	public ResponseEntity<Boolean> checkNickName(@PathVariable String nickname){
 		boolean check = userService.checkNickName(nickname);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
