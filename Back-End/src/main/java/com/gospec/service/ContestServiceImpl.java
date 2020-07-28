@@ -64,4 +64,9 @@ public class ContestServiceImpl implements ContestService {
 	public int deleteBookMark(String username, int contestNo) {
 		return contestMapper.deleteBookMark(username, contestNo);
 	}
+	
+	@Override
+	public int checkBookMark(String username, int contestNo) {
+		return contestMapper.checkBookMark(username, contestNo);
+	}
 }

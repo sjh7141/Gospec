@@ -20,5 +20,6 @@ public interface ContestMapper {
 	public List<String> teamSearchByContest(int contestNo);
 	public int registBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
 	public int deleteBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
+	public int checkBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
 	public List<String> findCategoryByContestNo(int contestNo);
 }

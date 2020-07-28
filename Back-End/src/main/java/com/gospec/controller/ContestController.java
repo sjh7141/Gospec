@@ -103,4 +103,14 @@ public class ContestController {
 		int temp = contestService.deleteBookMark(username, contestNo);
 		return new ResponseEntity<Integer>(temp, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "북마크 된지 안된지 확인")
+	@GetMapping(value = "/check/{contestNo}")
+	public ResponseEntity<Boolean> checkBookMark(@RequestBody Map<String, Object> param){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		int contestNo = (Integer)param.get("contestNo");
+		int temp = contestService.checkBookMark(username, contestNo);
+		boolean res = temp == 0 ? false : true;
+		return new ResponseEntity<Boolean>(res, HttpStatus.OK);
+	}
 }
