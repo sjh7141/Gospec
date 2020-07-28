@@ -215,21 +215,39 @@ import axios from 'axios'
         return Math.floor((b - a + 1) * Math.random()) + a
       },
       clickLike(contestNo) {
+        var ca = this.$cookies.get("auth-token")
+        console.log(ca)
+        console.log(contestNo)
+        const config = {
+        headers: {
+          "Authorization": this.ca,
+        },
+        body: {
+          "contestNo": this.contestNo
+        }
+      } 
         if (this.like == 1) {
           console.log(contestNo)
           this.like = 0
-          axios.delete('/api/contest/bookmark',contestNo)
-          console.log('삭제')
+          axios.delete('/api/contest/bookmark',config)
+          .then(res => {
+            console.log(res.data)
+            console.log('삭제')
+          })
+          
         } else {
           console.log(contestNo)
           this.like = 1
-          axios.post('/api/contest/bookmark',contestNo)
-          console.log('좋아요')
+          axios.post('/api/contest/bookmark',config)
+          .then(res => {
+            console.log(res.data)
+            console.log('좋아요')
+          })
 
         }
 
 
-      }
+      },      
 
     },
   }
