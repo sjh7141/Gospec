@@ -80,7 +80,7 @@
                 <v-spacer></v-spacer>
                 <v-btn icon>
                   <v-icon v-if='like == 0' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
-                  <v-icon v-if='like == 1' @click='clickLike(selectedEvent.contestNo)'>취소</v-icon>
+                  <v-icon v-if='like == 1' @click='clickDisLike(selectedEvent.contestNo)'>취소</v-icon>
                 </v-btn>
                 <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
@@ -218,33 +218,39 @@ import axios from 'axios'
             Authorization: ca,
           }
       } 
-        if (this.like == 1) {
-          console.log('삭제')
   
-          axios.delete("http://localhost:8181/api/contest/bookmark",config)
-          .then(res => {
-            console.log(res.data)
-            this.like = 0
-            console.log('삭제')
-            console.log(this.like)
-          })
-          
-        } else if(this.like == 0) {
-          console.log('좋아요')
-   
-          axios.post("http://localhost:8181/api/contest/bookmark",data,config)
-          .then(res => {
-            this.like = 1
-            console.log(res.data)
-            console.log('좋아요')
-            console.log(this.like)
-          })
-          
+      console.log('좋아요')
 
+      axios.delete("http://localhost:8181/api/contest/bookmark",data,config)
+      .then(res => {
+        console.log(res.data)
+        this.like = 1
+        console.log('좋아요')
+        console.log(this.like)
+      })
+      },
+      clickDisLike(contestNo) {
+      console.log(contestNo)
+      var ca = this.$cookies.get("auth-token")
+      const data = {
+          contestNo: contestNo,
         }
+      const config = {
+          
+          headers: {
+            Authorization: ca,
+          }
+      } 
+  
 
-
-      },  
+      axios.delete("http://localhost:8181/api/contest/bookmark",data,config)
+      .then(res => {
+        this.like = 0
+        console.log(res.data)
+        console.log('삭제')
+        console.log(this.like)
+      })
+      } 
     },
   }
 </script>

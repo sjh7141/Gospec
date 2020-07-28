@@ -79,8 +79,8 @@
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon>
-                  <v-icon v-if='like == 0' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
-                  <v-icon v-if='like == 1' @click='clickLike(selectedEvent.contestNo)'>취소</v-icon>
+                  <v-icon v-if='likestate == false' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
+                  <v-icon v-if='likestate == true' @click='clickDisLike(selectedEvent.contestNo)'>취소</v-icon>
 
   
                 </v-btn>
@@ -143,9 +143,14 @@ import axios from 'axios'
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       contest: null,
       like: 0,
+      likestate: '',
       }),
     mounted () {
       this.$refs.calendar.checkChange()
+
+    },
+    created() {
+      this.updateRange()
 
     },
     methods: {
@@ -187,9 +192,9 @@ import axios from 'axios'
         this.content =''
         this.contestNo = ''
         this.details = ''
-        
-        
+        this.likestate=''
         const events = []
+        
         for (let i = 0; i < this.contest.length; i++){
           events.push({
             name: this.contest[i].title,
@@ -197,6 +202,7 @@ import axios from 'axios'
             end: this.contest[i].startDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
+            likestate: this.axios.get("http://localhost:8181/api/contest/check/" + this.contest[i].contestNo),
             // 여기 시작 색상
             color: 'black',
           })
@@ -206,7 +212,7 @@ import axios from 'axios'
             end: this.contest[i].endDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
-
+            likestate: this.axios.get("http://localhost:8181/api/contest/check/" + this.contest[i].contestNo),
             // 여기 끝 색상
             color: 'red',
           })
@@ -216,6 +222,7 @@ import axios from 'axios'
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+
       clickLike(contestNo) {
         var ca = this.$cookies.get("auth-token")
         console.log(contestNo)
@@ -229,33 +236,36 @@ import axios from 'axios'
             Authorization: ca,
           }
       } 
-        if (this.like == 1) {
-          console.log('삭제')
   
-          axios.delete("http://localhost:8181/api/contest/bookmark",config)
-          .then(res => {
-            console.log(res.data)
-            this.like = 0
-            console.log('삭제')
-            console.log(this.like)
-          })
-          
-        } else if(this.like == 0) {
-          console.log('좋아요')
-   
-          axios.post("http://localhost:8181/api/contest/bookmark",data,config)
-          .then(res => {
-            this.like = 1
-            console.log(res.data)
-            console.log('좋아요')
-            console.log(this.like)
-          })
-          
+      console.log('좋아요')
 
+      axios.post("http://localhost:8181/api/contest/bookmark",data,config)
+      .then(res => {
+        console.log(res.data)
+        this.like = 1
+        console.log(this.like)
+      })
+      },
+      clickDisLike(contestNo) {
+      var ca = this.$cookies.get("auth-token")
+      console.log(contestNo)
+      console.log('취소')
+
+      axios.delete("http://localhost:8181/api/contest/bookmark",{
+        headers: {
+          Authorization: ca
+        },
+        data: {
+          contestNo: contestNo
         }
-
-
-      },      
+      })
+      .then(res => {
+        this.like = 0
+        console.log(res.data)
+        console.log('삭제')
+        console.log(this.like)
+      })
+      }     
 
     },
   }
