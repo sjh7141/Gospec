@@ -32,6 +32,12 @@
 				where f.field = #{type} and i.contest_no = f.contest_no
 			</otherwise>
 		</choose>
+		
+		<choose>
+			<when test="mode.equals('new')">
+				and 
+			</when>
+		</choose>
 		order by contest_no desc
 		limit #{startIndex}, #{perPageNum}
 	</select>
