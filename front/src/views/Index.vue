@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div>
       <MainPageInterest />
   </div>
 </template>
@@ -10,6 +10,7 @@ import MainPageInterest from '../components/index/MainPageInterest.vue'
 export default {
     components: {
         MainPageInterest,
+
     }
 
 }
