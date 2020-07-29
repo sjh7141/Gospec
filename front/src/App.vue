@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <main-header></main-header>
-    <Navigation />
+    <LoginNavigation />
     <router-view/>
   </div>
 </template>
 
 <script>
 import MainHeader from './components/common/Header.vue'
-import Navigation from './components/index/NavigationDrawers.vue'
+import LoginNavigation from './components/index/LoginNavigation.vue'
 
 export default {
   components: {
     MainHeader,
-    Navigation
+    LoginNavigation
 
   }
 }
