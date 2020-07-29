@@ -5,13 +5,13 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-    <a class="nav-item nav-link active text-white" href="/index">로고(인덱스)<span class="sr-only">(current)</span></a>
-    <a class="nav-item nav-link text-white" href="/">HOME</a>
-    <a class="nav-item nav-link text-white" href="/schedule">전체일정</a>
-    <a class="nav-item nav-link text-white" href="/contest">공모전</a>
-    <a class="nav-item nav-link text-white" href="/study">스터디</a>
-    <a class="nav-item nav-link text-white" href="/jobinfo">전체일정</a>
+    <div class="navbar-nav d-flex align-items-center">
+    <a class="navbar-brand nav-item nav-link" href="/index">GoSpec</a>
+    <a class="nav-item nav-link" href="/">HOME</a>
+    <a class="nav-item nav-link" href="/schedule">전체일정</a>
+    <a class="nav-item nav-link" href="/contest">공모전</a>
+    <a class="nav-item nav-link" href="/study">스터디</a>
+    <a class="nav-item nav-link" href="/jobinfo">전체일정</a>
     <div class="float-right">
     <a class="nav-item nav-link text-dark" href="#" ><Modal /></a>
     </div>
@@ -61,4 +61,10 @@ import Modal from '../accounts/Modal.vue'
         display: inline-block;
         margin: 10px;
     }
+
+    .nav-item.nav-link {
+        color: white;
+    }
+
+
 </style>>

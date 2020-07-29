@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <main-header></main-header>
+    <div class='container'>
     <LoginNavigation />
     <router-view/>
+
+    </div>
   </div>
 </template>
 
