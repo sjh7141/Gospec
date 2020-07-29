@@ -1,63 +1,58 @@
 <template>
-    <div class="middle">
-        <ul class="horizontal">
-            <li @click='getContest($event)'>전체</li>
-            <li @click='getContest($event)'>기획/아이디어</li>
-            <li @click='getContest($event)'>광고/마케팅</li>
-            <li @click='getContest($event)'>논문/리포트</li>
-            <li @click='getContest($event)'>영상/UCC/사진</li>
-            <li @click='getContest($event)'>디자인/캐릭터/웹툰</li>
-            <li @click='getContest($event)'>웹/모바일/플래시</li>
-            <li @click='getContest($event)'>게임/소프트웨어</li>
-            <li @click='getContest($event)'>과학/공학</li>
-            <li @click='getContest($event)'>문학/글/시나리오</li>
-            <li @click='getContest($event)'>건축/건설/인테리어</li>
-            <li @click='getContest($event)'>네이밍/슬로건</li>
-            <li @click='getContest($event)'>예체능/미술/음악</li>
-            <li @click='getContest($event)'>대외활동/서포터즈</li>
-            <li @click='getContest($event)'>봉사활동</li>
-            <li @click='getContest($event)'>취업/창업</li>
-            <li @click='getContest($event)'>해외</li>
-            <li @click='getContest($event)'>기타</li>
-        </ul>
-    </div>
+<div class="middle">
+    <ul class="horizontal">
+        <li :class="{selected: typeNow == type}"
+            v-for="type in TYPES" :key="type"
+            @click='pageChange(type)'> 
+            {{ typeToTextFilter(type) }}
+        </li>
+    </ul>
+</div>
 </template>
 
 <script> 
-    export default {
-        name: 'ContestPrimeClassifyNavBar',
-        components: { 
+export default {
+    name: 'ContestTypeNavBar',
+    computed: {
+        typeNow() {
+            return this.$store.state.ContestList.params.type;
         },
-        computed:{
+    },
+    methods : {
+        pageChange(type) {
+            this.$store.commit('setType', type);
+            this.$store.commit('setMode', 'all');
+            this.$store.commit('setPage', 1);
+            this.$store.dispatch('getContestList');
         },
-        watch: {
-        },
-        created() {
-        },
-        methods : {
-            getContest(event) {
-                let keyword = this.keywordFilter(event.target.innerHTML);
-                // console.log(keyword);
-                this.$emit('setPrimeFilterKeyword', keyword);
-            },
-            keywordFilter(string) {
-                return string == '전체' ? 'all' : string.replaceAll('/', '-');
-            }
-        },
-        data: function() {
-           return {}
-        },
-    }
+        typeToTextFilter(string) {
+            return string == 'all' ? '전체' : string.replaceAll('-','/');
+        }
+    },
+    data() {
+        return {
+            TYPES: ['all','기획-아이디어','광고-마케팅','논문-리포트','영상-UCC-사진',
+                '디자인-캐릭터-웹툰','웹-모바일-플래시','게임-소프트웨어','과학-공학',
+                '문학-글-시나리오','건축-건설-인테리어','네이밍-슬로건','예체능-미술-음악',
+                '대외활동-서포터즈','봉사활동','취업-창업','해외','기타'
+            ],
+        }
+    },
+}
 </script>
 
 <style scoped>
-    .middle {
-        display: block;
-        margin: auto;
-    }
+.middle {
+    display: block;
+    margin: auto;
+}
 
-    .horizontal li {
-        display: inline-block;
-        margin: 10px;
-    }
+.horizontal li {
+    display: inline-block;
+    margin: 10px;
+}
+
+.selected {
+    background-color: #dddddd;
+}
 </style>>
