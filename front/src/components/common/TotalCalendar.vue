@@ -78,11 +78,9 @@
                 </v-btn>
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon v-if='likestate == false' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
-                  <v-icon v-if='likestate == true' @click='clickDisLike(selectedEvent.contestNo)'>취소</v-icon>
-
-  
+                <v-btn>
+                  <v-icon v-if='likestate==false' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
+                  <v-icon v-else @click='clickDisLike(selectedEvent.contestNo)'>취소</v-icon>
                 </v-btn>
                 <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
@@ -166,6 +164,17 @@ import axios from 'axios'
         this.$refs.calendar.next()
       },
       showEvent ({ nativeEvent, event }) {
+        const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      } 
+        axios.get('http://localhost:8181/api/contest/check/' + event.contestNo, config)
+        .then(res => {
+          this.likestate = res.data
+          })
+        .catch(err => console.log(err.response))
+        console.log(event)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event
@@ -191,11 +200,13 @@ import axios from 'axios'
         
         for (let i = 0; i < this.contest.length; i++){
           events.push({
+
             name: this.contest[i].title,
             start: this.contest[i].startDate,
             end: this.contest[i].startDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
+            
             // 여기 시작 색상
             color: 'black',
           })
