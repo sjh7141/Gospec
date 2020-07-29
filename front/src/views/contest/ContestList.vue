@@ -1,7 +1,7 @@
 <template>
   <div>
-    <prime-classify @setPrimeFilterKeyword="setPrimeFilterKeyword"></prime-classify>
-    <secondary-classify></secondary-classify>
+    <prime-classify/>
+    <secondary-classify/>
     <table class='centered'>
       <tr>
         <th>글번호</th>
@@ -10,26 +10,23 @@
         <th>현재현황</th>
         <th>조회수</th>
       </tr>
-      <tr v-for="eachContest in contestList" v-bind:key="eachContest.contestNo">
-        <td>{{ eachContest.contestNo }}</td>
-        <td><router-link :to="'/contest/' + eachContest.contestNo">{{ eachContest.title }}</router-link></td>
-        <td>{{ maxLengthFilter(eachContest.host) }}</td>
+      <tr v-for="eachC in contestList" v-bind:key="eachC.contestNo">
+        <td>{{ eachC.contestNo }}</td>
+        <td><router-link :to="'/contest/' + eachC.contestNo">{{ eachC.title }}</router-link></td>
+        <td>{{ maxLengthFilter(eachC.host) }}</td>
         <td>{{ null }}</td>
-        <td>{{ eachContest.viewCount }}</td>
+        <td>{{ eachC.viewCount }}</td>
       </tr>
     </table>
-    <pagination :pageData='pageData' @pageTo='goToPage'/>
-    <router-link to='/contest/write'>새공모전올리기</router-link>
+    <pagination/>
+    <!--<router-link to='/contest/write'>새공모전올리기</router-link>-->
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import PrimeClassify from '../../components/common/ContestPrimeClassify.vue'
-import SecondaryClassify from '../../components/common/ContestSecondaryClassify.vue'
+import PrimeClassify from '@/components/common/ContestPrimeClassify.vue'
+import SecondaryClassify from '@/components/common/ContestSecondaryClassify.vue'
 import Pagination from '@/components/common/Pagination.vue'
-
-const API_URL_PART = "http://localhost:8181/api/contest/field/"
 
 export default {
   name: 'contestList',
@@ -40,43 +37,27 @@ export default {
   },
   data() {
     return {
-      primeFilterState: '',
-      contestList: [],
-      pageData: null,
+
     }
   },
   created() {
-    this.primeFilterState = 'all'
+    // this.primeFilterState = 'all';
+    // console.log('asdf'+this.$store.state.ContestList.type);
+    // console.log(this.$store.dispatch('getContestList'))
+    this.$store.dispatch('getContestList');
   },
   methods: {
-    setPrimeFilterKeyword(emittedParam) {
-      this.primeFilterState = emittedParam;
-    },
-    getContest(url) {
-      axios.get(url)
-        .then( response => {
-          // console.dir(response.data.list);
-          this.contestList = response.data.list;
-          this.pageData = response.data.page;
-        })
-        .catch( error => console.log(error) )
-    },
     maxLengthFilter(string, baseLength = 15) {
       return string.length > baseLength ? `${string.substr(0, baseLength)}...` : string;
     },
-    goToPage(page) {
-      alert(`from parent : ${page}`);
-
-      this.getContest(API_URL_PART + this.primeFilterState + '/' + page);
-    },
   },
   watch: {
-    primeFilterState(newState) {
-      let fullURL = API_URL_PART + newState + '/1';
-      // console.log(fullURL);
-      this.getContest(fullURL);
+  },
+  computed: {
+    contestList() {
+      return this.$store.state.ContestList.list;
     }
-  }
+  },
 }
 </script>
 
