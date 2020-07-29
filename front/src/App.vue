@@ -1,15 +1,23 @@
 <template>
   <div id="app">
     <main-header></main-header>
+    <div class='container'>
+    <LoginNavigation />
     <router-view/>
+
+    </div>
   </div>
 </template>
 
 <script>
 import MainHeader from './components/common/Header.vue'
+import LoginNavigation from './components/index/LoginNavigation.vue'
+
 export default {
   components: {
-    MainHeader
+    MainHeader,
+    LoginNavigation
+
   }
 }
 </script>
