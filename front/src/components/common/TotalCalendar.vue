@@ -192,7 +192,6 @@ import axios from 'axios'
         this.content =''
         this.contestNo = ''
         this.details = ''
-        this.likestate=''
         const events = []
         
         for (let i = 0; i < this.contest.length; i++){
@@ -202,7 +201,6 @@ import axios from 'axios'
             end: this.contest[i].startDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
-            likestate: this.axios.get("http://localhost:8181/api/contest/check/" + this.contest[i].contestNo),
             // 여기 시작 색상
             color: 'black',
           })
@@ -212,7 +210,6 @@ import axios from 'axios'
             end: this.contest[i].endDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
-            likestate: this.axios.get("http://localhost:8181/api/contest/check/" + this.contest[i].contestNo),
             // 여기 끝 색상
             color: 'red',
           })
