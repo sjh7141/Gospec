@@ -96,4 +96,19 @@
 		and code = #{code}
 	</select>
 	
+	<insert id="saveInterestField">
+		insert into interest_field values((select u.no from user_info u where username = #{username}), #{field});
+	</insert>
+	
+	<select id="findInterestFieldDumamy" resultType="com.gospec.domain.InterestFieldDto">
+		select *
+		from interest_field
+	</select>
+	
+	<insert id="makeCluster" parameterType="java.util.List">
+		insert into cluster_table values
+		<foreach collection="list" item="item" separator=",">
+			("${item.no}", "${item.cluster}")
+		</foreach>
+	</insert>
 </mapper>

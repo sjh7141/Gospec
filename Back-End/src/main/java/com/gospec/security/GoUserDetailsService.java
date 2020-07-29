@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
+import com.gospec.domain.ClusterDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
-import com.gospec.security.GoUserDetails;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
@@ -106,6 +106,10 @@ public class GoUserDetailsService implements UserDetailsService{
 		return userMapper.findAllInterestField(username);
 	}
 	
+	public void saveInterestField(String username, String field) {
+		userMapper.saveInterestField(username, field);
+	}
+	
 	@Async
 	public String sendMail(String username) {		
 		SimpleMailMessage simpleMessage = new SimpleMailMessage();
@@ -136,7 +140,13 @@ public class GoUserDetailsService implements UserDetailsService{
 		return sb.toString();
 	}
 	
+	public List<InterestFieldDto> makeDummy() {
+		return userMapper.findInterestFieldDumamy();
+	}
 	
+	public void makeCluster(List<ClusterDto> list) {
+		userMapper.makeCluster(list);
+	}
 	
 	
 }

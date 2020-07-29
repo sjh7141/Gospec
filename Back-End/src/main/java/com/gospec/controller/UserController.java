@@ -35,6 +35,8 @@ import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.TeamDto;
 import com.gospec.domain.UserDto;
 import com.gospec.property.FileUploadResponse;
+import com.gospec.recommend.Dummy;
+import com.gospec.recommend.KMeansClustering;
 import com.gospec.security.GoUserDetailsService;
 import com.gospec.service.FileUploadDownloadService;
 
@@ -132,4 +134,28 @@ public class UserController {
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
 	}
 
+	/*@GetMapping(value = "/random")
+	public void random() {
+		Dummy d = new Dummy();
+		for(int i=19; i<=118; i++) {
+			String id = "계정" + (i-18);
+			d.getRandom().forEach(el -> userService.saveInterestField(id, el));
+		}
+	}
+	
+	@GetMapping(value = "/dummy")
+	public void dummy() {
+		Dummy d = new Dummy();
+		d.makefile(userService.makeDummy());
+	}*/
+	
+	@GetMapping(value = "/dummy")
+	public void cluster() {
+		KMeansClustering kmeans = new KMeansClustering();
+		try {
+			userService.makeCluster(kmeans.readData());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
