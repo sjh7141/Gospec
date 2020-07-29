@@ -56,6 +56,7 @@ import CompleteSignup from '../accounts/CompleteSignup.vue'
 import CompletePasswordChange from '../accounts/CompletePasswordChange.vue'
 import CompleteLogin from '../accounts/CompleteLogin.vue'
 import MypageDropdown from '../common/MypageDropdown.vue'
+
 import axios from 'axios'
 
 const API_URL = 'http://localhost:8181'
@@ -81,6 +82,7 @@ export default {
         CompletePasswordChange,
         CompleteLogin,
         MypageDropdown,
+        
     },
     watch: {
     },
