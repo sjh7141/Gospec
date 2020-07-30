@@ -90,7 +90,8 @@
                 </v-btn>
               </v-toolbar>
               <v-card-text>
-                <div class="content">{{selectedEvent.details}}></div>
+                <div class="content">{{selectedEvent.details}}</div> 
+                
 
 
               </v-card-text>
@@ -281,6 +282,7 @@ import axios from 'axios'
     },
   }
 </script>
+
 <style scoped>
 .content {
     white-space: pre-line;

@@ -56,7 +56,10 @@ import CompleteSignup from '../accounts/CompleteSignup.vue'
 import CompletePasswordChange from '../accounts/CompletePasswordChange.vue'
 import CompleteLogin from '../accounts/CompleteLogin.vue'
 import MypageDropdown from '../common/MypageDropdown.vue'
+
 import axios from 'axios'
+
+const API_URL = 'http://localhost:8181'
 
 export default {
     name: 'Modal',
@@ -79,6 +82,7 @@ export default {
         CompletePasswordChange,
         CompleteLogin,
         MypageDropdown,
+        
     },
     watch: {
     },
@@ -100,14 +104,14 @@ export default {
             this.modalSize = 'modal-dialog'
         },
         signup(signupData) {
-            axios.post('http://localhost:8181/api/users/', signupData)
+            axios.post(API_URL + '/api/users/', signupData)
             .then(res => {
                 console.log(res)
                 console.log('회원가입 성공')
                 this.modalState = 'completeSignup'
                 this.loginData.username = signupData.username
                 this.loginData.password = signupData.password
-                axios.post('http://localhost:8181/login', this.loginData)
+                axios.post(API_URL + '/login', this.loginData)
                 .then((res) => {
                     this.setCookie(res.headers.authorization)
                     this.$emit('signup', this.isLoggedIn)
@@ -120,7 +124,7 @@ export default {
             })
         },
         login(loginData) {
-            axios.post('http://localhost:8181/login', loginData)
+            axios.post(API_URL + '/login', loginData)
             .then(res => {
                 this.setCookie(res.headers.authorization)
                 this.modalState = 'completeLogin'

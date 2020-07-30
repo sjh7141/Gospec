@@ -1,14 +1,16 @@
 <template>
+<v-app>
 <div>
   <div class="d-flex">
-  <button class= 'cal-btn mr-4' @click="totalCalBtn">전체일정</button>
-  <button @click="myCalBtn">내일정</button>
+  <v-btn color="error" class= 'cal-btn mr-4' @click="totalCalBtn">전체일정</v-btn>
+  <v-btn color="error" @click="myCalBtn">내 일정</v-btn>
   </div>
   <div class="cal-body">
     <TotalCalendar :contest='contest' v-if="calState == 'total'"/>
     <MyCalendar :myContest='myContest' v-if="calState == 'my'"/>
   </div>
 </div>
+</v-app>
 
 </template>
 

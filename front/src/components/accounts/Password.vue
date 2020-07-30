@@ -89,6 +89,8 @@ import * as EmailValidator from "email-validator"
 import PV from "password-validator";
 import axios from 'axios'
 
+const API_URL = 'http://localhost:8181'
+
 export default {
   name: 'Password',
   data() {
@@ -188,7 +190,7 @@ export default {
       else this.certificationFail = true
     },
     passwordChange() {
-      axios.post('http://localhost:8181/api/password', this.passwordData)
+      axios.post(API_URL + '/api/password', this.passwordData)
       .then(() => {
         this.$emit('completePasswordChange')
       })

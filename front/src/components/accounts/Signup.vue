@@ -33,7 +33,8 @@
       <div class="valid-feedback">
         OK!
       </div>
-      <button @click="emailCertification" v-if="!clickEmailCertification" class='btn btn-primary'>이메일 인증</button>
+      <button @click='emailDuplication' v-if='!emailDuplicationCheck' class='btn btn-primary'>이메일 중복확인</button>
+      <button @click="emailCertification" v-if="emailDuplicationCheck && !clickEmailCertification" class='btn btn-primary'>이메일 인증</button>
       <div v-if='clickEmailCertification'>
         <div v-if="!certificationNumberCheck">
           <p>인증번호가 발송되었습니다.</p>
@@ -55,7 +56,6 @@
       <div class="invalid-feedback">
         {{ message.email }}
       </div>
-      <button class='btn btn-secondary'>이메일 인증</button>
     </div>
   </div>
 
@@ -108,6 +108,8 @@ import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import axios from 'axios'
 
+const API_URL = 'http://localhost:8181'
+
 export default {
   data: () => {
     return {
@@ -143,6 +145,7 @@ export default {
       errorMessages: [],
       checkError: false,
       possibleNickname: false,
+      emailDuplicationCheck: false,
     };
   },
   created() {
@@ -271,7 +274,7 @@ export default {
     },
     // 닉네임 중복확인
     doubleCheckNickname() {
-      axios.post('http://localhost:8181/api/users/nickname-duplication', this.nicknameData)
+      axios.get(API_URL + '/api/users/nickname-duplication/' + this.nickname)
       .then(res => {
         if (!res.data) {
           alert('사용 가능한 닉네임입니다.')
@@ -281,11 +284,21 @@ export default {
           alert('이미 사용중인 닉네임입니다.')
         }
       })
-      .catch(err => {
-        console.log(err.response)
+    .catch(err => console.log(err.response.data))
+    },
+    emailDuplication() {
+      axios.get(API_URL + '/api/users/email-duplication/' + this.email,)
+      .then(res => {
+        console.log(res)
+        if (res.data) {
+          alert('이미 사용 중인 이메일입니다.')}
+        else {
+          alert('사용 가능한 이메일입니다.')
+          this.emailDuplicationCheck = true
       }
-      )
-    }
+    })
+    .catch(err => console.log(err.response.data))
+  },
   },
   computed: {
     signupData() {
@@ -300,12 +313,6 @@ export default {
         birthday: this.birthday,
       }
     },
-    nicknameData() {
-      return {
-        nickname: this.nickname
-      }
-    },
   }
-
 }
 </script>

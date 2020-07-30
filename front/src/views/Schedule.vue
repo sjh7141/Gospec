@@ -1,7 +1,6 @@
 <template>
     <div class="user" id="login">
-        here is schedule<br>
-        <router-link to='/contest/1234'>공모전일정 예제 링크(글번호1234)</router-link>
+        <Banner />
         <CalendarClassify />
 
 
@@ -10,11 +9,13 @@
 
 <script>
 import CalendarClassify from '../components/common/CalendarClassify.vue'
+import Banner from '../components/common/Banner.vue'
 
 
     export default {
         components: {
             CalendarClassify,
+            Banner,
 
         },
         created(){
