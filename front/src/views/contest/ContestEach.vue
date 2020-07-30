@@ -1,29 +1,29 @@
 <template>
   <div>
+    <h3>
+      {{ this.info.title }} 
+      <span class='viewCount'>(조회수 : {{ this.info.viewCount }})</span>
+    </h3>
     <div class='content-area'>
-      <h3>
-        {{ this.info.title }} 
-        <span class='viewCount'>(조회수 : {{ this.info.viewCount }})</span>
-      </h3>
       <div class='img'>
         <img :src="this.info.imgSrc" :alt="this.info.title">
       </div>
       <div class='info'>
         <ul class='info-list'>
-          <li>분야: {{ this.category.join(', ') }}</li>
-          <li>응모대상: {{ this.info.target }}</li>
-          <li>주최/주관: {{ this.info.host }}</li>
-          <li>후원/협찬: {{ this.info.sponsor }}</li>
-          <li>접수기간: {{ this.info.startDate }} ~ {{ this.info.endDate }}</li>
-          <li>총 상금: {{ this.info.totalReward }}</li>
-          <li>1등 상금: {{ this.info.firstReward }}</li>
-          <li>홈페이지: <a :href='this.info.homepage'>{{ this.info.homepage }}</a></li>
-          <li>첨부파일: </li>
+          <li><span class='label'>분야: </span>{{ this.category.join(', ') }}</li>
+          <li><span class='label'>응모대상: </span>{{ this.info.target }}</li>
+          <li><span class='label'>주최/주관: </span>{{ this.info.host }}</li>
+          <li><span class='label'>후원/협찬: </span>{{ this.info.sponsor }}</li>
+          <li><span class='label'>접수기간: </span>{{ this.info.startDate }} ~ {{ this.info.endDate }}</li>
+          <li><span class='label'>총 상금: </span>{{ this.info.totalReward }}</li>
+          <li><span class='label'>1등 상금: </span>{{ this.info.firstReward }}</li>
+          <li><span class='label'>홈페이지: </span><a :href='this.info.homepage'>{{ this.info.homepage }}</a></li>
+          <li><span class='label'>첨부파일: </span></li>
         </ul>
       </div>
     </div>
 
-    <hr>
+    <hr class='clear'>
 
     <contest-nav-bar/>
 
@@ -71,6 +71,9 @@ export default {
 </script>
 
 <style scoped>
+.content-area {
+  margin: 50px auto;
+}
 .viewCount {
   font-size: 15px;
 }
@@ -78,9 +81,22 @@ export default {
   border: 1px solid lightgray;
   width: 200px;
   height: 300px;
+  float: left;
 }
 .info {
   text-align: left;
-  margin-left: 100px;
+  float: right;
+  max-width: 700px;
+}
+.info li {
+  list-style: none;
+}
+.label {
+  display: inline-block;
+  font-weight: bold;
+  width: 100px;
+}
+.clear {
+  clear: both;
 }
 </style>
