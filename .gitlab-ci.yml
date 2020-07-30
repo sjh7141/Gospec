@@ -1,7 +1,7 @@
 continuous_deployment_task:
   stage: deploy
   only:
-    - develop
+    - develop 
   script:
      - vi /etc/passwd
 #    - echo 'STEP1) FRONT BUILD JOB INITIATED...'
