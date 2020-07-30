@@ -1,12 +1,12 @@
 HELP.md
 target/
+src/main/resources/img/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 ### STS ###
 .apt_generated
-.classpath
 .factorypath
 .settings
 .springBeans

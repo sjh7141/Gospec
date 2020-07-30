@@ -2,12 +2,103 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gospec.mapper.ContestMapper">
 
-
-	<select id="findAll" resultType="com.gospec.domain.ContestDto">
-		select * from contest_info
+	<select id="findDetail" resultType="com.gospec.domain.ContestDto">
+		select * from contest_info where contest_no = #{contestNo}
 	</select>
 
 	<select id="findByDurationAll" resultType="com.gospec.domain.ContestDto">
 		select * from contest_info where start_date between #{startDate} and #{endDate}
 	</select>
+	
+	<select id="findByBookMarkWithDurationAndEmail" resultType="com.gospec.domain.ContestDto">
+		select * from contest_info, bookmark_contest
+		where bookmark_contest.username = #{email} and contest_info.start_date between #{startDate} and #{endDate}
+		and contest_info.contest_no = bookmark_contest.contest_no 
+	</select>
+	
+	<select id="findCategoryByContestNo" resultType="String">
+		select field from contest_field
+		where contest_no = #{contestNo}
+	</select>
+	
+	<select id="findByCategory" resultType="com.gospec.domain.ContestDto" >
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		from contest_info i, contest_field f
+		<include refid="contestFilter"></include>
+		order by contest_no desc
+		limit #{startIndex}, #{perPageNum}
+	</select>
+	
+	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		from contest_info i, contest_field f
+		<include refid="contestFilter"></include>
+		limit 0, 3
+	</select>
+	
+	<select id="getCountByCategory" resultType="Integer">
+		select count(distinct i.contest_no) as total
+		from contest_info i, contest_field f
+		<choose>
+			<when test="type.equals('all')">
+				where i.contest_no = f.contest_no
+			</when>
+			<otherwise>
+				where f.field = #{type} and i.contest_no = f.contest_no
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="updateViewCount">
+		update contest_info set view_count = view_count + 1 where contest_no = #{contestNo}
+	</update>
+	
+	<select id="teamSearchByContest" resultType="String">
+		select distinct b.username from contest_info i, bookmark_contest b
+		where #{contestNo} = b.contest_no
+	</select>
+	
+	<insert id="registBookMark">
+		insert into bookmark_contest values(#{username}, #{contestNo})
+	</insert>
+	
+	<delete id="deleteBookMark">
+		delete from bookmark_contest where username = #{username} and contest_no = #{contestNo}
+	</delete>
+	
+	<select id="checkBookMark" resultType="Integer">
+		select count(*) from bookmark_contest where username = #{username} and contest_no = #{contestNo}
+	</select>
+	
+	<sql id="contestFilter">
+		<choose>
+			<when test="type.equals('all')">
+				where i.contest_no = f.contest_no
+			</when>
+			<otherwise>
+				where f.field = #{type} and i.contest_no = f.contest_no
+			</otherwise>
+		</choose>
+		
+		<choose>
+			<when test="mode.equals('new')">
+				and CURRENT_date() - Date(reg_date) between 0 and 5
+			</when>
+			<when test="mode.equals('soon')">
+				and Date(end_date) - CURRENT_date() between 0 and 7
+			</when>
+			<when test="mode.equals('ing')">
+				and CURRENT_date() between Date(start_date) and Date(end_date) and Date(end_date) - CURRENT_date() > 7 
+			</when>
+			<when test="mode.equals('future')">
+			<![CDATA[
+				and CURRENT_date() < Date(start_date)
+			]]>	
+			</when>
+			<when test="mode.equals('end')">
+				and CURRENT_date() > Date(end_date)
+			</when>
+		</choose>
+	</sql>
+	
 </mapper>

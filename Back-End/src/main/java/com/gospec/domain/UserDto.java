@@ -1,16 +1,7 @@
 package com.gospec.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "user_info")
 public class UserDto {
 
-	@Id
 	private String username;
 	private String password;
 	private String nickname;
@@ -20,7 +11,11 @@ public class UserDto {
 	private String phone;
 	private String birthday;
 	private String authority;
-
+	private int age;
+	private String address;
+	private String major;
+			
+	
 	public String getUsername() {
 		return username;
 	}
@@ -93,6 +88,34 @@ public class UserDto {
 		this.authority = authority;
 	}
 
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
 	public UserDto() {
 	}
+	
+	
 }
+
+

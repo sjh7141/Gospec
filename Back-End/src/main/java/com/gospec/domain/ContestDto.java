@@ -1,15 +1,8 @@
 package com.gospec.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "contest_info")
 public class ContestDto {
 
-	@Id
-	private int contest_no;
+	private int contestNo;
 	private String title;
 	private String target;
 	private String host;
@@ -23,12 +16,12 @@ public class ContestDto {
 	private int viewCount;
 	private String imgSrc;
 
-	public int getContest_no() {
-		return contest_no;
+	public int getContestNo() {
+		return contestNo;
 	}
 
-	public void setContest_no(int contest_no) {
-		this.contest_no = contest_no;
+	public void setContestNo(int contestNo) {
+		this.contestNo = contestNo;
 	}
 
 	public String getTitle() {

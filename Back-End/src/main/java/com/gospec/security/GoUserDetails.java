@@ -28,6 +28,10 @@ public class GoUserDetails implements UserDetails{
 		authority.add(new SimpleGrantedAuthority(user.getAuthority()));
 		return authority;
 	}
+	
+	public String getNickName() {
+		return user.getNickname();
+	}
 
 	@Override
 	public String getPassword() {
