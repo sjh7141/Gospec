@@ -76,15 +76,16 @@
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
               
-                {% if likestate==false %}
+                <div v-if="likestate==false">
                 <v-btn icon color='dark'>
                   <v-icon @click='clickLike(selectedEvent.contestNo)'>mdi-star</v-icon>
                 </v-btn>
-                {% else %}
+                </div>
+                <div v-else>
                 <v-btn icon color='pink'>
                   <v-icon @click='clickDisLike(selectedEvent.contestNo)'>mdi-star</v-icon>
                 </v-btn>
-                {% endif %}
+                </div>
                 <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
