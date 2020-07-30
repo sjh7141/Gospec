@@ -73,15 +73,18 @@
                 :color="selectedEvent.color"
                 dark
               >
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn>
-                  <v-icon v-if='likestate==false' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
-                  <v-icon v-else @click='clickDisLike(selectedEvent.contestNo)'>취소</v-icon>
+              
+                {% if likestate==false %}
+                <v-btn icon color='dark'>
+                  <v-icon @click='clickLike(selectedEvent.contestNo)'>mdi-star</v-icon>
                 </v-btn>
+                {% else %}
+                <v-btn icon color='pink'>
+                  <v-icon @click='clickDisLike(selectedEvent.contestNo)'>mdi-star</v-icon>
+                </v-btn>
+                {% endif %}
                 <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
@@ -120,6 +123,7 @@ import axios from 'axios'
       },
 
     data: () => ({
+
       dialog:false,
       focus: '',
       type: 'month',
@@ -172,9 +176,11 @@ import axios from 'axios'
         axios.get('http://localhost:8181/api/contest/check/' + event.contestNo, config)
         .then(res => {
           this.likestate = res.data
+	
           })
         .catch(err => console.log(err.response))
         console.log(event)
+        console.log(this.likestate)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event
@@ -227,6 +233,7 @@ import axios from 'axios'
       },
 
       clickLike(contestNo) {
+        this.starcolor = 'pink'
         var ca = this.$cookies.get("auth-token")
         console.log(contestNo)
         const data = {
@@ -250,6 +257,7 @@ import axios from 'axios'
       })
       },
       clickDisLike(contestNo) {
+      this.starcolor = 'dark'
       var ca = this.$cookies.get("auth-token")
       console.log(contestNo)
       console.log('취소')
