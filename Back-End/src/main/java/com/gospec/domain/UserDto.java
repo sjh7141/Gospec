@@ -11,6 +11,9 @@ public class UserDto {
 	private String phone;
 	private String birthday;
 	private String authority;
+	private int age;
+	private String address;
+	private String major;
 			
 	
 	public String getUsername() {
@@ -83,6 +86,30 @@ public class UserDto {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
 	}
 
 	public UserDto() {

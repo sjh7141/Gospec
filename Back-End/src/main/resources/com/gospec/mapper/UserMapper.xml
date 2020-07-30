@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="save">
-		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday)
-		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday})
+		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday,age,address,major)
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{age},#{address},#{major})
 	</insert>
 	
 	<select id="checkId" resultType="Integer">
@@ -50,7 +50,7 @@
 	
 	<update id="updateByUsername">
 		update user_info
-		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}
+		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}
 		where username = #{username}
 	</update>
 	
