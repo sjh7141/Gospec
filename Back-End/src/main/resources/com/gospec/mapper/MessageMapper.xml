@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gospec.mapper.MessageMapper">
+
+	<select id="findRecieveMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from recieve_message
+		where receiver=#{username}
+	</select>
+	
+	<select id="findSendMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from send_message
+		where sender=#{username}
+	</select>
+	
+	<select id="countNewRecieveMessage" resultType="Integer">
+		select count(*) 
+		from recieve_message
+		where =#{username}
+		and reading=#{reading}
+	</select>
+	
+	<insert id="saveRecieveMessage">
+		insert into recieve_message (contents, receiver, sender, read)
+		values (#{contents}, #{receiver}, #{sender}, #{read})
+	</insert>
+	
+	<insert id="saveSendMessage">
+		insert into send_message (contents, receiver, sender, read)
+		values (#{contents}, #{receiver}, #{sender}, #{read})
+	</insert>
+	
+	<delete id="deleteRecieveMessage">
+		delete from recieve_message
+		where no=#{no}
+	</delete>
+	
+	<delete id="deleteSendMessage">
+		delete from send_message
+		where no=#{no}
+	</delete>
+</mapper>
