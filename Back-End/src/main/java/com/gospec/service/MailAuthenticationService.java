@@ -18,7 +18,7 @@ public class MailAuthenticationService {
 	public String sendMail(String username) {		
 		SimpleMailMessage simpleMessage = new SimpleMailMessage();
 		simpleMessage.setTo(username);
-		simpleMessage.setSubject("Gospec 가입 인증 메일입니다.");
+		simpleMessage.setSubject("Gospec 인증 메일입니다.");
 		String code = makeCode();
 		simpleMessage.setText("안녕하세요. Gospec 입니다.\n"
 							+ "회원님의 인증코드는 다음과 같습니다.\n\n"
