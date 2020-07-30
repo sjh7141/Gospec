@@ -49,16 +49,17 @@
 				},
 				sendMessage() {
 					console.log("hi");
+					
 					const msg = { 
-						receiver: "계정1",
-						message: {
 							content : "메시지 보냄 계정 2이",
 							sender : "계정2",
 							receiver : "계정1",
 							read : false
-						}
 					};
-				  this.client.send("/app/계정1", JSON.stringify(msg), {});
+					console.log("ddd");
+					let temp = JSON.stringify(msg);
+					console.log(JSON.parse(temp));
+				  this.client.send("/app/계정1", {}, JSON.stringify(msg));
 				}
 			  }
 			});

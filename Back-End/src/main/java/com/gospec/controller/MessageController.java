@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.gospec.domain.MessageDto;
 import com.gospec.service.MessageService;
 
@@ -31,12 +32,16 @@ public class MessageController {
 	@ApiOperation(value = "메세지 저장후 receiver의 Url에 새로생긴 메세지가 있는지 true, false로 보내준다", response = Boolean.class)
 	@MessageMapping("/{receiver}")
 	@SendTo("/topic/{receiver}")
-	public Integer sendMessge(@DestinationVariable String receiver, MessageDto message) {
+	public Integer sendMessge(@DestinationVariable String receiver, String message) {
 //		System.out.println(receiver);
-//		System.out.println(message);
-		messageService.saveSendMessage(message);
-		messageService.saveRecieveMessage(message);
-		return messageService.countNewRecieveMessage(receiver);
+		System.out.println(message);
+		Gson gson = new Gson();
+		MessageDto dto = gson.fromJson(message, MessageDto.class);
+		System.out.println(dto.getContent());
+		//		messageService.saveSendMessage(message);
+//		messageService.saveRecieveMessage(message);
+//		return messageService.countNewRecieveMessage(receiver);
+		return 0;
 	}
 	
 	@ApiOperation(value = "받은 쪽지  조회, 사용자 아이디로 받은 쪽지을 전체 조회한다.", response = MessageDto.class)
