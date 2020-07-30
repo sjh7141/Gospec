@@ -54,9 +54,10 @@ export default {
     },
     myCalBtn() {
       var ca = this.$cookies.get("auth-token")
+      console.log(ca)
       var base64Url = ca.split('.')[1]
       var decodedValue = JSON.parse(window.atob(base64Url))
-      console.log(decodedValue['sub'])
+      console.log(decodedValue)
       this.email = decodedValue['sub']
  
       axios.get(MY_API_URL + this.email + "/2020-01-31/2020-12-31")

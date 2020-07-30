@@ -73,14 +73,18 @@
                 :color="selectedEvent.color"
                 dark
               >
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon>mdi-heart</v-icon>
+              
+                {% if likestate==false %}
+                <v-btn icon color='dark'>
+                  <v-icon @click='clickLike(selectedEvent.contestNo)'>mdi-star</v-icon>
                 </v-btn>
+                {% else %}
+                <v-btn icon color='pink'>
+                  <v-icon @click='clickDisLike(selectedEvent.contestNo)'>mdi-star</v-icon>
+                </v-btn>
+                {% endif %}
                 <v-btn icon>
                   <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
@@ -111,6 +115,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
       props: {
         contest: {
@@ -119,6 +124,7 @@
       },
 
     data: () => ({
+
       dialog:false,
       focus: '',
       type: 'month',
@@ -134,9 +140,15 @@
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       contest: null,
+      like: 0,
+      likestate: '',
       }),
     mounted () {
       this.$refs.calendar.checkChange()
+
+    },
+    created() {
+      this.updateRange()
 
     },
     methods: {
@@ -157,6 +169,19 @@
         this.$refs.calendar.next()
       },
       showEvent ({ nativeEvent, event }) {
+        const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      } 
+        axios.get('http://localhost:8181/api/contest/check/' + event.contestNo, config)
+        .then(res => {
+          this.likestate = res.data
+	
+          })
+        .catch(err => console.log(err.response))
+        console.log(event)
+        console.log(this.likestate)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event
@@ -176,15 +201,19 @@
         this.start = ''
         this.end = ''
         this.content =''
-        
-        
+        this.contestNo = ''
+        this.details = ''
         const events = []
+        
         for (let i = 0; i < this.contest.length; i++){
           events.push({
+
             name: this.contest[i].title,
             start: this.contest[i].startDate,
             end: this.contest[i].startDate,
             details : this.contest[i].content,
+            contestNo: this.contest[i].contestNo,
+            
             // 여기 시작 색상
             color: 'black',
           })
@@ -193,6 +222,7 @@
             start: this.contest[i].endDate,
             end: this.contest[i].endDate,
             details : this.contest[i].content,
+            contestNo: this.contest[i].contestNo,
             // 여기 끝 색상
             color: 'red',
           })
@@ -202,6 +232,52 @@
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+
+      clickLike(contestNo) {
+        this.starcolor = 'pink'
+        var ca = this.$cookies.get("auth-token")
+        console.log(contestNo)
+        const data = {
+          contestNo: contestNo,
+        }
+
+        const config = {
+          
+          headers: {
+            Authorization: ca,
+          }
+      } 
+  
+      console.log('좋아요')
+
+      axios.post("http://localhost:8181/api/contest/bookmark",data,config)
+      .then(res => {
+        console.log(res.data)
+        this.like = 1
+        console.log(this.like)
+      })
+      },
+      clickDisLike(contestNo) {
+      this.starcolor = 'dark'
+      var ca = this.$cookies.get("auth-token")
+      console.log(contestNo)
+      console.log('취소')
+
+      axios.delete("http://localhost:8181/api/contest/bookmark",{
+        headers: {
+          Authorization: ca
+        },
+        data: {
+          contestNo: contestNo
+        }
+      })
+      .then(res => {
+        this.like = 0
+        console.log(res.data)
+        console.log('삭제')
+        console.log(this.like)
+      })
+      }     
 
     },
   }
