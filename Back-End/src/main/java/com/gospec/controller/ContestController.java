@@ -59,12 +59,13 @@ public class ContestController {
 	}
 
 	@ApiOperation(value = "카테고리 분류 전체 데에터 가져오기")
-	@GetMapping(value = "/field/{type}/{page}")
+	@GetMapping(value = "/field/{type}/{mode}/{page}")
 	public ResponseEntity<Map<String, Object>> getContestCategoryList(@PathVariable("type") String type,
+			@PathVariable("mode") String mode,
 			@PathVariable("page") int curPage) {
 		PageDto page = new PageDto(curPage);
-		page.setTotalCount(contestService.getCountByCategory(type));
-		List<ContestDto> list = contestService.findByCategory(type, page.getStartIndex(), page.getPerPageNum());
+		page.setTotalCount(contestService.getCountByCategory(type, mode));
+		List<ContestDto> list = contestService.findByCategory(type, mode, page.getStartIndex(), page.getPerPageNum());
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("list", list);
