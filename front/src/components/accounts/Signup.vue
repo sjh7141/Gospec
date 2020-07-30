@@ -6,7 +6,7 @@
     <div v-if="checkNickname">
         <input v-if='!possibleNickname' v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
         <fieldset v-else disabled>
-          <input v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
+          <input v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="닉네임을 입력해주세요." required>
         </fieldset>
         <button @click='doubleCheckNickname' class='btn btn-primary'>닉네임 중복확인</button>
       <div class="valid-feedback">
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div v-else>
-      <input v-model='nickname' type="text" :class=nicknameFormIsValid id="validationServer01" required>
+      <input v-model='nickname' type="text" :class=nicknameFormIsValid id="validationServer01" placeholder="닉네임을 입력해주세요." required>
       <button class='btn btn-secondary'>닉네임 중복확인</button>
       <div class="invalid-feedback">
         {{ message.nickname }}
@@ -26,9 +26,9 @@
   <div>
     <label for="validationServer02">이메일</label>
     <div v-if="checkEmail">
-      <input v-if='!certificationNumberCheck' v-model='email' type="text" class="form-control is-valid" id="validationServer02" required>
+      <input v-if='!certificationNumberCheck' v-model='email' type="text" class="form-control is-valid" id="validationServer02" placeholder="이메일을 입력해주세요." required>
       <fieldset v-else disabled>
-        <input v-model='email' type="text" class="form-control is-valid" id="validationServer02" required>
+        <input v-model='email' type="text" class="form-control is-valid" id="validationServer02" placeholder="이메일을 입력해주세요." required>
       </fieldset>
       <div class="valid-feedback">
         OK!
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div v-else>
-      <input v-model='email' type="text"  :class=emailFormIsValid id="validationServer02" placeholder="ex) name@example.com" required>
+      <input v-model='email' type="text"  :class=emailFormIsValid id="validationServer02" placeholder="이메일을 입력해주세요." required>
       <div class="invalid-feedback">
         {{ message.email }}
       </div>
@@ -63,12 +63,12 @@
   <div>
     <label for="validationServer02">비밀번호</label>
     <div v-if="checkPassword">
-      <input v-model='password' type="password" class="form-control is-valid" id="validationServer03" required>
+      <input v-model='password' type="password" class="form-control is-valid" id="validationServer03" placeholder="비밀번호를 입력해주세요." required>
       <div class="valid-feedback">
       </div>
     </div>
     <div v-else>
-      <input v-model='password' type="password"  :class=passwordFormIsValid id="validationServer03" required>
+      <input v-model='password' type="password"  :class=passwordFormIsValid id="validationServer03" placeholder="비밀번호를 입력해주세요." required>
       <div class="invalid-feedback">
         {{ message.password }}
       </div>
@@ -79,12 +79,12 @@
   <div>
     <label for="validationServer02">비밀번호확인</label>
     <div v-if="checkPasswordConfirm">
-      <input v-model='passwordConfirm' type="password" class="form-control is-valid" id="validationServer04" required>
+      <input v-model='passwordConfirm' type="password" class="form-control is-valid" id="validationServer04" placeholder="동일한 비밀번호를 입력해주세요." required>
       <div class="valid-feedback">
       </div>
     </div>
     <div v-else>
-      <input v-model='passwordConfirm' type="password"  :class=passwordConfirmFormIsValid id="validationServer04" required>
+      <input v-model='passwordConfirm' type="password"  :class=passwordConfirmFormIsValid id="validationServer04" placeholder="비밀번호를 입력해주세요." required>
       <div class="invalid-feedback">
         {{ message.passwordConfirm }}
       </div>
@@ -97,8 +97,9 @@
       {{ errorMessage }}
     </div>
   </div>
-
-  <button v-if="checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname" @click="signup" class="btn btn-primary">회원가입</button>
+  <input v-model='checkTerms' type="checkbox" id='checkboxLabel' style='margin-right: 10px; margin-top: 10px'>
+  <label for="checkboxLabel">GoSpec 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</label><br>
+  <button v-if="checkTerms && checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname" @click="signup" class="btn btn-primary">회원가입</button>
   <button v-else @click='notAllowSignup' class="btn btn-secondary">회원가입</button>
 </div>
 </template>
@@ -146,6 +147,7 @@ export default {
       checkError: false,
       possibleNickname: false,
       emailDuplicationCheck: false,
+      checkTurms: null,
     };
   },
   created() {

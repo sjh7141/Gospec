@@ -1,23 +1,36 @@
 <template>
   <div id="app">
-    <main-header></main-header>
+    <main-header @checkLogin='checkLogin'></main-header>
     <div class='container'>
-    <LoginNavigation />
-    <router-view/>
-
+      <router-view/>
     </div>
   </div>
 </template>
-
+  
 <script>
 import MainHeader from './components/common/Header.vue'
-import LoginNavigation from './components/index/LoginNavigation.vue'
 
 export default {
   components: {
     MainHeader,
-    LoginNavigation
-
+  },
+  data() {
+    return {
+      isLoggedIn: '',
+    }
+  },
+  methods: {
+    checkLogin(data){
+      this.isLoggedIn = data
+    },
+    logout(data) {
+      this.isLoggedIn = data 
+    }
+  },
+  mounted() {
+      this.isLoggedIn = this.$cookies.isKey('auth-token')
+  },
+  watch: {
   }
 }
 </script>

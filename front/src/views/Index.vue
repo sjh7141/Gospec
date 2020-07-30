@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div>
       <MainPageInterest />
   </div>
 </template>
