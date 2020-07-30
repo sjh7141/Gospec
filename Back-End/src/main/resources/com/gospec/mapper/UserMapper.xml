@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="save">
-		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday)
-		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday})
+		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday,age,address,major)
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{age},#{address},#{major})
 	</insert>
 	
 	<select id="checkId" resultType="Integer">
@@ -50,7 +50,7 @@
 	
 	<update id="updateByUsername">
 		update user_info
-		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}
+		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}
 		where username = #{username}
 	</update>
 	
@@ -70,30 +70,6 @@
 		select *
 		from interest_field
 		where username = #{username}
-	</select>
-	
-	<select id="findEmailAuthByUsername"  resultType="Integer">
-		select *
-		from email_auth
-		where username = #{username} 
-	</select>
-	
-	<insert id="saveEmailAuth">
-		insert into email_auth (username,code)
-		values (#{username},#{code})
-	</insert>
-	
-	<update id="updateEmailAuth">
-		update email_auth
-		set code=#{code}
-		where username=#{username}
-	</update>
-	
-	<select id="checkEmailAuthByUsername" resultType="com.gospec.domain.EmailAuthDto">
-		select *
-		from email_auth
-		where username = #{username}
-		and code = #{code}
 	</select>
 	
 </mapper>
