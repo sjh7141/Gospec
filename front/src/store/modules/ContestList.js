@@ -37,8 +37,7 @@ export default {
         getContestList(store) {
             //console.dir(store) 노가다로 유추
             let p = store.state.params;
-            let fullURL = urlBuilder(p.type, p.page);
-            // let fullURL = urlBuilder(p.type, p.mod, p.page);
+            let fullURL = urlBuilder(p.type, p.mode, p.page);
             
             // console.log(fullURL);
             axios.get(fullURL)
