@@ -3,7 +3,6 @@ continuous_deployment_task:
   only:
     - develop 
   script:
-     - vi /etc/passwd
 #    - echo 'STEP1) FRONT BUILD JOB INITIATED...'
 #    - cd front
 #    - npm install
