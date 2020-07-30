@@ -35,7 +35,7 @@
 
 				  this.client.connect({}, frame => {
 					  this.status = 'connected';
-					  this.client.subscribe("/topic/계정2", res => {
+					  this.client.subscribe("/topic/계정1", res => {
 						  console.log(res.body);
 					  })
 					  this.sendMessage();
@@ -51,7 +51,7 @@
 					console.log("hi");
 					
 					const msg = { 
-							content : "메시지 보냄 계정 2이",
+							contents : "메시지 보냄 계정 2이",
 							sender : "계정2",
 							receiver : "계정1",
 							read : false

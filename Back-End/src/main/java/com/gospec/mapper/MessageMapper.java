@@ -10,12 +10,12 @@ import com.gospec.domain.TeamApprovalDto;
 @Mapper
 public interface MessageMapper {
 
-	public List<MessageDto> findRecieveMessage(String username);
+	public List<MessageDto> findReceiveMessage(String username);
 	public List<MessageDto> findSendMessage(String username);
-	public int countNewRecieveMessage(String username, boolean reading);
-	public int saveRecieveMessage(MessageDto message);
+	public int countNewReceiveMessage(String username, boolean reading);
+	public int saveReceiveMessage(MessageDto message);
 	public int saveSendMessage(MessageDto message);
-	public int deleteRecieveMessage(int no);
+	public int deleteReceiveMessage(int no);
 	public int deleteSendMessage(int no);
 	
 }

@@ -34,20 +34,19 @@ public class MessageController {
 	@SendTo("/topic/{receiver}")
 	public Integer sendMessge(@DestinationVariable String receiver, String message) {
 //		System.out.println(receiver);
-		System.out.println(message);
+//		System.out.println(message);
 		Gson gson = new Gson();
 		MessageDto dto = gson.fromJson(message, MessageDto.class);
-		System.out.println(dto.getContent());
-		//		messageService.saveSendMessage(message);
-//		messageService.saveRecieveMessage(message);
-//		return messageService.countNewRecieveMessage(receiver);
-		return 0;
+//		System.out.println(dto.getContents());
+		messageService.saveSendMessage(dto);
+		messageService.saveReceiveMessage(dto);
+		return messageService.countNewReceiveMessage(receiver);
 	}
 	
 	@ApiOperation(value = "받은 쪽지  조회, 사용자 아이디로 받은 쪽지을 전체 조회한다.", response = MessageDto.class)
 	@GetMapping(value="/api/message/receiver/{username}")
-	public ResponseEntity<List<MessageDto>> getRecieveList(@PathVariable("username") String username){
-		return new ResponseEntity<List<MessageDto>>(messageService.findRecieveMessage(username), HttpStatus.OK);
+	public ResponseEntity<List<MessageDto>> getReceiveList(@PathVariable("username") String username){
+		return new ResponseEntity<List<MessageDto>>(messageService.findReceiveMessage(username), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "보낸 쪽지  조회, 사용자 아이디로 보낸 쪽지을 전체 조회한다.", response = MessageDto.class)
@@ -58,9 +57,9 @@ public class MessageController {
 	
 	@ApiOperation(value = "받은 쪽지 정보 삭제, 쪽지 번호로 해당 쪽지를 삭제한다.", response = Boolean.class)
 	@DeleteMapping(value="/api/message/receiver")
-	public ResponseEntity<Boolean> deleteRecieveMessage(@RequestBody Map<String, Object> param){
+	public ResponseEntity<Boolean> deleteReceiveMessage(@RequestBody Map<String, Object> param){
 		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.deleteRecieveMessage(no), HttpStatus.OK);
+		return new ResponseEntity<Boolean>(messageService.deleteReceiveMessage(no), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "보낸 쪽지 정보 삭제, 쪽지 번호로 해당 쪽지를 삭제한다.", response = Boolean.class)

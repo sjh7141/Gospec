@@ -15,8 +15,8 @@ public class MessageServiceImpl implements MessageService {
 	private MessageMapper messageMapper;
 	
 	@Override
-	public List<MessageDto> findRecieveMessage(String username) {
-		return messageMapper.findRecieveMessage(username);
+	public List<MessageDto> findReceiveMessage(String username) {
+		return messageMapper.findReceiveMessage(username);
 	}
 
 	@Override
@@ -25,8 +25,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public boolean saveRecieveMessage(MessageDto message) {
-		if(messageMapper.saveRecieveMessage(message) > 0) {
+	public boolean saveReceiveMessage(MessageDto message) {
+		if(messageMapper.saveReceiveMessage(message) > 0) {
 			return true;
 		}else {
 			return false;
@@ -43,13 +43,13 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public int countNewRecieveMessage(String username) {
-		return messageMapper.countNewRecieveMessage(username, false);
+	public int countNewReceiveMessage(String username) {
+		return messageMapper.countNewReceiveMessage(username, false);
 	}
 
 	@Override
-	public boolean deleteRecieveMessage(int no) {
-		if(messageMapper.deleteRecieveMessage(no) > 0) {
+	public boolean deleteReceiveMessage(int no) {
+		if(messageMapper.deleteReceiveMessage(no) > 0) {
 			return true;
 		}else {
 			return false;
