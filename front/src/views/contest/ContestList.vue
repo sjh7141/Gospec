@@ -2,7 +2,7 @@
   <div>
     <prime-classify/>
     <secondary-classify/>
-    <table class='centered'>
+    <table id='list' class='centered'>
       <tr>
         <th>글번호</th>
         <th>공모전명</th>
@@ -12,9 +12,9 @@
       </tr>
       <tr v-for="eachC in contestList" v-bind:key="eachC.contestNo">
         <td>{{ eachC.contestNo }}</td>
-        <td><router-link :to="'/contest/' + eachC.contestNo">{{ eachC.title }}</router-link></td>
+        <td class='right'><router-link :to="'/contest/' + eachC.contestNo">{{ eachC.title }}</router-link></td>
         <td>{{ maxLengthFilter(eachC.host) }}</td>
-        <td>{{ null }}</td>
+        <td><dday :data='eachC'/></td>
         <td>{{ eachC.viewCount }}</td>
       </tr>
     </table>
@@ -27,13 +27,15 @@
 import PrimeClassify from '@/components/common/ContestPrimeClassify.vue'
 import SecondaryClassify from '@/components/common/ContestSecondaryClassify.vue'
 import Pagination from '@/components/common/Pagination.vue'
+import Dday from '@/components/contest/Dday.vue'
 
 export default {
   name: 'contestList',
   components: {
     PrimeClassify,
     SecondaryClassify,
-    Pagination
+    Pagination,
+    Dday,
   },
   data() {
     return {
@@ -62,7 +64,15 @@ export default {
 </script>
 
 <style scoped>
+#list td, th {
+  border: 1px solid #dddddd;
+  padding: 5px;
+  margin: 5px;
+}
 .centered {
   margin: auto;
+}
+.right {
+  text-align: left;
 }
 </style>
