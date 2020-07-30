@@ -49,6 +49,10 @@
 		</choose>
 	</select>
 	
+	<update id="updateViewCount">
+		update contest_info set view_count = view_count + 1 where contest_no = #{contestNo}
+	</update>
+	
 	<select id="teamSearchByContest" resultType="String">
 		select distinct b.username from contest_info i, bookmark_contest b
 		where #{contestNo} = b.contest_no

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.gospec.domain.ContestDto;
-import com.gospec.domain.UserDto;
 
 @Mapper
 public interface ContestMapper {
@@ -22,4 +21,5 @@ public interface ContestMapper {
 	public int deleteBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
 	public int checkBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
 	public List<String> findCategoryByContestNo(int contestNo);
+	public void updateViewCount(int contestNo);
 }

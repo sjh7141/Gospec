@@ -18,5 +18,6 @@ public interface ContestService {
 	public int registBookMark(String username,int contestNo);
 	public List<String> findCategoryByContestNo(int contestNo);
 	public int deleteBookMark(String username, int contestNo);
-	public int checkBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
+	public int checkBookMark(String username, @Param("contestNo") int contestNo);
+	public void updateViewCount(int contestNo);
 }

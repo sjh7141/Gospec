@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,12 @@ public class ContestController {
 		data.put("contest", contest);
 		data.put("field", field);
 		return new ResponseEntity<Map<String, Object>>(data, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "공모전 조회수 증가")
+	@PatchMapping(value = "/{contestNo}")
+	public void setViewCount(@PathVariable("contestNo") int contestNo) {
+		contestService.updateViewCount(contestNo);
 	}
 
 	@ApiOperation(value = "공모전 특정 날짜 정보 가져오기")

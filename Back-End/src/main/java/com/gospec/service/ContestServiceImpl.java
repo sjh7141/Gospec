@@ -69,4 +69,9 @@ public class ContestServiceImpl implements ContestService {
 	public int checkBookMark(String username, int contestNo) {
 		return contestMapper.checkBookMark(username, contestNo);
 	}
+	
+	@Override
+	public void updateViewCount(int contestNo) {
+		contestMapper.updateViewCount(contestNo);
+	}
 }
