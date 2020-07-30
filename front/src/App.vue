@@ -1,22 +1,49 @@
 <template>
   <div id="app">
-    <main-header></main-header>
-    <router-view/>
+    <main-header @checkLogin='checkLogin'></main-header>
+    <div class='container'>
+      <router-view/>
+    </div>
   </div>
 </template>
-
+  
 <script>
 import MainHeader from './components/common/Header.vue'
+
 export default {
   components: {
-    MainHeader
+    MainHeader,
+  },
+  data() {
+    return {
+      isLoggedIn: '',
+    }
+  },
+  methods: {
+    checkLogin(data){
+      this.isLoggedIn = data
+    },
+    logout(data) {
+      this.isLoggedIn = data 
+    }
+  },
+  mounted() {
+      this.isLoggedIn = this.$cookies.isKey('auth-token')
+  },
+  watch: {
   }
 }
 </script>
 
 <style>
+@font-face { 
+  font-family: 'NanumSquareRound'; 
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); 
+  font-weight: 1000; 
+  font-style: normal; }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: NanumSquareRound, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 700;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

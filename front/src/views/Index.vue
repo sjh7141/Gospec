@@ -1,24 +1,21 @@
 <template>
-    <div>
-        here is Index
-    </div>
+  <div>
+      <MainPageInterest />
+  </div>
 </template>
 
 <script>
-    export default {
-        components: {
-        },
-        created(){
-        },
-        watch: {
-        },
-        methods: {
-        },
-        data: () => {
-            return {
-                
-            }
-        }
+import MainPageInterest from '../components/index/MainPageInterest.vue'
+
+export default {
+    components: {
+        MainPageInterest,
 
     }
+
+}
 </script>
+
+<style>
+
+</style>

@@ -25,6 +25,9 @@ import MyTeam from '../views/mypage/MyTeam.vue'
 import Profile from '../views/mypage/Profile.vue'
 import Userinfo from '../views/mypage/Userinfo.vue'
 
+import VueCookies from 'vue-cookies'
+
+Vue.use(VueCookies)
 /*
 - 라우팅 테이블 작성시 참고사항 정리 주석
 
