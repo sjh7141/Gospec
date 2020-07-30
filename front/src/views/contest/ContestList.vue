@@ -14,7 +14,7 @@
         <td>{{ eachC.contestNo }}</td>
         <td><router-link :to="'/contest/' + eachC.contestNo">{{ eachC.title }}</router-link></td>
         <td>{{ maxLengthFilter(eachC.host) }}</td>
-        <td>{{ null }}</td>
+        <td><dday :data='eachC'/></td>
         <td>{{ eachC.viewCount }}</td>
       </tr>
     </table>
@@ -27,13 +27,15 @@
 import PrimeClassify from '@/components/common/ContestPrimeClassify.vue'
 import SecondaryClassify from '@/components/common/ContestSecondaryClassify.vue'
 import Pagination from '@/components/common/Pagination.vue'
+import Dday from '@/components/contest/Dday.vue'
 
 export default {
   name: 'contestList',
   components: {
     PrimeClassify,
     SecondaryClassify,
-    Pagination
+    Pagination,
+    Dday,
   },
   data() {
     return {
