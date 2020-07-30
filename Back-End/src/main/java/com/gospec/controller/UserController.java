@@ -37,6 +37,7 @@ import com.gospec.domain.UserDto;
 import com.gospec.property.FileUploadResponse;
 import com.gospec.security.GoUserDetailsService;
 import com.gospec.service.FileUploadDownloadService;
+import com.gospec.service.MailAuthenticationService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -51,7 +52,7 @@ public class UserController {
 	private GoUserDetailsService userService;
 	
 	@Autowired
-	private FileUploadDownloadService fileService;
+	private MailAuthenticationService mailService;
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
 	@GetMapping(value = "/email-duplication/{username}")
@@ -95,7 +96,7 @@ public class UserController {
 	@PatchMapping
 	public ResponseEntity<Boolean> updateInfo(@RequestBody UserDto user){
 		String headername = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(!headername.equals(user.getName())) {
+		if(!headername.equals(user.getUsername())) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.FORBIDDEN);
 		}
 		boolean check = userService.updateByUsername(user);
@@ -130,6 +131,12 @@ public class UserController {
 	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "인증 이메일 전송, 입련된 아이디로 이메일 전송", response = String.class)
+	@GetMapping(value ="/email-authentication/{username}")
+	public ResponseEntity<String> sendEmail(@PathVariable("username") String username){
+		return new ResponseEntity<String>(mailService.sendMail(username), HttpStatus.OK);
 	}
 
 }

@@ -29,9 +29,6 @@ public class GoUserDetailsService implements UserDetailsService{
 	@Autowired
 	private BCryptPasswordEncoder pwEncoding;
 	
-	@Autowired
-	public JavaMailSender javaMailSender;
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDto user = userMapper.findByUsername(username);
@@ -104,39 +101,6 @@ public class GoUserDetailsService implements UserDetailsService{
 	}
 	public List<InterestFieldDto> findAllInterestField(String username){
 		return userMapper.findAllInterestField(username);
-	}
-	
-	@Async
-	public String sendMail(String username) {		
-		SimpleMailMessage simpleMessage = new SimpleMailMessage();
-		simpleMessage.setTo(username);
-		simpleMessage.setSubject("Gospec 가입 인증 메일입니다.");
-		String code = makeCode();
-		simpleMessage.setText("안녕하세요. Gospec 입니다.\n"
-							+ "회원님의 인증코드는 다음과 같습니다.\n\n"
-							+ "인증코드 : " +code);
-		javaMailSender.send(simpleMessage);
-		return code;
-	}
-	
-	public String makeCode() {
-		Random ran = new Random();
-		StringBuffer sb = new StringBuffer();
-		int num = 0;
-		do {
-			num = ran.nextInt(75) + 48;
-			if((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)){
-				sb.append((char) num);
-			}else {
-				continue;
-			}
-		}while(sb.length()< 12);
-		
-		System.out.println(sb.toString());
-		return sb.toString();
-	}
-	
-	
-	
+	}	
 	
 }
