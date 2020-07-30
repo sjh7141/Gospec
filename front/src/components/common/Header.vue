@@ -20,7 +20,7 @@
                     <a class="navbar-brand nav-item nav-link" href="/index">GoSpec</a>
                     <a class="nav-item nav-link" href="/">HOME</a>
                     <a class="nav-item nav-link" href="/schedule">전체일정</a>
-                    <a class="nav-item nav-link" href="/conModal">공모전</a>
+                    <a class="nav-item nav-link" href="/contest">공모전</a>
                     <a class="nav-item nav-link" href="/study">스터디</a>
                     <a class="nav-item nav-link" href="/jobinfo">취업정보</a>
                 </div>
