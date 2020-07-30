@@ -32,6 +32,8 @@ public class MessageController {
 	@MessageMapping("/{receiver}")
 	@SendTo("/topic/{receiver}")
 	public Integer sendMessge(@DestinationVariable String receiver, MessageDto message) {
+//		System.out.println(receiver);
+//		System.out.println(message);
 		messageService.saveSendMessage(message);
 		messageService.saveRecieveMessage(message);
 		return messageService.countNewRecieveMessage(receiver);

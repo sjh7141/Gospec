@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Vue-WebSocket 테스트</title>
+    <body>
+        <div id="app">
+		  <button @click="disconnect" v-if="status === 'connected'">연결끊기</button>
+		  <button @click="connect" v-if="status === 'disconnected'">연결</button> {{ status }}
+		  <br /><br />
+		  <div v-if="status === 'connected'">
+			<form @submit.prevent="sendMessage" action="#">
+			  <input v-model="message"><button type="submit">메세지 전송</button>
+			</form>
+			<ul id="logs">
+			  <li v-for="log in logs" class="log">
+				{{ log.event }}: {{ log.data }}
+			  </li>
+			</ul>
+		  </div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+		<script language="javascript" type="text/javascript">
+			const app = new Vue({
+			  el: "#app",
+			  data: {
+				message: "",
+				logs: [],
+				status: "disconnected"
+			  },
+			  methods: {
+				connect() {
+				  this.socket = new SockJS("http://localhost:8181/socket");
+				  this.client = Stomp.over(this.socket);
+
+				  this.client.connect({}, frame => {
+					  this.status = 'connected';
+					  this.client.subscribe("/topic/계정2", res => {
+						  console.log(res.body);
+					  })
+					  this.sendMessage();
+				  })
+				 
+				},
+				disconnect() {
+				  this.socket.close();
+				  this.status = "disconnected";
+				  this.logs = [];
+				},
+				sendMessage() {
+					console.log("hi");
+					const msg = { 
+						receiver: "계정1",
+						message: {
+							content : "메시지 보냄 계정 2이",
+							sender : "계정2",
+							receiver : "계정1",
+							read : false
+						}
+					};
+				  this.client.send("/app/계정1", JSON.stringify(msg), {});
+				}
+			  }
+			});
+		</script>
+    </body>
+</html>
