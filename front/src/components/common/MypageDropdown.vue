@@ -33,7 +33,7 @@ export default {
         }
       }
       this.$cookies.remove('auth-token')
-      axios.delete('http://localhost:8181/api/users/', config)
+      axios.delete('http://i3a202.p.ssafy.io:8181/api/users/', config)
     },
     checkusername() {
       var ca = this.$cookies.get("auth-token")

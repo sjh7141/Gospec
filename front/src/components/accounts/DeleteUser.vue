@@ -18,7 +18,7 @@ export default {
         }
       }
       this.$cookies.remove('auth-token')
-      axios.delete('http://localhost:8181/api/users', config)
+      axios.delete('http://i3a202.p.ssafy.io:8181/api/users', config)
       .then(() => alert('회원 탈퇴 완료'))
       .catch(err => console.log(err.data))
     },

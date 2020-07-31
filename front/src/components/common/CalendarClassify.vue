@@ -18,8 +18,8 @@
 import TotalCalendar from '../common/TotalCalendar.vue'
 import MyCalendar from '../common/MyCalendar.vue'
 import axios from 'axios'
-const API_URL = "http://localhost:8181/api/contest/2020-07-01/2020-07-31"
-const MY_API_URL = "http://localhost:8181/api/contest/bookmark/"
+const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-07-01/2020-07-31"
+const MY_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/bookmark/"
 
 export default {
   components: {

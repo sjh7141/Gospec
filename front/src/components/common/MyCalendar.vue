@@ -221,7 +221,7 @@ import axios from 'axios'
   
       console.log('좋아요')
 
-      axios.post("http://localhost:8181/api/contest/bookmark",data,config)
+      axios.post("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",data,config)
       .then(res => {
         console.log(res.data)
         this.like = 1
@@ -233,7 +233,7 @@ import axios from 'axios'
       console.log(contestNo)
       console.log('취소')
 
-      axios.delete("http://localhost:8181/api/contest/bookmark",{
+      axios.delete("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",{
         headers: {
           Authorization: ca
         },
