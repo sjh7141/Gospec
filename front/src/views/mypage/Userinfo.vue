@@ -41,7 +41,7 @@ export default {
         username: this.username,
         password: this.password
       }
-      axios.post('http://localhost:8181/login', loginData)
+      axios.post('http://i3a202.p.ssafy.io:8181/login', loginData)
       .then(() =>
         this.checkPassword = true,
         this.isInfoChanged = true,

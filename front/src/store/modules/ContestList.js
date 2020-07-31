@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL_PART = 'http://localhost:8181/api/contest/field'
+const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/field'
 const urlBuilder = (p1, p2, p3) => {
     return Array(API_URL_PART, p1, p2, p3).join('/');
 }
