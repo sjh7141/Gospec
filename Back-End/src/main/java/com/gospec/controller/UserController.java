@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -138,5 +139,5 @@ public class UserController {
 	public ResponseEntity<String> sendEmail(@PathVariable("username") String username){
 		return new ResponseEntity<String>(mailService.sendMail(username), HttpStatus.OK);
 	}
-
+	
 }

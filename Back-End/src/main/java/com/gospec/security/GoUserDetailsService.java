@@ -32,6 +32,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDto user = userMapper.findByUsername(username);
+		if(user == null) {
+			throw new UsernameNotFoundException("유저 아이디 없음");
+		}
 		GoUserDetails principal = new GoUserDetails(user);
 		return principal;
 	}
