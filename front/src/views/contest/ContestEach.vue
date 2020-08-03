@@ -41,7 +41,7 @@
 import axios from 'axios'
 import ContestNavBar from '@/components/common/ContestNavBar.vue'
 
-const API_URL_PART = 'http://localhost:8181/api/contest/'
+const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
 
 export default {
   name: 'ContestEach',
