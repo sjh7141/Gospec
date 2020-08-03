@@ -11,7 +11,7 @@ src/main/resources/img/
 .settings
 .springBeans
 .sts4-cache
-.properties
+*.properties
 
 ### IntelliJ IDEA ###
 .idea
