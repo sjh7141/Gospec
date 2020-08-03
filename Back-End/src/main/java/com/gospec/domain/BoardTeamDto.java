@@ -6,7 +6,7 @@ public class BoardTeamDto {
 	private int postNo;
 	private String title;
 	private String content;
-	private int memeberMax;
+	private int memberMax;
 	private int memberCur;
 	private String registTime;
 	private int contestNo;
@@ -40,16 +40,16 @@ public class BoardTeamDto {
 		return content;
 	}
 
-	public void setContent(String contest) {
-		this.content = contest;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public int getMemeberMax() {
-		return memeberMax;
+	public int getMemberMax() {
+		return memberMax;
 	}
 
-	public void setMemeberMax(int memeberMax) {
-		this.memeberMax = memeberMax;
+	public void setMemberMax(int memberMax) {
+		this.memberMax = memberMax;
 	}
 
 	public int getMemberCur() {
