@@ -1,10 +1,8 @@
 <template>
   <div id="app">
     <main-header @checkLogin='checkLogin'></main-header>
-    <v-app>
-      <div id='schedule' class='container'>
+    <v-app class='container'>
       <router-view/>
-      </div>
     </v-app>
   </div>
 </template>
