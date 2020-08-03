@@ -5,7 +5,7 @@ public class BoardTeamDto {
 	private String username;
 	private int postNo;
 	private String title;
-	private String contest;
+	private String content;
 	private int memeberMax;
 	private int memberCur;
 	private String registTime;
@@ -36,12 +36,12 @@ public class BoardTeamDto {
 		this.title = title;
 	}
 
-	public String getContest() {
-		return contest;
+	public String getContent() {
+		return content;
 	}
 
-	public void setContest(String contest) {
-		this.contest = contest;
+	public void setContent(String contest) {
+		this.content = contest;
 	}
 
 	public int getMemeberMax() {
