@@ -14,25 +14,16 @@
               >
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
-              
-                <div v-if="likestate==false">
-                <v-btn icon color='dark'>
-                  <v-icon @click='clickLike(selectedEvent.contestNo)'>mdi-star</v-icon>
-                </v-btn>
-                </div>
-                <div v-else>
-                <v-btn icon color='pink'>
-                  <v-icon @click='clickDisLike(selectedEvent.contestNo)'>mdi-star</v-icon>
-                </v-btn>
-                </div>
-                <v-btn icon>
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
+              <Like v-if="likestate==false" :contestNo="contestNo" :selectedEvent="selectedEvent"/>
+              <DisLike v-else :contestNo="contestNo" :selectedEvent="selectedEvent"/>
               </v-toolbar>
               <v-card-text>
                 <div class="content">{{selectedEvent.details}}</div> 
 
               </v-card-text>
+              <v-btn>
+                <router-link :to="{ path: '/contest/' + selectedEvent.contestNo}">공모전 자세히 보기</router-link>
+              </v-btn>
               <v-card-actions>
                 <v-btn
                   text
@@ -47,9 +38,17 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Like from '../common/Like.vue'
+import DisLike from '../common/DisLike.vue'
+
 export default {
+    components: {
+      Like,
+      DisLike  
+    },
     props: {
+    contestNo:null,
+    likestate:null,
     selectedEvent:{},
     dialog:{
         type:Boolean
@@ -59,53 +58,9 @@ export default {
     data: () => ({
       like: 0,
       likestate: '',
+      selectedEvent:{},
       }),
       methods: {
-        clickLike(contestNo) {
-        this.starcolor = 'pink'
-        var ca = this.$cookies.get("auth-token")
-        console.log(contestNo)
-        const data = {
-          contestNo: contestNo,
-        }
-
-        const config = {
-          
-          headers: {
-            Authorization: ca,
-          }
-      } 
-  
-      console.log('좋아요')
-
-      axios.post("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",data,config)
-      .then(res => {
-        console.log(res.data)
-        this.like = 1
-        console.log(this.like)
-      })
-      },
-      clickDisLike(contestNo) {
-      this.starcolor = 'dark'
-      var ca = this.$cookies.get("auth-token")
-      console.log(contestNo)
-      console.log('취소')
-
-      axios.delete("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",{
-        headers: {
-          Authorization: ca
-        },
-        data: {
-          contestNo: contestNo
-        }
-      })
-      .then(res => {
-        this.like = 0
-        console.log(res.data)
-        console.log('삭제')
-        console.log(this.like)
-      })
-      }
       }
 
 }

@@ -1,6 +1,5 @@
 <template>
 <div>
-  <v-app>
   <v-row class="fill-height">
       <v-col>
         <v-sheet height="64">
@@ -60,17 +59,16 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
-         <CalendarDetail :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
-
+         <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
         </v-sheet>
       </v-col>
     </v-row>
-  </v-app>
 </div>
-
+ 
 </template>
 
 <script>
+import axios from 'axios'
 import CalendarDetail from '../common/CalendarDetail.vue'
   export default {
     components: {
@@ -79,11 +77,13 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       props: {
         myContest: {
             type: Array,
-        }
-      },
+        },
 
+        
+      },
     data() {
       return{
+        likestate: '',
         dialog: false,
         selectedEvent: {},
         color: null,
@@ -101,8 +101,13 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       }
     },
+  
     mounted () {
       this.$refs.calendar.checkChange()
+
+    },
+    created() {
+      this.updateRange()
 
     },
     methods: {
@@ -122,7 +127,56 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       next () {
         this.$refs.calendar.next()
       },
+      updateRange() {
+        this.name = ''
+        this.start = ''
+        this.end = ''
+        this.content =''
+        this.contestNo = ''
+        this.details = ''
+        const events = []
+        
+        for (let i = 0; i < this.myContest.length; i++){
+          events.push({
+
+            name: this.myContest[i].title,
+            start: this.myContest[i].startDate,
+            end: this.myContest[i].startDate,
+            details : this.myContest[i].content,
+            contestNo: this.myContest[i].contestNo,
+            
+            // 여기 시작 색상
+            color: 'black',
+          })
+          events.push({
+            name: this.myContest[i].title,
+            start: this.myContest[i].endDate,
+            end: this.myContest[i].endDate,
+            details : this.myContest[i].content,
+            contestNo: this.myContest[i].contestNo,
+            // 여기 끝 색상
+            color: 'red',
+          })
+          this.events = events
+        }
+      },
+      rnd (a, b) {
+        return Math.floor((b - a + 1) * Math.random()) + a
+      },
       showEvent ({ nativeEvent, event }) {
+        const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      } 
+        axios.get('http://i3a202.p.ssafy.io:8181/api/contest/check/' + event.contestNo, config)
+        .then(res => {
+          this.likestate = res.data
+	
+          })
+        .catch(err => console.log(err.response))
+        console.log(event)
+        console.log(this.likestate)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event
@@ -137,36 +191,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         }
         nativeEvent.stopPropagation()
       },
-      updateRange() {
-        this.name = ''
-        this.start = ''
-        this.end = ''
-        this.content =''
-        const events = []
-        for (let i = 0; i < this.myContest.length; i++){
-          events.push({
-            name: this.myContest[i].title,
-            start: this.myContest[i].startDate,
-            end: this.myContest[i].startDate,
-            details : this.myContest[i].content,
-            // 여기 시작 색상
-            color: 'black',
-          })
-          events.push({
-            name: this.myContest[i].title,
-            start: this.myContest[i].endDate,
-            end: this.myContest[i].endDate,
-            details : this.myContest[i].content,
-            // 여기 끝 색상
-            color: 'red',
-          })
-          this.events = events
-        }
-      },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
-      },  
+
 
     },
   }
 </script>
+
