@@ -1,11 +1,12 @@
 <template>
   <v-dialog v-model="dialog"
+            width=60%
 
             :close-on-content-click="false"
             :activator="selectedElement"
             offset-x
           >
-            <v-card
+            <v-card 
               color="grey lighten-4"
             >
               <v-toolbar
@@ -72,4 +73,5 @@ export default {
     text-align: left;
     margin: 30px;
 }
+
 </style>
