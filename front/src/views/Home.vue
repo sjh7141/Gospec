@@ -3,16 +3,23 @@
     <div class="category">
       카테고리
     </div>
-    <div class="contest">인기 공모전</div>
-    <div class="study">인기 스터디</div>
-    <div class="job">인기 취업정보</div>
+    <div class="contest">인기 공모전<PopularContest /></div>
+    <div class="study">인기 스터디<PopularStudy /></div>
+    <div class="job">인기 취업정보<PopularJob /></div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import PopularContest from './home/PopularContest.vue'
+import PopularStudy from './home/PopularStudy.vue'
+import PopularJob from './home/PopularJob.vue'
 export default {
+  components:{
+    PopularContest,
+    PopularStudy,
+    PopularJob
+  },
   name: 'Home',
 }
 </script>
