@@ -84,7 +84,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
     data() {
       return{
         likestate: '',
-        dialog: false,
+        dialog: null,
         selectedEvent: {},
         color: null,
         selectedElement: null,
@@ -155,7 +155,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
             details : this.myContest[i].content,
             contestNo: this.myContest[i].contestNo,
             // 여기 끝 색상
-            color: 'red',
+            color: '#FF5252',
           })
           this.events = events
         }

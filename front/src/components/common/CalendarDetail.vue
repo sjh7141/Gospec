@@ -60,6 +60,7 @@ export default {
       like: 0,
       likestate: '',
       selectedEvent:{},
+      selectedOpen: false,
       }),
       methods: {
       }
