@@ -2,7 +2,6 @@
 <v-btn icon color="dark">
     <v-icon v-on:click='clickLike(selectedEvent.contestNo)'>mdi-star</v-icon>
 </v-btn>
-
 </template>
 
 <script>
@@ -13,7 +12,8 @@ export default {
         selectedEvent: {}
     },
     methods: {
-                clickLike(contestNo) {
+      clickLike(contestNo) {
+        this.$emit('state-change',true)
         var ca = this.$cookies.get("auth-token")
         console.log(ca)
         console.log(contestNo)

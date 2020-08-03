@@ -13,6 +13,7 @@ export default {
     },
     methods: {
       clickDisLike(contestNo) {
+      this.$emit('state-change',false)
       var ca = this.$cookies.get("auth-token")
       console.log(ca)
       console.log(contestNo)
