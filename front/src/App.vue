@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <main-header @checkLogin='checkLogin'></main-header>
-    <div class='container'>
+    <v-app class='container'>
       <router-view/>
-    </div>
+    </v-app>
   </div>
 </template>
   
