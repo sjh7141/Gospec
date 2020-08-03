@@ -43,7 +43,19 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
+    methods: {
+      getContest() {
+        axios.get("http://i3a202.p.ssafy.io:8181/api/contest/2020-07-01/2020-07-31")
+        .then(response => {
+            this.contest = response.data
+            this.calState = 'total'
+
+            })
+        .catch(error => { console.log(error) })
+      }
+    },
     data: () => ({
       cards: [
         { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
