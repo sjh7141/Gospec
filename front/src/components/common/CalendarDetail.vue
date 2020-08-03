@@ -15,8 +15,12 @@
               >
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                 <v-spacer></v-spacer>
-              <Like v-if="likestate==false" :contestNo="contestNo" :selectedEvent="selectedEvent"/>
-              <DisLike v-else :contestNo="contestNo" :selectedEvent="selectedEvent"/>
+              <div  v-if="likestate==false">
+              <Like @state-change="onStateChange" :contestNo="contestNo" :selectedEvent="selectedEvent"/>
+              </div>
+              <div v-else>
+              <DisLike @state-change="onStateChange" :contestNo="contestNo" :selectedEvent="selectedEvent"/>
+              </div>
               </v-toolbar>
               <v-card-text>
                 <div class="content">{{selectedEvent.details}}</div> 
@@ -63,6 +67,10 @@ export default {
       selectedOpen: false,
       }),
       methods: {
+        onStateChange(likestate) {
+          this.likestate = likestate
+          console.log(likestate)
+      }
       }
 
 }
