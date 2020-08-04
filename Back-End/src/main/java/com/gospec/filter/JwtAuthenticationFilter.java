@@ -43,14 +43,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		try {
 			credentials = new ObjectMapper().readValue(request.getInputStream(), UserDto.class);
 		} catch (IOException e) {
+			System.out.println("여기에러");
 			e.printStackTrace();
 		}
-
+		
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				credentials.getUsername(),
 				credentials.getPassword(),
 				new ArrayList<>());
 		Authentication authRequest = authenticationManager.authenticate(token);
+		
 		return authRequest;
 	}
 
@@ -72,6 +74,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
 	}
+	
 	
 	
 }

@@ -26,11 +26,8 @@ public interface UserMapper {
 	public List<BookMarkDto> findAllBookMark(String username);
 	public List<InterestFieldDto> findAllInterestField(String username);
 	public int checkNickName(String nickname);
-	public int findEmailAuthByUsername(String username);
-	public int saveEmailAuth(EmailAuthDto dto);
-	public int updateEmailAuth(EmailAuthDto dto);
-	public int checkEmailAuthByUsername(EmailAuthDto dto);
 	public void saveInterestField(String username, String field);
 	public List<InterestFieldDto> findInterestFieldDumamy();
 	public void makeCluster(List<ClusterDto> list);
+
 }

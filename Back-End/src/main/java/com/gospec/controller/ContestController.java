@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,12 @@ public class ContestController {
 		data.put("field", field);
 		return new ResponseEntity<Map<String, Object>>(data, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "공모전 조회수 증가")
+	@PatchMapping(value = "/{contestNo}")
+	public void setViewCount(@PathVariable("contestNo") int contestNo) {
+		contestService.updateViewCount(contestNo);
+	}
 
 	@ApiOperation(value = "공모전 특정 날짜 정보 가져오기")
 	@GetMapping(value = "/{startDate}/{endDate}")
@@ -59,12 +66,13 @@ public class ContestController {
 	}
 
 	@ApiOperation(value = "카테고리 분류 전체 데에터 가져오기")
-	@GetMapping(value = "/field/{type}/{page}")
+	@GetMapping(value = "/field/{type}/{mode}/{page}")
 	public ResponseEntity<Map<String, Object>> getContestCategoryList(@PathVariable("type") String type,
+			@PathVariable("mode") String mode,
 			@PathVariable("page") int curPage) {
 		PageDto page = new PageDto(curPage);
-		page.setTotalCount(contestService.getCountByCategory(type));
-		List<ContestDto> list = contestService.findByCategory(type, page.getStartPage(), page.getPerPageNum());
+		page.setTotalCount(contestService.getCountByCategory(type, mode));
+		List<ContestDto> list = contestService.findByCategory(type, mode, page.getStartIndex(), page.getPerPageNum());
 
 		Map<String, Object> data = new HashMap<>();
 		data.put("list", list);
@@ -102,5 +110,14 @@ public class ContestController {
 		int contestNo = (Integer)param.get("contestNo");
 		int temp = contestService.deleteBookMark(username, contestNo);
 		return new ResponseEntity<Integer>(temp, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "북마크 된지 안된지 확인")
+	@GetMapping(value = "/check/{contestNo}")
+	public ResponseEntity<Boolean> checkBookMark(@PathVariable("contestNo") String contestNo){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		int temp = contestService.checkBookMark(username, Integer.parseInt(contestNo));
+		boolean res = temp == 0 ? false : true;
+		return new ResponseEntity<Boolean>(res, HttpStatus.OK);
 	}
 }

@@ -40,7 +40,6 @@ public class BoardTeamController {
 		PageDto page = new PageDto(curPage);
 		page.setTotalCount(boardTeamService.getCountByContestNo(contestNo));
 		List<BoardTeamDto> list = boardTeamService.findByContestNo(contestNo, page.getStartIndex(), page.getPerPageNum());
-
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("list", list);
 		data.put("page", page);
@@ -52,6 +51,7 @@ public class BoardTeamController {
 	public ResponseEntity<String> setBoardBeam(@RequestBody BoardTeamDto dto){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		dto.setUsername(username);
+		dto.setTeamId(username + "_" + dto.getContestNo());
 		int res = boardTeamService.save(dto);
 		if(res == 0) {
 			return new ResponseEntity<String>("fail", HttpStatus.OK);
