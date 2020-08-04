@@ -127,24 +127,29 @@ public class UserController {
 	}
 	
 	
-	@ApiOperation(value = "관심지역 조회, 헤더의 사용자 아이디로 관심영역을 전체 조회한다.", response = InterestFieldDto.class)
+	@ApiOperation(value = "관심분야 조회, 헤더의 사용자 아이디로 관심분야을 전체 조회한다.", response = String.class)
 	@GetMapping(value ="/fields")
-	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(){
+	public ResponseEntity<List<String>> getInterestFieldList(){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
+		System.out.println(username);
+		return new ResponseEntity<List<String>>(userService.findAllInterestField(username), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "새로운 관심지역 정보를 입력한다. fields안에 넣어서 요청", response = UserDto.class)
+	@ApiOperation(value = "새로운 관심분야 정보를 입력한다. fields안에 넣어서 요청", response = UserDto.class)
 	@PostMapping(value ="/fields")
 	public ResponseEntity<Boolean> saveField(@RequestBody Map<String, Object> param){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<String> fields = (List<String>) param.get("fields");
 		List<InterestFieldDto> interestList = new ArrayList<InterestFieldDto>();
 		for(String field : fields) {
-			interestList.add(new InterestFieldDto(username, field));
+			interestList.add(new InterestFieldDto(field,username));
+			System.out.println(username+" "+field);
 		}
 		
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		userService.deleteInterestField(username);
+		boolean check = userService.saveInterestField(interestList);
+		
+		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "인증 이메일 전송, 입련된 아이디로 이메일 전송", response = String.class)

@@ -23,7 +23,9 @@ public interface UserMapper {
 	public int updateByUsername(UserDto user);
 	public List<ActiveRegionDto> findAllActiveRegion(String username);
 	public List<BookMarkDto> findAllBookMark(String username);
-	public List<InterestFieldDto> findAllInterestField(String username);
+	public List<String> findAllInterestField(String username);
 	public int checkNickName(String nickname);
+	public int deleteInterestField(String username);
+	public int saveInterestField(List<InterestFieldDto> fields);
 	
 }
