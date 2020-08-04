@@ -1,5 +1,6 @@
 package com.gospec.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,13 +76,12 @@ public class TeamController {
 		Map<String, List<Object>> data = new HashMap<String, List<Object>>();
 		List<UserDto> user = teamService.recommandByAuto(id);
 		for(int i=0; i<user.size(); i++) {
-			String username = user.get(i).getUsername();
 			List<String> field = userService.findAllInterestField(user.get(i).getUsername());
-			List<Object> temp = data.get(username);
+			List<Object> temp = new ArrayList<Object>();
 			for(int j=0; j<field.size(); j++) {
 				temp.add(field.get(j));
 			}
-			temp.add(user);
+			temp.add(user.get(i));
 			data.put("user" + i, temp);
 		}
 		return new ResponseEntity<Map<String, List<Object>>>(data, HttpStatus.OK);
