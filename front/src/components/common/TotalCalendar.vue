@@ -14,7 +14,7 @@
             <v-btn fab text small color="grey darken-2" @click="next">
               <v-icon small>mdi-chevron-right</v-icon>
             </v-btn>
-            <v-toolbar-title v-if="$refs.calendar">
+            <v-toolbar-title v-if="$refs.calendar">hello
               {{ $refs.calendar.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
