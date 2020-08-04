@@ -18,7 +18,6 @@
 
     <v-card-text class="text--primary">
       <div>{{ contest[0].startDate}}</div>
-
       <div>{{ contest[0].endDate}}</div>
     </v-card-text>
 
@@ -30,12 +29,16 @@
         Share
       </v-btn>
 
+
       <v-btn
         color="orange"
         text
       >
-        Explore
+      <router-link :to="{ path: '/contest/' + contest[0].contestNo}">
+      자세히 보기
+      </router-link>
       </v-btn>
+      
     </v-card-actions>
   </v-card>
   </v-col>
@@ -72,7 +75,8 @@
         color="orange"
         text
       >
-        Explore
+      <router-link :to="{ path: '/contest/' + contest[1].contestNo}" >
+      자세히 보기</router-link>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -110,7 +114,8 @@
         color="orange"
         text
       >
-        Explore
+      <router-link :to="{ path: '/contest/' + contest[2].contestNo}">
+      자세히 보기</router-link>
       </v-btn>
     </v-card-actions>
   </v-card>
