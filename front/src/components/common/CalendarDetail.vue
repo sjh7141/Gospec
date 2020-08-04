@@ -1,7 +1,6 @@
 <template>
   <v-dialog v-model="dialog"
             width=60%
-
             :close-on-content-click="false"
             :activator="selectedElement"
             offset-x
@@ -65,10 +64,12 @@ export default {
       likestate: '',
       selectedEvent:{},
       selectedOpen: false,
+      dialog:false,
       }),
       methods: {
         onStateChange(likestate) {
           this.likestate = likestate
+          
           console.log(likestate)
       }
       }

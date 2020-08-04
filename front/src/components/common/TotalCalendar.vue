@@ -2,7 +2,7 @@
 <div>
   <v-row class="fill-height">
       <v-col>
-        <v-sheet height="64">
+        <v-sheet height="64" width="1000">
           
           <v-toolbar flat color="white">
             <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -27,8 +27,23 @@
                   v-on="on"
                 >
                   <span>{{ typeToLabel[type] }}</span>
+                  <v-icon right>mdi-menu-down</v-icon>
                 </v-btn>
               </template>
+              <v-list>
+              <v-list-item @click="type = 'day'">
+                <v-list-item-title>Day</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = 'week'">
+                <v-list-item-title>Week</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = 'month'">
+                <v-list-item-title>Month</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = '4day'">
+                <v-list-item-title>4 days</v-list-item-title>
+              </v-list-item>
+            </v-list>
             </v-menu>
           </v-toolbar>
         </v-sheet>
@@ -74,7 +89,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
     data() {
       return{
         likestate: '',
-        dialog: null,
+        dialog: false,
         selectedEvent: {},
         color: null,
         selectedElement: null,
