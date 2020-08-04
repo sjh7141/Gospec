@@ -1,13 +1,18 @@
 <template>
 <v-app>
-<div>
+<div class="cal">
+<div class="filter">
+  <CalendarFeild />
+</div>
+<div class="cal-body">
   <div class="d-flex">
   <v-btn color="error" class= 'cal-btn mr-4' @click="totalCalBtn">전체일정</v-btn>
   <v-btn color="error" @click="myCalBtn">내 일정</v-btn>
   </div>
-  <div class="cal-body">
+    <div class="calendar">
     <TotalCalendar :contest='contest' v-if="calState == 'total'"/>
     <MyCalendar :myContest='myContest' v-if="calState == 'my'"/>
+    </div>
   </div>
 </div>
 </v-app>
@@ -17,6 +22,7 @@
 <script>
 import TotalCalendar from '../common/TotalCalendar.vue'
 import MyCalendar from '../common/MyCalendar.vue'
+import CalendarFeild from '../common/CalendarFeild.vue'
 import axios from 'axios'
 const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-07-01/2020-07-31"
 const MY_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/bookmark/"
@@ -25,6 +31,7 @@ export default {
   components: {
     TotalCalendar,
     MyCalendar,
+    CalendarFeild
 
    },
   data() {
@@ -76,5 +83,12 @@ export default {
 </script>
 
 <style>
+
+.filter {
+  float:left;
+  width:15%;
+  margin-right: 50px;
+}
+
 
 </style>

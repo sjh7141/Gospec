@@ -3,6 +3,7 @@
   <v-row class="fill-height">
       <v-col>
         <v-sheet height="64">
+          
           <v-toolbar flat color="white">
             <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
               Today
@@ -31,7 +32,7 @@
             </v-menu>
           </v-toolbar>
         </v-sheet>
-        <v-sheet height="600">
+        <v-sheet height="750" width="1000">
           <v-calendar
             ref="calendar"
             v-model="focus"
@@ -58,7 +59,7 @@ import axios from 'axios'
 import CalendarDetail from '../common/CalendarDetail.vue'
   export default {
     components: {
-      CalendarDetail
+      CalendarDetail,
     },
       props: {
         contest: {
@@ -123,6 +124,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         const events = []
         
         for (let i = 0; i < this.contest.length; i++){
+          
           events.push({
 
             name: this.contest[i].title,
@@ -144,6 +146,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
             color: '#FF5252',
           })
           this.events = events
+
         }
       },
       rnd (a, b) {

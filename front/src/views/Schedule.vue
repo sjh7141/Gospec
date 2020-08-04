@@ -1,10 +1,14 @@
 <template>
-    <div class="user" id="login">
-        <Banner />
-        <CalendarClassify />
+<div>
+<div class="banner">
+<Banner />
+</div>
+<CalendarClassify />
+</div>
 
 
-    </div>
+
+
 </template>
 
 <script>
@@ -34,3 +38,9 @@ import Banner from '../components/common/Banner.vue'
 
     }
 </script>
+<style>
+.banner{
+
+    margin-left:50px;
+}
+</style>
