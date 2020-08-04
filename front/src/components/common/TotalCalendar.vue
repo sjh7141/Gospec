@@ -65,6 +65,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         contest: {
             type: Array,
         },
+        field: {
+          type:String
+        },
 
         
       },
@@ -124,7 +127,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         const events = []
         
         for (let i = 0; i < this.contest.length; i++){
-          
+          console.log(this.field)
           events.push({
 
             name: this.contest[i].title,
@@ -146,7 +149,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
             color: '#FF5252',
           })
           this.events = events
-
+        
         }
       },
       rnd (a, b) {
