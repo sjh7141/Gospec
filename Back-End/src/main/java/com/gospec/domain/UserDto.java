@@ -14,6 +14,7 @@ public class UserDto {
 	private int age;
 	private String address;
 	private String major;
+	private String gender;
 			
 	
 	public String getUsername() {
@@ -110,6 +111,14 @@ public class UserDto {
 
 	public void setMajor(String major) {
 		this.major = major;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public UserDto() {
