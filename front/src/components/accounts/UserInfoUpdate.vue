@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='p-0'>
     <!-- 프로필 사진 -->
         <div class='row'>
           <div class="col-3 text-right profile-label">
@@ -37,6 +37,28 @@
             label=""
             clearable
           ></v-text-field>
+          </div>
+        </div>
+
+        <!-- 프로필 관심사 -->
+        <div class='row'>
+          <div class="col-3 text-right profile-label">관심사</div>
+          <div class="col-9 text-left">
+            <UserInterest @submit-amenities='getAmenities' />
+          </div>
+        </div>
+
+        <!-- 프로필 전공 -->
+        <div class='row'>
+          <div class="col-3 text-right profile-label">전공</div>
+          <div class="col-9 text-left user-input">
+            <v-text-field
+            style="width: 300px"
+            class='m-0 p-0'
+              v-model="major"
+              label=""
+              clearable
+            ></v-text-field>
           </div>
         </div>
 
@@ -84,17 +106,10 @@
           <v-text-field
           style='width: 450px'
            class='m-0 p-0'
-            v-model="adress"
+            v-model="address"
             label=""
             clearable
           ></v-text-field>
-          </div>
-        </div>
-        <!-- 프로필 관심사 -->
-        <div class='row'>
-          <div class="col-3 text-right profile-label">관심사</div>
-          <div class="col-9 text-left">
-            <UserInterest @submit-amenities='getAmenities' />
           </div>
         </div>
 
@@ -107,6 +122,7 @@
               <v-textarea style='width: 90%'
                 autocomplete=""
                 label=""
+                v-model='selfIntroduction'
               ></v-textarea>
             </v-container>
           </template>
@@ -121,11 +137,17 @@
 <script>
 import UserInterest from '../accounts/UserInterest.vue'
 import ProfileImgChange from '../accounts/ProfileImgChange.vue'
+import axios from 'axios'
+
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
   components: {
     ProfileImgChange,
     UserInterest,
+  },
+  props: {
+    password: String,
   },
   data() {
     return{
@@ -141,12 +163,19 @@ export default {
       picker2: null,
       calendarState: false,
       amenities: null,
+      gender: null,
+      major: null,
+      age: null,
     }
   },
   methods: {
     birthdayData(){
       this.birthday = this.picker2
       this.calendarState = !this.calendarState
+      var today = new Date()
+      var year = today.getFullYear()
+      var birthdayYear = this.birthday.split('-')[0]
+      this.age = year - birthdayYear + 1
     },
     checkusername() {
       var ca = this.$cookies.get("auth-token")
@@ -158,7 +187,13 @@ export default {
       this.calendarState = !this.calendarState
     },
     userInfoChange() {
+      const config = {
+        headers: {
+          Authorization: this.$cookies.get('auth-token')
+        }
+      }
       console.log(this.userInfo)
+      axios.patch(API_URL + '/api/users', this.userInfo, config)
     },
     getAmenities(data) {
       this.amenities = data
@@ -170,7 +205,6 @@ export default {
   computed: {
     userInfo() {
       return {
-        username: this.username,
         name: this.name,
         nickname: this.nickname,
         selfIntroduction: this.selfIntroduction,
@@ -178,7 +212,12 @@ export default {
         birthday: this.birthday,
         address: this.address,
         profileImg: this.profileImg,
-        amenities: this.amenities,
+        // amenities: this.amenities,
+        gender: this.gender,
+        major: this.major,
+        age: this.age,
+        username: this.username,
+        password: this.password,
       }
     }
   }

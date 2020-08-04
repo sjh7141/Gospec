@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ProfileImage />
       <div v-if="!isInfoChanged">
         <h6>개인정보 수정을 위해 비밀번호를 작성해주세요.</h6>
           <v-text-field
@@ -16,14 +17,15 @@
         <button class='btn btn-primary' @click="passwordCheck">확인</button>
       </div>
       <div v-else>
-        <UserInfoChange />
+        <UserInfoList :password='password'/>
       </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import UserInfoChange from '../../components/accounts/UserInfoChange.vue'
+import ProfileImage from '../../components/accounts/ProfileImage.vue'
+import UserInfoList from '../../components/accounts/UserInfoList.vue'
 
 export default {
   data() {
@@ -31,12 +33,13 @@ export default {
       password: '',
       username: '',
       checkPassword: false,
-      isInfoChanged: true,
+      isInfoChanged: '',
       errorMessage: '',
     }
   },
   components: {
-    UserInfoChange,
+    UserInfoList,
+    ProfileImage,
   },
   methods: {
     checkusername() {
@@ -80,6 +83,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

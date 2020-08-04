@@ -194,21 +194,6 @@ export default {
       this.checkTerms = !this.checkTerms
     },
 
-    checkFormPassword() {
-      if (
-        this.password.length > 0 &&
-        !this.passwordSchema.validate(this.password)
-      )
-      {
-        this.passwordFormIsValid = 'form-control is-invalid'
-        this.checkPassword = false
-        this.message.password = '영문,숫자 포함 8 자리이상이어야 합니다.'
-      }
-      else {
-        this.checkPassword = true
-        this.message.password = ''
-      }
-    },
     
     checkFormNickname() {
       if (
@@ -223,6 +208,21 @@ export default {
         this.message.nickname = '3자 이상 작성하세요'
         }
 
+    },
+    checkFormPassword() {
+      if (
+        this.password.length > 0 &&
+        !this.passwordSchema.validate(this.password)
+      )
+      {
+        this.passwordFormIsValid = 'form-control is-invalid'
+        this.checkPassword = false
+        this.message.password = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      }
+      else {
+        this.checkPassword = true
+        this.message.password = ''
+      }
     },
 
     checkFormPasswordConfirm() {
@@ -241,8 +241,10 @@ export default {
     },
     emailCertification() {
       this.clickEmailCertification = true
-      this.certificationNumberConfirm =  Math.floor(Math.random()*(8999)+1000)
-      console.log(this.certificationNumberConfirm)
+      axios.get(API_URL + '/api/users/email-authentication/' + this.email)
+      .then(res => {
+        this.certificationNumberConfirm = res.data
+      })
     },
     certification() {
       if (this.certificationNumber == this.certificationNumberConfirm)

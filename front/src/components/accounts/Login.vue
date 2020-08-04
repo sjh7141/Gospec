@@ -60,6 +60,15 @@ export default {
         clickPasswordBtn() {
             this.$emit('clickPasswordBtn')
         },
+        checkLogin() {
+            if (this.isLoggedIn) {
+                this.loginData.username = ''
+                this.loginData.password = ''
+            }
+        }
+    },
+    mounted() {
+        this.checkLogin()
     }
 }
 </script>

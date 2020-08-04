@@ -30,7 +30,7 @@
                         type='button'
                         @click='clickLogin'
                         v-if='!isLoggedIn'>로그인</p>
-                    <Modal :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @login='login' @closeModal='closeModal'/>
+                    <Modal :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @signup='signup' @login='login' @closeModal='closeModal'/>
                 </div>
             </div>
         </nav>
@@ -61,6 +61,9 @@
                 this.check = false
             },
             login() {
+                this.isLoggedIn = true
+            },
+            signup() {
                 this.isLoggedIn = true
             },
             logout() {

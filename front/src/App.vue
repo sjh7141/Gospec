@@ -25,6 +25,7 @@ export default {
     },
     logout(data) {
       this.isLoggedIn = data 
+      this.$router.push('/')
     }
   },
   mounted() {
