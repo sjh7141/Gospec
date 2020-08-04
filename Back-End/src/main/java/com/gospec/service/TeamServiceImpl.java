@@ -21,7 +21,6 @@ public class TeamServiceImpl implements TeamService {
 		return teamMapper.findAll(username);
 	}
 
-
 	@Override
 	public boolean saveTeamApproval(TeamApprovalDto teamApproval) {
 		if(teamMapper.saveTeamApproval(teamApproval) > 0) {
@@ -58,5 +57,5 @@ public class TeamServiceImpl implements TeamService {
 	public List<UserDto> recommandByAuto(String username) {
 		return teamMapper.recommandByAuto(username);
 	}
-	
+
 }
