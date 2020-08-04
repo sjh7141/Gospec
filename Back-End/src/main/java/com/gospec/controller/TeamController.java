@@ -42,7 +42,7 @@ public class TeamController {
 		return new ResponseEntity<List<TeamDto>>(teamservice.findAll(), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "팀 승인 정보 등록, 팀 아이디, 해당 사용자들에 대해 등록", response = Boolean.class)
+	@ApiOperation(value = "팀  승인 정보 등록, 팀 아이디, 해당 사용자들에 대해 등록", response = Boolean.class)
 	@PostMapping
 	public ResponseEntity<Boolean> saveTeamApproval(TeamApprovalDto teamApproval){
 		return new ResponseEntity<Boolean>(teamservice.saveTeamApproval(teamApproval), HttpStatus.OK);
