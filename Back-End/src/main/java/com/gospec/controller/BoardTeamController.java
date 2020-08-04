@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gospec.domain.BoardTeamDto;
 import com.gospec.domain.PageDto;
 import com.gospec.service.BoardTeamService;
+import com.gospec.service.TeamServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 

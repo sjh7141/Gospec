@@ -1,5 +1,7 @@
 package com.gospec.domain;
 
+import java.util.List;
+
 public class BoardTeamDto {
 
 	private String username;
@@ -11,6 +13,15 @@ public class BoardTeamDto {
 	private String registTime;
 	private int contestNo;
 	private String teamId;
+	private List<TeamApprovalDto> approvalList;
+
+	public List<TeamApprovalDto> getApprovalList() {
+		return approvalList;
+	}
+
+	public void setApprovalList(List<TeamApprovalDto> approvalList) {
+		this.approvalList = approvalList;
+	}
 
 	public String getUsername() {
 		return username;
