@@ -31,8 +31,8 @@ public class ContestServiceImpl implements ContestService {
 	}
 
 	@Override
-	public List<ContestDto> findByCategory(String type, int startIndex, int perPageNum) {
-		return contestMapper.findByCategory(type, startIndex, perPageNum);
+	public List<ContestDto> findByCategory(String type, String mode, int startIndex, int perPageNum) {
+		return contestMapper.findByCategory(type, mode, startIndex, perPageNum);
 	}
 	
 	@Override
@@ -46,8 +46,8 @@ public class ContestServiceImpl implements ContestService {
 	}
 
 	@Override
-	public int getCountByCategory(String type) {
-		return contestMapper.getCountByCategory(type);
+	public int getCountByCategory(String type, String mode) {
+		return contestMapper.getCountByCategory(type, mode);
 	}
 	
 	@Override
@@ -68,5 +68,10 @@ public class ContestServiceImpl implements ContestService {
 	@Override
 	public int checkBookMark(String username, int contestNo) {
 		return contestMapper.checkBookMark(username, contestNo);
+	}
+	
+	@Override
+	public void updateViewCount(int contestNo) {
+		contestMapper.updateViewCount(contestNo);
 	}
 }

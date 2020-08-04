@@ -2,12 +2,12 @@ package com.gospec.service;
 
 import java.util.List;
 
+import com.gospec.domain.BoardTeamDto;
 import com.gospec.domain.TeamApprovalDto;
-import com.gospec.domain.TeamDto;
 
 public interface TeamService {
 
-		public List<TeamDto> findAll();
+		public List<BoardTeamDto> findAll(String username);
 		
 		public boolean saveTeamApproval(TeamApprovalDto teamApproval);
 		

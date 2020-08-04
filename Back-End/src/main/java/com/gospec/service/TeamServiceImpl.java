@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gospec.domain.BoardTeamDto;
 import com.gospec.domain.TeamApprovalDto;
-import com.gospec.domain.TeamDto;
 import com.gospec.mapper.TeamMapper;
 
 @Service
@@ -16,8 +16,8 @@ public class TeamServiceImpl implements TeamService {
 	private TeamMapper teamMapper;
 	
 	@Override
-	public List<TeamDto> findAll() {
-		return teamMapper.findAll();
+	public List<BoardTeamDto> findAll(String username) {
+		return teamMapper.findAll(username);
 	}
 
 	@Override

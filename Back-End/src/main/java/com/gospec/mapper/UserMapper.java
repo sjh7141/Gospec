@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
+import com.gospec.domain.ClusterDto;
 import com.gospec.domain.EmailAuthDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
@@ -27,5 +28,7 @@ public interface UserMapper {
 	public int checkNickName(String nickname);
 	public int deleteInterestField(String username);
 	public int saveInterestField(List<InterestFieldDto> fields);
-	
+	public List<InterestFieldDto> findInterestFieldDumamy();
+	public void makeCluster(List<ClusterDto> list);
+
 }

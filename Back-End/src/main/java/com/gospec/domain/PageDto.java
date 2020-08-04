@@ -28,7 +28,7 @@ public class PageDto {
 		prev = startPage == 1 ? false : true;
 		next = endPage * perPageNum < totalCount ? true : false;
 
-		startIndex = (startPage - 1) * perPageNum;
+		startIndex = (curPage - 1) * perPageNum;
 	}
 
 	public PageDto() {

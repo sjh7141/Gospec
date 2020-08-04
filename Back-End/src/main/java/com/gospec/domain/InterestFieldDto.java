@@ -2,8 +2,18 @@ package com.gospec.domain;
 
 public class InterestFieldDto {
 	private String field;
-	
+
 	private String username;
+
+	private String no;
+
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
 
 	public String getField() {
 		return field;
@@ -29,9 +39,5 @@ public class InterestFieldDto {
 		this.field = field;
 		this.username = username;
 	}
-	
-	
-	
-	
 	
 }
