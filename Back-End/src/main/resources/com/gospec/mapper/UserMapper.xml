@@ -72,4 +72,12 @@
 		where username = #{username}
 	</select>
 	
+	<delete id="deleteInterestField">
+		delete from interest_field
+		where no = #{no}
+	</delete>
+	
+	<insert id="saveInterestField">
+		insert into interest_field (username, )
+	</insert>
 </mapper>

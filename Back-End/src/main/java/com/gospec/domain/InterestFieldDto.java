@@ -24,6 +24,12 @@ public class InterestFieldDto {
 	public InterestFieldDto() {
 	
 	}
+
+	public InterestFieldDto(String field, String username) {
+		this.field = field;
+		this.username = username;
+	}
+	
 	
 	
 	

@@ -2,6 +2,7 @@ package com.gospec.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -131,6 +132,19 @@ public class UserController {
 	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "새로운 관심지역 정보를 입력한다. fields안에 넣어서 요청", response = UserDto.class)
+	@PostMapping(value ="/fields")
+	public ResponseEntity<Boolean> saveField(@RequestBody Map<String, Object> param){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<String> fields = (List<String>) param.get("fields");
+		List<InterestFieldDto> interestList = new ArrayList<InterestFieldDto>();
+		for(String field : fields) {
+			interestList.add(new InterestFieldDto(username, field));
+		}
+		
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "인증 이메일 전송, 입련된 아이디로 이메일 전송", response = String.class)
