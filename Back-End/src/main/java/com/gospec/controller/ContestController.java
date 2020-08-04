@@ -83,6 +83,7 @@ public class ContestController {
 	@ApiOperation(value = "인기 공모전 3개 가져오기")
 	@GetMapping(value = "/field/{type}")
 	public ResponseEntity<List<ContestDto>> getContestBestList(@PathVariable("type") String type) {
+		System.out.println(type);
 		List<ContestDto> list = contestService.findByBestView(type);
 		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
 	}

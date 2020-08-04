@@ -32,13 +32,6 @@
 	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">
 		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
 		from contest_info i, contest_field f
-		<include refid="contestFilter"></include>
-		limit 0, 3
-	</select>
-	
-	<select id="getCountByCategory" resultType="Integer">
-		select count(distinct i.contest_no) as total
-		from contest_info i, contest_field f
 		<choose>
 			<when test="type.equals('all')">
 				where i.contest_no = f.contest_no
@@ -47,6 +40,13 @@
 				where f.field = #{type} and i.contest_no = f.contest_no
 			</otherwise>
 		</choose>
+		limit 0, 3
+	</select>
+	
+	<select id="getCountByCategory" resultType="Integer">
+		select count(distinct i.contest_no) as total
+		from contest_info i, contest_field f
+		<include refid="contestFilter"></include>
 	</select>
 	
 	<update id="updateViewCount">
