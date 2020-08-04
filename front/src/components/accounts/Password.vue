@@ -12,7 +12,6 @@
         <div v-if='!certificationNumberCheck'>
           <input v-model='email' type="text" class="form-control is-valid" id="validationServer06" required>
           <div class="valid-feedback">
-            OK!
           </div>
         </div>
         <button v-if='!clickEmailCertification' class='btn btn-primary' @click='emailCertification'>전송</button>
@@ -176,9 +175,14 @@ export default {
 
     },
     emailCertification() {
-      this.clickEmailCertification = true
-      this.certificationNumberConfirm =  Math.floor(Math.random()*(8999)+1000)
-      console.log(this.certificationNumberConfirm)
+      axios.get(API_URL + '/api/users/email-duplication/' + this.email)
+      .then(res => {
+        if (res.data) {
+          this.clickEmailCertification = true
+          this.certificationNumberConfirm = res.data
+        }
+        else alert('가입되지 않은 이메일입니다.')
+      })
     },
 
     certification() {

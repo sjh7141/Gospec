@@ -1,20 +1,31 @@
 <template>
   <div>
+    <ProfileImage />
       <div v-if="!isInfoChanged">
         <h6>개인정보 수정을 위해 비밀번호를 작성해주세요.</h6>
-        <input v-model='password' type="password"><br>
+          <v-text-field
+          v-model="password"
+          @keypress.enter="passwordCheck"
+          type="password"
+          solo
+          label="비밀번호를 입력해주세요."
+          clearable
+          class='mx-auto mt-4'
+          style='width:50%'
+        ></v-text-field>
         <p v-if='!checkPassword' style='color: red;'>{{ errorMessage }}</p>
         <button class='btn btn-primary' @click="passwordCheck">확인</button>
       </div>
       <div v-else>
-        <UserInfoChange />
+        <UserInfoList :password='password'/>
       </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import UserInfoChange from '../../components/accounts/UserInfoChange.vue'
+import ProfileImage from '../../components/accounts/ProfileImage.vue'
+import UserInfoList from '../../components/accounts/UserInfoList.vue'
 
 export default {
   data() {
@@ -22,12 +33,13 @@ export default {
       password: '',
       username: '',
       checkPassword: false,
-      isInfoChanged: false,
+      isInfoChanged: '',
       errorMessage: '',
     }
   },
   components: {
-    UserInfoChange,
+    UserInfoList,
+    ProfileImage,
   },
   methods: {
     checkusername() {
@@ -42,16 +54,27 @@ export default {
         password: this.password
       }
       axios.post('http://i3a202.p.ssafy.io:8181/login', loginData)
-      .then(() =>
-        this.checkPassword = true,
-        this.isInfoChanged = true,
+      .then((res) =>
+        this.checkThen(res)
       )
       .catch((res) =>
-        console.log(res.response),
-        this.checkPassword = false,
-        this.errorMessage = '비밀번호를 확인해주세요.'
+      this.checkcatch(res)
+        
         
       )
+    },
+    checkThen(res) {
+      if (res) {
+        this.checkPassword = true
+        this.isInfoChanged = true
+      }
+    },
+    checkcatch(res) {
+      if (res) {
+        this.checkPassword = false
+        this.isInfoChanged = false
+        this.errorMessage = '비밀번호를 확인해주세요.'
+      }
     }
   },
   mounted() {
@@ -60,6 +83,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

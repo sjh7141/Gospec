@@ -5,6 +5,7 @@
         v-model="amenities"
         column
         multiple
+        @change='submitAmenities'
       >
         <v-chip v-for='interest in interests' :key='interest.id' filter outlined>{{ interest }}</v-chip>
       </v-chip-group>
@@ -21,6 +22,9 @@ export default {
     }
   },
   methods: {
+    submitAmenities() {
+      this.$emit('submit-amenities', this.amenities)
+    }
   }
 }
 </script>

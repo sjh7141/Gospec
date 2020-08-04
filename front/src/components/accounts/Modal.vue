@@ -12,7 +12,7 @@
       </v-card-title>
       <hr class='mt-0'>
       <v-card-text>
-        <Login @submit-login-data='login' @clickSignupBtn="clickSignupBtn" @clickPasswordBtn="clickPasswordBtn" v-if="modalState == 'login'"/>
+        <Login @submit-login-data='login' @clickSignupBtn="clickSignupBtn" :isLoggedIn='isLoggedIn' @clickPasswordBtn="clickPasswordBtn" v-if="modalState == 'login'"/>
         <Signup @submit-signup-data="signup" v-if="modalState == 'signup'" />
         <Password @completePasswordChange="completePasswordChange" v-if="modalState == 'password'" />
         <CompleteSignup v-if="modalState == 'completeSignup'" />
@@ -96,16 +96,15 @@ export default {
         },
         signup(signupData) {
             axios.post(API_URL + '/api/users/', signupData)
-            .then(res => {
-                console.log(res)
-                console.log('회원가입 성공')
+            .then(() => {
                 this.modalState = 'completeSignup'
+                this.modalSize = '600'
                 this.loginData.username = signupData.username
                 this.loginData.password = signupData.password
                 axios.post(API_URL + '/login', this.loginData)
                 .then((res) => {
                     this.setCookie(res.headers.authorization)
-                    this.$emit('signup', this.isLoggedIn)
+                    this.$emit('signup', true)
                 })
                 .catch(err => console.log(err.response))
             })
@@ -123,7 +122,7 @@ export default {
             })
             .catch(err => {
                 console.log(err.response)
-                alert('로그인에 실패했습니다.')
+                alert('비밀번호를 확인하세요.')
             })
         },
         completePasswordChange() {

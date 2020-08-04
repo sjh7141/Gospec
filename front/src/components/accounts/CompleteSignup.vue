@@ -1,13 +1,17 @@
 <template>
   <div>
-    <h2>회원가입이 정상적으로 완료되었습니다.</h2>
-    <button type="button" class="close" data-dismiss="modal">확인</button>
+    <h2>추가정보 입력</h2>
+    <UserInfoUpdate />
   </div>
 </template>
 
 <script>
+import UserInfoUpdate from './UserInfoUpdate.vue'
 export default {
-  name: 'CompleteSignup'
+  name: 'CompleteSignup',
+  components: {
+    UserInfoUpdate,
+  }
 }
 </script>
 

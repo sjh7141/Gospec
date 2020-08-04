@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label class='d-flex justify-content-left' for="loginInputPassword1">비밀번호</label>
                 <input
+                    @keypress.enter='login' 
                     v-model='loginData.password'
                     type="password"
                     class="form-control"
@@ -59,6 +60,15 @@ export default {
         clickPasswordBtn() {
             this.$emit('clickPasswordBtn')
         },
+        checkLogin() {
+            if (this.isLoggedIn) {
+                this.loginData.username = ''
+                this.loginData.password = ''
+            }
+        }
+    },
+    mounted() {
+        this.checkLogin()
     }
 }
 </script>
