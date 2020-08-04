@@ -97,14 +97,14 @@
       {{ errorMessage }}
     </div>
   </div>
-  <input v-model='checkTerms' type="checkbox" id='checkboxLabel' style='margin-right: 10px; margin-top: 10px'>
-  <label for="checkboxLabel">GoSpec 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</label><br>
-  <button v-if="checkTerms && checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname" @click="signup" class="btn btn-primary">회원가입</button>
+  <Terms />
+  <button v-if="checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname" @click="signup" class="btn btn-primary">회원가입</button>
   <button v-else @click='notAllowSignup' class="btn btn-secondary">회원가입</button>
 </div>
 </template>
 
 <script>
+import Terms from './Terms.vue'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import axios from 'axios'
@@ -112,6 +112,7 @@ import axios from 'axios'
 const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
+  components: { Terms },
   data: () => {
     return {
       nickname: '',
@@ -147,7 +148,7 @@ export default {
       checkError: false,
       possibleNickname: false,
       emailDuplicationCheck: false,
-      checkTurms: null,
+      checkTerms: null,
     };
   },
   created() {
@@ -188,6 +189,9 @@ export default {
         this.checkEmail = false
         this.message.email = '이메일 형식으로 작성해주세요.'
       } 
+    },
+    changeTerms() {
+      this.checkTerms = !this.checkTerms
     },
 
     checkFormPassword() {

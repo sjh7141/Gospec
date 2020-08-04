@@ -96,9 +96,7 @@ export default {
         },
         signup(signupData) {
             axios.post(API_URL + '/api/users/', signupData)
-            .then(res => {
-                console.log(res)
-                console.log('회원가입 성공')
+            .then(() => {
                 this.modalState = 'completeSignup'
                 this.loginData.username = signupData.username
                 this.loginData.password = signupData.password

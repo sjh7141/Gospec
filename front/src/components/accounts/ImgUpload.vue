@@ -4,13 +4,18 @@
       label="File input"
       filled
       prepend-icon="mdi-camera"
+      v-model='imgFile'
     ></v-file-input>
   </div>
 </template>
 
 <script>
 export default {
-
+  data() {
+    return {
+      imgFile: null,
+    }
+  }
 }
 </script>
 

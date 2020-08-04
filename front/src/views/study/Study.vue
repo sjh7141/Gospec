@@ -1,6 +1,6 @@
 <template>
     <div>
-        here is Study
+    This is Study.
     </div>
 </template>
 
