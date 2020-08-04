@@ -1,5 +1,7 @@
 package com.gospec.domain;
 
+import java.util.List;
+
 public class UserDto {
 
 	private String username;
@@ -15,7 +17,6 @@ public class UserDto {
 	private String address;
 	private String major;
 	private String gender;
-			
 	
 	public String getUsername() {
 		return username;
@@ -123,8 +124,7 @@ public class UserDto {
 
 	public UserDto() {
 	}
-	
-	
+
 }
 
 

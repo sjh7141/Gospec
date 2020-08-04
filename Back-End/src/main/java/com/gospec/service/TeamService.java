@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gospec.domain.BoardTeamDto;
 import com.gospec.domain.TeamApprovalDto;
+import com.gospec.domain.UserDto;
 
 public interface TeamService {
 
@@ -16,4 +17,7 @@ public interface TeamService {
 		public boolean deleteTeamApproval(TeamApprovalDto teamApproval);
 		
 		public List<TeamApprovalDto> findTeamById(String teamId);
+		
+		public List<UserDto> recommandByAuto(String username);
+
 }

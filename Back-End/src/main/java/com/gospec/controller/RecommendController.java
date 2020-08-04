@@ -37,10 +37,11 @@ public class RecommendController {
 	}*/
 	
 	@ApiOperation(value = "백엔드 클러스터링 api,", response = InterestFieldDto.class)
-	@GetMapping(value = "/dummy")
+	@GetMapping(value = "/clustering")
 	public void cluster() {
 		KMeansClustering kmeans = new KMeansClustering();
 		try {
+			kmeans.makeFile(userService.makeDummy());
 			userService.makeCluster(kmeans.readData());
 		} catch (Exception e) {
 			e.printStackTrace();
