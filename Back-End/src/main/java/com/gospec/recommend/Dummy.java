@@ -29,7 +29,7 @@ public class Dummy {
 		return data;
 	}
 	
-	public void makefile(List<InterestFieldDto> list) {
+	public void makeFile(List<InterestFieldDto> list) {
 		Map<String, List<String>> map = new HashMap<>();
 
 		for(int i=0; i<list.size(); i++) {

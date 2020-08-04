@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gospec.domain.BoardTeamDto;
 import com.gospec.domain.TeamApprovalDto;
+import com.gospec.domain.UserDto;
 import com.gospec.mapper.TeamMapper;
 
 @Service
@@ -19,6 +20,7 @@ public class TeamServiceImpl implements TeamService {
 	public List<BoardTeamDto> findAll(String username) {
 		return teamMapper.findAll(username);
 	}
+
 
 	@Override
 	public boolean saveTeamApproval(TeamApprovalDto teamApproval) {
@@ -52,7 +54,9 @@ public class TeamServiceImpl implements TeamService {
 		return teamMapper.findTeamById(teamId);
 	}
 	
+	@Override
+	public List<UserDto> recommandByAuto(String username) {
+		return teamMapper.recommandByAuto(username);
+	}
 	
-	
-
 }

@@ -32,3 +32,4 @@ public interface UserMapper {
 	public void makeCluster(List<ClusterDto> list);
 
 }
+
