@@ -1,6 +1,5 @@
 <template>
 <div>
-  <v-app>
   <v-row class="fill-height">
       <v-col>
         <v-sheet height="64">
@@ -60,88 +59,55 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
-          <v-dialog v-model="dialog" width="600px"
-
-            :close-on-content-click="false"
-            :activator="selectedElement"
-            offset-x
-          >
-            <v-card
-              color="grey lighten-4"
-            >
-              <v-toolbar
-                :color="selectedEvent.color"
-                dark
-              >
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon v-if='likestate == false' @click='clickLike(selectedEvent.contestNo)'>좋아요</v-icon>
-                  <v-icon v-if='likestate == true' @click='clickDisLike(selectedEvent.contestNo)'>취소</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </v-toolbar>
-              <v-card-text>
-                <p>
-
-
-                  
-                </p>
-                <pre v-html="selectedEvent.details"></pre>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  text
-                  color="secondary"
-                  @click="dialog = false"
-                >
-                  Cancel
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+         <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
         </v-sheet>
       </v-col>
     </v-row>
-  </v-app>
 </div>
  
 </template>
 
 <script>
 import axios from 'axios'
+import CalendarDetail from '../common/CalendarDetail.vue'
   export default {
+    components: {
+      CalendarDetail
+    },
       props: {
         myContest: {
             type: Array,
-        }
-      },
+        },
 
-    data: () => ({
-      dialog:false,
-      focus: '',
-      type: 'month',
-      typeToLabel: {
-        month: 'Month',
-        week: 'Week',
-        day: 'Day',
-        '4day': '4 Days',
+        
       },
-      selectedEvent: {},
-      selectedElement: null,
-      selectedOpen: false,
-      events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1', 'black','red'],
-      myContest: null,
-      like: '',
-      }),
+    data() {
+      return{
+        likestate: '',
+        dialog: null,
+        selectedEvent: {},
+        color: null,
+        selectedElement: null,
+        selectedOpen: false,
+        focus: '',
+        type: 'month',
+        typeToLabel: {
+          month: 'Month',
+          week: 'Week',
+          day: 'Day',
+          '4day': '4 Days',
+        },
+        events: [],
+        colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
+      }
+    },
+  
     mounted () {
       this.$refs.calendar.checkChange()
+
+    },
+    created() {
+      this.updateRange()
 
     },
     methods: {
@@ -161,7 +127,56 @@ import axios from 'axios'
       next () {
         this.$refs.calendar.next()
       },
+      updateRange() {
+        this.name = ''
+        this.start = ''
+        this.end = ''
+        this.content =''
+        this.contestNo = ''
+        this.details = ''
+        const events = []
+        
+        for (let i = 0; i < this.myContest.length; i++){
+          events.push({
+
+            name: this.myContest[i].title,
+            start: this.myContest[i].startDate,
+            end: this.myContest[i].startDate,
+            details : this.myContest[i].content,
+            contestNo: this.myContest[i].contestNo,
+            
+            // 여기 시작 색상
+            color: 'black',
+          })
+          events.push({
+            name: this.myContest[i].title,
+            start: this.myContest[i].endDate,
+            end: this.myContest[i].endDate,
+            details : this.myContest[i].content,
+            contestNo: this.myContest[i].contestNo,
+            // 여기 끝 색상
+            color: '#FF5252',
+          })
+          this.events = events
+        }
+      },
+      rnd (a, b) {
+        return Math.floor((b - a + 1) * Math.random()) + a
+      },
       showEvent ({ nativeEvent, event }) {
+        const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      } 
+        axios.get('http://i3a202.p.ssafy.io:8181/api/contest/check/' + event.contestNo, config)
+        .then(res => {
+          this.likestate = res.data
+	
+          })
+        .catch(err => console.log(err.response))
+        console.log(event)
+        console.log(this.likestate)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event
@@ -176,79 +191,9 @@ import axios from 'axios'
         }
         nativeEvent.stopPropagation()
       },
-      updateRange() {
-        this.name = ''
-        this.start = ''
-        this.end = ''
-        this.content =''
-        const events = []
-        for (let i = 0; i < this.myContest.length; i++){
-          events.push({
-            name: this.myContest[i].title,
-            start: this.myContest[i].startDate,
-            end: this.myContest[i].startDate,
-            details : this.myContest[i].content,
-            // 여기 시작 색상
-            color: 'black',
-          })
-          events.push({
-            name: this.myContest[i].title,
-            start: this.myContest[i].endDate,
-            end: this.myContest[i].endDate,
-            details : this.myContest[i].content,
-            // 여기 끝 색상
-            color: 'red',
-          })
-          this.events = events
-        }
-      },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
-      },
-      clickLike(contestNo) {
-        var ca = this.$cookies.get("auth-token")
-        console.log(contestNo)
-        const data = {
-          contestNo: contestNo,
-        }
 
-        const config = {
-          
-          headers: {
-            Authorization: ca,
-          }
-      } 
-  
-      console.log('좋아요')
-
-      axios.post("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",data,config)
-      .then(res => {
-        console.log(res.data)
-        this.like = 1
-        console.log(this.like)
-      })
-      },
-      clickDisLike(contestNo) {
-      var ca = this.$cookies.get("auth-token")
-      console.log(contestNo)
-      console.log('취소')
-
-      axios.delete("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",{
-        headers: {
-          Authorization: ca
-        },
-        data: {
-          contestNo: contestNo
-        }
-      })
-      .then(res => {
-        this.like = 0
-        console.log(res.data)
-        console.log('삭제')
-        console.log(this.like)
-      })
-      }     
 
     },
   }
 </script>
+
