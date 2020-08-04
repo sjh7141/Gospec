@@ -36,6 +36,8 @@ import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.TeamDto;
 import com.gospec.domain.UserDto;
 import com.gospec.property.FileUploadResponse;
+import com.gospec.recommend.Dummy;
+import com.gospec.recommend.KMeansClustering;
 import com.gospec.security.GoUserDetailsService;
 import com.gospec.service.FileUploadDownloadService;
 import com.gospec.service.MailAuthenticationService;
