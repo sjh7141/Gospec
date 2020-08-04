@@ -67,9 +67,10 @@
 	</select>
 	
 	<select id="findAllInterestField" resultType="com.gospec.domain.InterestFieldDto">
-		select *
+		select field
 		from interest_field
 		where username = #{username}
+		where no = (select u.no from user_info u where username = #{username})
 	</select>
 	
 	<insert id="saveInterestField">

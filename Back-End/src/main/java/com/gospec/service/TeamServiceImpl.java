@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gospec.domain.TeamApprovalDto;
 import com.gospec.domain.TeamDto;
+import com.gospec.domain.UserDto;
 import com.gospec.mapper.TeamMapper;
 
 @Service
@@ -52,7 +53,10 @@ public class TeamServiceImpl implements TeamService {
 		return teamMapper.findTeamById(teamId);
 	}
 	
-	
+	@Override
+	public List<UserDto> recommandByAuto(String username) {
+		return teamMapper.recommandByAuto(username);
+	}
 	
 
 }

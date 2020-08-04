@@ -32,4 +32,22 @@
 		where team_id=#{teamId}
 	</select>
 	
+	<select id="recommandByAuto" resultType="com.gospec.domain.UserDto">
+		select username, nickname, profile_img
+		from (
+				select no 
+				from(
+						select cluster
+						from cluster_table c
+						inner join user_info u
+						on u.username = #{username} and c.no = u.no
+					 ) d
+				inner join cluster_table ct
+				on d.cluster = ct.cluster
+			  ) n
+		inner join user_info ui
+		on ui.no = n.no
+        order by rand() limit 5;
+	</select>
+	
 </mapper>

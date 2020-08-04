@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gospec.domain.TeamApprovalDto;
 import com.gospec.domain.TeamDto;
+import com.gospec.domain.UserDto;
 
 @Mapper
 public interface TeamMapper {
@@ -15,4 +16,6 @@ public interface TeamMapper {
 	public int updateTeamApproval(TeamApprovalDto teamApproval);
 	public int deleteTeamApproval(TeamApprovalDto teamApproval);
 	public List<TeamApprovalDto> findTeamById(String team_id);
+	public List<UserDto> recommandByAuto(String username);
+	
 }
