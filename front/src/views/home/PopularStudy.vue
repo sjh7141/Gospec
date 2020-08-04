@@ -1,54 +1,156 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="500"
+<div class="contestcard">
+  <v-row dense>
+    <v-col>
+    <v-card
+    class="card mx-auto"
+    max-width="400"
   >
-    <v-container fluid>
-      <v-row dense>
-        <v-col
-          v-for="card in cards"
-          :key="card.title"
-          :cols="card.flex"
-        >
-          <v-card>
-            <v-img
-              :src="card.src"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-            </v-img>
+    <v-img
+      class="white--text align-end"
+      height="250px"
+      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+    >
+      <v-card-title>{{ contest[0].title }}</v-card-title>
+    </v-img>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
+    <v-card-subtitle class="pb-0">{{ contest[0].totalReward}}</v-card-subtitle>
 
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
+    <v-card-text class="text--primary">
+      <div>{{ contest[0].startDate}}</div>
 
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
+      <div>{{ contest[0].endDate}}</div>
+    </v-card-text>
 
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+        Share
+      </v-btn>
+
+      <v-btn
+        color="orange"
+        text
+      >
+        Explore
+      </v-btn>
+    </v-card-actions>
   </v-card>
+  </v-col>
+  <v-col>
+    <v-card
+    class="card mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end"
+      height="250px"
+      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+    >
+      <v-card-title>{{ contest[1].title }}</v-card-title>
+    </v-img>
+
+    <v-card-subtitle class="pb-0">{{ contest[1].totalReward}}</v-card-subtitle>
+
+    <v-card-text class="text--primary">
+      <div>{{ contest[1].startDate}}</div>
+
+      <div>{{ contest[1].endDate}}</div>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+        Share
+      </v-btn>
+
+      <v-btn
+        color="orange"
+        text
+      >
+        Explore
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+  </v-col>
+  <v-col>
+    <v-card
+    class="card mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end"
+      height="250px"
+      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+    >
+      <v-card-title>{{ contest[1].title }}</v-card-title>
+    </v-img>
+
+    <v-card-subtitle class="pb-0">{{ contest[1].totalReward}}</v-card-subtitle>
+
+    <v-card-text class="text--primary">
+      <div>{{ contest[1].startDate}}</div>
+
+      <div>{{ contest[1].endDate}}</div>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+        Share
+      </v-btn>
+
+      <v-btn
+        color="orange"
+        text
+      >
+        Explore
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+  </v-col>
+</v-row>
+</div>
 </template>
 
 <script>
   export default {
-    data: () => ({
-      cards: [
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-      ],
-    }),
+    props:{
+      contest: {
+        type:Array
+      }
+    },
+    methods: {
+      getCard() {
+        const cards = []
+        for (let i = 0; i < this.contest.length; i++){
+        console.log(this.contest[i].title)
+        cards.push({
+          title: this.contest[i].title, 
+          src:'https://cdn.vuetifyjs.com/images/cards/road.jpg', 
+          flex: 6 })
+      }
+    },
+    data() {
+      return {
+
+
+      }
+
+    }
   }
+  }
+
 </script>
+<style>
+.card{
+  display: inline-block;
+
+}
+</style>
