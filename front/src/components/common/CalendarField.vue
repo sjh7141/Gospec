@@ -3,6 +3,7 @@
   <v-card
     class="category mx-auto"
     max-width="400"
+    dark
   >
     <v-list>
       <v-list-item-group v-model="model">

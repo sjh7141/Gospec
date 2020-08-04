@@ -2,30 +2,10 @@
 <v-app>
 <div class="cal">
 <div class="filter">
-<div>
-  <v-card
-    class="category mx-auto"
-    max-width="400"
-  >
-    <v-list>
-      <v-list-item-group v-model="model">
-        <v-list-item
-          v-for="(item,i) in items"
-          :key="i"
-          :item="item"
-          :field="item.text"
-          @click ="getfield(item.text,item.fieldtype)"
-          @change ="getContest"
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="item.fieldtype"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-card>
+<CalendarField />
+
 </div>
-</div>
+
 <div class="cal-body">
   <div class="d-flex">
   <v-btn color="error" class= 'cal-btn mr-4' @click="totalCalBtn">전체일정</v-btn>
@@ -44,6 +24,8 @@
 <script>
 import TotalCalendar from '../common/TotalCalendar.vue'
 import MyCalendar from '../common/MyCalendar.vue'
+import CalendarField from '../common/CalendarField.vue'
+
 import axios from 'axios'
 const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-07-01/2020-07-31"
 const MY_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/bookmark/"
@@ -52,7 +34,7 @@ export default {
   components: {
     TotalCalendar,
     MyCalendar,
-
+    CalendarField
    },
   data() {
     return{
