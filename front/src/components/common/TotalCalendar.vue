@@ -43,6 +43,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
+            
           ></v-calendar>
          <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
         </v-sheet>
@@ -182,3 +183,6 @@ import CalendarDetail from '../common/CalendarDetail.vue'
   }
 </script>
 
+<style>
+
+</style>
