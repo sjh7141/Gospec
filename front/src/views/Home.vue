@@ -15,9 +15,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
-.v-application.container {
-    margin-left: 50px;
-}
 </style>
