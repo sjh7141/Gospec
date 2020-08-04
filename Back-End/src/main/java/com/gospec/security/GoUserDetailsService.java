@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
+import com.gospec.domain.ClusterDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
-import com.gospec.security.GoUserDetails;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
@@ -32,6 +32,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDto user = userMapper.findByUsername(username);
+		if(user == null) {
+			throw new UsernameNotFoundException("유저 아이디 없음");
+		}
 		GoUserDetails principal = new GoUserDetails(user);
 		return principal;
 	}
@@ -101,6 +104,18 @@ public class GoUserDetailsService implements UserDetailsService{
 	}
 	public List<InterestFieldDto> findAllInterestField(String username){
 		return userMapper.findAllInterestField(username);
-	}	
+	}
+	
+	public void saveInterestField(String username, String field) {
+		userMapper.saveInterestField(username, field);
+	}
+	
+	public List<InterestFieldDto> makeDummy() {
+		return userMapper.findInterestFieldDumamy();
+	}
+	
+	public void makeCluster(List<ClusterDto> list) {
+		userMapper.makeCluster(list);
+	}
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,8 @@ import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.TeamDto;
 import com.gospec.domain.UserDto;
 import com.gospec.property.FileUploadResponse;
+import com.gospec.recommend.Dummy;
+import com.gospec.recommend.KMeansClustering;
 import com.gospec.security.GoUserDetailsService;
 import com.gospec.service.FileUploadDownloadService;
 import com.gospec.service.MailAuthenticationService;
@@ -138,5 +141,5 @@ public class UserController {
 	public ResponseEntity<String> sendEmail(@PathVariable("username") String username){
 		return new ResponseEntity<String>(mailService.sendMail(username), HttpStatus.OK);
 	}
-
+	
 }

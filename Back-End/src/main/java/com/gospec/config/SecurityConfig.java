@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -12,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,7 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.gospec.filter.JwtAuthenticationFilter;
 import com.gospec.filter.JwtAuthorizationFilter;
 import com.gospec.mapper.UserMapper;
-import com.gospec.security.GoUserDetailsService;
+import com.gospec.security.GoAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -29,13 +29,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserMapper userMapper;
 
 	@Autowired
-	private GoUserDetailsService userService;
+	private GoAuthenticationProvider provider;
+	
+	@Autowired
+	private AuthenticationEntryPoint authenticationEntryPoint;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		/*DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setPasswordEncoder(passwordEncoder());
-		provider.setUserDetailsService(userService);
+		provider.setUserDetailsService(userService);*/
 
 		auth.authenticationProvider(provider);
 	}
@@ -53,12 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/api/users/*").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/file/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/file/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/users/dummy").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/email-duplication/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/nickname-duplication/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/email-authentication/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/**").authenticated()
 			.antMatchers(HttpMethod.GET).permitAll()
-			.anyRequest().authenticated();
+			.anyRequest().authenticated()
+			.and()
+			.httpBasic()
+			.authenticationEntryPoint(authenticationEntryPoint);
 	}
 
 	@Override
@@ -77,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://localhost:8080");
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

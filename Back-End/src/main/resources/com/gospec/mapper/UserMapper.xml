@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="save">
-		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday,age,address,major)
-		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{age},#{address},#{major})
+		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday,age,address,major,gender)
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{age},#{address},#{major},#{gender})
 	</insert>
 	
 	<select id="checkId" resultType="Integer">
@@ -50,7 +50,7 @@
 	
 	<update id="updateByUsername">
 		update user_info
-		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}
+		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}, gender={gender}
 		where username = #{username}
 	</update>
 	
@@ -72,4 +72,19 @@
 		where username = #{username}
 	</select>
 	
+	<insert id="saveInterestField">
+		insert into interest_field values((select u.no from user_info u where username = #{username}), #{field});
+	</insert>
+	
+	<select id="findInterestFieldDumamy" resultType="com.gospec.domain.InterestFieldDto">
+		select *
+		from interest_field
+	</select>
+	
+	<insert id="makeCluster" parameterType="java.util.List">
+		insert into cluster_table values
+		<foreach collection="list" item="item" separator=",">
+			("${item.no}", "${item.cluster}")
+		</foreach>
+	</insert>
 </mapper>
