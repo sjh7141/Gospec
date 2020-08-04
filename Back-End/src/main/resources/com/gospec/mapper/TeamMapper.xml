@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gospec.mapper.TeamMapper">
 
-	<select id="findAll" resultType="com.gospec.domain.TeamDto">
+	<select id="findAll" resultType="com.gospec.domain.BoardTeamDto">
 		select * 
 		from find_team_board
+		where username=#{username}
 	</select>
-	
+
 	<insert id="saveTeamApproval">
 		insert into team_approval (team_id, leader_username, member_username, approval_flag)
 		values (#{teamId}, #{leaderUsername}, #{memberUsername}, #{approvalFlag})
