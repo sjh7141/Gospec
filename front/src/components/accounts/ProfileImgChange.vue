@@ -81,8 +81,10 @@ const API_URL = 'http://localhost:8181'
                   'Content-Type': 'multipart/form-data',
                 }
             } 
+            let formData = new FormData();
+            formData.append("file", file);
             console.log(config)
-            axios.post(API_URL + '/api/file/upload', file, config)
+            axios.post(API_URL + '/api/file/upload', formData, config)
             .then((res) => {
               console.log(res.data)
             })
