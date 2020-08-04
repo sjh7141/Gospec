@@ -102,12 +102,25 @@ public class GoUserDetailsService implements UserDetailsService{
 	public List<BookMarkDto> findAllBookMark(String username){
 		return userMapper.findAllBookMark(username);
 	}
-	public List<InterestFieldDto> findAllInterestField(String username){
+	public List<String> findAllInterestField(String username){
 		return userMapper.findAllInterestField(username);
 	}
 	
-	public void saveInterestField(String username, String field) {
-		userMapper.saveInterestField(username, field);
+	public boolean deleteInterestField(String username) {
+		if(userMapper.deleteInterestField(username)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean saveInterestField(List<InterestFieldDto> fields) {
+		for(InterestFieldDto t : fields) {
+			System.out.println(t.getUsername() + " "+ t.getField());
+		}
+		if(userMapper.saveInterestField(fields) > 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	public List<InterestFieldDto> makeDummy() {

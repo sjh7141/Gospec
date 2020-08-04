@@ -31,4 +31,13 @@ public class InterestFieldDto {
 		this.username = username;
 	}
 
+	public InterestFieldDto() {
+	
+	}
+
+	public InterestFieldDto(String field, String username) {
+		this.field = field;
+		this.username = username;
+	}
+	
 }

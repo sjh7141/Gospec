@@ -24,9 +24,10 @@ public interface UserMapper {
 	public int updateByUsername(UserDto user);
 	public List<ActiveRegionDto> findAllActiveRegion(String username);
 	public List<BookMarkDto> findAllBookMark(String username);
-	public List<InterestFieldDto> findAllInterestField(String username);
+	public List<String> findAllInterestField(String username);
 	public int checkNickName(String nickname);
-	public void saveInterestField(String username, String field);
+	public int deleteInterestField(String username);
+	public int saveInterestField(List<InterestFieldDto> fields);
 	public List<InterestFieldDto> findInterestFieldDumamy();
 	public void makeCluster(List<ClusterDto> list);
 

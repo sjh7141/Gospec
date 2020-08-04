@@ -66,14 +66,23 @@
 		where username = #{username}
 	</select>
 	
-	<select id="findAllInterestField" resultType="com.gospec.domain.InterestFieldDto">
-		select *
+	<select id="findAllInterestField" resultType="String">
+		select field
 		from interest_field
-		where username = #{username}
+		where no = (select u.no from user_info u where username = #{username})
 	</select>
 	
-	<insert id="saveInterestField">
-		insert into interest_field values((select u.no from user_info u where username = #{username}), #{field});
+	<delete id="deleteInterestField">
+		delete from interest_field
+		where no = (select u.no from user_info u where username = #{username})
+	</delete>
+	
+	<insert id="saveInterestField" parameterType="java.util.List">
+		insert into interest_field (no, field) 
+		values
+		<foreach collection="list" item="item" separator=",">
+			((select u.no from user_info u where username = "${item.username}"), "${item.field}")
+		</foreach>
 	</insert>
 	
 	<select id="findInterestFieldDumamy" resultType="com.gospec.domain.InterestFieldDto">
@@ -87,4 +96,5 @@
 			("${item.no}", "${item.cluster}")
 		</foreach>
 	</insert>
+
 </mapper>
