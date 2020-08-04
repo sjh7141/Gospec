@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gospec.mapper.UserMapper">
+
+	<select id="findByUsername" resultType="com.gospec.domain.UserDto">
+		select * 
+		from user_info 
+		where username = #{username}
+	</select>
+	
+	<select id="findAll" resultType="com.gospec.domain.UserDto">
+		select *
+		from user_info
+	</select>
+	
+	<insert id="save">
+		insert into user_info (username,password,nickname,profile_img,self_introduction,name,phone,birthday,age,address,major)
+		values (#{username},#{password},#{nickname},#{profileImg},#{selfIntroduction},#{name},#{phone},#{birthday},#{age},#{address},#{major})
+	</insert>
+	
+	<select id="checkId" resultType="Integer">
+		select count(*)
+		from user_info
+		where username = #{username}
+	</select>
+	
+	<select id="checkNickName" resultType="Integer">
+		select count(*)
+		from user_info
+		where nickname = #{nickname}
+	</select>
+	
+	<update id="newPwd">
+		update user_info
+		set password = #{password}
+		where username = #{username}
+	</update>
+	
+	<delete id="deleteByUsername">
+		delete from user_info
+		where username = #{username}
+	</delete>
+	
+	<select id="checkPwd" resultType= "Integer">
+		select count(*)
+		from user_info
+		where username = #{username}
+		and password = #{password}
+	</select>
+	
+	<update id="updateByUsername">
+		update user_info
+		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}
+		where username = #{username}
+	</update>
+	
+	<select id="findAllActiveRegion" resultType="com.gospec.domain.ActiveRegionDto">
+		select *
+		from active_region
+		where username = #{username}
+	</select>
+	
+	<select id="findAllBookMark" resultType="com.gospec.domain.BookMarkDto">
+		select *
+		from bookmark_contest
+		where username = #{username}
+	</select>
+	
+	<select id="findAllInterestField" resultType="com.gospec.domain.InterestFieldDto">
+		select *
+		from interest_field
+		where username = #{username}
+	</select>
+	
+</mapper>

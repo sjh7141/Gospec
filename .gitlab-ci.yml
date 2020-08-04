@@ -1,0 +1,19 @@
+continuous_deployment_task:
+  stage: deploy
+  only:
+    - develop 
+  script:
+#    - echo 'STEP1) FRONT BUILD JOB INITIATED...'
+#    - cd front
+#    - npm install
+#    - npm run build
+#    - echo 'STEP2) COPY BUILD FILE TO SERVER...'
+#    - mkdir ../Back-End/static
+#    - cp -r ./dist/* ../Back-End/static
+#    - echo 'STEP3) RUN SPRINGBOOT SERVER...'
+#    - cd ../Back-End
+#    - if [ $(expr length "$(sudo netstat -tnlp | grep 8181 | awk '{print $7}' | sed 's/\/java//g')") -ne 0 ];then sudo kill $(sudo netstat -tnlp | grep 8181 | awk '{print $7}' | sed "s/\/java//g") ;fi  # 직전서버가 정상종료되지 않고, 잔류해있을 경우 수동으로 종료하는 스크립트 개망했음 그냥 엉망진창 똥덩어리야
+#    - sudo chmod 755 ./mvnw
+#    - ./mvnw spring-boot:run
+  tags:
+    - deploy
