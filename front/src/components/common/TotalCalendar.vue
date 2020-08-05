@@ -3,7 +3,6 @@
   <v-row class="fill-height">
       <v-col>
         <v-sheet height="64" width="1000">
-          
           <v-toolbar flat color="white">
             <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
               Today
@@ -19,18 +18,18 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu bottom right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  outlined
-                  color="grey darken-2"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <span>{{ typeToLabel[type] }}</span>
-                  <v-icon right>mdi-menu-down</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
+                          <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                outlined
+                color="grey darken-2"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <span>{{ typeToLabel[type] }}</span>
+                <v-icon right>mdi-menu-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
               <v-list-item @click="type = 'day'">
                 <v-list-item-title>Day</v-list-item-title>
               </v-list-item>
@@ -44,8 +43,8 @@
                 <v-list-item-title>4 days</v-list-item-title>
               </v-list-item>
             </v-list>
-            </v-menu>
-          </v-toolbar>
+          </v-menu>
+        </v-toolbar>
         </v-sheet>
         <v-sheet height="750" width="1000">
           <v-calendar
@@ -61,7 +60,15 @@
             @change="updateRange"
             
           ></v-calendar>
+          <v-dialog 
+          v-model="dialog"
+          width=60%
+          :close-on-content-click="false"
+          :activator="selectedElement"
+          offset-x
+          >
          <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
+        </v-dialog>
         </v-sheet>
       </v-col>
     </v-row>
@@ -74,14 +81,11 @@ import axios from 'axios'
 import CalendarDetail from '../common/CalendarDetail.vue'
   export default {
     components: {
-      CalendarDetail,
+      CalendarDetail
     },
       props: {
         contest: {
             type: Array,
-        },
-        field: {
-          type:String
         },
 
         
@@ -89,7 +93,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
     data() {
       return{
         likestate: '',
-        dialog: false,
+        dialog: null,
         selectedEvent: {},
         color: null,
         selectedElement: null,
@@ -116,6 +120,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
 
     },
     methods: {
+      setData (dialog) {
+        this.dialog = dialog
+      },
       viewDay ({ date }) {
         this.focus = date
         this.type = 'day'
@@ -142,7 +149,6 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         const events = []
         
         for (let i = 0; i < this.contest.length; i++){
-          console.log(this.field)
           events.push({
 
             name: this.contest[i].title,
@@ -164,7 +170,6 @@ import CalendarDetail from '../common/CalendarDetail.vue'
             color: '#FF5252',
           })
           this.events = events
-        
         }
       },
       rnd (a, b) {
@@ -185,13 +190,13 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         console.log(event)
         console.log(this.likestate)
         const open = () => {
-          this.dialog=true,
+          
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
-          setTimeout(() => this.selectedOpen = true, 10)
+          setTimeout(() => this.dialog = true, 10)
         }
-        if (this.selectedOpen) {
-          this.selectedOpen = false
+        if (this.dialog) {
+          this.dialog = false
           setTimeout(open, 10)
         } else {
           open()
