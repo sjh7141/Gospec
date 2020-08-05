@@ -45,8 +45,10 @@ public class GoUserDetailsService implements UserDetailsService{
 		user.setPassword(pwEncoding.encode(user.getPassword()));
 		if(userMapper.save(user) > 0) {
 			userMapper.resetCluster();
-			kmean.makeFile(userMapper.findByInterestFieldWithCluster());
-			userMapper.makeCluster(kmean.readData());
+			synchronized (kmean) {
+				kmean.makeFile(userMapper.findByInterestFieldWithCluster());
+				userMapper.makeCluster(kmean.readData());
+			}
 			return true;
 		}
 		return false;
