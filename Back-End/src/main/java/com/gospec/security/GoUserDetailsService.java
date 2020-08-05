@@ -1,12 +1,8 @@
 package com.gospec.security;
 
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +17,7 @@ import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.LicenseDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
+import com.gospec.recommend.KMeansClustering;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
@@ -30,6 +27,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	
 	@Autowired
 	private BCryptPasswordEncoder pwEncoding;
+	
+	@Autowired
+	private KMeansClustering kmean;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,6 +44,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	public boolean save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
 		if(userMapper.save(user) > 0) {
+			userMapper.resetCluster();
+			kmean.makeFile(userMapper.findByInterestFieldWithCluster());
+			userMapper.makeCluster(kmean.readData());
 			return true;
 		}
 		return false;
@@ -141,12 +144,16 @@ public class GoUserDetailsService implements UserDetailsService{
 		userMapper.saveCareer(careers);
 	}
 	
-	public List<InterestFieldDto> makeDummy() {
-		return userMapper.findInterestFieldDumamy();
+	public List<InterestFieldDto> findByInterestFieldWithCluster() {
+		return userMapper.findByInterestFieldWithCluster();
 	}
 	
 	public void makeCluster(List<ClusterDto> list) {
 		userMapper.makeCluster(list);
 	}
 	
+	public void resetCluster() {
+		userMapper.resetCluster();
+	}
 }
+

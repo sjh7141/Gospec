@@ -9,7 +9,6 @@ public class BoardTeamDto {
 	private String title;
 	private String content;
 	private int memberMax;
-	private int memberCur;
 	private String registTime;
 	private int contestNo;
 	private String teamId;
@@ -61,14 +60,6 @@ public class BoardTeamDto {
 
 	public void setMemberMax(int memberMax) {
 		this.memberMax = memberMax;
-	}
-
-	public int getMemberCur() {
-		return memberCur;
-	}
-
-	public void setMemberCur(int memberCur) {
-		this.memberCur = memberCur;
 	}
 
 	public String getRegistTime() {

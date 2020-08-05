@@ -131,8 +131,8 @@
 		</foreach>
 	</insert>
 		
-	<select id="findInterestFieldDumamy" resultType="com.gospec.domain.InterestFieldDto">
-		select *
+	<select id="findByInterestFieldWithCluster" resultType="com.gospec.domain.InterestFieldDto">
+		select no, field
 		from interest_field
 	</select>
 	
@@ -142,5 +142,9 @@
 			("${item.no}", "${item.cluster}")
 		</foreach>
 	</insert>
+	
+	<delete id="resetCluster">
+		delete from cluster_table
+	</delete>
 
 </mapper>

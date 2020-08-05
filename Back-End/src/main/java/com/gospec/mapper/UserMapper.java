@@ -8,7 +8,6 @@ import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
 import com.gospec.domain.CareerDto;
 import com.gospec.domain.ClusterDto;
-import com.gospec.domain.EmailAuthDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.LicenseDto;
 import com.gospec.domain.UserDto;
@@ -41,7 +40,8 @@ public interface UserMapper {
 	public int deleteLicense(String username);
 	public int deleteCareer(String username);
 	
-	public List<InterestFieldDto> findInterestFieldDumamy();
+	public List<InterestFieldDto> findByInterestFieldWithCluster();
 	public void makeCluster(List<ClusterDto> list);
-
+	public void resetCluster();
 }
+

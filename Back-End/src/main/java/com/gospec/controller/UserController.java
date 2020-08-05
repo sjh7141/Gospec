@@ -1,7 +1,5 @@
 package com.gospec.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +26,7 @@ import com.gospec.domain.CareerDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.LicenseDto;
 import com.gospec.domain.UserDto;
+import com.gospec.recommend.KMeansClustering;
 import com.gospec.security.GoUserDetailsService;
 import com.gospec.service.MailAuthenticationService;
 
