@@ -101,7 +101,7 @@ public class UserController {
 		return new ResponseEntity<UserDto>(user,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "내정보수정, 해당 아이디 정보 및 프로필 수정, 헤더내용과 불일치시 403에러, user,fields,regions,licenses,careers 객체 사용가능", response = Boolean.class)
+	@ApiOperation(value = "내정보수정, 해당 아이디 정보 및 프로필 수정, 헤더내용과 불일치시 403에러, type('profile','user'),user,fields,regions,licenses,careers 객체 입력가능", response = Boolean.class)
 	@PatchMapping
 	public ResponseEntity<Boolean> updateInfo(@RequestBody Map<String, Object> param){
 		String headername = SecurityContextHolder.getContext().getAuthentication().getName();
