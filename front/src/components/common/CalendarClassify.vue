@@ -27,8 +27,9 @@ import MyCalendar from '../common/MyCalendar.vue'
 import CalendarField from '../common/CalendarField.vue'
 
 import axios from 'axios'
-const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-07-01/2020-07-31"
+const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-01-01/2020-12-31"
 const MY_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/bookmark/"
+const FIELD_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/field/"
 
 export default {
   components: {
@@ -149,6 +150,16 @@ export default {
     this.getfield()
   },
   methods: {
+    getField() {
+      axios.get(FIELD_API_URL)
+        .then(response => {
+            this.contest = response.data
+            this.calState = 'total'
+
+            })
+        .catch(error => { console.log(error) })
+
+    },
     totalCalBtn() {
 
       
