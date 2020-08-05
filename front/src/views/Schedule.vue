@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import CalendarClassify from '../components/common/CalendarClassify.vue'
-import Banner from '../components/common/Banner.vue'
+import CalendarClassify from './calendar/CalendarClassify.vue'
+import Banner from './calendar/Banner.vue'
 
     export default {
         components: {

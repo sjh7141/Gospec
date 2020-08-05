@@ -18,33 +18,33 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu bottom right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  outlined
-                  color="grey darken-2"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <span>{{ typeToLabel[type] }}</span>
-                  <v-icon right>mdi-menu-down</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item @click="type = 'day'">
-                  <v-list-item-title>Day</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="type = 'week'">
-                  <v-list-item-title>Week</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="type = 'month'">
-                  <v-list-item-title>Month</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="type = '4day'">
-                  <v-list-item-title>4 days</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-toolbar>
+                          <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                outlined
+                color="grey darken-2"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <span>{{ typeToLabel[type] }}</span>
+                <v-icon right>mdi-menu-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="type = 'day'">
+                <v-list-item-title>Day</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = 'week'">
+                <v-list-item-title>Week</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = 'month'">
+                <v-list-item-title>Month</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = '4day'">
+                <v-list-item-title>4 days</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-toolbar>
         </v-sheet>
         <v-sheet height="750" width="100%">
           <v-calendar
@@ -58,6 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
+            
           ></v-calendar>
           <v-dialog 
           v-model="dialog"
@@ -66,7 +67,8 @@
           :activator="selectedElement"
           offset-x
           >
-         <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
+         <CalendarDetail @dialog-change= "onDialogChange" :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" />
+    
         </v-dialog>
         </v-sheet>
       </v-col>
@@ -77,13 +79,13 @@
 
 <script>
 import axios from 'axios'
-import CalendarDetail from '../common/CalendarDetail.vue'
+import CalendarDetail from './CalendarDetail.vue'
   export default {
     components: {
       CalendarDetail
     },
       props: {
-        myContest: {
+        contest: {
             type: Array,
         },
 
@@ -91,7 +93,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       },
     data() {
       return{
-        likestate: '',
+        likestate: {
+          type:Boolean
+        },
         dialog: null,
         selectedEvent: {},
         color: null,
@@ -119,6 +123,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
 
     },
     methods: {
+      onDialogChange (dialog) {
+        this.dialog = dialog
+      },
       viewDay ({ date }) {
         this.focus = date
         this.type = 'day'
@@ -135,6 +142,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       next () {
         this.$refs.calendar.next()
       },
+
       updateRange() {
         this.name = ''
         this.start = ''
@@ -143,25 +151,24 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         this.contestNo = ''
         this.details = ''
         const events = []
-        
-        for (let i = 0; i < this.myContest.length; i++){
+        for (let i = 0; i < this.contest.length; i++){
           events.push({
 
-            name: this.myContest[i].title,
-            start: this.myContest[i].startDate,
-            end: this.myContest[i].startDate,
-            details : this.myContest[i].content,
-            contestNo: this.myContest[i].contestNo,
+            name: this.contest[i].title,
+            start: this.contest[i].startDate,
+            end: this.contest[i].startDate,
+            details : this.contest[i].content,
+            contestNo: this.contest[i].contestNo,
             
             // 여기 시작 색상
             color: 'black',
           })
           events.push({
-            name: this.myContest[i].title,
-            start: this.myContest[i].endDate,
-            end: this.myContest[i].endDate,
-            details : this.myContest[i].content,
-            contestNo: this.myContest[i].contestNo,
+            name: this.contest[i].title,
+            start: this.contest[i].endDate,
+            end: this.contest[i].endDate,
+            details : this.contest[i].content,
+            contestNo: this.contest[i].contestNo,
             // 여기 끝 색상
             color: '#FF5252',
           })
@@ -186,13 +193,13 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         console.log(event)
         console.log(this.likestate)
         const open = () => {
-          this.dialog=true,
+          
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
-          setTimeout(() => this.selectedOpen = true, 10)
+          setTimeout(() => this.dialog = true, 10)
         }
-        if (this.selectedOpen) {
-          this.selectedOpen = false
+        if (this.dialog) {
+          this.dialog = false
           setTimeout(open, 10)
         } else {
           open()
@@ -205,3 +212,6 @@ import CalendarDetail from '../common/CalendarDetail.vue'
   }
 </script>
 
+<style>
+
+</style>
