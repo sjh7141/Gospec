@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
+import com.gospec.domain.CareerDto;
 import com.gospec.domain.ClusterDto;
 import com.gospec.domain.InterestFieldDto;
+import com.gospec.domain.LicenseDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
 
@@ -96,31 +98,53 @@ public class GoUserDetailsService implements UserDetailsService{
 		return false;
 	}
 	
-	public List<ActiveRegionDto> findAllActiveRegion(String username){
-		return userMapper.findAllActiveRegion(username);
-	}
 	public List<BookMarkDto> findAllBookMark(String username){
 		return userMapper.findAllBookMark(username);
 	}
+	
 	public List<String> findAllInterestField(String username){
 		return userMapper.findAllInterestField(username);
 	}
 	
-	public boolean deleteInterestField(String username) {
-		if(userMapper.deleteInterestField(username)>0) {
-			return true;
-		}
-		return false;
+	public List<String> findAllActiveRegion(String username){
+		return userMapper.findAllActiveRegion(username);
 	}
 	
-	public boolean saveInterestField(List<InterestFieldDto> fields) {
-		for(InterestFieldDto t : fields) {
-			System.out.println(t.getUsername() + " "+ t.getField());
-		}
-		if(userMapper.saveInterestField(fields) > 0) {
-			return true;
-		}
-		return false;
+	public List<String> findAllLicense(String username){
+		return userMapper.findAllLicense(username);
+	}
+	
+	public List<CareerDto> findAllCareer(String username){
+		return userMapper.findAllCareer(username);
+	}
+	
+	public void deleteInterestField(String username) {
+		userMapper.deleteInterestField(username);
+	}
+	
+	public void deleteActiveRegion(String username) {
+		userMapper.deleteActiveRegion(username);
+	}
+	
+	public void deleteLicense(String username) {
+		userMapper.deleteLicense(username);
+	}
+	public void deleteCareer(String username) {
+		userMapper.deleteCareer(username);
+	}
+	
+	public void saveInterestField(List<InterestFieldDto> fields) {
+		userMapper.saveInterestField(fields);
+	}
+	
+	public void saveActiveRegion(List<ActiveRegionDto> regions) {
+		userMapper.saveActiveRegion(regions);
+	}
+	public void saveLicense(List<LicenseDto> licenses) {
+		userMapper.saveLicense(licenses);
+	}
+	public void saveCareer(List<CareerDto> careers) {
+		userMapper.saveCareer(careers);
 	}
 	
 	public List<InterestFieldDto> makeDummy() {

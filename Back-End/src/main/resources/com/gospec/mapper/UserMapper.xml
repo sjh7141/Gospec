@@ -50,12 +50,12 @@
 	
 	<update id="updateByUsername">
 		update user_info
-		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}, gender={gender}
+		set password = #{password}, nickname = #{nickname}, profile_img = #{profileImg}, self_introduction = #{selfIntroduction}, name= #{name}, phone = #{phone}, birthday = #{birthday}, authority = #{authority}, age=#{age}, address=#{address}, major=#{major}, gender=#{gender}
 		where username = #{username}
 	</update>
 	
-	<select id="findAllActiveRegion" resultType="com.gospec.domain.ActiveRegionDto">
-		select *
+	<select id="findAllActiveRegion" resultType="String">
+		select region
 		from active_region
 		where username = #{username}
 	</select>
@@ -72,9 +72,36 @@
 		where no = (select u.no from user_info u where username = #{username})
 	</select>
 	
+	<select id="findAllLicense" resultType="String">
+		select licensename
+		from license
+		where username = #{username}
+	</select>
+	
+	<select id="findAllCareer" resultType="com.gospec.domain.CareerDto">
+		select username, careername, status, start_year
+		from career
+		where username = #{username}
+	</select>
+	
 	<delete id="deleteInterestField">
 		delete from interest_field
 		where no = (select u.no from user_info u where username = #{username})
+	</delete>
+	
+	<delete id="deleteActiveRegion">
+		delete from active_region
+		where username = #{username}
+	</delete>
+	
+	<delete id="deleteLicense">
+		delete from license
+		where username = #{username}
+	</delete>
+	
+	<delete id="deleteCareer">
+		delete from career
+		where username = #{username}
 	</delete>
 	
 	<insert id="saveInterestField" parameterType="java.util.List">
@@ -85,6 +112,30 @@
 		</foreach>
 	</insert>
 	
+	<insert id="saveActiveRegion" parameterType="java.util.List">
+		insert into active_region (username, region) 
+		values
+		<foreach collection="list" item="item" separator=",">
+			("${item.username}", "${item.region}")
+		</foreach>
+	</insert>
+	
+	<insert id="saveLicense" parameterType="java.util.List">
+		insert into license (username, licensename) 
+		values
+		<foreach collection="list" item="item" separator=",">
+			("${item.username}", "${item.licensename}")
+		</foreach>
+	</insert>
+	
+	<insert id="saveCareer" parameterType="java.util.List">
+		insert into career (username, status, start_year, careername) 
+		values
+		<foreach collection="list" item="item" separator=",">
+			("${item.username}", "${item.status}", "${item.startYear}", "${item.careername}")
+		</foreach>
+	</insert>
+		
 	<select id="findInterestFieldDumamy" resultType="com.gospec.domain.InterestFieldDto">
 		select *
 		from interest_field
