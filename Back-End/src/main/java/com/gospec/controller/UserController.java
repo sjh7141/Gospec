@@ -81,7 +81,7 @@ public class UserController {
 	
 	@ApiOperation(value = "비밀번호찾기, 새로운 비밀번호로 수정한다.", response = Boolean.class)
 	@PatchMapping(value = "/password")
-	public ResponseEntity<Boolean> findpwd(@RequestBody Map<String, Object> param){
+	public ResponseEntity<Boolean> newPwd(@RequestBody Map<String, Object> param){
 		String username = (String) param.get("username");
 		String password = (String) param.get("password");
 		boolean check = userService.newPwd(username, password);
@@ -93,6 +93,7 @@ public class UserController {
 	public ResponseEntity<UserDto> findInfo(){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserDto user = userService.findByUsername(username);
+		user.setPassword(null);
 		user.setActiveRegionList(userService.findAllActiveRegion(username));
 		user.setInterestFieldList(userService.findAllInterestField(username));
 		user.setLicenseList(userService.findAllLicense(username));

@@ -17,7 +17,6 @@ import com.gospec.domain.UserDto;
 public interface UserMapper {
 
 	public UserDto findByUsername(String username);
-	public List<UserDto> findAll();
 	public int save(UserDto dto);
 	public int checkId(String username);
 	public int newPwd(String username, String password);

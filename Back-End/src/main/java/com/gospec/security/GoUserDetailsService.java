@@ -41,10 +41,6 @@ public class GoUserDetailsService implements UserDetailsService{
 		return principal;
 	}
 	
-	public List<UserDto> findAll(){
-		return userMapper.findAll();
-	}
-	
 	public boolean save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
 		if(userMapper.save(user) > 0) {
@@ -84,14 +80,12 @@ public class GoUserDetailsService implements UserDetailsService{
 	}
 	
 	public boolean checkPwd(String username, String password) {
-		System.out.println(username+ " "+pwEncoding.encode(password));
 		if(userMapper.checkPwd(username, pwEncoding.encode(password)) > 0) {
 			return true;
 		}
 		return false;
 	}
 	public boolean updateByUsername(UserDto user) {
-		user.setPassword(pwEncoding.encode(user.getPassword()));
 		if(userMapper.updateByUsername(user) > 0) {
 			return true;
 		}
