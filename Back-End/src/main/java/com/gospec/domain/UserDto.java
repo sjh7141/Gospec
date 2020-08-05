@@ -18,6 +18,11 @@ public class UserDto {
 	private String major;
 	private String gender;
 	
+	private List<String> interestFieldList;
+	private List<String> activeRegionList;
+	private List<CareerDto> careerList;
+	private List<String> licenseList;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -120,6 +125,38 @@ public class UserDto {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public List<String> getInterestFieldList() {
+		return interestFieldList;
+	}
+
+	public void setInterestFieldList(List<String> interestFieldList) {
+		this.interestFieldList = interestFieldList;
+	}
+
+	public List<String> getActiveRegionList() {
+		return activeRegionList;
+	}
+
+	public void setActiveRegionList(List<String> activeRegionList) {
+		this.activeRegionList = activeRegionList;
+	}
+
+	public List<CareerDto> getCareerList() {
+		return careerList;
+	}
+
+	public void setCareerList(List<CareerDto> careerList) {
+		this.careerList = careerList;
+	}
+
+	public List<String> getLicenseList() {
+		return licenseList;
+	}
+
+	public void setLicenseList(List<String> licenseList) {
+		this.licenseList = licenseList;
 	}
 
 	public UserDto() {
