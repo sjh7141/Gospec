@@ -2,7 +2,7 @@
 <div>
   <v-row class="fill-height">
       <v-col>
-        <v-sheet height="64">
+        <v-sheet height="64" width="1000">
           <v-toolbar flat color="white">
             <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
               Today
@@ -46,7 +46,7 @@
             </v-menu>
           </v-toolbar>
         </v-sheet>
-        <v-sheet height="600">
+        <v-sheet height="750" width="1000">
           <v-calendar
             ref="calendar"
             v-model="focus"
@@ -59,7 +59,15 @@
             @click:date="viewDay"
             @change="updateRange"
           ></v-calendar>
+          <v-dialog 
+          v-model="dialog"
+          width=60%
+          :close-on-content-click="false"
+          :activator="selectedElement"
+          offset-x
+          >
          <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
+        </v-dialog>
         </v-sheet>
       </v-col>
     </v-row>
