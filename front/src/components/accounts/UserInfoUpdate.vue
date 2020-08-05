@@ -3,12 +3,17 @@
     <!-- 프로필 사진 -->
         <div class='row'>
           <div class="col-3 text-right profile-label">
-            <img v-if='!profileImg' style='width: 50px; height: 50px;' :src=img alt="">
-            <img v-else style='width: 50px; height: 50px;' :src=profileImg alt="">
+            <v-avatar class='mx-auto' size='100'>
+              <v-img 
+              v-if="imageUrl" :src="imageUrl"></v-img>
+              <v-img
+                  v-else
+                  src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
+            </v-avatar>
           </div>
           <div class="col-9 text-left">
             <h4>{{ username }}</h4>
-            <ProfileImgChange />
+            <ProfileImgChange @submit-image-data='inputImg' />
           </div>
         </div>
 
@@ -139,7 +144,7 @@ import UserInterest from '../accounts/UserInterest.vue'
 import ProfileImgChange from '../accounts/ProfileImgChange.vue'
 import axios from 'axios'
 
-const API_URL = 'http://i3a202.p.ssafy.io:8181'
+const API_URL = 'http://localhost:8181'
 
 export default {
   components: {
@@ -166,6 +171,9 @@ export default {
       gender: null,
       major: null,
       age: null,
+      imgFile: null, 
+      imageUrl: null,
+      authority: null,
     }
   },
   methods: {
@@ -182,25 +190,72 @@ export default {
       var base64Url = ca.split('.')[1]
       var decodedValue = JSON.parse(window.atob(base64Url))
       this.username = decodedValue.sub
+      this.authority = decodedValue.role[0]
     },
     clickCalendar() {
       this.calendarState = !this.calendarState
     },
-    userInfoChange() {
-      const config = {
-        headers: {
-          Authorization: this.$cookies.get('auth-token')
-        }
-      }
-      console.log(this.userInfo)
-      axios.patch(API_URL + '/api/users', this.userInfo, config)
-    },
     getAmenities(data) {
       this.amenities = data
-    }
+    },
+    inputImg(imgData) {
+      this.imgFile = imgData.imgFile, 
+      this.imageUrl = imgData.imageUrl
+    },
+    userInfoChange() {
+      const file = this.imgFile
+        const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+            'Content-Type': 'multipart/form-data',
+          }
+      } 
+      let formData = new FormData();
+      formData.append("file", file);
+      axios.post(API_URL + '/api/file/upload', formData, config)
+      .then((res) => {
+        this.profileImg = res.data.fileDownloadUri
+        console.log(this.userInfo)
+        const config2 = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      } 
+        axios.patch(API_URL + '/api/users', this.userInfo, config2)
+        .then(() => {
+          this.$router.push('/mypage')
+        })
+        .catch(err => console.log(err.response.data))
+      })
+      .catch((err) => console.log(err))
+    },
+    getUserInfo() {
+        const config = {
+            headers: {
+                Authorization: this.$cookies.get("auth-token")
+            }
+        }
+        axios.get(API_URL + '/api/users', config)
+        .then(res => {
+            this.birthday = res.data.birthday
+            this.address = res.data.address
+            this.gender = res.data.gender
+            this.major = res.data.major
+            this.name = res.data.name
+            this.nickname = res.data.nickname
+            this.phone = res.data.phone
+            this.profileImg = res.data.profileImg
+            this.selfIntroduction = res.data.selfIntroduction
+            this.profileImg = res.data.profileImg
+            this.imageUrl = res.data.profileImg
+            this.age = res.data.age
+        })
+        .catch(err => console.log(err.response))
+    },
   },
-  mounted() {
+  created() {
     this.checkusername()
+    this.getUserInfo()
   },
   computed: {
     userInfo() {
@@ -218,6 +273,7 @@ export default {
         age: this.age,
         username: this.username,
         password: this.password,
+        authority: this.authority,
       }
     }
   }

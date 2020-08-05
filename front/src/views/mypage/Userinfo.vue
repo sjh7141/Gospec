@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileImage />
+    <ProfileImage :userData='userData'/>
       <div v-if="!isInfoChanged">
         <h6>개인정보 수정을 위해 비밀번호를 작성해주세요.</h6>
           <v-text-field
@@ -27,6 +27,8 @@ import axios from 'axios'
 import ProfileImage from '../../components/accounts/ProfileImage.vue'
 import UserInfoList from '../../components/accounts/UserInfoList.vue'
 
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
+
 export default {
   data() {
     return {
@@ -35,6 +37,7 @@ export default {
       checkPassword: false,
       isInfoChanged: '',
       errorMessage: '',
+      userData: null,
     }
   },
   components: {
@@ -53,14 +56,12 @@ export default {
         username: this.username,
         password: this.password
       }
-      axios.post('http://i3a202.p.ssafy.io:8181/login', loginData)
+      axios.post(API_URL + '/login', loginData)
       .then((res) =>
         this.checkThen(res)
       )
       .catch((res) =>
       this.checkcatch(res)
-        
-        
       )
     },
     checkThen(res) {
@@ -75,7 +76,22 @@ export default {
         this.isInfoChanged = false
         this.errorMessage = '비밀번호를 확인해주세요.'
       }
-    }
+    },
+      getUserInfo() {
+          const config = {
+              headers: {
+                  Authorization: this.$cookies.get("auth-token")
+              }
+          }
+          axios.get(API_URL + '/api/users', config)
+          .then(res => {
+              this.userData = res.data
+          })
+          .catch(err => console.log(err.response))
+      },
+  },
+  created() {
+    this.getUserInfo()
   },
   mounted() {
     this.checkusername()

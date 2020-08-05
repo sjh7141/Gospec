@@ -17,13 +17,14 @@
           class="py-0"
         >
           <v-list-item two-line :class="miniVariant && 'px-0'">
-            <v-list-item-avatar>
-              <img src="https://randomuser.me/api/portraits/men/81.jpg">
+            <v-list-item-avatar style='background-color: white'>
+              <img v-if='userData.profileImg' :src="userData.profileImg">
+              <img v-else src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png">
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{ nickname }}</v-list-item-title>
-              <v-list-item-subtitle>{{ username }}</v-list-item-subtitle>
+              <v-list-item-title>{{ userData.nickname }}</v-list-item-title>
+              <v-list-item-subtitle>{{ userData.username }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
@@ -60,6 +61,10 @@
 </template>
 
 <script>
+import axios from 'axios'
+
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
+
   export default {
     data () {
       return {
@@ -75,6 +80,7 @@
         miniVariant: true,
         expandOnHover: true,
         nickname: '',
+        userData: null,
       }
     },
     methods: {
@@ -124,9 +130,22 @@
  
         return string;
       },
+      getUserInfo() {
+          const config = {
+              headers: {
+                  Authorization: this.$cookies.get("auth-token")
+              }
+          }
+          axios.get(API_URL + '/api/users', config)
+          .then(res => {
+              this.userData = res.data
+          })
+          .catch(err => console.log(err.response))
+      },
     },
     mounted() {
       this.checkusername()
+      this.getUserInfo()
     }
     
   }
