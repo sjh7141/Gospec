@@ -81,9 +81,16 @@ public class ContestController {
 	}
 
 	@ApiOperation(value = "인기 공모전 3개 가져오기")
-	@GetMapping(value = "/field/{type}")
+	@GetMapping(value = "/field/top/{type}")
 	public ResponseEntity<List<ContestDto>> getContestBestList(@PathVariable("type") String type) {
 		List<ContestDto> list = contestService.findByBestView(type);
+		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "타입별 공모전 정보 가져오기")
+	@GetMapping(value = "/field/{type}")
+	public ResponseEntity<List<ContestDto>> getContestByType(@PathVariable("type") String type) {
+		List<ContestDto> list = contestService.findByCategoryWithCalendar(type);
 		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
 	}
 
