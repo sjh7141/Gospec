@@ -15,8 +15,8 @@
 	</select>
 	
 	<insert id="save">
-		insert find_team_board into(username, title, content, member_max, member_cur, contest_no, team_id)
-		values (#{username}, #{title}, #{content}, #{memberMax}, #{memberCur}, #{contestNo}, #{teamId})
+		insert into find_team_board(username, title, content, member_max, contest_no, team_id)
+		values (#{username}, #{title}, #{content}, #{memberMax}, #{contestNo}, #{teamId})
 	</insert>
 	
 	<update id="update">

@@ -15,6 +15,7 @@ import com.gospec.domain.ClusterDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
 import com.gospec.mapper.UserMapper;
+import com.gospec.recommend.KMeansClustering;
 
 @Service
 public class GoUserDetailsService implements UserDetailsService{
@@ -24,6 +25,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	
 	@Autowired
 	private BCryptPasswordEncoder pwEncoding;
+	
+	@Autowired
+	private KMeansClustering kmean;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,6 +46,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	public boolean save(UserDto user) {
 		user.setPassword(pwEncoding.encode(user.getPassword()));
 		if(userMapper.save(user) > 0) {
+			userMapper.resetCluster();
+			kmean.makeFile(userMapper.findByInterestFieldWithCluster());
+			userMapper.makeCluster(kmean.readData());
 			return true;
 		}
 		return false;
@@ -119,13 +126,16 @@ public class GoUserDetailsService implements UserDetailsService{
 		return false;
 	}
 	
-	public List<InterestFieldDto> makeDummy() {
-		return userMapper.findInterestFieldDumamy();
+	public List<InterestFieldDto> findByInterestFieldWithCluster() {
+		return userMapper.findByInterestFieldWithCluster();
 	}
 	
 	public void makeCluster(List<ClusterDto> list) {
 		userMapper.makeCluster(list);
 	}
 	
+	public void resetCluster() {
+		userMapper.resetCluster();
+	}
 }
 

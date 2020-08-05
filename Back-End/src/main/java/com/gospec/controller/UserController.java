@@ -22,6 +22,7 @@ import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
 import com.gospec.domain.InterestFieldDto;
 import com.gospec.domain.UserDto;
+import com.gospec.recommend.KMeansClustering;
 import com.gospec.security.GoUserDetailsService;
 import com.gospec.service.MailAuthenticationService;
 
@@ -58,7 +59,7 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<Boolean> save(@RequestBody UserDto user){
 		boolean check = userService.save(user);
-		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "비밀번호찾기, 새로운 비밀번호로 수정한다.", response = Boolean.class)

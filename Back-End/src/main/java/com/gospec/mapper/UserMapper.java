@@ -27,8 +27,8 @@ public interface UserMapper {
 	public int checkNickName(String nickname);
 	public int deleteInterestField(String username);
 	public int saveInterestField(List<InterestFieldDto> fields);
-	public List<InterestFieldDto> findInterestFieldDumamy();
+	public List<InterestFieldDto> findByInterestFieldWithCluster();
 	public void makeCluster(List<ClusterDto> list);
-
+	public void resetCluster();
 }
 
