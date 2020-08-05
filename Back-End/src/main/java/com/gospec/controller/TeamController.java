@@ -71,19 +71,14 @@ public class TeamController {
 
 	@ApiOperation(value = "팀 자동 추천 받기")
 	@GetMapping(value = "/recommand")
-	public ResponseEntity<Map<String, List<Object>>> userRecommand(){
+	public ResponseEntity<Map<String, List<UserDto>>> userRecommand(){
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		Map<String, List<Object>> data = new HashMap<String, List<Object>>();
+		Map<String, List<UserDto>> data = new HashMap<String, List<UserDto>>();
 		List<UserDto> user = teamService.recommandByAuto(id);
 		for(int i=0; i<user.size(); i++) {
-			List<String> field = userService.findAllInterestField(user.get(i).getUsername());
-			List<Object> temp = new ArrayList<Object>();
-			for(int j=0; j<field.size(); j++) {
-				temp.add(field.get(j));
-			}
-			temp.add(user.get(i));
-			data.put("user" + i, temp);
+			user.get(i).setInterestFieldList(userService.findAllInterestField(user.get(i).getUsername()));
 		}
-		return new ResponseEntity<Map<String, List<Object>>>(data, HttpStatus.OK);
+		data.put("user", user);
+		return new ResponseEntity<Map<String, List<UserDto>>>(data, HttpStatus.OK);
 	}
 }
