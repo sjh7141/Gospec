@@ -67,7 +67,8 @@
           :activator="selectedElement"
           offset-x
           >
-         <CalendarDetail :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
+         <CalendarDetail @dialog-change= "onDialogChange" :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" />
+    
         </v-dialog>
         </v-sheet>
       </v-col>
@@ -120,7 +121,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
 
     },
     methods: {
-      setData (dialog) {
+      onDialogChange (dialog) {
         this.dialog = dialog
       },
       viewDay ({ date }) {

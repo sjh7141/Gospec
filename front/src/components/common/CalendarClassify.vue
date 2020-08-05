@@ -27,7 +27,7 @@ import MyCalendar from '../common/MyCalendar.vue'
 import CalendarField from '../common/CalendarField.vue'
 
 import axios from 'axios'
-const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-07-01/2020-07-31"
+const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-01-01/2020-12-31"
 const MY_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/bookmark/"
 
 export default {

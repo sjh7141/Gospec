@@ -22,16 +22,20 @@
         <v-btn>
           <router-link :to="{ path: '/contest/' + selectedEvent.contestNo}">공모전 자세히 보기</router-link>
         </v-btn>
+        <v-btn>
+          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo +'/teams'}">공모전 팀찾기</router-link>
+        </v-btn>
         <v-card-actions>
           <v-btn
             text
             color="secondary"
-            @click="dialog = false"
+            @click="onDialog"
           >
             Cancel
           </v-btn>
         </v-card-actions>
-      </v-card>
+        </v-card>
+        
 
 </template>
 
@@ -61,6 +65,9 @@ export default {
       dialog:false,
       }),
       methods: {
+        onDialog() {
+          this.$emit('dialog-change', false)
+        },
         onStateChange(likestate) {
           this.likestate = likestate
           
