@@ -115,46 +115,53 @@ public class UserController {
 		}
 		
 		List<String> fields = (List<String>) param.get("fields");
-		if(fields != null && fields.size() > 0) {
+		if(fields != null) {
 			List<InterestFieldDto> interestList = new ArrayList<InterestFieldDto>();
 			for(String field : fields) {
 				interestList.add(new InterestFieldDto(field,username));
 			}
 			userService.deleteInterestField(username);
-			userService.saveInterestField(interestList);
+			if(fields.size() > 0) {
+				userService.saveInterestField(interestList);
+			}
 		}
 		
 		if(type.equals("profile")){
 			List<String> regions = (List<String>) param.get("regions");
-			if(regions != null && regions.size() > 0) {
+			if(regions != null) {
 				List<ActiveRegionDto> regionList = new ArrayList<ActiveRegionDto>();
 				for(String region : regions) {
 					regionList.add(new ActiveRegionDto(region, username));
 				}
 				userService.deleteActiveRegion(username);
-				userService.saveActiveRegion(regionList);
+				if(regions.size() > 0) {
+					userService.saveActiveRegion(regionList);
+				}
 			}
 			
 			List<String> licenses = (List<String>) param.get("licenses");
-			if(licenses != null && licenses.size() > 0) {
+			if(licenses != null) {
 				List<LicenseDto> licenseList = new ArrayList<LicenseDto>();
 				for(String license : licenses) {
 					licenseList.add(new LicenseDto(license, username));
 				}
 				userService.deleteLicense(username);
-				userService.saveLicense(licenseList);
+				if(licenses.size() > 0) {
+					userService.saveLicense(licenseList);
+				}
 			}
 			
-			System.out.println(param.get("careers"));
 			List<Object> careers = (List<Object>) param.get("careers");
 			List<CareerDto> careerList = new ArrayList<CareerDto>();
 			for(Object str : careers) {
 				careerList.add(gson.fromJson(gson.toJson(str), CareerDto.class));
 				careerList.get(careerList.size()-1).setUsername(username);
 			}
-			if(careerList != null && careerList.size() > 0) {
+			if(careerList != null) {
 				userService.deleteCareer(username);
-				userService.saveCareer(careerList);
+				if(careerList.size() > 0) {
+					userService.saveCareer(careerList);
+				}
 			}
 		}
 		
