@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="schedule">
 <div class="banner">
 <Banner />
 </div>
@@ -18,11 +18,15 @@ import Banner from '../components/common/Banner.vue'
             Banner,
 
         },
-        created(){
+        mounted(){
+            this.styleChange()
         },
         watch: {
         },
         methods: {
+            styleChange() {
+                document.querySelector('#schedule').classList.remove('container')
+            }
         },
         data: () => {
             return {
@@ -35,6 +39,12 @@ import Banner from '../components/common/Banner.vue'
     }
 </script>
 <style>
+.schedule {
+    margin-bottom: 50px;
+    margin-right: 70px;
+    margin-left: 10px;
+}
+
 .banner{
 
     margin-left:50px;

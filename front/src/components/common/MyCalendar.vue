@@ -2,7 +2,7 @@
 <div>
   <v-row class="fill-height">
       <v-col>
-        <v-sheet height="64" width="1000">
+        <v-sheet height="64" width="100%">
           <v-toolbar flat color="white">
             <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
               Today
@@ -46,7 +46,7 @@
             </v-menu>
           </v-toolbar>
         </v-sheet>
-        <v-sheet height="750" width="1000">
+        <v-sheet height="750" width="100%">
           <v-calendar
             ref="calendar"
             v-model="focus"

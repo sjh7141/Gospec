@@ -193,8 +193,9 @@ export default {
 
 .filter {
   float:left;
-  width:15%;
-  margin-right: 50px;
+  width:12%;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 
 
