@@ -178,8 +178,11 @@ export default {
       axios.get(API_URL + '/api/users/email-duplication/' + this.email)
       .then(res => {
         if (res.data) {
+          axios.get(API_URL + '/api/users/email-authentication/' + this.email)
+          .then(res => {
+            this.certificationNumberConfirm = res.data
+          })
           this.clickEmailCertification = true
-          this.certificationNumberConfirm = res.data
         }
         else alert('가입되지 않은 이메일입니다.')
       })
@@ -194,6 +197,7 @@ export default {
       else this.certificationFail = true
     },
     passwordChange() {
+      console.log(this.passwordData)
       axios.post(API_URL + '/api/password', this.passwordData)
       .then(() => {
         this.$emit('completePasswordChange')

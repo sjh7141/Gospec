@@ -68,6 +68,7 @@
             },
             logout() {
                 this.isLoggedIn = false
+                this.$router.push('/')
             }
         },
         data: function () {

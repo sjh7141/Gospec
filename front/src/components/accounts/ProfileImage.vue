@@ -8,7 +8,7 @@
             >
                       <v-avatar style='background-color: white;' class='mb-4 mx-auto' size='200'>
                         <v-img 
-                        v-if="imageUrl" :src="imageUrl"></v-img>
+                        v-if="userData.profileImg" :src="userData.profileImg"></v-img>
                         <v-img
                             v-else
                             src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
@@ -20,7 +20,9 @@
 
 <script>
 export default {
-
+  props: {
+    userData: Object
+  }
 }
 </script>
 

@@ -4,13 +4,12 @@
       <!-- 선택창 -->
       <v-card
     class="mx-auto col-3"
-    max-width="300"
     tile
   >
     <v-list flat>
           <template>
             <v-list-item-content>
-              <v-list-item-title class='text-left'>회원정보수정</v-list-item-title>
+              <v-list-item-title class='text-left' style='padding-left: 20px'>회원정보수정</v-list-item-title>
             </v-list-item-content>
           </template>
         <!-- 개인정보수정 -->
@@ -52,13 +51,12 @@
     </v-list>
   </v-card>
       <!-- 라벨 -->
-      <v-card class='col-9 p-0'>
+      <v-card class='col-9 p-0' style='min-height:  500px;'>
         <UserInfoUpdate :password='password' v-if="state == 'infoUpdate'" />
         <DeleteUser v-if="state == 'delete'" />
         <PasswordChange v-if="state == 'passwordChange'"/>
       </v-card>
     </div>
-    
   </div>
 </template>
 
@@ -107,6 +105,5 @@ export default {
 
 <style scoped>
   .v-card {
-    min-height: 800px;
   }
 </style>
