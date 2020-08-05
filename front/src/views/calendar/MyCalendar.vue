@@ -66,7 +66,7 @@
           :activator="selectedElement"
           offset-x
           >
-         <CalendarDetail @dialog-change= "onDialogChange" :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" :dialog="dialog" />
+         <CalendarDetail @delete-change="deleteRange" @dialog-change= "onDialogChange" :likestate="likestate" :selectedEvent="selectedEvent" :color="color" :selectedElement="selectedElement" />
         </v-dialog>
         </v-sheet>
       </v-col>
@@ -77,7 +77,7 @@
 
 <script>
 import axios from 'axios'
-import CalendarDetail from '../common/CalendarDetail.vue'
+import CalendarDetail from './CalendarDetail.vue'
   export default {
     components: {
       CalendarDetail
@@ -91,7 +91,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       },
     data() {
       return{
-        likestate: '',
+        likestate: {
+          type:Boolean
+        },
         dialog: null,
         selectedEvent: {},
         color: null,
@@ -119,6 +121,17 @@ import CalendarDetail from '../common/CalendarDetail.vue'
 
     },
     methods: {
+      deleteRange(contestNo) {
+        console.log("deleteRange")
+        let idx = this.events.findIndex(item => item.contestNo === contestNo);
+        console.log("삭제 번째 " + idx);
+        this.events.splice(idx,2);
+        if(this.events.length === 1){
+          console.log("한개남음")
+          this.events = [];
+        }
+        console.log("deleteRange")
+      },
       onDialogChange (dialog) {
         this.dialog = dialog
       },
@@ -146,10 +159,8 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         this.contestNo = ''
         this.details = ''
         const events = []
-        
         for (let i = 0; i < this.myContest.length; i++){
           events.push({
-
             name: this.myContest[i].title,
             start: this.myContest[i].startDate,
             end: this.myContest[i].startDate,
@@ -159,6 +170,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
             // 여기 시작 색상
             color: 'black',
           })
+          
           events.push({
             name: this.myContest[i].title,
             start: this.myContest[i].endDate,
@@ -168,8 +180,10 @@ import CalendarDetail from '../common/CalendarDetail.vue'
             // 여기 끝 색상
             color: '#FF5252',
           })
+
           this.events = events
         }
+        
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a

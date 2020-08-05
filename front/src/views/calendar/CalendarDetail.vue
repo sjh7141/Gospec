@@ -8,12 +8,9 @@
         >
           <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
           <v-spacer></v-spacer>
-        <div  v-if="likestate==false">
-        <Like @state-change="onStateChange" :contestNo="contestNo" :selectedEvent="selectedEvent"/>
-        </div>
-        <div v-else>
-        <DisLike @state-change="onStateChange" :contestNo="contestNo" :selectedEvent="selectedEvent"/>
-        </div>
+
+        <LikeState @delete-contest="OnDeleteContest" :contestNo="contestNo" :selectedEvent="selectedEvent" :likestate="likestate"/>
+
         </v-toolbar>
         <v-card-text>
           <div class="content">{{selectedEvent.details}}</div> 
@@ -40,39 +37,61 @@
 </template>
 
 <script>
-import Like from '../common/Like.vue'
-import DisLike from '../common/DisLike.vue'
+import LikeState from '../../components/common/LikeState.vue'
+
 
 export default {
     components: {
-      Like,
-      DisLike  
+      LikeState,
     },
     props: {
     contestNo:null,
-    likestate:null,
     selectedEvent:{},
     dialog:{
         type:Boolean
     },
     color:null,
+    likestate: {
+      type:Boolean,
+    }
       },
     data: () => ({
       like: 0,
-      likestate: '',
+      likestate: {
+      type:Boolean,
+    },
       selectedEvent:{},
       selectedOpen: false,
       dialog:false,
+      addcontest: {}
       }),
       methods: {
+        /*OnAddContest(contestNo) {
+          this.contestNo = contestNo
+        // axios.get("http://i3a202.p.ssafy.io:8181/api/contest/"+this.contestNo)
+        // .then(response => {
+        //     this.addcontest = response.data
+        //     console.log("onAddContest")
+        //     console.log(this.addcontest)
+        this.$emit('add-event',this.contestNo)
+        this.$emit('delete-event',this.contestNo)
+        //     })
+        // .catch(error => { console.log(error) })
+
+        },*/
+        OnDeleteContest(contestNo) {
+          console.log("열로옴");
+        this.$emit('delete-change',contestNo)
+
+
+        },
         onDialog() {
           this.$emit('dialog-change', false)
         },
-        onStateChange(likestate) {
-          this.likestate = likestate
-          
-          console.log(likestate)
-      }
+      //   onStateChange() {
+      //     this.likestate = !this.likestate
+      //     console.log(this.likestate);
+      // }
       }
 
 }

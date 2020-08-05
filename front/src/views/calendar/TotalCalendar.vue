@@ -58,7 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
-            event-margin-bottom ="3"
+            
           ></v-calendar>
           <v-dialog 
           v-model="dialog"
@@ -79,7 +79,7 @@
 
 <script>
 import axios from 'axios'
-import CalendarDetail from '../common/CalendarDetail.vue'
+import CalendarDetail from './CalendarDetail.vue'
   export default {
     components: {
       CalendarDetail
@@ -93,7 +93,9 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       },
     data() {
       return{
-        likestate: '',
+        likestate: {
+          type:Boolean
+        },
         dialog: null,
         selectedEvent: {},
         color: null,
@@ -140,6 +142,7 @@ import CalendarDetail from '../common/CalendarDetail.vue'
       next () {
         this.$refs.calendar.next()
       },
+
       updateRange() {
         this.name = ''
         this.start = ''
@@ -148,7 +151,6 @@ import CalendarDetail from '../common/CalendarDetail.vue'
         this.contestNo = ''
         this.details = ''
         const events = []
-        
         for (let i = 0; i < this.contest.length; i++){
           events.push({
 

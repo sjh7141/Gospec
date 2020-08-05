@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import TotalCalendar from '../common/TotalCalendar.vue'
-import MyCalendar from '../common/MyCalendar.vue'
-import CalendarField from '../common/CalendarField.vue'
+import TotalCalendar from './TotalCalendar.vue'
+import MyCalendar from './MyCalendar.vue'
+import CalendarField from './CalendarField.vue'
 
 import axios from 'axios'
 const API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/2020-01-01/2020-12-31"
@@ -150,8 +150,6 @@ export default {
   },
   methods: {
     totalCalBtn() {
-
-      
       axios.get(API_URL)
         .then(response => {
             this.contest = response.data
