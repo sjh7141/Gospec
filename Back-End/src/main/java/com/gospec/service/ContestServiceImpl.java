@@ -74,4 +74,9 @@ public class ContestServiceImpl implements ContestService {
 	public void updateViewCount(int contestNo) {
 		contestMapper.updateViewCount(contestNo);
 	}
+	
+	@Override
+	public List<ContestDto> findByCategoryWithCalendar(String type) {
+		return contestMapper.findByCategoryWithCalendar(type);
+	}
 }

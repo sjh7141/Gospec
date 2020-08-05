@@ -22,4 +22,5 @@ public interface ContestMapper {
 	public int checkBookMark(@Param("username") String username, @Param("contestNo") int contestNo);
 	public List<String> findCategoryByContestNo(int contestNo);
 	public void updateViewCount(int contestNo);
+	public List<ContestDto> findByCategoryWithCalendar(@Param("type") String type);
 }
