@@ -26,7 +26,7 @@ export default {
             this.$store.dispatch('getContestList');
         },
         typeToTextFilter(string) {
-            return string == 'all' ? '전체' : string.replaceAll('-','/');
+            return string == 'all' ? '전체' : string.replace(/-/g,'/');
         }
     },
     data() {
