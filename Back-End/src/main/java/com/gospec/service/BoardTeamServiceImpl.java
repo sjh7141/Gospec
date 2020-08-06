@@ -54,5 +54,10 @@ public class BoardTeamServiceImpl implements BoardTeamService {
 	public int getCountByContestNo(int contestNo) {
 		return boardTeamMapper.getCountByContestNo(contestNo);
 	}
+	
+	@Override
+	public boolean checkWriteBoard(String teamId) {
+		return boardTeamMapper.checkWriteBoard(teamId);
+	}
 
 }

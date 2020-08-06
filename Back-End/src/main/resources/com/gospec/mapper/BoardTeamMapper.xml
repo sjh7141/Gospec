@@ -33,4 +33,8 @@
 		select count(*) from find_team_board
 		where contest_no = #{contestNo}
 	</select>
+	
+	<select id="checkWriteBoard" resultType="Boolean">
+		select EXISTS (select * from find_team_board where team_id = #{teamId} ) as success
+	</select>
 </mapper>
