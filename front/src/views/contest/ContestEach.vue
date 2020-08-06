@@ -6,7 +6,7 @@
     </h3>
     <div class='content-area'>
       <div class='img'>
-        <img :src="this.info.imgSrc" :alt="this.info.title">
+        <img :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
       </div>
       <div class='_info'>
         <ul class='info-list'>
@@ -81,8 +81,8 @@ export default {
 }
 .img {
   border: 1px solid lightgray;
-  width: 200px;
-  height: 300px;
+  min-width: 100px;
+  min-height: 200px;
   float: left;
 }
 ._info {
