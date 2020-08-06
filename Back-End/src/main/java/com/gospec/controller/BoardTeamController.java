@@ -90,4 +90,12 @@ public class BoardTeamController {
 		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "사용자 글 작성 가능 여부 확인")
+	@GetMapping(value = "/isWrite/{contestNo}")
+	public ResponseEntity<Boolean> checkWriteBoard(@PathVariable("contestNo") int contestNo){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		boolean res = !boardTeamService.checkWriteBoard(username + "_" + contestNo);
+		return new ResponseEntity<Boolean>(res, HttpStatus.OK);
+	}
 }
