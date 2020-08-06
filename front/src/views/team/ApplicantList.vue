@@ -1,17 +1,20 @@
 <template>
     <div>
-        <div v-for="(each, idx) in recomList" :key="idx">
-            {{each.nickname}}/{{each.interestFieldList}}/{{each.username}}으로쪽지기능
-        </div>
+        <applicant-each v-for="(each, idx) in recomList" :key="idx" :data="each"/>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import ApplicantEach from '@/components/team/ApplicantEach.vue'
+
 const URL = 'http://i3a202.p.ssafy.io:8181/api/teams/recommand'
 // const URL = 'http://localhost:8181/api/teams/recommand'
 
 export default {
+    components: {
+        ApplicantEach,
+    },
     data() {return {
         recomList : [],
     }},
