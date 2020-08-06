@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,19 +48,19 @@ public class TeamController {
 	
 	@ApiOperation(value = "팀  승인 정보 등록, 팀 아이디, 해당 사용자들에 대해 등록", response = Boolean.class)
 	@PostMapping
-	public ResponseEntity<Boolean> saveTeamApproval(TeamApprovalDto teamApproval){
+	public ResponseEntity<Boolean> saveTeamApproval(@RequestBody TeamApprovalDto teamApproval){
 		return new ResponseEntity<Boolean>(teamService.saveTeamApproval(teamApproval), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "팀 승인 정보 수정, 팀 아이디, 해당 사용자들에 대해 수정", response = Boolean.class)
 	@PatchMapping
-	public ResponseEntity<Boolean> updateTeamApproval(TeamApprovalDto teamApproval){
+	public ResponseEntity<Boolean> updateTeamApproval(@RequestBody TeamApprovalDto teamApproval){
 		return new ResponseEntity<Boolean>(teamService.updateTeamApproval(teamApproval), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "팀 승인 정보 삭제, 팀 아이디, 해당 사용자들에 대해 삭제", response = Boolean.class)
 	@DeleteMapping
-	public ResponseEntity<Boolean> deleteTeamApproval(TeamApprovalDto teamApproval){
+	public ResponseEntity<Boolean> deleteTeamApproval(@RequestBody TeamApprovalDto teamApproval){
 		return new ResponseEntity<Boolean>(teamService.deleteTeamApproval(teamApproval), HttpStatus.OK);
 	}
 	
