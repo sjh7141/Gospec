@@ -23,7 +23,7 @@
         <div class="my-4">
             <v-btn @click='signup' style='width: 40%; height: 60px' color='teal' class='mx-4'><h2 class='mb-0' style='color: white; '>GoSpec</h2></v-btn>
             <!-- <v-btn @click='login' x-large="x-large" color='' class='mx-4'>LOGIN</v-btn> -->
-            <Modal :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @closeModal='closeModal' />
+            <Modal :checkParent='checkParent' :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @closeModal='closeModal' />
             <div class="my-2">
                 <v-btn @click='homepage' color='blue-grey lighten-3' text>GUEST로 입장하기</v-btn>
             </div>
@@ -42,6 +42,7 @@ import Modal from '../accounts/Modal.vue'
                 modalState: '',
                 modalSize: '',
                 modalTitle: '',
+                checkParent: false,
                 interests: [
                     '기획 / 아이디어',
                     '광고 / 마케팅',
@@ -84,6 +85,7 @@ import Modal from '../accounts/Modal.vue'
                 ],
                 events: [],
                 check: false,
+                isLoggedIn: false,
             }
         },
         methods: {
@@ -107,10 +109,16 @@ import Modal from '../accounts/Modal.vue'
                 this.$router.push('/')
             },
             signup() {
-                this.modalState = 'signup'
-                this.modalSize = '500'
-                this.modalTitle = '회원가입'
-                this.check = true
+                if (this.isLoggedIn) {
+                    this.$router.push('/')
+                }
+                else {
+                    this.modalState = 'signup'
+                    this.modalSize = '500'
+                    this.modalTitle = '회원가입'
+                    this.check = true
+                    this.checkParent = true
+                }
             },
             login() {
                 this.modalState = 'login'
@@ -123,7 +131,8 @@ import Modal from '../accounts/Modal.vue'
             },
         },
         mounted() {
-            this.getEvents()
+            this.getEvents(),
+            this.isLoggedIn = this.$cookies.isKey('auth-token')
         }
     }
 </script>

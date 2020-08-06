@@ -32,7 +32,7 @@
         </div>
 
         <!-- 프로필 닉네임 -->
-        <div class='row'>
+        <!-- <div class='row'>
           <div class="col-3 text-right profile-label">닉네임</div>
           <div class="col-9 text-left user-input">
           <v-text-field
@@ -43,7 +43,7 @@
             clearable
           ></v-text-field>
           </div>
-        </div>
+        </div> -->
 
         <!-- 프로필 관심사 -->
         <div class='row'>
@@ -144,7 +144,7 @@ import UserInterest from '../accounts/UserInterest.vue'
 import ProfileImgChange from '../accounts/ProfileImgChange.vue'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8181'
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
   components: {
