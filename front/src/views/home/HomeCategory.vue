@@ -48,7 +48,7 @@ export default {
     },
     getContest() {
     console.log(this.field)
-    axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/"+this.field)
+    axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top/"+this.field)
     .then(response => {
       this.contest = response.data
       })
