@@ -174,7 +174,7 @@
 <script>
     import axios from 'axios'
 
-    const API_URL = 'http://localhost:8181'
+    const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
     export default {
         components: {},

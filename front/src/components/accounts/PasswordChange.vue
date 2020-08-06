@@ -115,6 +115,13 @@ export default {
 
     checkFormPasswordConfirm() {
       if (
+        !this.passwordSchema.validate(this.passwordConfirm)
+      ){
+        this.passwordConfirmFormIsValid = 'form-control is-invalid'
+        this.checkPasswordConfirm = false
+        this.message.passwordConfirm = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      }
+      else if (
         this.password == this.passwordConfirm && this.passwordConfirm.length > 0
       ) {
         this.checkPasswordConfirm = true 
@@ -138,9 +145,9 @@ export default {
             Authorization: this.$cookies.get("auth-token"),
           }
       } 
-      axios.patch(API_URL + '/api/password', this.passwordData, config)
+      axios.patch(API_URL + '/api/users/password', this.passwordData, config)
       .then(() => {
-        this.$emit('completePasswordChange')
+        this.$router.push('/mypage')
       })
       .catch(err => console.log(err.response))
     },

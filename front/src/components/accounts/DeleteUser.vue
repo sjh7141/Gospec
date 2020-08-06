@@ -18,9 +18,13 @@ export default {
         }
       }
       this.$cookies.remove('auth-token')
-      axios.delete('http://i3a202.p.ssafy.io:8181/api/users', config)
-      .then(() => alert('회원 탈퇴 완료'))
-      .catch(err => console.log(err.data))
+      var result = confirm('정말로 탈퇴하시겠습니까?')
+      if (result) {
+        axios.delete('http://i3a202.p.ssafy.io:8181/api/users', config)
+        .then(() => alert('회원 탈퇴 완료'))
+        .catch(err => console.log(err.data))
+        this.$router.push('/')
+      }
     },
   }
 }
