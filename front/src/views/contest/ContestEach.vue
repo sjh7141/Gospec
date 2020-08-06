@@ -8,7 +8,7 @@
       <div class='img'>
         <img :src="this.info.imgSrc" :alt="this.info.title">
       </div>
-      <div class='info'>
+      <div class='_info'>
         <ul class='info-list'>
           <li><span class='label'>분야: </span>{{ this.category.join(', ') }}</li>
           <li><span class='label'>응모대상: </span>{{ this.info.target }}</li>
@@ -30,8 +30,8 @@
     <router-view :content='this.info.content'></router-view>
 
     <hr>
-    <ul>
-      <li><router-link :to="{path: '/contest/' + $route.params.contest_id + '/update'}">공모전 수정</router-link></li>
+    <ul style='list-style:none;'>
+      <!-- <li><router-link :to="{path: '/contest/' + $route.params.contest_id + '/update'}">공모전 수정</router-link></li> -->
       <li><router-link to='/contest'>공모전 목록</router-link></li>
     </ul>
   </div>
@@ -83,12 +83,12 @@ export default {
   height: 300px;
   float: left;
 }
-.info {
+._info {
   text-align: left;
   float: right;
   max-width: 700px;
 }
-.info li {
+._info li {
   list-style: none;
 }
 .label {

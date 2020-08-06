@@ -1,18 +1,104 @@
 <template>
   <div>
-      This is team writing page: 글작성폼<br><br>
-      <router-link :to="{path: '/contest/' + $route.params.contest_id + '/teams'}">
-        등록 성공시 팀 목록으로 이동할 링크
-      </router-link>
+    <h3>팀 찾기 게시물 등록</h3>
+    <form class='_form' action="">
+      <label for='_title'>제목: </label><br>
+      <input class='_input' type="text" name="title" id="_title" v-model='post.title'/><br>
+
+      <label for="_content">내용: </label><br>
+      <textarea class='_input' name="content" id="_content" cols="30" rows="10" v-model='post.content'></textarea>
+
+      <label for="_memberMax">최대인원: </label>
+      <input class='_input _numInput' type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
+
+      <button class='_btn' @click.prevent='registPost'>등록</button>
+    </form>
+    <br><br>
+
+    <router-link :to="{path: '/contest/' + $route.params.contest_id + '/teams'}">
+      등록 성공시 팀 목록으로 이동할 링크
+    </router-link>
+    할일: 정상등록되는지 확인하고, 잘 등록되었으면 본인 팀찾기 게시물 상세페이지로 이동하기. 근데 그냥 모달로 상세내용만띄우는것도 나쁘지않아보임
   </div>
 </template>
 
 <script>
-export default {
+import axios from 'axios'
+const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
+// const URL_PART = 'http://localhost:8181/api/board/teams'
 
+export default {
+  name: 'teamWrite',
+  data() {return {
+    post: {
+      title: '',
+      content: '',
+      memberMax: 1,
+      MemberCur: 1,
+      contestNo: this.$route.params.contest_id,
+      // registTime: '',
+    },
+  }},
+  methods: {
+    registPost() {
+      const config = {
+        headers : {
+          Authorization : this.$cookies.get('auth-token')
+        }
+      }
+      axios.post(URL_PART, this.post, config)
+        .then(response => {
+          if (response.status == 200) {
+            alert('정상등록되었습니다');
+            this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
+          }
+        })
+        .catch(error => {
+          // 토큰만료의 경우에도 이쪽으로 내려온다
+          console.log(error);
+          console.dir(error);
+          alert('한 공모전 당 모집 글은 하나만 작성할 수 있습니다.');
+          this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
+        });
+    },
+  }
 }
 </script>
 
 <style>
+._form {
+  width: 80%;
+  margin: 10px auto;
+  text-align: left;
+}
 
+._form label {
+  margin-top: 30px;
+}
+
+._input {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #dddddd;
+  padding: 5px;
+  margin: 5px;
+}
+
+
+._numInput {
+  width: 60%;
+  margin-left: 100px;
+}
+
+._btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+._btn:hover {
+  background-color: gray;
+}
 </style>
