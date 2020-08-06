@@ -48,6 +48,7 @@ export default {
 <style>
 .horizontal li {
     display: inline;
+    margin: 10px;
 }
 
 .no_dot {
