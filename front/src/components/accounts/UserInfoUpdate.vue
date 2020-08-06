@@ -13,7 +13,7 @@
           </div>
           <div class="col-9 text-left">
             <h4>{{ username }}</h4>
-            <ProfileImgChange @submit-image-data='inputImg' />
+            <ProfileImgChange @submit-image-data='inputImg' :profileImg="profileImg" />
           </div>
         </div>
 
@@ -49,7 +49,7 @@
         <div class='row'>
           <div class="col-3 text-right profile-label">관심사</div>
           <div class="col-9 text-left">
-            <UserInterest @submit-amenities='getAmenities' />
+            <UserInterest @submit-amenities='getinterestFieldList' :interestFieldList='interestFieldList' />
           </div>
         </div>
 
@@ -151,9 +151,6 @@ export default {
     ProfileImgChange,
     UserInterest,
   },
-  props: {
-    password: String,
-  },
   data() {
     return{
       username: '',
@@ -167,13 +164,17 @@ export default {
       img: 'https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png',
       picker2: null,
       calendarState: false,
-      amenities: null,
       gender: null,
       major: null,
       age: null,
       imgFile: null, 
       imageUrl: null,
       authority: null,
+      interestFieldList: [],
+      activeRegionList: [],
+      careerList: [],
+      licenseList: [],
+
     }
   },
   methods: {
@@ -195,8 +196,8 @@ export default {
     clickCalendar() {
       this.calendarState = !this.calendarState
     },
-    getAmenities(data) {
-      this.amenities = data
+    getinterestFieldList(data) {
+      this.interestFieldList = data
     },
     inputImg(imgData) {
       this.imgFile = imgData.imgFile, 
@@ -210,24 +211,34 @@ export default {
             'Content-Type': 'multipart/form-data',
           }
       } 
-      let formData = new FormData();
-      formData.append("file", file);
-      axios.post(API_URL + '/api/file/upload', formData, config)
-      .then((res) => {
-        this.profileImg = res.data.fileDownloadUri
-        console.log(this.userInfo)
         const config2 = {
           headers: {
             Authorization: this.$cookies.get("auth-token"),
           }
       } 
-        axios.patch(API_URL + '/api/users', this.userInfo, config2)
-        .then(() => {
-          this.$router.push('/mypage')
+      let formData = new FormData();
+      formData.append("file", file);
+      if (this.imgFile) {
+        axios.post(API_URL + '/api/file/upload', formData, config)
+        .then((res) => {
+          this.profileImg = res.data.fileDownloadUri
+          console.log('check')
+          axios.patch(API_URL + '/api/users', this.userInfo, config2)
+          .then(() => {
+            this.$router.push('/mypage')
+          })
+          .catch(err => console.log(err.response.data))
         })
-        .catch(err => console.log(err.response.data))
-      })
-      .catch((err) => console.log(err))
+        .catch((err) => console.log(err))
+      }
+      else {
+          axios.patch(API_URL + '/api/users', this.userInfo, config2)
+          .then(() => {
+            this.$router.push('/mypage')
+          })
+          .catch(err => console.log(err.response.data))
+
+      }
     },
     getUserInfo() {
         const config = {
@@ -246,9 +257,13 @@ export default {
             this.phone = res.data.phone
             this.profileImg = res.data.profileImg
             this.selfIntroduction = res.data.selfIntroduction
-            this.profileImg = res.data.profileImg
             this.imageUrl = res.data.profileImg
-            this.age = res.data.age
+            this.age = res.data.age,
+            this.interestFieldList = res.data.interestFieldList,
+            this.activeRegionList = res.data.activeRegionList,
+            this.careerList = res.data.careerList,
+            this.licenseList = res.data.licenseList
+            console.log(res.data)
         })
         .catch(err => console.log(err.response))
     },
@@ -260,20 +275,25 @@ export default {
   computed: {
     userInfo() {
       return {
-        name: this.name,
-        nickname: this.nickname,
-        selfIntroduction: this.selfIntroduction,
-        phone: this.phone,
-        birthday: this.birthday,
-        address: this.address,
-        profileImg: this.profileImg,
-        // amenities: this.amenities,
-        gender: this.gender,
-        major: this.major,
-        age: this.age,
-        username: this.username,
-        password: this.password,
-        authority: this.authority,
+        user: {
+          name: this.name,
+          nickname: this.nickname,
+          selfIntroduction: this.selfIntroduction,
+          phone: this.phone,
+          birthday: this.birthday,
+          address: this.address,
+          profileImg: this.profileImg,
+          gender: this.gender,
+          major: this.major,
+          age: this.age,
+          username: this.username,
+          authority: this.authority,
+        },
+        fields: this.interestFieldList,
+        type: 'user',
+        regions: this.activeRegionList,
+        licenses: this.licenseList,
+        careers: this.careerList,
       }
     }
   }

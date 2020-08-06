@@ -98,7 +98,7 @@ export default {
             axios.post(API_URL + '/api/users/', signupData)
             .then(() => {
                 this.modalState = 'completeSignup'
-                this.modalSize = '600'
+                this.modalSize = '850'
                 this.loginData.username = signupData.username
                 this.loginData.password = signupData.password
                 axios.post(API_URL + '/login', this.loginData)

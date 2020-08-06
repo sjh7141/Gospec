@@ -17,7 +17,7 @@
         <button class='btn btn-primary' @click="passwordCheck">확인</button>
       </div>
       <div v-else>
-        <UserInfoList :password='password'/>
+        <UserInfoList />
       </div>
   </div>
 </template>
