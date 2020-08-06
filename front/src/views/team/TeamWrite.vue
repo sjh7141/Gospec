@@ -24,8 +24,8 @@
 
 <script>
 import axios from 'axios'
-// const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
-const URL_PART = 'http://localhost:8181/api/board/teams'
+const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
+// const URL_PART = 'http://localhost:8181/api/board/teams'
 
 export default {
   name: 'teamWrite',
@@ -41,17 +41,26 @@ export default {
   }},
   methods: {
     registPost() {
-      // this.post.registTime = this.dateString(new Date);
-      // console.log(this.post.registTime);
-      axios.post(URL_PART, this.post)
+      const config = {
+        headers : {
+          Authorization : this.$cookies.get('auth-token')
+        }
+      }
+      axios.post(URL_PART, this.post, config)
         .then(response => {
-          console.log(response);
+          if (response.status == 200) {
+            alert('정상등록되었습니다');
+            this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
+          }
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          // 토큰만료의 경우에도 이쪽으로 내려온다
+          console.log(error);
+          console.dir(error);
+          alert('한 공모전 당 모집 글은 하나만 작성할 수 있습니다.');
+          this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
+        });
     },
-    // dateString(n) {
-    //   return `${n.getFullYear()}-${n.getMonth()}-${n.getDate()} ${n.getHours()}:${n.getMinutes()}:${n.getSeconds()}`;
-    // }
   }
 }
 </script>
