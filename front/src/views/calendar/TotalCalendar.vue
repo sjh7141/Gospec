@@ -88,8 +88,9 @@ import CalendarDetail from './CalendarDetail.vue'
         contest: {
             type: Array,
         },
-
-        
+        field: {
+          type: String
+        },
       },
     data() {
       return{
@@ -110,17 +111,22 @@ import CalendarDetail from './CalendarDetail.vue'
           '4day': '4 Days',
         },
         events: [],
-        colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       }
     },
   
     mounted () {
       this.$refs.calendar.checkChange()
-
     },
-    created() {
-      this.updateRange()
-
+    computed (){
+      // this.updateRange()
+    },
+    watch : {
+      contest : {
+        deep : true,
+        handler(){
+          this.updateRange();
+        }
+      }
     },
     methods: {
       onDialogChange (dialog) {
@@ -142,8 +148,9 @@ import CalendarDetail from './CalendarDetail.vue'
       next () {
         this.$refs.calendar.next()
       },
-
       updateRange() {
+        console.log("update부분")
+        console.log(this.contest);
         this.name = ''
         this.start = ''
         this.end = ''
@@ -172,8 +179,11 @@ import CalendarDetail from './CalendarDetail.vue'
             // 여기 끝 색상
             color: '#FF5252',
           })
+    
           this.events = events
         }
+        console.log(this.events.length)
+        
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
