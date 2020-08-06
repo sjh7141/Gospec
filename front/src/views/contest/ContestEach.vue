@@ -18,7 +18,7 @@
           <li><span class='label'>총 상금: </span>{{ this.info.totalReward }}</li>
           <li><span class='label'>1등 상금: </span>{{ this.info.firstReward }}</li>
           <li><span class='label'>홈페이지: </span><a :href='this.info.homepage'>{{ this.info.homepage }}</a></li>
-          <li><span class='label'>첨부파일: </span></li>
+          <li><span class='ddayWrapper'><dday :data="info"/></span></li>
         </ul>
       </div>
     </div>
@@ -39,6 +39,7 @@
 
 <script>
 import axios from 'axios'
+import dday from '@/components/contest/Dday.vue'
 import ContestNavBar from '@/components/common/ContestNavBar.vue'
 
 const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
@@ -47,6 +48,7 @@ export default {
   name: 'ContestEach',
   components: {
       ContestNavBar,
+      dday,
   },
   data() {
     return {
@@ -98,5 +100,10 @@ export default {
 }
 .clear {
   clear: both;
+}
+.ddayWrapper {
+  display: inline-block;
+  width: 60px;
+  text-align: center;
 }
 </style>
