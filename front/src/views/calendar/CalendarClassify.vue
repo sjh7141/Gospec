@@ -137,13 +137,15 @@ export default {
     }
   },
   created() {
-    // this.totalCalBtn()
+    this.totalCalBtn()
   },
 
   methods: {
     getfield(field) {
       this.field = field
+      if (this.calState == 'total'){
       this.totalCalBtn()
+      }
     },
 
     totalCalBtn() {
