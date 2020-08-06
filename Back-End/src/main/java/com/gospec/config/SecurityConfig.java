@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/api/file/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/file/**").permitAll()
 			.antMatchers(HttpMethod.PATCH, "/api/users/password").permitAll()
+			.antMatchers(HttpMethod.PATCH, "/api/contest/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/dummy").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/email-duplication/*").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/users/nickname-duplication/*").permitAll()
