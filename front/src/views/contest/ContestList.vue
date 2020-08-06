@@ -12,7 +12,7 @@
       </tr>
       <tr v-for="eachC in contestList" v-bind:key="eachC.contestNo">
         <td>{{ eachC.contestNo }}</td>
-        <td class='right'><router-link :to="'/contest/' + eachC.contestNo">{{ eachC.title }}</router-link></td>
+        <td class='right'><router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>{{ eachC.title }}</router-link></td>
         <td>{{ maxLengthFilter(eachC.host) }}</td>
         <td><dday :data='eachC'/></td>
         <td>{{ eachC.viewCount }}</td>
@@ -28,6 +28,10 @@ import PrimeClassify from '@/components/common/ContestPrimeClassify.vue'
 import SecondaryClassify from '@/components/common/ContestSecondaryClassify.vue'
 import Pagination from '@/components/common/Pagination.vue'
 import Dday from '@/components/contest/Dday.vue'
+import axios from 'axios'
+
+const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
+// const URL_PART = 'http://localhost:8181/api/contest/'
 
 export default {
   name: 'contestList',
@@ -52,6 +56,18 @@ export default {
     maxLengthFilter(string, baseLength = 15) {
       return string.length > baseLength ? `${string.substr(0, baseLength)}...` : string;
     },
+    addViewCount({contestNo}) { //백앤드 api 정비되면 재점검
+      const config = {
+        headers : {
+          Authorization : this.$cookies.get('auth-token')
+        }
+      };
+      axios.patch(URL_PART + contestNo, '',config)
+        .then(res => {
+          console.dir(res);
+        })
+        .catch(error => console.log(error))
+    },
   },
   watch: {
   },
@@ -64,8 +80,17 @@ export default {
 </script>
 
 <style scoped>
+#list {
+  min-width: 80%;
+}
+
+#list th {
+  background-color: #dddddd;
+  border: 2px solid white;
+}
+
 #list td, th {
-  border: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
   padding: 5px;
   margin: 5px;
 }

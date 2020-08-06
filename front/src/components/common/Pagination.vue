@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id='pagination'>
     <ul class='horizontal no_dot'>
         <li :class='{deactivated: isPrev == false}'>
             <button @click="pageChange('prev')" :disabled='isPrev == false'>이전</button>
@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style>
+#pagination {
+    margin-top: 30px;
+}
+
 .horizontal li {
     display: inline;
     margin: 10px;
