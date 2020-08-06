@@ -22,8 +22,8 @@
       </v-list-item-group>
     </v-list>
   </v-card>
-<div class="contest">{{ fieldtype }} 인기 공모전<PopularContest :contest ="contest"/></div>
-<div class="study">{{ fieldtype }} 인기 스터디<PopularStudy :contest ="contest"/></div>
+<div class="contest">{{ fieldtype }} 인기 공모전<PopularContest :contest.sync ="contest"/></div>
+<div class="study">{{ fieldtype }} 인기 스터디<PopularStudy :contest.sync ="contest"/></div>
 </div>
 
 </template>
@@ -37,7 +37,7 @@ export default {
     PopularContest,
     PopularStudy,
   },
-  mounted() {
+  created() {
     this.getContest()
   },
   methods: {
@@ -51,6 +51,7 @@ export default {
     axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top/"+this.field)
     .then(response => {
       this.contest = response.data
+      console.log("getContest")
       })
     .catch(error => { console.log(error) })
       },
@@ -145,7 +146,7 @@ export default {
 <style>
 .home {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
 }

@@ -1,9 +1,8 @@
 <template>
 <div class="contestcard">
-    <v-col
-    v-for="concard in concards"
-    :key="concard.contestNos"      
-    >
+  <v-row dense
+  >
+    <v-col>
     <v-card
     class="card mx-auto"
     max-width="400"
@@ -11,14 +10,15 @@
     <v-img
       class="white--text align-end"
       height="300px"
-      :src="concard.imgSrc"
+      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[0].imgSrc"
     >
-      <v-card-title v-text="concard.title"></v-card-title>
+      <v-card-title v-text="contest[0].title"></v-card-title>
     </v-img>
 
-    <v-card-subtitle class="pb-0" v-text="concard.totalReward"></v-card-subtitle>
+    <v-card-subtitle class="pb-0" v-text="contest[0].totalReward"></v-card-subtitle>
 
-    <v-card-text class="text--primary" v-text="concard.startDate">
+    <v-card-text class="text--primary" v-text="contest[0].startDate + ' ~ ' +contest[0].endDate">
+
     </v-card-text>
 
     <v-card-actions>
@@ -34,15 +34,96 @@
         color="orange"
         text
       >
-      <router-link :to="{ path: '/contest/' + concard.contestNo }">
+      <router-link :to="{ path: '/contest/' + contest[0].contestNo}">
       자세히 보기
       </router-link>
       </v-btn>
       
     </v-card-actions>
   </v-card>
-</v-col>
+  </v-col>
+     <v-col>
+    <v-card
+    class="card mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end"
+      height="300px"
+      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[1].imgSrc"
+    >
+      <v-card-title v-text="contest[1].title"></v-card-title>
+    </v-img>
 
+    <v-card-subtitle class="pb-0" v-text="contest[1].totalReward"></v-card-subtitle>
+
+    <v-card-text class="text--primary" v-text="contest[1].startDate + '\n' +contest[1].endDate">
+
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+        Share
+      </v-btn>
+
+
+      <v-btn
+        color="orange"
+        text
+      >
+      <router-link :to="{ path: '/contest/' + contest[1].contestNo}">
+      자세히 보기
+      </router-link>
+      </v-btn>
+      
+    </v-card-actions>
+  </v-card>
+  </v-col>
+      <v-col>
+    <v-card
+    class="card mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end"
+      height="300px"
+      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[2].imgSrc"
+    >
+      <v-card-title v-text="contest[2].title"></v-card-title>
+    </v-img>
+
+    <v-card-subtitle class="pb-0" v-text="contest[2].totalReward"></v-card-subtitle>
+
+    <v-card-text class="text--primary" v-text="contest[2].startDate + '\n' +contest[2].endDate">
+
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+        Share
+      </v-btn>
+
+
+      <v-btn
+        color="orange"
+        text
+      >
+      <router-link :to="{ path: '/contest/' + contest[2].contestNo}">
+      자세히 보기
+      </router-link>
+      </v-btn>
+      
+    </v-card-actions>
+  </v-card>
+  </v-col>
+
+</v-row>
 </div>
 </template>
 
@@ -53,20 +134,24 @@
         type:Array
       }
     },
-    methods: {
-      getcard() {
-        console.log(this.concards)
-      }
+    watch: {
+      contest: {
+        immediate: true,
+        deep: true,
+        handler() {
+          this.updateConcards();
+        }
+      },
     },
-    data() {
-      return{
-        concards: [
+    methods: {
+      updateConcards() {
+        this.concards = [
           {
             title: this.contest[0].title,
             totalReward: this.contest[0].totalReward,
             startDate: this.contest[0].startDate,
             endDate: this.contest[0].endDate,
-            imgSrc: '', 
+            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[0].imgSrc, 
           
             contestNo: this.contest[0].contestNo
           },
@@ -75,7 +160,7 @@
             totalReward: this.contest[1].totalReward,
             startDate: this.contest[1].startDate,
             endDate: this.contest[1].endDate,
-            imgSrc: '',
+            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[1].imgSrc,
             contestNo: this.contest[1].contestNo
 
           },
@@ -84,19 +169,51 @@
             totalReward: this.contest[2].totalReward,
             startDate: this.contest[2].startDate,
             endDate: this.contest[2].endDate,
-            imgSrc:'', 
+            imgSrc:'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[2].imgSrc, 
 
             contestNo: this.contest[2].contestNo
           }
         ]
+
       }
+    },
+    data() {
+      return {
+        concards: [
+          {
+            title: this.contest[0].title,
+            totalReward: this.contest[0].totalReward,
+            startDate: this.contest[0].startDate,
+            endDate: this.contest[0].endDate,
+            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[0].imgSrc, 
+          
+            contestNo: this.contest[0].contestNo
+          },
+          {
+            title: this.contest[1].title,
+            totalReward: this.contest[1].totalReward,
+            startDate: this.contest[1].startDate,
+            endDate: this.contest[1].endDate,
+            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[1].imgSrc,
+            contestNo: this.contest[1].contestNo
+
+          },
+          {
+            title: this.contest[2].title,
+            totalReward: this.contest[2].totalReward,
+            startDate: this.contest[2].startDate,
+            endDate: this.contest[2].endDate,
+            imgSrc:'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[2].imgSrc, 
+
+            contestNo: this.contest[2].contestNo
+          }
+        ]
+
+
+      }
+
     }
-
-
-  
-
   }
-  
 
 </script>
 <style>
