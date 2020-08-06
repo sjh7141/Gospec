@@ -11,9 +11,9 @@ const URL = 'http://i3a202.p.ssafy.io:8181/api/teams'
 
 const STAT = {
     GUEST: {C: 'guest', BTN: true, COLOR: 'pink', TEXT: '신청',},
-    LEADER: {C: 'leader', BTN: false, COLOR: 'gray', TEXT: '신청',},
-    MEMBER: {C: 'member', BTN: true, COLOR: 'red', TEXT: '탈퇴',},//#ee4a5d
-    APPLICANT: {C: 'applicant', BTN: true, COLOR: 'red', TEXT: '탈퇴',},
+    LEADER: {C: 'leader', BTN: false, COLOR: 'gray', TEXT: '내게시물',},
+    MEMBER: {C: 'member', BTN: true, COLOR: 'red', TEXT: '멤버탈퇴',},//#ee4a5d
+    APPLICANT: {C: 'applicant', BTN: true, COLOR: 'red', TEXT: '지원취소',},
     APPLIABLE: {C: 'appliable', BTN: true, COLOR: 'pink', TEXT: '신청',},
     FULL: {C: 'full', BTN: false, COLOR: 'gray', TEXT: '마감',},
 };
@@ -41,8 +41,10 @@ export default {
                 if (confirm('정말 멤버에서 탈퇴하시겠습니까?')) {//탈퇴처리
                     axios.delete(URL, {headers:config.headers, data:dto})
                         .then(response => {
-                            console.dir(response);
-                            this.$emit('refreshList');  //목록 새로고침
+                            // console.dir(response);
+                            if (response.data == true) {
+                                this.$emit('refreshList');  //목록 새로고침
+                            }
                         })
                         .catch(error => console.log(error))
                 }
@@ -50,24 +52,24 @@ export default {
                 if (confirm('정말 지원을 철회하시겠습니까?')) {//탈퇴처리
                     axios.delete(URL, {headers:config.headers, data:dto})
                         .then(response => {
-                            console.dir(response);
-                            this.$emit('refreshList');  //목록 새로고침
+                            // console.dir(response);
+                            if (response.data == true) {
+                                this.$emit('refreshList');  //목록 새로고침
+                            }
                         })
                         .catch(error => console.log(error))
                 }
             } else if (c == STAT.APPLIABLE.C) {
                 axios.post(URL, dto, config)//지원처리
                     .then(response => {
-                        console.dir(response);
-                        this.$emit('refreshList');  //목록 새로고침
+                        // console.dir(response);
+                        if (response.data == true) {
+                            this.$emit('refreshList');  //목록 새로고침
+                        }
                     })
                     .catch(error => console.log(error))
             }
-
-            // if (c !== STAT.GUEST.C) {
-            //     this.$emit('refreshList');  //목록 새로고침
-            // }
-        }
+        },   //end action
     },
     computed: {
         getStatus() {
@@ -110,13 +112,13 @@ export default {
             return this.userName == this.$props.team.username;
         },
         isInApprovalList() {
-            return this.$props.team.approvalList.map(x => x.memberUsername).filter(x => x == this.userName).length !== 0;
+            return this.$props.team.approvalList.filter(x => x.memberUsername == this.userName).length !== 0;
         },
         isListAvailable() {
             return (1 + this.$props.team.approvalList.filter(x => x.approvalFlag).length) < this.$props.team.memberMax;
         },
         isMember() {
-            return this.$props.team.approvalList.filter(x => x.memberUsername == this.userName).length > 0;
+            return this.$props.team.approvalList.filter(x => x.memberUsername == this.userName && x.flag).length > 0;
         },
     },
 }
