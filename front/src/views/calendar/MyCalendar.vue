@@ -108,7 +108,6 @@ import CalendarDetail from './CalendarDetail.vue'
           '4day': '4 Days',
         },
         events: [],
-        colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1','black','red'],
       }
     },
   

@@ -1,5 +1,6 @@
 <template>
-<div>
+<div class="cal">
+<div class="filter">
   <v-card
     class="category mx-auto"
     max-width="400"
@@ -12,8 +13,7 @@
           :key="i"
           :item="item"
           :field="item.text"
-          @click ="getfield(item.text,item.fieldtype)"
-          @change ="getContest"
+          @click ="getfield(item.text)"
         >
           <v-list-item-content>
             <v-list-item-title v-text="item.fieldtype"></v-list-item-title>
@@ -23,18 +23,32 @@
     </v-list>
   </v-card>
 </div>
+<CalendarClassify :contest="contest" :myContest="myContest" />
+</div>
 
 </template>
 
 <script>
-
+import CalendarClassify from './CalendarClassify.vue'
+import axios from 'axios'
 export default {
+  components: {
+  CalendarClassify
+  },
   methods: {
-    getfield(field,fieldtype) {
+    getfield(field) {
       this.field = field
-      this.fieldtype = fieldtype
-      console.log(fieldtype)
     },
+    getContest() {
+        axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/"+  this.field)
+        .then(response => {
+            this.contest = response.data
+            console.log(this.contest)
+            this.calState = 'total'
+
+            })
+        .catch(error => { console.log(error) })
+    }
   },
     data() {
     return {
@@ -124,5 +138,13 @@ export default {
 </script>
 
 <style>
+
+.filter {
+  float:left;
+  width:12%;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
 
 </style>
