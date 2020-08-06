@@ -169,148 +169,165 @@
             </v-card>
 
         </div>
-    </template>
+</template>
 
-    <script>
-        import axios from 'axios'
+<script>
+    import axios from 'axios'
 
-        const API_URL = 'http://localhost:8181'
+    const API_URL = 'http://localhost:8181'
 
-        export default {
-            components: {},
-            data() {
-                return {
-                    userData: null,
-                    username: '',
-                    nickname: '',
-                    authority: '',
-                    editBtn: false,
-                    profileImg: '',
-                    startYear: '',
-                    careername: '',
-                    status: '',
-                    careerList: [],
-                    activeRegionList: [],
-                    items: [],
-                    licenseList: [],
-                    licenseInput: '',
-                    interestFieldList: [],
-                    selfIntroduction: ''
+    export default {
+        components: {},
+        data() {
+            return {
+                name: '',
+                userData: null,
+                username: '',
+                nickname: '',
+                authority: '',
+                editBtn: false,
+                profileImg: '',
+                startYear: '',
+                careername: '',
+                status: '',
+                careerList: [],
+                activeRegionList: [],
+                items: [],
+                licenseList: [],
+                licenseInput: '',
+                interestFieldList: [],
+                selfIntroduction: ''
+                
+            }
+        },
+        methods: {
+            getUserInfo() {
+                const config = {
+                    headers: {
+                        Authorization: this
+                            .$cookies
+                            .get("auth-token")
+                    }
+                }
+                axios
+                    .get(API_URL + '/api/users', config)
+                    .then(res => {
+                        console.log(res.data)
+                        this.birthday = res.data.birthday
+                        this.address = res.data.address
+                        this.gender = res.data.gender
+                        this.major = res.data.major
+                        this.name = res.data.name
+                        this.nickname = res.data.nickname
+                        this.phone = res.data.phone
+                        this.profileImg = res.data.profileImg
+                        this.selfIntroduction = res.data.selfIntroduction
+                        this.imageUrl = res.data.profileImg
+                        this.age = res.data.age,
+                        this.interestFieldList = res.data.interestFieldList,
+                        this.activeRegionList = res.data.activeRegionList,
+                        this.careerList = res.data.careerList,
+                        this.licenseList = res.data.licenseList,
+                        this.username = res.data.username
+                    })
+                    .catch(err => console.log(err.response))
+                },
+            clickEditBtn() {
+                this.editBtn = !this.editBtn
+                if (!this.editBtn) {
+                    this.updateProfileData()
                 }
             },
-            methods: {
-                getUserInfo() {
-                    const config = {
-                        headers: {
-                            Authorization: this
-                                .$cookies
-                                .get("auth-token")
-                        }
+            addCareer() {
+                this
+                    .careerList
+                    .push(
+                        {startYear: this.startYear, careername: this.careername, status: this.status}
+                    )
+                this.careername = ''
+                this.startYear = ''
+                this.status = ''
+                console.log(this.careerList)
+            },
+            removeLicense(index) {
+                this
+                    .licenseList
+                    .splice(index, 1)
+            },
+            addLicense() {
+                this
+                    .licenseList
+                    .push(this.licenseInput)
+                this.licenseInput = ''
+            },
+            removeCareer(index) {
+                this
+                    .careerList
+                    .splice(index, 1)
+            },
+            remove(item) {
+                this
+                    .chips
+                    .splice(this.chips.indexOf(item), 1)
+                this.chips = [...this.chips]
+            },
+            updateProfileData() {
+                const config = {
+                    headers: {
+                        Authorization: this
+                            .$cookies
+                            .get("auth-token")
                     }
-                    axios
-                        .get(API_URL + '/api/users', config)
-                        .then(res => {
-                            console.log(res.data)
-                            this.profileImg = res.data.profileImg
-                            this.username = res.data.username
-                            this.nickname = res.data.nickname
-                            this.authority = res.data.authority
-                            this.licenseList = res.data.licenseList
-                            this.interestFieldList = res.data.interestFieldList
-                            this.careerList = res.data.careerList
-                            this.activeRegionList = res.data.activeRegionList
-                            this.selfIntroduction = res.data.selfIntroduction
-                        })
-                        .catch(err => console.log(err.response))
+                }
+                axios
+                    .patch(API_URL + '/api/users', this.profileData, config)
+                    .then(res => {
+                        this
+                            .profileData
+                            console
+                            .log(res.data)
+                    })
+                    .catch(err => {
+                        console.log(err.response.data)
+                    })
+                }
+        },
+        mounted() {
+            this.getUserInfo()
+        },
+        computed: {
+            profileData() {
+                return {
+                    user: {
+                    name: this.name,
+                    nickname: this.nickname,
+                    selfIntroduction: this.selfIntroduction,
+                    phone: this.phone,
+                    birthday: this.birthday,
+                    address: this.address,
+                    profileImg: this.profileImg,
+                    gender: this.gender,
+                    major: this.major,
+                    age: this.age,
+                    username: this.username,
+                    authority: this.authority,
                     },
-                clickEditBtn() {
-                    this.editBtn = !this.editBtn
-                    if (!this.editBtn) {
-                        this.updateProfileData()
-                    }
-                },
-                addCareer() {
-                    this
-                        .careerList
-                        .push(
-                            {startYear: this.startYear, careername: this.careername, status: this.status}
-                        )
-                    this.careername = ''
-                    this.startYear = ''
-                    this.status = ''
-                    console.log(this.careerList)
-                },
-                removeLicense(index) {
-                    this
-                        .licenseList
-                        .splice(index, 1)
-                },
-                addLicense() {
-                    this
-                        .licenseList
-                        .push(this.licenseInput)
-                    this.licenseInput = ''
-                },
-                removeCareer(index) {
-                    this
-                        .careerList
-                        .splice(index, 1)
-                },
-                remove(item) {
-                    this
-                        .chips
-                        .splice(this.chips.indexOf(item), 1)
-                    this.chips = [...this.chips]
-                },
-                updateProfileData() {
-                    const config = {
-                        headers: {
-                            Authorization: this
-                                .$cookies
-                                .get("auth-token")
-                        }
-                    }
-                    axios
-                        .patch(API_URL + '/api/users', this.profileData, config)
-                        .then(res => {
-                            this
-                                .profileData
-                                console
-                                .log(res.data)
-                        })
-                        .catch(err => {
-                            console.log(err.response.data)
-                        })
-                    }
-            },
-            mounted() {
-                this.getUserInfo()
-            },
-            computed: {
-                profileData() {
-                    return {
-                        user: {
-                            username: this.username,
-                            nickname: this.nickname,
-                            authority: this.authority,
-                            selfIntroduction: this.selfIntroduction
-                        },
-                        type: 'profile',
-                        fields: this.interestFieldList,
-                        regions: this.activeRegionList,
-                        licenses: this.licenseList,
-                        careers: this.careerList
-                    }
+                    fields: this.interestFieldList,
+                    type: 'profile',
+                    regions: this.activeRegionList,
+                    licenses: this.licenseList,
+                    careers: this.careerList,
                 }
             }
         }
-    </script>
+    }
+</script>
 
-    <style scoped="scoped">
-        .interest {
-            font-size: 40px;
-        }
-        .hide {
-            display: none;
-        }
-    </style>
+<style scoped="scoped">
+    .interest {
+        font-size: 40px;
+    }
+    .hide {
+        display: none;
+    }
+</style>

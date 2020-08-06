@@ -6,6 +6,7 @@
             class="btn btn-primary"
             data-toggle="modal"
             data-target="#exampleModal">
+            
             프로필 사진 변경
         </button>
 
@@ -64,6 +65,9 @@
             } ,
             }
         },
+        props: {
+            profileImg: String
+        },
         components: {},
         methods: {
           onChangeImages() {
@@ -73,6 +77,6 @@
           saveImage() {
               this.$emit('submit-image-data', this.imgData)
           },
-        }
+        },
     }
 </script>

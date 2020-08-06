@@ -52,7 +52,7 @@
   </v-card>
       <!-- 라벨 -->
       <v-card class='col-9 p-0' style='min-height:  500px;'>
-        <UserInfoUpdate :password='password' v-if="state == 'infoUpdate'" />
+        <UserInfoUpdate v-if="state == 'infoUpdate'" />
         <DeleteUser v-if="state == 'delete'" />
         <PasswordChange v-if="state == 'passwordChange'"/>
       </v-card>
@@ -71,9 +71,6 @@ export default {
       state: 'infoUpdate',
       username: '',
       }
-  },
-  props: {
-    password: String,
   },
   components: {
     DeleteUser,
