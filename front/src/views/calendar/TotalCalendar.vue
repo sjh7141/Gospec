@@ -117,8 +117,16 @@ import CalendarDetail from './CalendarDetail.vue'
     mounted () {
       this.$refs.calendar.checkChange()
     },
-    computed() {
-      this.updateRange()
+    computed (){
+      // this.updateRange()
+    },
+    watch : {
+      contest : {
+        deep : true,
+        handler(){
+          this.updateRange();
+        }
+      }
     },
     methods: {
       onDialogChange (dialog) {
@@ -141,7 +149,8 @@ import CalendarDetail from './CalendarDetail.vue'
         this.$refs.calendar.next()
       },
       updateRange() {
-        console.log("update")
+        console.log("update부분")
+        console.log(this.contest);
         this.name = ''
         this.start = ''
         this.end = ''
@@ -173,7 +182,7 @@ import CalendarDetail from './CalendarDetail.vue'
     
           this.events = events
         }
-        console.log(events.length)
+        console.log(this.events.length)
         
       },
       rnd (a, b) {

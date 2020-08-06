@@ -29,7 +29,7 @@
   <v-btn color="error" @click="myCalBtn">내 일정</v-btn>
   </div>
     <div class="calendar">
-    <TotalCalendar ref="totalcalendar" :field="field" :contest='contest' v-if="calState == 'total'"/>
+    <TotalCalendar ref="totalCal" :field="field" :contest.sync='contest' v-if="calState == 'total'"/>
     <MyCalendar :myContest='myContest' v-if="calState == 'my'"/>
     </div>
   </div>
@@ -137,26 +137,26 @@ export default {
     }
   },
   created() {
-    this.totalCalBtn()
+    // this.totalCalBtn()
   },
 
   methods: {
     getfield(field) {
       this.field = field
       this.totalCalBtn()
-      this.$refs.totalcalendar.updateRange()
     },
 
     totalCalBtn() {
+      console.log(this.field);
       axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/"+this.field)
         .then(response => {
-            this.contest = response.data
-            this.calState = 'total'
-            console.log(this.field)
-            console.log(this.contest)
-            })
-        .catch(error => { console.log(error) })
+          this.calState = 'total'
+          console.log("ddd");
+          this.contest = response.data
+          console.log(this.contest)
 
+        })
+        .catch(() => { console.log("여기에러남") })
     },
     myCalBtn() {
       var ca = this.$cookies.get("auth-token")
