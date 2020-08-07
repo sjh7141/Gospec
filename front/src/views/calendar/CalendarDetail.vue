@@ -24,7 +24,7 @@
         </template>
           <v-btn>
             <a :href= this.selectedEvent.homepage >
-            채용 사이트
+            공모전 사이트
             </a>
           </v-btn>
       </v-menu>
