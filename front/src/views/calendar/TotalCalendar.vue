@@ -30,14 +30,14 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
+              <v-list-item @click="type = 'month'">
+                <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = 'week'">
                 <v-list-item-title>Week</v-list-item-title>
               </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
+              <v-list-item @click="type = 'day'">
+                <v-list-item-title>Day</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = '4day'">
                 <v-list-item-title>4 days</v-list-item-title>
@@ -46,7 +46,7 @@
           </v-menu>
         </v-toolbar>
         </v-sheet>
-        <v-sheet height="750" width="100%">
+        <v-sheet width="100%">
           <v-calendar
             ref="calendar"
             v-model="focus"
@@ -58,7 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
-            style ="z-index: 1;"
+            style ="z-index: 1; min-height: 750px;"
           ></v-calendar>
           <v-dialog 
           v-model="dialog"
