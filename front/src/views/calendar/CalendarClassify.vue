@@ -177,6 +177,10 @@ export default {
     },
     myCalBtn() {
       var ca = this.$cookies.get("auth-token")
+        if (ca == null) {
+          alert('로그인이 필요한 서비스 입니다!')
+          this.likestate = false
+        }
       console.log(ca)
       var base64Url = ca.split('.')[1]
       var decodedValue = JSON.parse(window.atob(base64Url))
