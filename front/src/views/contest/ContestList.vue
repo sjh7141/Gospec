@@ -12,7 +12,10 @@
       </tr>
       <tr v-for="eachC in contestList" v-bind:key="eachC.contestNo">
         <td>{{ eachC.contestNo }}</td>
-        <td class='right'><router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>{{ eachC.title }}</router-link></td>
+        <td class='right'>
+          <LikeState2 class='_inlineBlock' :selectedEvent="eachC"/>
+          <router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>{{ eachC.title }}</router-link>
+        </td>
         <td>{{ maxLengthFilter(eachC.host) }}</td>
         <td><dday :data='eachC'/></td>
         <td>{{ eachC.viewCount }}</td>
@@ -28,6 +31,7 @@ import PrimeClassify from '@/components/common/ContestPrimeClassify.vue'
 import SecondaryClassify from '@/components/common/ContestSecondaryClassify.vue'
 import Pagination from '@/components/common/Pagination.vue'
 import Dday from '@/components/contest/Dday.vue'
+import LikeState2 from '@/components/common/LikeState2.vue'
 import axios from 'axios'
 
 const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
@@ -40,6 +44,7 @@ export default {
     SecondaryClassify,
     Pagination,
     Dday,
+    LikeState2,
   },
   data() {
     return {
@@ -99,5 +104,8 @@ export default {
 }
 .right {
   text-align: left;
+}
+._inlineBlock {
+  display: inline-block;
 }
 </style>

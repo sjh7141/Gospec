@@ -3,6 +3,7 @@
     <h3>
       {{ this.info.title }} 
       <span class='viewCount'>(조회수 : {{ this.info.viewCount }})</span>
+      <LikeState2 class='_inlineBlock' :selectedEvent="info"/>
     </h3>
     <div class='content-area'>
       <div class='img'>
@@ -41,6 +42,7 @@
 import axios from 'axios'
 import dday from '@/components/contest/Dday.vue'
 import ContestNavBar from '@/components/common/ContestNavBar.vue'
+import LikeState2 from '@/components/common/LikeState2.vue'
 
 const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
 
@@ -49,6 +51,7 @@ export default {
   components: {
       ContestNavBar,
       dday,
+      LikeState2,
   },
   data() {
     return {
