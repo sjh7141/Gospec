@@ -26,6 +26,7 @@ import Banner from './calendar/Banner.vue'
         methods: {
             styleChange() {
                 document.querySelector('#schedule').classList.remove('container')
+                
             }
         },
         data: () => {

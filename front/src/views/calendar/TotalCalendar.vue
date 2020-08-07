@@ -58,7 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
-            
+            style ="z-index: 1;"
           ></v-calendar>
           <v-dialog 
           v-model="dialog"
