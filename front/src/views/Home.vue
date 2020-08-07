@@ -1,7 +1,6 @@
 <template>
   <div>
       <HomeCategory />
-      <img src="http://i3a202.p.ssafy.io:8181/api/file/download/co10.jpg" alt="">
   </div>
 </template>
 
