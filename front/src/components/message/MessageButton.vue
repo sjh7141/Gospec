@@ -50,35 +50,36 @@ const API_URL = 'http://localhost:8181'
     props: ['receiver']
     ,
     created: function(){
-      this.connect();
       this.checkusername();
+      //this.connect();
     },
     methods: {
 				connect() {
-          this.socket = new SockJS(API_URL+"/socket");
-          this.client = Stomp.over(this.socket);
+          this.$store.socket = new SockJS(API_URL+"/socket");
+          this.$store.client = Stomp.over(this.$store.socket);
 
-          this.client.connect({}, frame => {
+          this.$store.client.connect({}, frame => {
             this.status = 'connected';
-            this.client.subscribe("/topic/계정1", res => {
+            this.$store.client.subscribe("/topic/계정1", res => {
               console.log(res.body);
             })
             console.log(frame);
           })
 				},
 				disconnect() {
-          this.socket.close();
+          this.$store.socket.close();
           this.status = "disconnected";
           this.logs = [];
 				},
 				sendMessage() {	
+          console.log(this.$store.client);
 					const msg = { 
 							contents : this.message,
 							sender : this.username,
 							receiver : this.receiver,
 							read : false
           };
-          this.client.send("/app/"+this.receiver, {}, JSON.stringify(msg));
+          this.$store.client.send("/app/"+this.receiver, {}, JSON.stringify(msg));
           this.dialog = false;
           this.message = '';
         },

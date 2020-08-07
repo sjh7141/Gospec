@@ -87,6 +87,8 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
       logout() {
         this.$cookies.remove('auth-token')
         this.$emit('logout')
+        //소켓종료
+        this.disconnect();
       },
       checkusername() {
         var ca = this.$cookies.get("auth-token")
@@ -141,6 +143,8 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
               this.userData = res.data
           })
           .catch(err => console.log(err.response))
+      disconnect() {
+        this.$store.socket.close();
       },
     },
     mounted() {
