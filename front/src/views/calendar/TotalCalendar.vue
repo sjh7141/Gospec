@@ -157,6 +157,7 @@ import CalendarDetail from './CalendarDetail.vue'
         this.content =''
         this.contestNo = ''
         this.details = ''
+        this.homepage = ''
         const events = []
         for (let i = 0; i < this.contest.length; i++){
           events.push({
@@ -166,7 +167,7 @@ import CalendarDetail from './CalendarDetail.vue'
             end: this.contest[i].startDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
-            
+            homepage: this.contest[i].homepage,
             // 여기 시작 색상
             color: 'black',
           })
@@ -176,6 +177,7 @@ import CalendarDetail from './CalendarDetail.vue'
             end: this.contest[i].endDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
+            homepage: this.contest[i].homepage,
             // 여기 끝 색상
             color: '#FF5252',
           })
