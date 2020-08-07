@@ -10,7 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GoAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
@@ -23,10 +25,10 @@ public class GoAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = (String) authentication.getPrincipal();
 		String password = (String) authentication.getCredentials();
-
+		
 		GoUserDetails user = (GoUserDetails) userDetailsService.loadUserByUsername(username);
-
 		if (user == null || !username.equals(user.getUsername()) || !pwEncoding.matches(password, user.getPassword())) {
+			System.out.println("비번 안맞음 에러");
 			throw new BadCredentialsException(username);
 		} else if (!user.isEnabled()) {
 			throw new DisabledException(username);
@@ -36,7 +38,7 @@ public class GoAuthenticationProvider implements AuthenticationProvider {
 			throw new CredentialsExpiredException(username);
 		}
 
-		Authentication auth = new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
 
 		return auth;
 	}

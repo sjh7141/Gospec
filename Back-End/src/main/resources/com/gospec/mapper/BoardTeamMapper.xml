@@ -15,8 +15,8 @@
 	</select>
 	
 	<insert id="save">
-		insert find_team_board into(username, title, content, member_max, member_cur, contest_no, team_id)
-		values (#{username}, #{title}, #{content}, #{memberMax}, #{memberCur}, #{contestNo}, #{teamId})
+		insert into find_team_board(username, title, content, member_max, contest_no, team_id)
+		values (#{username}, #{title}, #{content}, #{memberMax}, #{contestNo}, #{teamId})
 	</insert>
 	
 	<update id="update">
@@ -32,5 +32,9 @@
 	<select id="getCountByContestNo" resultType="Integer">
 		select count(*) from find_team_board
 		where contest_no = #{contestNo}
+	</select>
+	
+	<select id="checkWriteBoard" resultType="Boolean">
+		select EXISTS (select * from find_team_board where team_id = #{teamId} ) as success
 	</select>
 </mapper>

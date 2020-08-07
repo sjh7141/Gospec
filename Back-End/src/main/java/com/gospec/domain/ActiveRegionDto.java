@@ -24,6 +24,13 @@ public class ActiveRegionDto {
 	public ActiveRegionDto() {
 	
 	}
+
+	public ActiveRegionDto(String region, String username) {
+		this.region = region;
+		this.username = username;
+	}
+	
+	
 	
 	
 	
