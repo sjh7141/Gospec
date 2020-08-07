@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="findByCategory" resultType="com.gospec.domain.ContestDto" >
-		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
 		from contest_info i, contest_field f
 		<include refid="contestTypeFilter"></include>
 		<include refid="contestModeFilter"></include>
@@ -47,13 +47,13 @@
 	</select>
 	
 	<select id="findByCategoryWithCalendar" resultType="com.gospec.domain.ContestDto">
-		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
 		from contest_info i, contest_field f
 		<include refid="contestTypeFilter"></include>
 	</select>
 	
 	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">
-		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
 		from contest_info i, contest_field f
 		<include refid="contestTypeFilter"></include>
 		limit 0, 3
