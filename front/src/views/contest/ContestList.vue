@@ -65,13 +65,8 @@ export default {
     maxLengthFilter(string, baseLength = 15) {
       return string.length > baseLength ? `${string.substr(0, baseLength)}...` : string;
     },
-    addViewCount({contestNo}) { //백앤드 api 정비되면 재점검
-      const config = {
-        headers : {
-          Authorization : this.$cookies.get('auth-token')
-        }
-      };
-      axios.patch(URL_PART + contestNo, '',config)
+    addViewCount({contestNo}) {
+      axios.patch(URL_PART + contestNo)
         .then(res => {
           console.dir(res);
         })
