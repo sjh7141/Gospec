@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "password-validator": "^5.0.3",
     "vue": "^2.6.11",
+    "vue-confirmation-button": "^1.0.1",
     "vue-cookies": "^1.7.3",
     "vue-jwt-decode": "^0.1.0",
     "vue-router": "^3.2.0",
