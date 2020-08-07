@@ -87,7 +87,7 @@ public class UserController {
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "사용자 정보조회, 해당 아이디 정보 및 프로필 조회", response = UserDto.class)
+	@ApiOperation(value = "사용자 정보조회, 자기자신 정보 및 프로필 조회", response = UserDto.class)
 	@GetMapping
 	public ResponseEntity<UserDto> findInfo(){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -189,6 +189,20 @@ public class UserController {
 	@GetMapping(value ="/email-authentication/{username}")
 	public ResponseEntity<String> sendEmail(@PathVariable("username") String username){
 		return new ResponseEntity<String>(mailService.sendMail(username), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "다른 사용자 정보조회, 해당 아이디 정보 및 프로필 조회", response = UserDto.class)
+	@GetMapping
+	public ResponseEntity<UserDto> otherUserFindInfo(@RequestBody Map<String, Object> param){
+		String username = (String)param.get("username");
+		UserDto user = userService.findByUsername(username);
+		user.setPassword(null);
+		user.setActiveRegionList(userService.findAllActiveRegion(username));
+		user.setInterestFieldList(userService.findAllInterestField(username));
+		user.setLicenseList(userService.findAllLicense(username));
+		user.setCareerList(userService.findAllCareer(username));
+		
+		return new ResponseEntity<UserDto>(user,HttpStatus.OK);
 	}
 	
 }
