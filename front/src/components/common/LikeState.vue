@@ -27,6 +27,11 @@ export default {
         console.log(this.likestate)
         this.$emit('add-contest',contestNo)
         var ca = this.$cookies.get("auth-token")
+        if (ca == null) {
+          alert('로그인이 필요한 서비스 입니다!')
+          this.likestate = false
+        }
+        console.log("이것은 토큰")
         console.log(ca)
         const data = {
           contestNo: contestNo,
@@ -50,6 +55,8 @@ export default {
       this.likestate = false
       this.$emit('delete-contest',contestNo)
       var ca = this.$cookies.get("auth-token")
+      console.log("이것은 토큰")
+
       console.log(ca)
       console.log(contestNo)
       console.log('취소')
