@@ -10,7 +10,24 @@
           <v-spacer></v-spacer>
 
         <LikeState @delete-contest="OnDeleteContest" :contestNo="contestNo" :selectedEvent="selectedEvent" :likestate="likestate"/>
-
+        
+        <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+          <v-btn>
+            <a :href= this.selectedEvent.homepage >
+            채용 사이트
+            </a>
+          </v-btn>
+      </v-menu>
         </v-toolbar>
         <v-card-text>
           <div class="content">{{selectedEvent.details}}</div> 
