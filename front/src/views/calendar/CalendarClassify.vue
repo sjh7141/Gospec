@@ -160,8 +160,27 @@ export default {
         })
         .catch(() => { console.log("여기에러남") })
     },
+    nmyCal() {
+      const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      }
+      axios.get('http://i3a202.p.ssafy.io:8181/api/contest/bookmark/field/' + this.field, config)
+        .then(res => {
+          this.contest = res.data
+          console.log(this.contest)
+          this.calState = 'my'
+	
+          })
+        .catch(err => console.log(err.response))
+    },
     myCalBtn() {
       var ca = this.$cookies.get("auth-token")
+        if (ca == null) {
+          alert('로그인이 필요한 서비스 입니다!')
+          this.likestate = false
+        }
       console.log(ca)
       var base64Url = ca.split('.')[1]
       var decodedValue = JSON.parse(window.atob(base64Url))
