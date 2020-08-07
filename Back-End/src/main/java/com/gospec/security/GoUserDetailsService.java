@@ -42,6 +42,7 @@ public class GoUserDetailsService implements UserDetailsService{
 	}
 	
 	public boolean save(UserDto user) {
+		System.out.println(user.getPassword());
 		user.setPassword(pwEncoding.encode(user.getPassword()));
 		if(userMapper.save(user) > 0) {
 			userMapper.resetCluster();
