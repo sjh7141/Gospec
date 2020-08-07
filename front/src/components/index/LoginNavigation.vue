@@ -74,6 +74,7 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
         items: [
           { title: '프로필', icon: 'mdi-view-dashboard', link: "/mypage" },
           { title: '내정보수정', icon: 'mdi-image',link: "/mypage/userinfo" },
+          { title: '북마크', icon: 'mdi-star', link: "/mypage/bookmark" },
           { title: '팀정보', icon: 'mdi-help-box', link: "/mypage/myteam" },
         ],
 

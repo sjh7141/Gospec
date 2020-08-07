@@ -24,6 +24,7 @@ import Mypage from '../views/mypage/Mypage.vue'
 import MyTeam from '../views/mypage/MyTeam.vue'
 import Profile from '../views/mypage/Profile.vue'
 import Userinfo from '../views/mypage/Userinfo.vue'
+import Bookmark from '@/views/mypage/Bookmark.vue'
 
 import VueCookies from 'vue-cookies'
 
@@ -74,6 +75,7 @@ const routes = [
   { path: '/mypage', component: Mypage, children: [
     { path: '', component: Profile },
     { path: 'userinfo', component: Userinfo },
+    { path: 'bookmark', component: Bookmark },
     { path: 'myteam', component: MyTeam },
   ]},
 ]

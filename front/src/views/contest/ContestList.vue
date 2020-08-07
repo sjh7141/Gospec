@@ -1,6 +1,7 @@
 <template>
   <div>
     <prime-classify/>
+    <PopularContest :contest.sync ="topContestList"/>
     <secondary-classify/>
     <table id='list' class='centered'>
       <tr>
@@ -32,6 +33,7 @@ import SecondaryClassify from '@/components/common/ContestSecondaryClassify.vue'
 import Pagination from '@/components/common/Pagination.vue'
 import Dday from '@/components/contest/Dday.vue'
 import LikeState2 from '@/components/common/LikeState2.vue'
+import PopularContest from '@/views/home/PopularContest.vue'
 import axios from 'axios'
 
 const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
@@ -45,6 +47,7 @@ export default {
     Pagination,
     Dday,
     LikeState2,
+    PopularContest,
   },
   data() {
     return {
@@ -56,18 +59,14 @@ export default {
     // console.log('asdf'+this.$store.state.ContestList.type);
     // console.log(this.$store.dispatch('getContestList'))
     this.$store.dispatch('getContestList');
+    this.$store.dispatch('getTopContestList');
   },
   methods: {
     maxLengthFilter(string, baseLength = 15) {
       return string.length > baseLength ? `${string.substr(0, baseLength)}...` : string;
     },
-    addViewCount({contestNo}) { //백앤드 api 정비되면 재점검
-      const config = {
-        headers : {
-          Authorization : this.$cookies.get('auth-token')
-        }
-      };
-      axios.patch(URL_PART + contestNo, '',config)
+    addViewCount({contestNo}) {
+      axios.patch(URL_PART + contestNo)
         .then(res => {
           console.dir(res);
         })
@@ -79,6 +78,9 @@ export default {
   computed: {
     contestList() {
       return this.$store.state.ContestList.list;
+    },
+    topContestList() {
+      return this.$store.state.ContestList.topList;
     }
   },
 }
