@@ -24,6 +24,7 @@ export default {
             this.$store.commit('setMode', 'all');
             this.$store.commit('setPage', 1);
             this.$store.dispatch('getContestList');
+            this.$store.dispatch('getTopContestList');
         },
         typeToTextFilter(string) {
             return string == 'all' ? '전체' : string.replace(/-/g,'/');

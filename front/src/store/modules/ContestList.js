@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/field'
+const TOP_URL = 'http://i3a202.p.ssafy.io:8181/api/contest/field/top/';
 const urlBuilder = (p1, p2, p3) => {
     return Array(API_URL_PART, p1, p2, p3).join('/');
 }
@@ -9,6 +10,7 @@ export default {
     state: {
         params: {type: 'all', mode: 'all', page: 1,},
         list: [],
+        topList: [],
         pagination: {},
     },
     getters: {  // store.getters.asdf로 사용(computed비슷). 첫 인자는 vuex.state. 두번째 인자는 vuex.getters
@@ -32,6 +34,9 @@ export default {
         setPagination(state, payload) {
             state.pagination = payload;
         },
+        setTopList(state, payload) {
+            state.topList = payload;
+        },
     },
     actions: {  //비동기부분. dispatch로 호출. 첫 인자가 vuex
         getContestList(store) {
@@ -48,6 +53,13 @@ export default {
                     store.commit('setList', response.data.list);
                     store.commit('setPagination', response.data.page);
                     store.commit('setPage', response.data.page.curPage);
+                })
+                .catch(error => console.log(error));
+        },
+        getTopContestList(store) {
+            axios.get(TOP_URL + store.state.params.type)
+                .then(response => {
+                    store.commit('setTopList', response.data);
                 })
                 .catch(error => console.log(error));
         },
