@@ -64,6 +64,17 @@ public class ContestController {
 		List<ContestDto> list = contestService.findByBookMarkWithDurationAndEmail(email, startDate, endDate);
 		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "유저별 북마크된 공모전 가져오기")
+	@GetMapping(value = "/bookmark/field/{type}")
+	public ResponseEntity<List<ContestDto>> getBookMarkOfUserWithType(@PathVariable("type") String type) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(username.equals("anonymousUser")) {
+			return new ResponseEntity<List<ContestDto>>(HttpStatus.UNAUTHORIZED);
+		}
+		List<ContestDto> list = contestService.findByBookMarkWithField(username, type);
+		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
+	}
 
 	@ApiOperation(value = "카테고리 분류 전체 데에터 가져오기")
 	@GetMapping(value = "/field/{type}/{mode}/{page}")

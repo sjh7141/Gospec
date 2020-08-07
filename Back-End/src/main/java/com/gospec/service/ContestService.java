@@ -19,4 +19,5 @@ public interface ContestService {
 	public int checkBookMark(String username, int contestNo);
 	public void updateViewCount(int contestNo);
 	public List<ContestDto> findByCategoryWithCalendar(String type);
+	public List<ContestDto> findByBookMarkWithField(String username, String type);
 }
