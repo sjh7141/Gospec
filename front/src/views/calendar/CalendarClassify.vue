@@ -160,6 +160,21 @@ export default {
         })
         .catch(() => { console.log("여기에러남") })
     },
+    nmyCal() {
+      const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      }
+      axios.get('http://i3a202.p.ssafy.io:8181/api/contest/bookmark/field/' + this.field, config)
+        .then(res => {
+          this.contest = res.data
+          console.log(this.contest)
+          this.calState = 'my'
+	
+          })
+        .catch(err => console.log(err.response))
+    },
     myCalBtn() {
       var ca = this.$cookies.get("auth-token")
       console.log(ca)
