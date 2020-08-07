@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-navigation-drawer
+      style ="z-index: 2; "
       v-model="drawer"
       :color="color"
       :expand-on-hover="expandOnHover"
@@ -10,6 +11,7 @@
       :src="bg"
       absolute
       dark
+
     >
         <v-list
           dense
