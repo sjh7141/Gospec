@@ -16,6 +16,22 @@
 		and contest_info.contest_no = bookmark_contest.contest_no 
 	</select>
 	
+	<select id="findByBookMarkWithField" resultType="com.gospec.domain.ContestDto">
+	select distinct sub.contest_no, sub.title, sub.target, sub.host, sub.sponsor, sub.start_date, sub.end_date, sub.reg_date, sub.total_reward, sub.first_reward, sub.homepage, sub.content, sub.view_count, sub.img_src
+	from
+	(
+		select c.contest_no, title, target, host, sponsor, start_date, end_date, reg_date, total_reward, first_reward, homepage, content, view_count, img_src
+		from contest_info c inner join bookmark_contest b
+		on c.contest_no = b.contest_no and b.username = #{username}
+	) sub inner join contest_field f
+	on sub.contest_no = f.contest_no
+	<choose>
+		<when test="!type.equals('all')">
+			 and f.field = #{type};
+		</when>
+	</choose>
+	</select>
+	
 	<select id="findCategoryByContestNo" resultType="String">
 		select field from contest_field
 		where contest_no = #{contestNo}

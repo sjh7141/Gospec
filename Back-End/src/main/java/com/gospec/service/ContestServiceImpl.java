@@ -79,4 +79,9 @@ public class ContestServiceImpl implements ContestService {
 	public List<ContestDto> findByCategoryWithCalendar(String type) {
 		return contestMapper.findByCategoryWithCalendar(type);
 	}
+	
+	@Override
+	public List<ContestDto> findByBookMarkWithField(String username, String type) {
+		return contestMapper.findByBookMarkWithField(username, type);
+	}
 }
