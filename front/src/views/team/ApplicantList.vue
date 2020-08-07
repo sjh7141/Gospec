@@ -1,7 +1,7 @@
 <template>
     <div>
         This is Contest Applicant List Page.
-        <message-button receiver="계정1"></message-button>
+        <message-button receiver="test5"></message-button>
     </div>
 </template>
 

@@ -81,6 +81,9 @@
       logout() {
         this.$cookies.remove('auth-token')
         this.$emit('logout')
+        //소켓종료
+        console.log('소켓종료시도');
+        this.disconnect();
       },
       checkusername() {
         var ca = this.$cookies.get("auth-token")
@@ -123,6 +126,9 @@
         }
  
         return string;
+      },
+      disconnect() {
+        this.$store.socket.close();
       },
     },
     mounted() {
