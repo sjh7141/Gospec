@@ -10,8 +10,8 @@
     <v-img
       class="white--text align-end"
       height="300px"
-      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[0].imgSrc"
-    >
+      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[0].imgSrc" :alt="this.contest[0].title">
+      
       <v-card-title v-text="contest[0].title"></v-card-title>
     </v-img>
 
@@ -50,14 +50,14 @@
     <v-img
       class="white--text align-end"
       height="300px"
-      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[1].imgSrc"
-    >
+      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[1].imgSrc" :alt="this.contest[1].title">
+    
       <v-card-title v-text="contest[1].title"></v-card-title>
     </v-img>
 
     <v-card-subtitle class="pb-0" v-text="contest[1].totalReward"></v-card-subtitle>
 
-    <v-card-text class="text--primary" v-text="contest[1].startDate + '\n' +contest[1].endDate">
+    <v-card-text class="text--primary" v-text="contest[1].startDate + ' ~ ' +contest[1].endDate">
 
     </v-card-text>
 
@@ -90,14 +90,14 @@
     <v-img
       class="white--text align-end"
       height="300px"
-      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[2].imgSrc"
-    >
+      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[2].imgSrc" :alt="this.contest[2].title">
+    
       <v-card-title v-text="contest[2].title"></v-card-title>
     </v-img>
 
     <v-card-subtitle class="pb-0" v-text="contest[2].totalReward"></v-card-subtitle>
 
-    <v-card-text class="text--primary" v-text="contest[2].startDate + '\n' +contest[2].endDate">
+    <v-card-text class="text--primary" v-text="contest[2].startDate + ' ~ ' + contest[2].endDate">
 
     </v-card-text>
 
@@ -134,84 +134,9 @@
         type:Array
       }
     },
-    watch: {
-      contest: {
-        immediate: true,
-        deep: true,
-        handler() {
-          this.updateConcards();
-        }
-      },
-    },
-    methods: {
-      updateConcards() {
-        this.concards = [
-          {
-            title: this.contest[0].title,
-            totalReward: this.contest[0].totalReward,
-            startDate: this.contest[0].startDate,
-            endDate: this.contest[0].endDate,
-            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[0].imgSrc, 
-          
-            contestNo: this.contest[0].contestNo
-          },
-          {
-            title: this.contest[1].title,
-            totalReward: this.contest[1].totalReward,
-            startDate: this.contest[1].startDate,
-            endDate: this.contest[1].endDate,
-            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[1].imgSrc,
-            contestNo: this.contest[1].contestNo
-
-          },
-          {
-            title: this.contest[2].title,
-            totalReward: this.contest[2].totalReward,
-            startDate: this.contest[2].startDate,
-            endDate: this.contest[2].endDate,
-            imgSrc:'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[2].imgSrc, 
-
-            contestNo: this.contest[2].contestNo
-          }
-        ]
-
-      }
-    },
     data() {
       return {
-        concards: [
-          {
-            title: this.contest[0].title,
-            totalReward: this.contest[0].totalReward,
-            startDate: this.contest[0].startDate,
-            endDate: this.contest[0].endDate,
-            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[0].imgSrc, 
-          
-            contestNo: this.contest[0].contestNo
-          },
-          {
-            title: this.contest[1].title,
-            totalReward: this.contest[1].totalReward,
-            startDate: this.contest[1].startDate,
-            endDate: this.contest[1].endDate,
-            imgSrc: 'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[1].imgSrc,
-            contestNo: this.contest[1].contestNo
-
-          },
-          {
-            title: this.contest[2].title,
-            totalReward: this.contest[2].totalReward,
-            startDate: this.contest[2].startDate,
-            endDate: this.contest[2].endDate,
-            imgSrc:'http://i3a202.p.ssafy.io:8181/api/file/download/'+this.contest[2].imgSrc, 
-
-            contestNo: this.contest[2].contestNo
-          }
-        ]
-
-
       }
-
     }
   }
 
