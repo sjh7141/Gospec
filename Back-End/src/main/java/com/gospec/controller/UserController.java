@@ -192,7 +192,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "다른 사용자 정보조회, 해당 아이디 정보 및 프로필 조회", response = UserDto.class)
-	@GetMapping
+	@GetMapping(value ="/other")
 	public ResponseEntity<UserDto> otherUserFindInfo(@RequestBody Map<String, Object> param){
 		String username = (String)param.get("username");
 		UserDto user = userService.findByUsername(username);
