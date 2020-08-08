@@ -40,10 +40,12 @@ public class TeamController {
 	@Autowired
 	private GoUserDetailsService userService;
 	
-	@ApiOperation(value = "팀 정보 조회, 사용자 아이디로 존재하는 팀게시글을 전체 조회한다.", response = Boolean.class)
-	@GetMapping(value="/{username}")
-	public ResponseEntity<List<BoardTeamDto>> getTeamList(@PathVariable("username") String username){
-		return new ResponseEntity<List<BoardTeamDto>>(teamService.findAll(username), HttpStatus.OK);
+	@ApiOperation(value = "팀 게시물 정보 조회, 헤더의 사용자 아이디로 존재하는 팀게시글(팀장,팀원 모두포함)을 전체 조회한다.", response = Boolean.class)
+	@GetMapping
+	public ResponseEntity<List<BoardTeamDto>> getTeamList(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<BoardTeamDto> boardList = teamService.findAll(username);
+		return new ResponseEntity<List<BoardTeamDto>>(boardList, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "팀  승인 정보 등록, 팀 아이디, 해당 사용자들에 대해 등록", response = Boolean.class)

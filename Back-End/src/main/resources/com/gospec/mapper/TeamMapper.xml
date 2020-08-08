@@ -3,9 +3,12 @@
 <mapper namespace="com.gospec.mapper.TeamMapper">
 
 	<select id="findAll" resultType="com.gospec.domain.BoardTeamDto">
-		select * 
-		from find_team_board
-		where username=#{username}
+		select *
+		from find_team_board as a
+		where a.team_id in 
+			(select distinct(team_id) from team_approval
+			where leader_username = #{username}
+			or member_username = #{username})
 	</select>
 
 	<insert id="saveTeamApproval">

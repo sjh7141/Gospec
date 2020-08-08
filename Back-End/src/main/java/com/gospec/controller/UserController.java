@@ -192,9 +192,8 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "다른 사용자 정보조회, 해당 아이디 정보 및 프로필 조회", response = UserDto.class)
-	@GetMapping(value ="/other")
-	public ResponseEntity<UserDto> otherUserFindInfo(@RequestBody Map<String, Object> param){
-		String username = (String)param.get("username");
+	@GetMapping(value ="/other/{username}")
+	public ResponseEntity<UserDto> otherUserFindInfo(@PathVariable("username") String username){
 		UserDto user = userService.findByUsername(username);
 		user.setPassword(null);
 		user.setActiveRegionList(userService.findAllActiveRegion(username));
