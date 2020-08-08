@@ -18,7 +18,11 @@ public class TeamServiceImpl implements TeamService {
 	
 	@Override
 	public List<BoardTeamDto> findAll(String username) {
-		return teamMapper.findAll(username);
+		List<BoardTeamDto> boardTeamList = teamMapper.findAll(username);
+		for(BoardTeamDto boardTeam :boardTeamList) {
+			boardTeam.setApprovalList(teamMapper.findTeamById(boardTeam.getTeamId()));
+		}
+		return boardTeamList;
 	}
 
 	@Override
