@@ -133,6 +133,10 @@ export default {
             }
         },
         assign(applicant) {
+            if (this.isListAvailable == false) {
+                alert('더 이상 멤버를 추가할 수 없습니다.');
+                return;
+            }
             if (confirm(`정말 ${applicant.memberUsername}을(를) 멤버로 받아들이겠습니까?`)) {
                 const config = {headers: {Authorization: this.$cookies.get("auth-token"),}};
                 let dto = {
