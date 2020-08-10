@@ -33,8 +33,8 @@
         </div>
         <hr class='mt-0'>
         <p class='mb-2'>간편 로그인</p>
-        <button class='btn btn-kakao'><img style='height:30px; margin-right: 30px; margin-left: 15px;' src="https://image.flaticon.com/icons/svg/2111/2111466.svg" alt="">카카오톡으로 로그인</button>
-        <button class='btn btn-google mt-2'><img class='mr-3' style='height:20px' src="https://ptooff.files.wordpress.com/2017/06/google-logo.png" alt=""> 구글아이디로 로그인</button>
+        <button class='btn btn-kakao' style='color: black'><img style='height:30px; margin-right: 30px; margin-left: 15px;' src="https://image.flaticon.com/icons/svg/2111/2111466.svg" alt="">카카오톡으로 로그인</button>
+        <button class='btn btn-google mt-2' style='color: black'><img class='mr-3' style='height:20px' src="https://ptooff.files.wordpress.com/2017/06/google-logo.png" alt=""> 구글아이디로 로그인</button>
     </div>
 </template>
 

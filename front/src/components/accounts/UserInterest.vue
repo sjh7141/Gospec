@@ -22,6 +22,11 @@ export default {
       amenities: null,
     }
   },
+  watch: {
+    interestFieldList() {
+      this.setAmenities()
+    }
+  },
   props: {
     interestFieldList: Object
   },
@@ -29,17 +34,17 @@ export default {
     submitAmenities() {
       const interestList = []
       for(let i=0; i<this.amenities.length; i++) {
-        interestList.push(this.interestsData[i])
+        interestList.push(this.interestsData[this.amenities[i]])
         }
       this.$emit('submit-amenities', interestList)
+    },
+    setAmenities() {
+      this.amenities = []
+        for(let i=0; i<this.interestFieldList.length; i++) {
+          this.amenities.push(this.interestsData.indexOf(this.interestFieldList[i]))
+      }
     }
   },
-  mounted() {
-    this.amenities = []
-    for(let i=0; i<this.interestFieldList.length; i++) {
-      this.amenities.push(i)
-    }
-  }
 }
 </script>
 

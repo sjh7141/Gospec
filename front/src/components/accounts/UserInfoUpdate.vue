@@ -263,7 +263,6 @@ export default {
             this.activeRegionList = res.data.activeRegionList,
             this.careerList = res.data.careerList,
             this.licenseList = res.data.licenseList
-            console.log(res.data)
         })
         .catch(err => console.log(err.response))
     },

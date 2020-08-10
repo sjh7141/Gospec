@@ -106,11 +106,11 @@ import Modal from '../accounts/Modal.vue'
                 return Math.floor((b - a + 1) * Math.random()) + a
             },
             homepage(){
-                this.$router.push('/')
+                this.$router.push('/home')
             },
             signup() {
                 if (this.isLoggedIn) {
-                    this.$router.push('/')
+                    this.$router.push('/home')
                 }
                 else {
                     this.modalState = 'signup'
