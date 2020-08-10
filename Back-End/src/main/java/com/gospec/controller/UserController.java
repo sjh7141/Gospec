@@ -204,4 +204,17 @@ public class UserController {
 		return new ResponseEntity<UserDto>(user,HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "해당 공모전 북마크한 사용자 정보조회", response = List.class)
+	@GetMapping(value="bookmark-user/{no}")
+	public ResponseEntity<List<UserDto>> findByNoBookmarkUser(@PathVariable("no") int no){
+		List<UserDto> userList = userService.findByNoBookmarkUser(no);
+		for(UserDto user : userList) {
+			user.setPassword(null);
+			user.setActiveRegionList(userService.findAllActiveRegion(user.getUsername()));
+			user.setInterestFieldList(userService.findAllInterestField(user.getUsername()));
+			user.setLicenseList(userService.findAllLicense(user.getUsername()));
+			user.setCareerList(userService.findAllCareer(user.getUsername()));
+		}
+		return new ResponseEntity<List<UserDto>>(userList,HttpStatus.OK);
+	}
 }

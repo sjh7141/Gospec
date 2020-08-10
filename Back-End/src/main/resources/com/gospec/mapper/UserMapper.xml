@@ -146,5 +146,14 @@
 	<delete id="resetCluster">
 		delete from cluster_table
 	</delete>
+	
+	<select id="findByNoBookmarkUser" resultType="com.gospec.domain.UserDto">
+		select *
+		from user_info
+		where username in
+				(select username 
+				 from bookmark_contest
+				 where contest_no = #{no})
+	</select>
 
 </mapper>
