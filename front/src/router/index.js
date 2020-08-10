@@ -26,7 +26,8 @@ import Profile from '../views/mypage/Profile.vue'
 import Userinfo from '../views/mypage/Userinfo.vue'
 import Bookmark from '@/views/mypage/Bookmark.vue'
 import Message from '@/views/mypage/Message.vue'
-
+import ReadReceiveMessage from '@/views/message/ReadReceive.vue'
+import ReadSendMessage from '@/views/message/ReadSend.vue'
 import VueCookies from 'vue-cookies'
 
 Vue.use(VueCookies)
@@ -79,6 +80,8 @@ const routes = [
     { path: 'bookmark', component: Bookmark },
     { path: 'myteam', component: MyTeam },
     { path: 'message', component: Message },
+    { path: '/readReceiveMessage', component: ReadReceiveMessage},
+    { path: '/readSendMessage', component: ReadSendMessage},
   ]},
 ]
 
