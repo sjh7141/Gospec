@@ -87,6 +87,9 @@ import CalendarDetail from './CalendarDetail.vue'
         myContest: {
             type: Array,
         },
+        field: {
+            type: String,
+        },
 
         
       },
@@ -111,7 +114,14 @@ import CalendarDetail from './CalendarDetail.vue'
         events: [],
       }
     },
-  
+    watch : {
+      myContest : {
+        deep : true,
+        handler(){
+          this.updateRange();
+        }
+      }
+    },
     mounted () {
       this.$refs.calendar.checkChange()
 
@@ -120,6 +130,7 @@ import CalendarDetail from './CalendarDetail.vue'
       this.updateRange()
 
     },
+    
     methods: {
       deleteRange(contestNo) {
         console.log("deleteRange")

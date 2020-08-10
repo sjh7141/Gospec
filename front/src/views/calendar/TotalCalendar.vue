@@ -117,9 +117,6 @@ import CalendarDetail from './CalendarDetail.vue'
     mounted () {
       this.$refs.calendar.checkChange()
     },
-    computed (){
-      // this.updateRange()
-    },
     watch : {
       contest : {
         deep : true,
