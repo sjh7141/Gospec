@@ -1,134 +1,59 @@
 <template>
+
 <div class="contestcard">
   <v-row dense
   >
-    <v-col>
+  <v-col v-for="each in contest" v-bind:key="each.contestNo">
+  <v-hover v-slot:default="{ hover }">
     <v-card
-    class="card mx-auto"
-    max-width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="300px"
-      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[0].imgSrc" :alt="this.contest[0].title">
       
-      <v-card-title v-text="contest[0].title"></v-card-title>
-    </v-img>
-
-    <v-card-subtitle class="pb-0" v-text="contest[0].totalReward"></v-card-subtitle>
-
-    <v-card-text class="text--primary" v-text="contest[0].startDate + ' ~ ' +contest[0].endDate">
+      max-width="300"
+    >
+      <v-img
+        :aspect-ratio="16/9"
+        class="white--text align-end"
+        height="300px"
+        :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + each.imgSrc"
+      >
+        <v-expand-transition>
+          <div
+            v-if="hover"
+            class="d-flex transition-fast-in-fast-out black v-card--reveal"
+            style="height: 100%; font-size:20px; color:white;"
+            v-text="each.title"
+          >
+          </div>
+        </v-expand-transition>
+      </v-img>
+      <v-card-subtitle class="pb-0" v-text="each.totalReward"></v-card-subtitle>
+    <v-card-text class="text--primary" v-text="each.startDate + ' ~ ' +each.endDate">
 
     </v-card-text>
-
     <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-      >
-        Share
-      </v-btn>
-
+      <LikeState2 class='_inlineBlock' :selectedEvent="each"/>
 
       <v-btn
-        color="orange"
         text
       >
-      <router-link :to="{ path: '/contest/' + contest[0].contestNo}">
+      <router-link :to="{ path: '/contest/' + each.contestNo}">
       자세히 보기
       </router-link>
       </v-btn>
       
     </v-card-actions>
-  </v-card>
+    </v-card>
+    </v-hover>
   </v-col>
-     <v-col>
-    <v-card
-    class="card mx-auto"
-    max-width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="300px"
-      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[1].imgSrc" :alt="this.contest[1].title">
-    
-      <v-card-title v-text="contest[1].title"></v-card-title>
-    </v-img>
-
-    <v-card-subtitle class="pb-0" v-text="contest[1].totalReward"></v-card-subtitle>
-
-    <v-card-text class="text--primary" v-text="contest[1].startDate + ' ~ ' +contest[1].endDate">
-
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-      >
-        Share
-      </v-btn>
-
-
-      <v-btn
-        color="orange"
-        text
-      >
-      <router-link :to="{ path: '/contest/' + contest[1].contestNo}">
-      자세히 보기
-      </router-link>
-      </v-btn>
-      
-    </v-card-actions>
-  </v-card>
-  </v-col>
-      <v-col>
-    <v-card
-    class="card mx-auto"
-    max-width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="300px"
-      :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + contest[2].imgSrc" :alt="this.contest[2].title">
-    
-      <v-card-title v-text="contest[2].title"></v-card-title>
-    </v-img>
-
-    <v-card-subtitle class="pb-0" v-text="contest[2].totalReward"></v-card-subtitle>
-
-    <v-card-text class="text--primary" v-text="contest[2].startDate + ' ~ ' + contest[2].endDate">
-
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-      >
-        Share
-      </v-btn>
-
-
-      <v-btn
-        color="orange"
-        text
-      >
-      <router-link :to="{ path: '/contest/' + contest[2].contestNo}">
-      자세히 보기
-      </router-link>
-      </v-btn>
-      
-    </v-card-actions>
-  </v-card>
-  </v-col>
-
 </v-row>
 </div>
 </template>
 
 <script>
+import LikeState2 from '@/components/common/LikeState2.vue'
   export default {
+    components:{
+      LikeState2,
+    },
     props:{
       contest: {
         type:Array
@@ -145,5 +70,13 @@
 .card{
   display: inline-block;
 
+}
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: .5;
+  position: absolute;
+  width: 100%;
 }
 </style>
