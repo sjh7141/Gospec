@@ -107,7 +107,7 @@ export default {
                     this.login(this.loginData)
                     this.$emit('signup', true)
                     if (this.checkParent){
-                        this.$router.push('/')
+                        this.$router.push('/home')
                     }
                     this.checkParent = false
                 })
@@ -140,7 +140,7 @@ export default {
         },
         logout(res) {
             this.isLoggedIn = res
-            this.$router.push('/')
+            this.$router.push('/home')
         },
 
     },

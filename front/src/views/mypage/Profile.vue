@@ -51,21 +51,15 @@
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
                             <div style='margin-top: 30px'>
-                                <v-tooltip bottom="bottom">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <i
-                                            class="far fa-lightbulb interest"
-                                            v-bind="attrs"
-                                            v-on="on"
-                                            style="color: #FDD835"></i>
-                                    </template>
-                                    <span>기획/아이디어</span>
-                                </v-tooltip>
-                                <v-tooltip bottom="bottom">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <i class="fas fa-bullhorn ml-2 interest" v-bind="attrs" v-on="on"></i>
-                                    </template>
-                                    <span>광고/마케팅</span>
+                                <v-tooltip bottom="bottom" v-for='icon in interestIcon' :key='icon.id'>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <i
+                                                :class='icon[0]'
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                style="color: gray"></i>
+                                        </template>
+                                        <span>{{icon[1]}}</span>
                                 </v-tooltip>
                             </div>
                         </div>
@@ -123,6 +117,16 @@
                         <div style='min-height: 140px;'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
+                                
+                                <v-card-text class='p-0'>
+                                <v-chip-group
+                                    v-model="amenities"
+                                    column
+                                    multiple
+                                >
+                                    <v-chip v-for='interest in interests' :key='interest.id' filter outlined>{{ interest }}</v-chip>
+                                </v-chip-group>
+                                </v-card-text>
                         </div>
                         <div style='min-height: 110px'>
                             <h5>
@@ -196,8 +200,12 @@
                 licenseList: [],
                 licenseInput: '',
                 interestFieldList: [],
-                selfIntroduction: ''
-                
+                selfIntroduction: '',
+                interests: ['기획/아이디어', '광고/마케팅', '논문/리포트', '영상/UCC/사진', '디자인/캐릭터/웹툰', '웹/모바일/플래시', '게임/소프트웨어', '과학/공학', '문학/글/시나리오', '건축/건설/인테리어', '네이밍/슬로건', '예체능/미술/음악', '대외활동/서포터즈', '봉사활동', '취업/창업', '해외', '기타'],
+                interestsData: ['기획-아이디어', '광고-마케팅', '논문-리포트', '영상-UCC-사진', '디자인-캐릭터-웹툰', '웹-모바일-플래시', '게임-소프트웨어', '과학-공학', '문학-글-시나리오', '건축-건설-인테리어', '네이밍-슬로건', '예체능-미술-음악', '대외활동-서포터즈', '봉사활동', '취업-창업', '해외', '기타'],
+                amenities: [],
+                interestIconClass : ["far fa-lightbulb interest", "fas fa-bullhorn ml-2 interest", "fas fa-scroll interest", "fas fa-video interest", "fas fa-palette interest", "fas fa-mobile-alt interest", "fas fa-gamepad interest", "fas fa-flask interest", "fas fa-book-open interest", "fas fa-building interest", "fas fa-quote-left interest", "fas fa-music interest", "fas fa-hands-helping interest", "fas fa-people-carry interest", "fas fa-id-card-alt interest", "fas fa-plane-departure interest", "fas fa-ellipsis-h interest"],
+                interestIcon: [],
             }
         },
         methods: {
@@ -229,6 +237,14 @@
                         this.careerList = res.data.careerList,
                         this.licenseList = res.data.licenseList,
                         this.username = res.data.username
+                        
+                        this.interestIcon = []
+                        for(let i=0; i<this.interestFieldList.length; i++) {
+                            const index = this.interestsData.indexOf(this.interestFieldList[i])
+                            const data = [this.interestIconClass[index], this.interests[index]]
+                            this.interestIcon.push(data)
+                        }
+                        console.log(this.interestIcon)
                     })
                     .catch(err => console.log(err.response))
                 },
@@ -236,6 +252,15 @@
                 this.editBtn = !this.editBtn
                 if (!this.editBtn) {
                     this.updateProfileData()
+                }
+                else {
+                    this.setAmenities()
+                }
+            },
+            setAmenities() {
+                this.amenities = []
+                for(let i=0; i<this.interestFieldList.length; i++) {
+                    this.amenities.push(this.interestsData.indexOf(this.interestFieldList[i]))
                 }
             },
             addCareer() {
@@ -326,6 +351,7 @@
 <style scoped="scoped">
     .interest {
         font-size: 40px;
+        margin-right: 15px;
     }
     .hide {
         display: none;

@@ -68,7 +68,7 @@
             },
             logout() {
                 this.isLoggedIn = false
-                this.$router.push('/')
+                this.$router.push('/home')
             }
         },
         data: function () {
