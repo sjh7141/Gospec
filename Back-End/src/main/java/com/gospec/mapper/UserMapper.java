@@ -43,5 +43,7 @@ public interface UserMapper {
 	public List<InterestFieldDto> findByInterestFieldWithCluster();
 	public void makeCluster(List<ClusterDto> list);
 	public void resetCluster();
+	
+	public List<UserDto> findByNoBookmarkUser(int no);
 }
 
