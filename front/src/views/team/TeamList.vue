@@ -1,95 +1,50 @@
 <template>
-    <div>
-        <!-- {{isLoggedIn}} -->
-        <button class='createBtn' @click='createMove'>게시물 작성하기</button>
-        <div id='teamListWrapper'>
-            <!-- <div class='eachCtst' v-for="each in teamList" :key="each.postNo" @click="detailMove(each.postNo)"> -->
-            <div class='eachCtst' v-for="each in teamList" :key="each.postNo" @click="setSelectedPost(each.postNo)">
-                <team-btn class="applyBtn" :team='each' @refreshList='reloadPage'/>
-                <span>{{ each.title }}</span>
-                <button class='updateBtn' v-show='userName == each.username' @click.stop='updateMove(each)'>수정</button>
-                <button class='delBtn' v-show='userName == each.username' @click.stop='deletePost(each)'>삭제</button>
-                <span style='color:gray; margin-left: 40px;'>{{ 1 + each.approvalList.filter(x => x.approvalFlag).length }} / {{ each.memberMax }}</span><br>
-                <span style='color:gray;'>{{ each.username }}</span>
-                <p id='contentArea' v-show="isDetailView(each)" style="padding: 5px; white-space:pre-line;">
-                    {{ each.content }}
-                </p>
-            </div>
-        </div>
-        <button v-show="!isLastPage" @click='loadPage'>더 보기</button>
-    </div>
+<div>
+    <button class='createBtn' @click='createMove'>게시물 작성하기</button>
+
+    <my-team-each v-for="(eachT, idx) in teamList" :key="idx" 
+        :eachTeam="eachT" :isExpand="isDetailView(eachT)"
+        @setSelected="setSelectedPost" @refreshList="reloadPage"/>
+
+    <button v-show="!isLastPage" @click='loadPage'>더 보기</button>
+</div>
 </template>
 
 <script>
 import axios from 'axios'
-import TeamBtn from '@/components/team/TeamBtn.vue'
+import MyTeamEach from '@/components/team/MyTeamEach.vue'
 
 const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
-// const URL_PART = 'http://localhost:8181/api/board/teams'
+const URL_WRITE = URL_PART + '/isWrite/';
 
 export default {
     name: 'teamList',
-    components: {
-        TeamBtn,
-    },
+    components: {MyTeamEach},
     data() { return {
         teamList: [],
         sPage: 0,
-        pageInfo: null,
+        pageInfo: {},
         selectedPost: 0,
     }},
     methods: {
-        detailMove(page) {
-            this.$router.push('/contest/' + this.ctst_id + '/teams/' + page);
-        },
         createMove() {
-            // 로그인 여부 체크
-            if (!this.isLoggedIn) {
-                // 로그인 창 뜨게 해야함
-                alert('로그인!');
-            } else if (this.isAlreadyWritten) {
-                // 1회원이 1공모전에 글1개만 작성가능
-                alert('공모전 당 하나의 구인글만 작성할 수 있습니다.');
-            } else {
-                this.$router.push('/contest/' + this.ctst_id + '/teams/write');
-            }
-        },
-        updateMove(each) {
-            this.$router.push('/contest/' + this.ctst_id + '/teams/' + each.postNo + '/update');
-        },
-        deletePost(eachPost) {
-            // let payload = {
-            //     "username": eachPost.username,
-            //     "postNo": eachPost.postNo
-            // }
-            // const config = {
-            //         headers : {
-            //             Authorization : this.$cookies.get('auth-token')
-            //         }
-            //     }
-            
-            if (confirm('정말 삭제할거에요?')) {
-                
-                axios.delete(URL_PART, {
-                        headers: {
-                            Authorization: this.$cookies.get('auth-token')
-                        },
-                        data: {
-                            "username": eachPost.username,
-                            "postNo": eachPost.postNo
-                        }
-                    })
-                    .then(response => {
-                        console.dir(response);
-                    })
-                    .catch(error => console.log(error));
-            }
+            // 로그인 여부 체크, 로그인 창 뜨게 할 것
+            if (!this.isLoggedIn) {alert('로그인!');return;}
+
+            // 비동기로 서버응답받아서 체크하는 방식
+            this.isWritable().then(flag => {
+                if (flag == false) {
+                    alert('공모전 당 하나의 구인글만 작성할 수 있습니다.');
+                } else {
+                    this.$router.push('/contest/' + this.ctst_id + '/teams/write');
+                }
+            });
         },
         loadPage() {
             this.sPage++;
             axios.get(Array(URL_PART, this.ctst_id, this.sPage).join('/'))
                 .then(response => {
-                    console.dir(response.data);
+                    // console.dir(response.data);
                     this.teamList.push(...response.data.list);
                     this.pageInfo = response.data.page;
                 })
@@ -108,14 +63,15 @@ export default {
             }
         },
         setSelectedPost(no) {
-            if (this.selectedPost == no) {
-                this.selectedPost = 0;
-            } else {
-                this.selectedPost = no;
-            }
+            this.selectedPost = (this.selectedPost == no) ? 0 : no;
         },
         isDetailView({postNo}) {
             return this.selectedPost == postNo;
+        },
+        isWritable: async function() {
+            const config = {headers: {Authorization: this.$cookies.get("auth-token"),}};
+            let res = await axios.get(URL_WRITE + this.ctst_id, config) //이러면 응답객체가 들어간다
+            return res.data;    //응답객체의 data 안에 true/false가 들어있다
         },
     },
     created() {
@@ -130,15 +86,6 @@ export default {
         },
         isLastPage() {
             return this.pageInfo.totalCount <= (this.pageInfo.curPage * this.pageInfo.perPageNum);
-        },
-        isAlreadyWritten() {
-            let flag = false;
-            for (let each of this.teamList) {
-                if (this.userName == each.username) {
-                    flag = true;
-                }
-            }
-            return flag;
         },
         userName() {
             try {
