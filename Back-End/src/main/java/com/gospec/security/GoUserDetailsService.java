@@ -157,5 +157,9 @@ public class GoUserDetailsService implements UserDetailsService{
 	public void resetCluster() {
 		userMapper.resetCluster();
 	}
+	
+	public List<UserDto> findByNoBookmarkUser(int no){
+		return userMapper.findByNoBookmarkUser(no);
+	}
 }
 
