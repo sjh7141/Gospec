@@ -29,8 +29,8 @@
   <v-btn color="error" @click="myCalBtn">내 일정</v-btn>
   </div>
     <div class="calendar">
-    <TotalCalendar ref="totalCal" :field="field" :contest.sync='contest' v-if="calState == 'total'"/>
-    <MyCalendar :myContest='myContest' v-if="calState == 'my'"/>
+    <TotalCalendar :field="field" :contest.sync='contest' v-if="calState == 'total'"/>
+    <MyCalendar :field="field" :myContest.sync='myContest' v-if="calState == 'my'"/>
     </div>
   </div>
 </div>
@@ -43,7 +43,6 @@ import TotalCalendar from './TotalCalendar.vue'
 import MyCalendar from './MyCalendar.vue'
 
 import axios from 'axios'
-const MY_API_URL = "http://i3a202.p.ssafy.io:8181/api/contest/bookmark/"
 
 export default {
   components: {
@@ -138,6 +137,7 @@ export default {
   },
   created() {
     this.totalCalBtn()
+
   },
 
   methods: {
@@ -146,6 +146,9 @@ export default {
       if (this.calState == 'total'){
       this.totalCalBtn()
       }
+      if(this.calState == 'my') {
+        this.myCalBtn()
+      }
     },
 
     totalCalBtn() {
@@ -153,7 +156,6 @@ export default {
       axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/"+this.field)
         .then(response => {
           this.calState = 'total'
-          console.log("ddd");
           this.contest = response.data
           console.log(this.contest)
 
@@ -161,23 +163,26 @@ export default {
         .catch(() => { console.log("여기에러남") })
     },
     myCalBtn() {
+      console.log(this.field)
       var ca = this.$cookies.get("auth-token")
-      console.log(ca)
-      var base64Url = ca.split('.')[1]
-      var decodedValue = JSON.parse(window.atob(base64Url))
-      console.log(decodedValue)
-      this.email = decodedValue['sub']
- 
-      axios.get(MY_API_URL + this.email + "/2020-01-31/2020-12-31")
-      .then(response => {
-        this.myContest = response.data
-        this.calState = 'my'
-        console.log(response.data)
-
-      })
-      .catch(error => { console.log(error) })
-      
-      
+        if (ca == null) {
+          alert('로그인이 필요한 서비스 입니다!')
+          this.likestate = false
+        }
+      const config = {
+          headers: {
+            Authorization: this.$cookies.get("auth-token"),
+          }
+      }
+      axios.get('http://i3a202.p.ssafy.io:8181/api/contest/bookmark/field/' + this.field, config)
+        .then(res => {
+          this.myContest = res.data
+          console.log("이건 새로운버튼")
+          console.log(this.myContest)
+          this.calState = 'my'
+	
+          })
+        .catch(err => console.log(err.response))
     },
   }
 }

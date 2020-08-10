@@ -3,10 +3,11 @@
     <h3>
       {{ this.info.title }} 
       <span class='viewCount'>(조회수 : {{ this.info.viewCount }})</span>
+      <LikeState2 class='_inlineBlock' :selectedEvent="info"/>
     </h3>
     <div class='content-area'>
       <div class='img'>
-        <img :src="this.info.imgSrc" :alt="this.info.title">
+        <img :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
       </div>
       <div class='_info'>
         <ul class='info-list'>
@@ -18,7 +19,7 @@
           <li><span class='label'>총 상금: </span>{{ this.info.totalReward }}</li>
           <li><span class='label'>1등 상금: </span>{{ this.info.firstReward }}</li>
           <li><span class='label'>홈페이지: </span><a :href='this.info.homepage'>{{ this.info.homepage }}</a></li>
-          <li><span class='label'>첨부파일: </span></li>
+          <li><span class='ddayWrapper'><dday :data="info"/></span></li>
         </ul>
       </div>
     </div>
@@ -39,7 +40,9 @@
 
 <script>
 import axios from 'axios'
+import dday from '@/components/contest/Dday.vue'
 import ContestNavBar from '@/components/common/ContestNavBar.vue'
+import LikeState2 from '@/components/common/LikeState2.vue'
 
 const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/'
 
@@ -47,6 +50,8 @@ export default {
   name: 'ContestEach',
   components: {
       ContestNavBar,
+      dday,
+      LikeState2,
   },
   data() {
     return {
@@ -79,8 +84,8 @@ export default {
 }
 .img {
   border: 1px solid lightgray;
-  width: 200px;
-  height: 300px;
+  min-width: 100px;
+  min-height: 200px;
   float: left;
 }
 ._info {
@@ -98,5 +103,10 @@ export default {
 }
 .clear {
   clear: both;
+}
+.ddayWrapper {
+  display: inline-block;
+  width: 60px;
+  text-align: center;
 }
 </style>

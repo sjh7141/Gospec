@@ -24,6 +24,8 @@ import Mypage from '../views/mypage/Mypage.vue'
 import MyTeam from '../views/mypage/MyTeam.vue'
 import Profile from '../views/mypage/Profile.vue'
 import Userinfo from '../views/mypage/Userinfo.vue'
+import Bookmark from '@/views/mypage/Bookmark.vue'
+import Message from '@/views/mypage/Message.vue'
 
 import VueCookies from 'vue-cookies'
 
@@ -52,8 +54,8 @@ Vue.use(VueCookies)
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/index', component: Index },
+  { path: '/home', name: 'Home', component: Home },
+  { path: '/', component: Index },
   { path: '/schedule', component: Schedule },
   { path: '/contest', component: ContestRoute, children: [
     { path: '', component: ContestList },
@@ -74,7 +76,9 @@ const routes = [
   { path: '/mypage', component: Mypage, children: [
     { path: '', component: Profile },
     { path: 'userinfo', component: Userinfo },
+    { path: 'bookmark', component: Bookmark },
     { path: 'myteam', component: MyTeam },
+    { path: 'message', component: Message },
   ]},
 ]
 

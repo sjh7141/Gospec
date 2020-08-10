@@ -13,13 +13,27 @@
 
 <script>
 import axios from 'axios'
+const URL_CHECK = 'http://i3a202.p.ssafy.io:8181/api/contest/check/';
+
 export default {
     props: {
-      likestate:{
-      type:Boolean,
-      },
+      // likestate:{
+      // type:Boolean,
+      // },
       contestNo:null,
       selectedEvent: {},
+    },
+    data() {return{
+      likestate: {type:Boolean,}
+    }},
+    created() {
+      let no = this.$props.selectedEvent.contestNo;
+      const config = {headers: {Authorization: this.$cookies.get("auth-token"),}};
+      axios.get(URL_CHECK + no, config)
+        .then(response => {
+          this.likestate = response.data;
+        })
+        .catch(error => console.log(error));
     },
     methods: {
       clickLike(contestNo) {

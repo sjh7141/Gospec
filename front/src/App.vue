@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <main-header @checkLogin='checkLogin'></main-header>
-    <v-app class='container'>
+    <v-app>
+      <div id='schedule' class='container'>
       <router-view/>
+      </div>
     </v-app>
   </div>
 </template>
@@ -25,7 +27,7 @@ export default {
     },
     logout(data) {
       this.isLoggedIn = data 
-      this.$router.push('/')
+      this.$router.push('/home')
     }
   },
   mounted() {

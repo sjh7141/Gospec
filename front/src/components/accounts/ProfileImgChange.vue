@@ -46,8 +46,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button @click="saveImage" type="button" class="btn btn-primary" data-dismiss='modal'>ok</button>
+                        <button @click="saveImage" type="button" class="btn btn-primary" :data-dismiss=checkModal>확인</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
                     </div>
                 </div>
             </div>
@@ -63,6 +63,7 @@
                 imgFile: null, 
                 imageUrl: null
             } ,
+            checkModal: false,
             }
         },
         props: {
@@ -75,7 +76,14 @@
               this.imgData.imageUrl = URL.createObjectURL(file); // Create File URL
           },
           saveImage() {
-              this.$emit('submit-image-data', this.imgData)
+              if (!this.imgData.imgFile || this.imgData.imgFile.name.includes('jpg') || this.imgData.imgFile.name.includes('png')){
+                  this.checkModal = 'modal'
+                  this.$emit('submit-image-data', this.imgData)
+              }
+              else {
+                  this.checkModal = false
+                  alert('이미지 파일(jpg, png)만 업로드가능합니다.')
+              }
           },
         },
     }

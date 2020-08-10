@@ -9,16 +9,14 @@
     <!-- 이메일 입력 확인 -->
     <div>
       <div v-if="checkEmail">
-        <div v-if='!certificationNumberCheck'>
-          <input v-model='email' type="text" class="form-control is-valid" id="validationServer06" required>
+          <input v-model='email' v-if='!certificationNumberCheck' type="text" class="form-control is-valid" id="validationServer06" required>
           <div class="valid-feedback">
           </div>
-        </div>
         <button v-if='!clickEmailCertification' class='btn btn-primary' @click='emailCertification'>전송</button>
         <div v-if='clickEmailCertification && !certificationNumberCheck'>
           <p>인증번호가 발송되었습니다.</p>
           <label for="certification">인증 번호를 입력하세요</label>
-          <input v-model='certificationNumber' id="certification" type="text">
+          <input v-model='certificationNumber' id="certification" type="text" style='border: 2px solid'>
           <button @click="certification">인증번호 확인</button>
           <p v-if="certificationFail" style='color: red;'>인증번호를 다시 한 번 확인해주세요.</p>
         </div>
@@ -162,17 +160,23 @@ export default {
       else {
         this.checkPassword = true
         this.message.password = ''
-      }
-
+      } 
       if (
+        !this.passwordSchema.validate(this.passwordConfirm)
+      ){
+        this.passwordConfirmFormIsValid = 'form-control is-invalid'
+        this.checkPasswordConfirm = false
+        this.message.passwordConfirm = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      }
+      else if (
         this.password == this.passwordConfirm && this.passwordConfirm.length > 0
       ) {
         this.checkPasswordConfirm = true 
         this.message.passwordConfirm = '' }
       else { 
+        this.passwordConfirmFormIsValid = 'form-control is-invalid'
         this.checkPasswordConfirm = false
         this.message.passwordConfirm = '비밀번호가 일치하지 않습니다.' }
-
     },
     emailCertification() {
       axios.get(API_URL + '/api/users/email-duplication/' + this.email)
@@ -198,7 +202,7 @@ export default {
     },
     passwordChange() {
       console.log(this.passwordData)
-      axios.post(API_URL + '/api/password', this.passwordData)
+      axios.patch(API_URL + '/api/users/password', this.passwordData)
       .then(() => {
         this.$emit('completePasswordChange')
       })

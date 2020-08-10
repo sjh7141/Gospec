@@ -42,6 +42,7 @@ export default {
         modalState: String,
         modalSize: String,
         modalTitle: String,
+        checkParent: String,
     },
     computed: {
         show: {
@@ -99,14 +100,18 @@ export default {
         signup(signupData) {
             axios.post(API_URL + '/api/users/', signupData)
             .then(() => {
-                this.modalState = 'completeSignup'
-                this.modalSize = '850'
-                this.loginData.username = signupData.username
-                this.loginData.password = signupData.password
+                // this.modalState = 'completeSignup'
+                // this.modalSize = '850'
+                this.loginData.username = signupData.user.username
+                this.loginData.password = signupData.user.password
                 axios.post(API_URL + '/login', this.loginData)
-                .then((res) => {
-                    this.setCookie(res.headers.authorization)
+                .then(() => {
+                    this.login(this.loginData)
                     this.$emit('signup', true)
+                    if (this.checkParent){
+                        this.$router.push('/home')
+                    }
+                    this.checkParent = false
                 })
                 .catch(err => console.log(err.response))
             })
@@ -125,10 +130,11 @@ export default {
                 //쪽지 소켓 오픈
                 this.checkusername();
                 this.connect();
+                this.$router.go()
             })
             .catch(err => {
                 console.log(err.response)
-                alert('비밀번호를 확인하세요.')
+                alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
             })
         },
         completePasswordChange() {
@@ -140,7 +146,7 @@ export default {
         },
         logout(res) {
             this.isLoggedIn = res
-            this.$router.push('/')
+            this.$router.push('/home')
         },
         connect() {
           this.$store.socket = new SockJS(API_URL+"/socket");

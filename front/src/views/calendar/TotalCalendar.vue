@@ -30,14 +30,14 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
+              <v-list-item @click="type = 'month'">
+                <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = 'week'">
                 <v-list-item-title>Week</v-list-item-title>
               </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
+              <v-list-item @click="type = 'day'">
+                <v-list-item-title>Day</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = '4day'">
                 <v-list-item-title>4 days</v-list-item-title>
@@ -46,7 +46,7 @@
           </v-menu>
         </v-toolbar>
         </v-sheet>
-        <v-sheet height="750" width="100%">
+        <v-sheet width="100%">
           <v-calendar
             ref="calendar"
             v-model="focus"
@@ -58,7 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
-            
+            style ="z-index: 1; min-height: 750px;"
           ></v-calendar>
           <v-dialog 
           v-model="dialog"
@@ -117,9 +117,6 @@ import CalendarDetail from './CalendarDetail.vue'
     mounted () {
       this.$refs.calendar.checkChange()
     },
-    computed (){
-      // this.updateRange()
-    },
     watch : {
       contest : {
         deep : true,
@@ -157,6 +154,7 @@ import CalendarDetail from './CalendarDetail.vue'
         this.content =''
         this.contestNo = ''
         this.details = ''
+        this.homepage = ''
         const events = []
         for (let i = 0; i < this.contest.length; i++){
           events.push({
@@ -166,7 +164,7 @@ import CalendarDetail from './CalendarDetail.vue'
             end: this.contest[i].startDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
-            
+            homepage: this.contest[i].homepage,
             // 여기 시작 색상
             color: 'black',
           })
@@ -176,6 +174,7 @@ import CalendarDetail from './CalendarDetail.vue'
             end: this.contest[i].endDate,
             details : this.contest[i].content,
             contestNo: this.contest[i].contestNo,
+            homepage: this.contest[i].homepage,
             // 여기 끝 색상
             color: '#FF5252',
           })
