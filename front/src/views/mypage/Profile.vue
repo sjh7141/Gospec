@@ -33,10 +33,14 @@
                     class='col-8 row'
                     style='margin-left: 5%; text-align: left;'>
                     <div class='col-6 pb-0'>
-                        <div style='min-height: 200px'>
+                        <div style='min-height: 200px;'>
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>경력사항</h5>
-                            <div v-for='career in careerList' :key='career.id'>{{ career.startYear }}{{ career.careername }}{{ career.status }}</div>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 23px;'></i>경력사항</h5>
+                            <div v-for='career in careerList' :key='career.id' class='d-flex row' style='margin-left: 1px;'>
+                                <p class='m-0' style='color: gray; width:50px;'>{{ career.startYear }}</p>
+                                <p class='m-0' style='width: 180px;'>{{ career.careername }}</p>
+                                <p class='m-0' style='color: #78909C;'>{{ career.status }}</p>
+                            </div>
                         </div>
                         <div>
                             <h5>
@@ -269,6 +273,7 @@
                     .push(
                         {startYear: this.startYear, careername: this.careername, status: this.status}
                     )
+                this.careerList.sort()
                 this.careername = ''
                 this.startYear = ''
                 this.status = ''
@@ -304,6 +309,7 @@
                             .get("auth-token")
                     }
                 }
+                console.log('check')
                 axios
                     .patch(API_URL + '/api/users', this.profileData, config)
                     .then(res => {
@@ -324,18 +330,18 @@
             profileData() {
                 return {
                     user: {
-                    name: this.name,
-                    nickname: this.nickname,
-                    selfIntroduction: this.selfIntroduction,
-                    phone: this.phone,
-                    birthday: this.birthday,
-                    address: this.address,
-                    profileImg: this.profileImg,
-                    gender: this.gender,
-                    major: this.major,
-                    age: this.age,
-                    username: this.username,
-                    authority: this.authority,
+                        name: this.name,
+                        nickname: this.nickname,
+                        selfIntroduction: this.selfIntroduction,
+                        phone: this.phone,
+                        birthday: this.birthday,
+                        address: this.address,
+                        profileImg: this.profileImg,
+                        gender: this.gender,
+                        major: this.major,
+                        age: this.age,
+                        username: this.username,
+                        authority: this.authority,
                     },
                     fields: this.interestFieldList,
                     type: 'profile',

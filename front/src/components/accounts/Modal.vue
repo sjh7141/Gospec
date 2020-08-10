@@ -124,7 +124,7 @@ export default {
                 this.setCookie(res.headers.authorization)
                 this.$emit('login', this.isLoggedIn)
                 this.show = false
-                this.$router.go()
+                // this.$router.go()
             })
             .catch(err => {
                 console.log(err.response)
