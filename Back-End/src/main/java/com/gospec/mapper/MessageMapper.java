@@ -17,5 +17,7 @@ public interface MessageMapper {
 	public int saveSendMessage(MessageDto message);
 	public int deleteReceiveMessage(int no);
 	public int deleteSendMessage(int no);
+	public int updateSendMessage(int no, boolean reading);
+	public int updateRecieveMessage(int no, boolean reading);
 	
 }

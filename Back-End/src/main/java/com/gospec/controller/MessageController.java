@@ -12,6 +12,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,11 +34,8 @@ public class MessageController {
 	@MessageMapping("/{receiver}")
 	@SendTo("/topic/{receiver}")
 	public Integer sendMessge(@DestinationVariable String receiver, String message) {
-//		System.out.println(receiver);
-//		System.out.println(message);
 		Gson gson = new Gson();
 		MessageDto dto = gson.fromJson(message, MessageDto.class);
-//		System.out.println(dto.getContents());
 		messageService.saveSendMessage(dto);
 		messageService.saveReceiveMessage(dto);
 		return messageService.countNewReceiveMessage(receiver);
@@ -67,6 +65,13 @@ public class MessageController {
 	public ResponseEntity<Boolean> deleteSendMessage(@RequestBody Map<String, Object> param){
 		int no = (int) param.get("no");
 		return new ResponseEntity<Boolean>(messageService.deleteSendMessage(no), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "해당 쪽지 번호 읽음상태로 변환", response = Boolean.class)
+	@PatchMapping(value="/api/message/sender")
+	public ResponseEntity<Boolean> updateReceiveMessage(@RequestBody Map<String, Object> param){
+		int no = (int) param.get("no");
+		return new ResponseEntity<Boolean>(messageService.updateReceiveMessage(no), HttpStatus.OK);
 	}
 
 }

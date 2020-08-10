@@ -22,13 +22,13 @@
 	</select>
 	
 	<insert id="saveReceiveMessage">
-		insert into receive_message (contents, receiver, sender, reading)
-		values (#{contents}, #{receiver}, #{sender}, #{read	})
+		insert into receive_message (contents, receiver, sender)
+		values (#{contents}, #{receiver}, #{sender})
 	</insert>
 	
 	<insert id="saveSendMessage">
-		insert into send_message (contents, receiver, sender, reading)
-		values (#{contents}, #{receiver}, #{sender}, #{read})
+		insert into send_message (contents, receiver, sender)
+		values (#{contents}, #{receiver}, #{sender})
 	</insert>
 	
 	<delete id="deleteReceiveMessage">
@@ -40,4 +40,16 @@
 		delete from send_message
 		where no=#{no}
 	</delete>
+	
+	<update id="updateSendMessage">
+		update send_message
+		set reading=#{reading}
+		where no=#{no}	
+	</update>
+	
+	<update id="updateRecieveMessage">
+		update receive_message
+		set reading=#{reading}
+		where no=#{no}	
+	</update>
 </mapper>

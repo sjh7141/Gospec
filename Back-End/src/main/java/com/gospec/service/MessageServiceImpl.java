@@ -64,6 +64,24 @@ public class MessageServiceImpl implements MessageService {
 			return false;
 		}
 	}
+
+	@Override
+	public boolean updateSendMessage(int no) {
+		if(messageMapper.updateSendMessage(no, true) > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateReceiveMessage(int no) {
+		if(messageMapper.updateRecieveMessage(no, true) > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	
 }

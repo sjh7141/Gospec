@@ -20,5 +20,7 @@ public interface MessageService {
 		
 		public boolean deleteSendMessage(int no);
 		
+		public boolean updateSendMessage(int no);
 		
+		public boolean updateReceiveMessage(int no);
 }
