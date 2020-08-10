@@ -8,4 +8,4 @@ ARG JAR_FILE=target/GoSpec-0.0.1-SNAPSHOT.jar
 
 ADD ${JAR_FILE} GoSpec-api.jar
 
-ENTRYPONIT ["java", "-jar", "GoSpec-0.0.1-SNAPSHOT.jar"]
+ENTRYPONIT ["java", "-jar", "/GoSpec-0.0.1-SNAPSHOT.jar"]
