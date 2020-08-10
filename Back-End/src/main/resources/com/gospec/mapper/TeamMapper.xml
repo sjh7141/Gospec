@@ -7,8 +7,9 @@
 		from find_team_board as a
 		where a.team_id in 
 			(select distinct(team_id) from team_approval
-			where leader_username = #{username}
-			or member_username = #{username})
+			where member_username = #{username})
+		or username = #{username}
+		
 	</select>
 
 	<insert id="saveTeamApproval">
