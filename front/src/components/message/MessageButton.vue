@@ -32,11 +32,6 @@
 </template>
 
 <script>
-import Stomp from 'stompjs'
-import SockJS from 'sockjs-client'
-
-//const API_URL = 'http://i3a202.p.ssafy.io:8181'
-const API_URL = 'http://localhost:8181'
   export default {
     data () {
       return {
@@ -51,33 +46,15 @@ const API_URL = 'http://localhost:8181'
     ,
     created: function(){
       this.checkusername();
-      //this.connect();
     },
     methods: {
-				connect() {
-          this.$store.socket = new SockJS(API_URL+"/socket");
-          this.$store.client = Stomp.over(this.$store.socket);
-
-          this.$store.client.connect({}, frame => {
-            this.status = 'connected';
-            this.$store.client.subscribe("/topic/계정1", res => {
-              console.log(res.body);
-            })
-            console.log(frame);
-          })
-				},
-				disconnect() {
-          this.$store.socket.close();
-          this.status = "disconnected";
-          this.logs = [];
-				},
 				sendMessage() {	
           console.log(this.$store.client);
 					const msg = { 
 							contents : this.message,
 							sender : this.username,
 							receiver : this.receiver,
-							read : false
+							reading : false
           };
           this.$store.client.send("/app/"+this.receiver, {}, JSON.stringify(msg));
           this.dialog = false;

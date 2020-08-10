@@ -82,7 +82,6 @@
         this.$cookies.remove('auth-token')
         this.$emit('logout')
         //소켓종료
-        console.log('소켓종료시도');
         this.disconnect();
       },
       checkusername() {
