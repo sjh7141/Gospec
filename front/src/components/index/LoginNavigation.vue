@@ -143,6 +143,7 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
               this.userData = res.data
           })
           .catch(err => console.log(err.response))
+      },
       disconnect() {
         this.$store.socket.close();
       },
