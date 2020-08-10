@@ -17,12 +17,12 @@
                 class="collapse navbar-collapse d-flex justify-content-between align-items-center"
                 id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="navbar-brand nav-item nav-link" href="/index">GoSpec</a>
-                    <a class="nav-item nav-link" href="/">HOME</a>
-                    <a class="nav-item nav-link" href="/schedule">전체일정</a>
-                    <a class="nav-item nav-link" href="/contest">공모전</a>
-                    <a class="nav-item nav-link" href="/study">스터디</a>
-                    <a class="nav-item nav-link" href="/jobinfo">취업정보</a>
+                    <router-link to="/"><a class="navbar-brand nav-item nav-link" href="#">GoSpec</a></router-link>
+                    <router-link to="/home"><a class="nav-item nav-link" href="#">HOME</a></router-link>
+                    <router-link to="/schedule"><a class="nav-item nav-link" href="#">전체일정</a></router-link>
+                    <router-link to="/contest"><a class="nav-item nav-link" href="#">공모전</a></router-link>
+                    <router-link to="/study"><a class="nav-item nav-link" href="/study">스터디</a></router-link>
+                    <router-link to="/jobinfo"><a class="nav-item nav-link" href="/jobinfo">취업정보</a></router-link>
                 </div>
                 <div class="navbar-nav">
                     <p
@@ -85,6 +85,9 @@
             this.isLoggedIn = this
                 .$cookies
                 .isKey('auth-token')
+            console.log("#####");
+            console.log(this.$store.socket);
+            console.log("#####");
         }
     }
 </script>
