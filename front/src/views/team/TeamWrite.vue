@@ -3,10 +3,10 @@
     <h3>팀 찾기 게시물 등록</h3>
     <form class='_form' action="">
       <label for='_title'>제목: </label><br>
-      <input class='_input' type="text" name="title" id="_title" v-model='post.title'/><br>
+      <input class='_input' type="text" name="title" id="_title" v-model='post.title' placeholder="제목을 입력하세요"/><br>
 
       <label for="_content">내용: </label><br>
-      <textarea class='_input' name="content" id="_content" cols="30" rows="10" v-model='post.content'></textarea>
+      <textarea class='_input' name="content" id="_content" cols="30" rows="10" v-model='post.content' placeholder="내용을 입력하세요"></textarea>
 
       <label for="_memberMax">최대인원: </label>
       <input class='_input _numInput' type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
@@ -41,6 +41,9 @@ export default {
   }},
   methods: {
     registPost() {
+      //유효성 검사
+      if (!this.validation()) {return;}
+
       const config = {
         headers : {
           Authorization : this.$cookies.get('auth-token')
@@ -55,11 +58,26 @@ export default {
         })
         .catch(error => {
           // 토큰만료의 경우에도 이쪽으로 내려온다
-          console.log(error);
           console.dir(error);
           alert('한 공모전 당 모집 글은 하나만 작성할 수 있습니다.');
           this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
         });
+    },
+    validation() {
+      if (this.post.title.length <= 0) {
+        alert('제목을 입력하세요');
+        document.querySelector('#_title').focus();
+        return false;
+      } else if (this.post.content.length <= 0) {
+        alert('내용을 입력하세요');
+        document.querySelector('#_content').focus();
+        return false;
+      } else if (this.post.memberMax <= 0) {
+        alert('유효하지 않은 최대인원입니다');
+        document.querySelector('#_memberMax').focus();
+        return false;
+      }
+      return true;
     },
   }
 }
