@@ -31,6 +31,8 @@ import CompleteSignup from '../accounts/CompleteSignup.vue'
 import CompletePasswordChange from '../accounts/CompletePasswordChange.vue'
 
 import axios from 'axios'
+import Stomp from 'stompjs'
+import SockJS from 'sockjs-client'
 
 const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
@@ -119,11 +121,15 @@ export default {
             })
         },
         login(loginData) {
+            console.log(loginData);
             axios.post(API_URL + '/login', loginData)
             .then(res => {
                 this.setCookie(res.headers.authorization)
                 this.$emit('login', this.isLoggedIn)
                 this.show = false
+                //쪽지 소켓 오픈
+                this.checkusername();
+                this.connect();
                 this.$router.go()
             })
             .catch(err => {
@@ -141,6 +147,23 @@ export default {
         logout(res) {
             this.isLoggedIn = res
             this.$router.push('/home')
+        },
+        connect() {
+          this.$store.socket = new SockJS(API_URL+"/socket");
+          this.$store.client = Stomp.over(this.$store.socket);
+
+          this.$store.client.connect({}, frame => {
+            this.$store.client.subscribe("/topic/"+this.username, res => {
+              console.log(res.body);
+            })
+            console.log(frame);
+          })
+        },
+        checkusername() {
+          var ca = this.$cookies.get("auth-token")
+          var base64Url = ca.split('.')[1]
+          var decodedValue = JSON.parse(window.atob(base64Url))
+          this.username = decodedValue.sub
         },
 
     },
