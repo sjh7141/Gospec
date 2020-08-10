@@ -53,8 +53,8 @@ Vue.use(VueCookies)
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/index', component: Index },
+  { path: '/home', name: 'Home', component: Home },
+  { path: '/', component: Index },
   { path: '/schedule', component: Schedule },
   { path: '/contest', component: ContestRoute, children: [
     { path: '', component: ContestList },
