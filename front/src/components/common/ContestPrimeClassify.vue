@@ -1,13 +1,15 @@
 <template>
 <div class="middle">
     <div class="horizontal">
-      <v-card>
+      <v-card outlined>
     <v-tabs
-      dark
-      background-color="error"
-      show-arrows
+    color="error"
+    center-active
+    centered
+    show-arrows
+      
     >
-      <v-tabs-slider color="teal lighten-3"></v-tabs-slider>
+      <v-tabs-slider color="error"></v-tabs-slider>
 
       <v-tab
         v-for="type in  TYPES"

@@ -1,8 +1,8 @@
 <template>
   <div>
     <prime-classify/>
-    <div class="popular"><PopularContest :contest.sync ="topContestList"/></div>    
-    <secondary-classify/>
+    <div class="popular" style="margin-top:20px; margin-bottom:20px; margin-left:50px;"><PopularContest :contest.sync ="topContestList"/></div>    
+    <div style="margin-bottom:20px;"><secondary-classify/></div>
     <table id='list' class='centered'>
       <tr>
         <th>글번호</th>
@@ -92,8 +92,9 @@ export default {
 }
 
 #list th {
-  background-color: #dddddd;
-  border: 2px solid white;
+  background-color: white;
+  border: thin solid rgba(0,0,0,.12);
+  
 }
 
 #list td, th {
@@ -113,4 +114,5 @@ export default {
 .style {
   max-width: 600px;
 }
+
 </style>

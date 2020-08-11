@@ -1,13 +1,15 @@
 <template>
 <div class="middle">
 <div class="horizontal">
-<v-card>
+<v-card outlined>
 <v-tabs
-    background-color="error"
+    color="error"
     center-active
-    dark
+    centered
+    
 >
     <v-tab
+
     v-for="(mode, idx) in MODES" :key="idx"
     @click="pageChange(mode.CODE)">
     {{ mode.TEXT }}
