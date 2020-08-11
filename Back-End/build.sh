@@ -2,4 +2,4 @@
 
 docker build -t gospec .
 
-docker run -p 8282:8282 gospec
+docker run -d -p 8282:8282 gospec
