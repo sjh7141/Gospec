@@ -70,15 +70,25 @@ public class MessageController {
 	@ApiOperation(value = "받은 쪽지 정보 삭제, 쪽지 번호로 해당 쪽지를 삭제한다.", response = Boolean.class)
 	@DeleteMapping(value="/api/message/receiver")
 	public ResponseEntity<Boolean> deleteReceiveMessage(@RequestBody Map<String, Object> param){
-		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.deleteReceiveMessage(no), HttpStatus.OK);
+		List<Integer> noList = (List<Integer>) param.get("no");
+		for(Integer no : noList) {
+			if(!messageService.deleteReceiveMessage(no)) {
+				new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "보낸 쪽지 정보 삭제, 쪽지 번호로 해당 쪽지를 삭제한다.", response = Boolean.class)
 	@DeleteMapping(value="/api/message/sender")
 	public ResponseEntity<Boolean> deleteSendMessage(@RequestBody Map<String, Object> param){
-		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.deleteSendMessage(no), HttpStatus.OK);
+		List<Integer> noList = (List<Integer>) param.get("no");
+		for(Integer no : noList) {
+			if(!messageService.deleteSendMessage(no)) {
+				return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "해당 쪽지 번호 읽음상태로 변환", response = Boolean.class)
