@@ -1,14 +1,21 @@
 <template>
     <div id='applicant'>
-        <!-- <img class='profile' :src="'http://somewhere.com/' + profile.profileImg" alt=""/> -->
-        <img class='profile' src="@/assets/anonymous.jpg" alt=""/>
-        {{profile.nickname}}/{{profile.interestFieldList}}/{{profile.username}}으로쪽지기능
+        <ProfileModal :username='profile.username' />
+        <span style="color:gray;">{{profile.nickname}}</span>
+        <span v-for="(interest, i) in profile.interestFieldList" :key="i" class="interest">
+            {{interest}}
+        </span>
+        <message-button :receiver="profile.username" />
     </div>
 </template>
 
 <script>
+import ProfileModal from '@/components/accounts/ProfileModal.vue'
+import MessageButton from '@/components/message/MessageButton.vue'
+
 export default {
     props: ['data'],
+    components: {MessageButton, ProfileModal},
     computed: {
         profile() { return this.$props.data; },
     },
@@ -37,5 +44,13 @@ export default {
     width: 30px;
     border-radius: 50%;
     border: 1px solid #eeeeee;
+}
+
+.interest {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #eeeeee;
+    border-radius: 20px;
+    background-color: white;
 }
 </style>

@@ -1,8 +1,15 @@
 <template>
 <div>
-    <my-team-each v-for="(eachT, idx) in teamList" :key="idx" 
+    <h3>내 팀 관리</h3>
+    <my-team-each v-for="(eachT, idx) in teamList.filter(x=>x.username == this.userName)" :key="idx" 
         :eachTeam="eachT" :isExpand="isExpand(eachT)"
         @setSelected="setExpandedPost" @refreshList="loadMyTeam"/>
+
+    <hr>
+    <h3>지원한 팀 관리</h3>
+    <my-team-each v-for="(eachT, idx) in teamList.filter(x=>x.username != this.userName)" :key="'a'+idx" 
+    :eachTeam="eachT" :isExpand="isExpand(eachT)"
+    @setSelected="setExpandedPost" @refreshList="loadMyTeam"/>
 </div>
 </template>
 
@@ -36,6 +43,14 @@ export default {
         },
         setExpandedPost(payload) {
             (this.expandedPost == payload) ? this.expandedPost = 0 : this.expandedPost = payload;
+        },
+    },
+    computed: {
+        userName() {
+            let ca = this.$cookies.get('auth-token');
+            let base64Url = ca.split('.')[1];
+            let decodedValue = JSON.parse(window.atob(base64Url));
+            return decodedValue.sub;
         },
     },
 }

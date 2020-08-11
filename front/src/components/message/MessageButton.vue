@@ -1,12 +1,12 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="center" style="display: inline-block; margin: 10px;">
     <v-icon color="yellow darken-2" @click.stop="dialog = true">mdi-email</v-icon>
     <v-dialog
       v-model="dialog"
       max-width="400"
     >
       <v-card>
-        <v-card-title class="headline justify-center" >쪽지보내기</v-card-title>
+        <v-card-title class="headline justify-center" >{{$props.receiver}}에게 쪽지보내기</v-card-title>
         <v-col>
           <v-textarea v-model="message"
             solo
