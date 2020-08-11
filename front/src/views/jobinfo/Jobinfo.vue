@@ -13,13 +13,11 @@ import ProfileModal from '../../components/accounts/ProfileModal.vue'
         },
         created(){
         },
-        watch: {
-        },
         methods: {
         },
         data: () => {
             return {
-                username: 'namdk7@naver.com'
+                username: 'test'
             }
         }
 

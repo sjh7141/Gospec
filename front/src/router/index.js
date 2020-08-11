@@ -55,8 +55,10 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/home', name: 'Home', component: Home },
-  { path: '/', component: Index },
-  { path: '/schedule', component: Schedule },
+  { path: '/', component: Index},
+  { path: '/schedule', components: {
+    a: Schedule,
+   }},
   { path: '/contest', component: ContestRoute, children: [
     { path: '', component: ContestList },
     { path: 'write', component: ContestWrite },

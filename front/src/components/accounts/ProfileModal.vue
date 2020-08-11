@@ -9,32 +9,15 @@
 
     <v-dialog
       v-model="dialog"
+      max-width='1000'
     >
-      <v-card>
         <v-card>
+            <div class='col-12 text-right'>
+        <i type='button' class="fas fa-times text-right"
+        @click="dialog = false" style='font-size:20px;'></i>
+            </div>
           <ProfileModalDetail :userData='userData' />
         </v-card>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
-            Disagree
-          </v-btn>
-
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
-            Agree
-          </v-btn>
-        </v-card-actions>
-      </v-card>
     </v-dialog>
   </v-row>
 </template>

@@ -2,9 +2,10 @@
   <div id="app">
     <main-header @checkLogin='checkLogin'></main-header>
     <v-app>
-      <div id='schedule' class='container'>
+      <div class='container'>
       <router-view/>
       </div>
+  <router-view name="a"></router-view>
     </v-app>
   </div>
 </template>
