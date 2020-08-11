@@ -8,4 +8,4 @@ ARG JAR_FILE=target/GoSpec-0.0.1-SNAPSHOT.jar
 
 ADD ${JAR_FILE} GoSpec-api.jar
 
-ENTRYPOINT ["java", "-jar", "GoSpec-api.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar", "GoSpec-api.jar"]
