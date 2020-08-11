@@ -1,6 +1,6 @@
 <template>
-  <v-row justify="center" style="display: inline-block; margin: 10px;">
-    <v-icon color="yellow darken-2" @click.stop="dialog = true">mdi-email</v-icon>
+   <v-row justify="center" style="display: inline-block; margin: 10px;">
+    <v-icon color="yellow darken-2" @click.stop="validation">mdi-email</v-icon>
     <v-dialog
       v-model="dialog"
       max-width="400"
@@ -49,7 +49,6 @@
     },
     methods: {
 				sendMessage() {	
-          console.log(this.$store.client);
 					const msg = { 
 							contents : this.message,
 							sender : this.username,
@@ -65,6 +64,15 @@
           var base64Url = ca.split('.')[1]
           var decodedValue = JSON.parse(window.atob(base64Url))
           this.username = decodedValue.sub
+        },
+        validation(){
+          if(this.$cookies.get("auth-token")){
+            this.checkusername();
+            this.dialog = true;
+          }else{
+            this.dialog = false;
+            alert('로그인이 필요한 서비스입니다.');
+          }
         },
 			}
     
