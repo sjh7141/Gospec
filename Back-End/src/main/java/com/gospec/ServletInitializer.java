@@ -1,4 +1,6 @@
-package com.gospec.app;
+package com.gospec;
+
+
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
