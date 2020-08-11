@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.gospec.domain.UserDto;
 import com.gospec.property.FileUploadProperties;
 
 
@@ -19,3 +18,4 @@ public class GoSpecApplication {
 	}
 
 }
+    
