@@ -80,9 +80,9 @@ const routes = [
     { path: 'bookmark', component: Bookmark },
     { path: 'myteam', component: MyTeam },
     { path: 'message', component: Message },
-    { path: '/readReceiveMessage', component: ReadReceiveMessage},
-    { path: '/readSendMessage', component: ReadSendMessage},
   ]},
+  { path: '/readReceiveMessage', component: ReadReceiveMessage},
+  { path: '/readSendMessage', component: ReadSendMessage},
 ]
 
 const router = new VueRouter({

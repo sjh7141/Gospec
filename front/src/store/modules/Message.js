@@ -9,7 +9,9 @@ export default ({
         sendMessages : [],
         message : {},
         username : '',
-        curPage : 1,
+        messagePage : 1,
+        receivePagination : {},
+        sendPagination : {},
     },
     getters: {
         socket(state){
@@ -25,11 +27,20 @@ export default ({
             return state.sendMessages;
         },
         message(state){
-            return state.message
+            return state.message;
         },
         username(state){
-            return state.username
-        }
+            return state.username;
+        },
+        receivePagination(state){
+            return state.receivePagination;
+        },
+        sendPagination(state){
+            return state.sendPagination;
+        },
+        messagePage(state){
+            return state.messagePage;
+        },
     },
     mutations: {
         setSocket(state, payload){
@@ -49,26 +60,38 @@ export default ({
         },
         setUsername(state, payload){
             state.username = payload;
+        },
+        setReceivePagination(state, payload){
+            state.receivePagination = payload;
+
+        },
+        setSendPagination(state, payload){
+            state.sendPagination = payload;
+        },
+        setMessagePage(state, payload){
+            state.messagePage = payload;
         }
     },
     actions: {
        getReceiveMessages(context){
         axios
-            .get(URL+'/receiver/'+context.state.username+'/'+context.state.curPage)
+            .get(URL+'/receiver/'+context.state.username+'/'+context.state.messagePage)
             .then(({data})=>{
                 context.commit('setReceiveMessages', data.list);
+                context.commit('setReceivePagination', data.page);
+                context.commit('setMessagePage', data.page.curPage);
             });
        },
        getSendMessages(context){
         axios
-            .get(URL+'/sender/'+context.state.username+'/'+context.state.curPage)
+            .get(URL+'/sender/'+context.state.username+'/'+context.state.messagePage)
             .then(({data})=>{
                 context.commit('setSendMessages', data.list);
+                context.commit('setSendPagination', data.page);
+                context.commit('setMessagePage', data.page.curPage);
             });
        },
        getReceiveMessage(context, payload){
-           console.log("###");
-           console.log(payload);
         axios
             .get(URL+'/receiver/'+payload)
             .then(({data})=>{
