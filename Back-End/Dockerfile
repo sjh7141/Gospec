@@ -1,6 +1,6 @@
 FROM java:8
 
-VOLUME /home/ubuntu/docker:/tmp
+VOLUME /tmp
 
 EXPOSE 8282
 
