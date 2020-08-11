@@ -130,7 +130,7 @@ export default {
                 //쪽지 소켓 오픈
                 this.checkusername();
                 this.connect();
-                this.$router.go()
+                //this.$router.go()
             })
             .catch(err => {
                 console.log(err.response)
