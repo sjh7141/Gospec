@@ -68,6 +68,7 @@ export default {
     created(){
         this.checkusername();
         this.$store.commit('setUsername', this.username);
+        this.readMessage();
     },
     methods:{
       moveMessage(){
@@ -94,7 +95,6 @@ export default {
                             msg = '삭제가 완료되었습니다.';
                         }
                         alert(msg);
-                        this.checkedNo = [];
                         this.$store.dispatch('getReceiveMessages');
                         this.moveMessage();
                     })
@@ -110,7 +110,6 @@ export default {
                             msg = '삭제가 완료되었습니다.';
                         }
                         alert(msg);
-                        this.checkedNo = [];
                         this.$store.dispatch('getSendMessages');
                         this.moveMessage();
                     })
@@ -144,6 +143,31 @@ export default {
           this.dialog = false;
           this.message = '';
         },
+        readMessage(){
+            var checkedNo = parseInt(this.messageNo);
+            const config = {
+                headers: {
+                Authorization: this.$cookies.get("auth-token")
+                },
+            }
+            if(this.type == 'receive'){
+                let data = {no : checkedNo};
+                axios.patch(URL+'/receiver', data, config)
+                    .then(() => {
+                    })
+                    .catch(() => {
+                        alert('읽기 처리시 에러가 발생했습니다.');
+                    });
+            }else{
+                let data = {no : checkedNo};
+                axios.patch(URL+'/sender', data, config)
+                    .then(() => {
+                    })
+                    .catch(() => {
+                        alert('읽기 처리시 에러가 발생했습니다.');
+                    });
+            }
+        }
   },
 }
 </script>
