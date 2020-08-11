@@ -2,7 +2,7 @@ FROM java:8
 
 VOLUME /home/ubuntu/docker
 
-EXPOSE 8181
+EXPOSE 8282
 
 ARG JAR_FILE=target/GoSpec-0.0.1-SNAPSHOT.jar
 
