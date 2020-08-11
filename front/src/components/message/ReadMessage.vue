@@ -51,8 +51,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import axios from 'axios'
-//const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
-const URL = 'http://localhost:8181/api/message'
+const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
 export default {
     computed: {
     ...mapGetters(['message']),
