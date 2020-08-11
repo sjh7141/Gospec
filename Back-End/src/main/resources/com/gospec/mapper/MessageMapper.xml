@@ -6,12 +6,16 @@
 		select * 
 		from receive_message
 		where receiver=#{username}
+		order by no desc
+		limit #{startIndex}, #{perPageNum}
 	</select>
 	
 	<select id="findSendMessage" resultType="com.gospec.domain.MessageDto">
 		select * 
 		from send_message
 		where sender=#{username}
+		order by no desc
+		limit #{startIndex}, #{perPageNum}
 	</select>
 	
 	<select id="countNewReceiveMessage" resultType="Integer">
@@ -19,6 +23,18 @@
 		from receive_message
 		where receiver=#{username}
 		and reading=#{reading}
+	</select>
+	
+	<select id="countTotalReceiveMessage" resultType="Integer">
+		select count(*) 
+		from receive_message
+		where receiver=#{username}
+	</select>
+	
+	<select id="countTotalSendMessage" resultType="Integer">
+		select count(*) 
+		from send_message
+		where sender=#{username}
 	</select>
 	
 	<insert id="saveReceiveMessage">
@@ -52,4 +68,16 @@
 		set reading=#{reading}
 		where no=#{no}	
 	</update>
+	
+	<select id="findOneSendMessage" resultType="com.gospec.domain.MessageDto">
+		select *
+		from send_message
+		where no=#{no}
+	</select>
+	
+	<select id="findOneReceiveMessage" resultType="com.gospec.domain.MessageDto">
+		select *
+		from receive_message
+		where no=#{no}
+	</select>
 </mapper>

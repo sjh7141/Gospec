@@ -15,13 +15,13 @@ public class MessageServiceImpl implements MessageService {
 	private MessageMapper messageMapper;
 	
 	@Override
-	public List<MessageDto> findReceiveMessage(String username) {
-		return messageMapper.findReceiveMessage(username);
+	public List<MessageDto> findReceiveMessage(String username, int startIndex, int perPageNum) {
+		return messageMapper.findReceiveMessage(username, startIndex, perPageNum);
 	}
 
 	@Override
-	public List<MessageDto> findSendMessage(String username) {
-		return messageMapper.findSendMessage(username);
+	public List<MessageDto> findSendMessage(String username, int startIndex, int perPageNum) {
+		return messageMapper.findSendMessage(username, startIndex, perPageNum);
 	}
 
 	@Override
@@ -82,6 +82,27 @@ public class MessageServiceImpl implements MessageService {
 			return false;
 		}
 	}
+
+	@Override
+	public int countTotalReceiveMessage(String username) {
+		return messageMapper.countTotalReceiveMessage(username);
+	}
+
+	@Override
+	public int countTotalSendMessage(String username) {
+		return messageMapper.countTotalSendMessage(username);
+	}
+
+	@Override
+	public MessageDto findOneSendMessage(int no) {
+		return messageMapper.findOneSendMessage(no);
+	}
+
+	@Override
+	public MessageDto findOneReceiveMessage(int no) {
+		return messageMapper.findOneReceiveMessage(no);
+	}
+	
 	
 	
 }

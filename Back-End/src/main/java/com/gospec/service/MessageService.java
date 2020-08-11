@@ -6,11 +6,15 @@ import com.gospec.domain.MessageDto;
 
 public interface MessageService {
 
-		public List<MessageDto> findReceiveMessage(String username);
+		public List<MessageDto> findReceiveMessage(String username, int startIndex, int perPageNum);
 		
-		public List<MessageDto> findSendMessage(String username);
+		public List<MessageDto> findSendMessage(String username, int startIndex, int perPageNum);
 
 		public int countNewReceiveMessage(String username);
+		
+		public int countTotalReceiveMessage(String username);
+		
+		public int countTotalSendMessage(String username);
 		
 		public boolean saveReceiveMessage(MessageDto message);
 		
@@ -23,4 +27,8 @@ public interface MessageService {
 		public boolean updateSendMessage(int no);
 		
 		public boolean updateReceiveMessage(int no);
+		
+		public MessageDto findOneSendMessage(int no);
+		
+		public MessageDto findOneReceiveMessage(int no);
 }
