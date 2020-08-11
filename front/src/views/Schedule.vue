@@ -19,15 +19,10 @@ import Banner from './calendar/Banner.vue'
 
         },
         mounted(){
-            this.styleChange()
         },
         watch: {
         },
         methods: {
-            styleChange() {
-                document.querySelector('#schedule').classList.remove('container')
-                
-            }
         },
         data: () => {
             return {

@@ -33,7 +33,7 @@
                     class='col-8 row'
                     style='margin-left: 5%; text-align: left;'>
                     <div class='col-6 pb-0'>
-                        <div style='min-height: 200px;'>
+                        <div style='min-height: 250px;'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 23px;'></i>경력사항</h5>
                             <div v-for='career in careerList' :key='career.id' class='d-flex row' style='margin-left: 1px;'>
@@ -51,6 +51,23 @@
                         </div>
                     </div>
                     <div class='col-6 pb-0'>
+                        <div style='min-height: 180px'>
+                            <h5>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>수상내역 / 자격증</h5>
+                            <div v-for='license in licenseList' :key='license.id'>{{ license }}</div>
+                        </div>
+                        
+                        <div style='min-height: 160px'>
+
+                            <h5>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>활동 지역</h5>
+                            <v-chip
+                                :ripple="false"
+                                class='mr-2'
+                                v-for='region in activeRegionList'
+                                :key='region.id'>{{ region }}</v-chip>
+                        </div>
+
                         <div style='min-height: 140px;'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
@@ -67,21 +84,6 @@
                                 </v-tooltip>
                             </div>
                         </div>
-                        <div style='min-height: 110px'>
-
-                            <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>활동 지역</h5>
-                            <v-chip
-                                :ripple="false"
-                                class='mr-2'
-                                v-for='region in activeRegionList'
-                                :key='region.id'>{{ region }}</v-chip>
-                        </div>
-                        <div>
-                            <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>수상내역 / 자격증</h5>
-                            <div v-for='license in licenseList' :key='license.id'>{{ license }}</div>
-                        </div>
                     </div>
                 </v-card>
 
@@ -95,8 +97,12 @@
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>경력사항</h5>
                             <p>ex) 2018 ssafy대학교 졸업</p>
-                            <div v-for='(career, index) in careerList' :key='index'>
-                                {{ career.startYear }}{{ career.careername }}{{ career.status }}
+                            <div v-for='(career, index) in careerList' :key='index' class='d-flex justify-content-between'>
+                                <div class='d-flex'>
+                                <p class='m-0' style='color: gray; width:50px;'>{{ career.startYear }}</p>
+                                <p class='m-0' style='width: 180px;'>{{ career.careername }}</p>
+                                <p class='m-0' style='color: #78909C;'>{{ career.status }}</p>
+                                </div>
                                 <v-icon slot="append" color="red" type='button' @click='removeCareer(index)'>mdi-minus</v-icon>
                             </div>
                             <div class='d-flex'>
@@ -114,24 +120,28 @@
                         <div>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>자기소개</h5>
-                            <v-textarea v-model='selfIntroduction'></v-textarea>
+                            <v-textarea v-model='selfIntroduction' maxlength="150" cors='30' rows='10'></v-textarea>
                         </div>
                     </div>
                     <div class='col-6 pb-0'>
-                        <div style='min-height: 140px;'>
+
+                        <div style='min-height: 180px'>
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
-                                
-                                <v-card-text class='p-0'>
-                                <v-chip-group
-                                    v-model="amenities"
-                                    column
-                                    multiple
-                                >
-                                    <v-chip v-for='interest in interests' :key='interest.id' filter outlined>{{ interest }}</v-chip>
-                                </v-chip-group>
-                                </v-card-text>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>수상내역 / 자격증</h5>
+                            <p>ex) 서울시 공공데이터 공모전 입상</p>
+                            <div v-for='(license, index) in licenseList' :key='index'>
+                                {{ license }}
+                                <v-icon slot="append" color="red" type='button' @click='removeLicense(index)'>mdi-minus</v-icon>
+                            </div>
+                            <div class='d-flex'>
+                                <v-text-field
+                                    label="license"
+                                    v-model='licenseInput'
+                                    @keypress.enter="addLicense"></v-text-field>
+                                <v-icon slot="append" color="green" type='button' @click='addLicense'>mdi-plus</v-icon>
+                            </div>
                         </div>
+
                         <div style='min-height: 110px'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>활동 지역</h5>
@@ -156,22 +166,22 @@
                                 </template>
                             </v-combobox>
                         </div>
-                        <div>
+
+                        <div style='min-height: 140px;'>
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>수상내역 / 자격증</h5>
-                            <p>ex) 서울시 공공데이터 공모전 입상</p>
-                            <div v-for='(license, index) in licenseList' :key='index'>
-                                {{ license }}
-                                <v-icon slot="append" color="red" type='button' @click='removeLicense(index)'>mdi-minus</v-icon>
-                            </div>
-                            <div class='d-flex'>
-                                <v-text-field
-                                    label="license"
-                                    v-model='licenseInput'
-                                    @keypress.enter="addLicense"></v-text-field>
-                                <v-icon slot="append" color="green" type='button' @click='addLicense'>mdi-plus</v-icon>
-                            </div>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
+                                
+                                <v-card-text class='p-0'>
+                                <v-chip-group
+                                    v-model="amenities"
+                                    column
+                                    multiple
+                                >
+                                    <v-chip v-for='interest in interests' :key='interest.id' filter outlined>{{ interest }}</v-chip>
+                                </v-chip-group>
+                                </v-card-text>
                         </div>
+
                     </div>
                 </v-card>
             </v-card>
@@ -356,7 +366,7 @@
 
 <style scoped="scoped">
     .interest {
-        font-size: 40px;
+        font-size: 30px;
         margin-right: 15px;
     }
     .hide {

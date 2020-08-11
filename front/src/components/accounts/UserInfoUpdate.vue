@@ -128,6 +128,7 @@
                 autocomplete=""
                 label=""
                 v-model='selfIntroduction'
+                 maxlength="200"
               ></v-textarea>
             </v-container>
           </template>
