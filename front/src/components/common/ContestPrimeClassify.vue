@@ -1,12 +1,24 @@
 <template>
 <div class="middle">
-    <ul class="horizontal">
-        <li :class="{selected: typeNow == type}"
-            v-for="type in TYPES" :key="type"
-            @click='pageChange(type)'> 
-            {{ typeToTextFilter(type) }}
-        </li>
-    </ul>
+    <div class="horizontal">
+      <v-card>
+    <v-tabs
+      dark
+      background-color="error"
+      show-arrows
+    >
+      <v-tabs-slider color="teal lighten-3"></v-tabs-slider>
+
+      <v-tab
+        v-for="type in  TYPES"
+        :key="type"
+        @click='pageChange(type)'
+      >
+        {{ typeToTextFilter(type) }}
+      </v-tab>
+    </v-tabs>
+  </v-card>
+</div>
 </div>
 </template>
 

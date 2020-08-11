@@ -1,7 +1,7 @@
 <template>
   <div>
     <prime-classify/>
-    <PopularContest :contest.sync ="topContestList"/>
+    <div class="popular"><PopularContest :contest.sync ="topContestList"/></div>    
     <secondary-classify/>
     <table id='list' class='centered'>
       <tr>
@@ -109,5 +109,8 @@ export default {
 }
 ._inlineBlock {
   display: inline-block;
+}
+.style {
+  max-width: 600px;
 }
 </style>
