@@ -5,15 +5,17 @@
   <v-card
     class="category mx-auto"
     max-width="400"
-    dark
+    
   >
     <v-list>
       <v-list-item-group v-model="model">
+      
         <v-list-item
           v-for="(item,i) in items"
           :key="i"
           :item="item"
           @click ="getfield(item.text)"
+          color="error"
         >
           <v-list-item-content>
             <v-list-item-title v-text="item.fieldtype"></v-list-item-title>

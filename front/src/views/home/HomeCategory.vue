@@ -3,7 +3,7 @@
   <v-card
     class="category mx-auto"
     max-width="400"
-    dark
+    
   >
     <v-list>
       <v-list-item-group v-model="model">
@@ -14,6 +14,7 @@
           :field="item.text"
           @click ="getfield(item.text,item.fieldtype)"
           @change ="getContest"
+          color="error"
         >
           <v-list-item-content>
             <v-list-item-title v-text="item.fieldtype"></v-list-item-title>
@@ -22,7 +23,10 @@
       </v-list-item-group>
     </v-list>
   </v-card>
-<div class="contest">{{ fieldtype }} 인기 공모전<PopularContest :contest.sync ="contest"/></div>
+<div class="contest">{{ fieldtype }} 인기 공모전
+   
+  <PopularContest :contest.sync ="contest"/>
+  </div>
 <div class="study">{{ fieldtype }} 인기 스터디<PopularStudy :contest.sync ="contest"/></div>
 </div>
 
@@ -146,9 +150,10 @@ export default {
 <style>
 .home {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+  margin-bottom: 50px;
 }
 .category {
   grid-column: 1;

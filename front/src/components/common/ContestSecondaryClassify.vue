@@ -1,12 +1,22 @@
 <template>
 <div class="middle">
-    <ul class="horizontal">
-        <li :class="{selected: modeNow == mode.CODE}"
-            v-for="(mode, idx) in MODES" :key="idx"
-            @click="pageChange(mode.CODE)">
-            {{ mode.TEXT }}
-        </li>
-    </ul>
+<div class="horizontal">
+<v-card outlined>
+<v-tabs
+    color="error"
+    center-active
+    centered
+    
+>
+    <v-tab
+
+    v-for="(mode, idx) in MODES" :key="idx"
+    @click="pageChange(mode.CODE)">
+    {{ mode.TEXT }}
+    </v-tab>
+</v-tabs>   
+</v-card>
+</div>
 </div>
 </template>
 
@@ -33,25 +43,14 @@ export default {
         }
     },
     computed:{
-        modeNow() {
-            return this.$store.state.ContestList.params.mode;
-        }
     },
 }
 </script>
 
 <style scoped>
 .middle {
-    display: block;
+    display: inline-block;
     margin: auto;
 }
 
-.horizontal li {
-    display: inline-block;
-    margin: 10px;
-}
-
-.selected {
-    background-color: #dddddd;
-}
 </style>>

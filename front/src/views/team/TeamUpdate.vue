@@ -36,32 +36,16 @@ export default {
   created() {
     axios.get(URL_PART + '/detail/' + this.$route.params.team_id)
       .then(response => {
-        console.dir(response);
+        // console.dir(response);
         this.post = response.data;
       })
       .catch(error => console.log(error));
   },
   methods: {
-    registPost() {
-      const config = {
-        headers : {
-          Authorization : this.$cookies.get('auth-token')
-        }
-      }
-      axios.post(URL_PART, this.post, config)
-        .then(response => {
-          if (response.status == 200) {
-            alert('정상등록되었습니다');
-            this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          alert('한 공모전 당 모집 글은 하나만 작성할 수 있습니다.');
-          this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
-        });
-    },
     updatePost() {
+      //유효성 검사
+      if (!this.validation()) {return;}
+
       const config = {
         headers : {
           Authorization : this.$cookies.get('auth-token')
@@ -73,13 +57,31 @@ export default {
           console.dir(response);
           if (response.status == 200) {
             alert('정상수정되었습니다');
-            this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
+            // this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
+            // 각기 다른 링크로부터 들어올 수 있기 때문에 뒤로가기로 수정
+            this.$router.go(-1);
           }
         })
         .catch(error => {
           console.log(error);
         });
-    }
+    },
+    validation() {
+      if (this.post.title.length <= 0) {
+        alert('제목을 입력하세요');
+        document.querySelector('#_title').focus();
+        return false;
+      } else if (this.post.content.length <= 0) {
+        alert('내용을 입력하세요');
+        document.querySelector('#_content').focus();
+        return false;
+      } else if (this.post.memberMax <= 0) {
+        alert('유효하지 않은 최대인원입니다');
+        document.querySelector('#_memberMax').focus();
+        return false;
+      }
+      return true;
+    },
   }
 }
 </script>
