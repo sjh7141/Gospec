@@ -1,35 +1,54 @@
 <template>
 <div class='eachCtst' @click="emitSelectedPost">
-    <team-btn class="applyBtn" :status="getStatus" :team="T" @refreshList="emitRefreshList"/>
-    <span>{{ T.title }}</span>
-    <button class='updateBtn' v-show='isLeader' @click.stop='updateMove'>수정</button>
-    <button class='delBtn' v-show='isLeader' @click.stop='deletePost'>삭제</button>
-    <span style='color:gray; margin-left: 40px;'>{{ 1 + T.approvalList.filter(x => x.approvalFlag).length }} / {{ T.memberMax }}</span><br>
+    <div class="applyBtn">
+        <span style='color:gray; margin-right: 40px;'>{{ 1 + T.approvalList.filter(x => x.approvalFlag).length }} / {{ T.memberMax }}</span>
+        <team-btn :status="getStatus" :team="T" @refreshList="emitRefreshList"/>
+    </div>
+
+    <!-- <span>{{ T.title }}</span> -->
+    <h5>{{ T.title }}</h5>
+
+    <ProfileModal :username='T.username' />
     <span style='color:gray;'>{{ T.username }}</span>
+    <message-button :receiver="T.username"/>
 
     <div class="container" v-show="$props.isExpand">
+        <hr>
         <div class="row">
 
             <div id='contentArea' class="col-7" style="padding: 10px; white-space:pre-line;">
                 <!-- 일단은 고정해서 개발하고 나중에 유동적으로 너비 조절하쟈...ㅠㅍㅍ -->
-                {{ T.content }}
+                <router-link :to="'/contest/'+T.contestNo">공모전 이동</router-link><br><br>
+                {{ T.content }}<br><br>
+                <div class='btn-wrapper'>
+                    <button class='updateBtn' v-show='isLeader' @click.stop='updateMove'>수정</button>
+                    <button class='delBtn' v-show='isLeader' @click.stop='deletePost'>삭제</button>
+                </div>
             </div>
 
             <div class="col-5">
+                <h5 :class="{invisible: !(isLeader || isMember)}">팀원 목록</h5>
                 <div v-for="(memb, i) in T.approvalList.filter(x => x.approvalFlag)" :key="i">
                     <div :class="{invisible: !(isLeader || isMember)}">
-                        {{ memb.memberUsername }} <br> [쪽지 + 프로필뷰]
-                        <button class='btn btn-danger' :class="{invisible: !isLeader}" @click.stop="kick(memb)">강퇴</button>
+                        <ProfileModal :username='memb.memberUsername' />
+                        <span style="color: gray;">{{ memb.memberUsername }}</span>
+                        <message-button :receiver="memb.memberUsername"/>
+                        <button class='btn btn-danger btn-sm' :class="{invisible: !isLeader}" @click.stop="kick(memb)">강퇴</button>
                     </div>
                 </div>
 
-                <hr>
+                <hr :class="{invisible: !isLeader}">
 
+                <h5 :class="{invisible: !isLeader}">지원자 목록</h5>
                 <div v-for="(applic, j) in T.approvalList.filter(x => !x.approvalFlag)" :key="`B${j}`"> <!--키중복경고 피하기위한 키꼼수-->
                     <div :class="{invisible: !isLeader}">
-                        {{ applic.memberUsername }} <br> [쪽지 + 프로필뷰]
-                        <button class='btn btn-primary' :class="{invisible: !isLeader}" @click.stop="assign(applic)">승인</button>
-                        <button class='btn btn-danger' :class="{invisible: !isLeader}" @click.stop="reject(applic)">거절</button>
+                        <ProfileModal :username='applic.memberUsername' />
+                        <span style="color: gray;">{{ applic.memberUsername }}</span>
+                        <message-button :receiver="applic.memberUsername"/>
+                        <br>
+                        <button class='btn btn-primary btn-sm' :class="{invisible: !isLeader}" @click.stop="assign(applic)">승인</button>
+                        &nbsp;
+                        <button class='btn btn-danger btn-sm' :class="{invisible: !isLeader}" @click.stop="reject(applic)">거절</button>
                     </div>
                 </div>
             </div>
@@ -43,6 +62,8 @@
 import STAT from '@/constants/TeamStatus'
 import axios from 'axios'
 import TeamBtn from '@/components/team/TeamBtn.vue'
+import MessageButton from '@/components/message/MessageButton.vue'
+import ProfileModal from '@/components/accounts/ProfileModal.vue'
 
 const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
 const URL_TEAM = 'http://i3a202.p.ssafy.io:8181/api/teams'
@@ -51,7 +72,7 @@ export default {
     name: 'myTeamEach',
     props: ['eachTeam', 'isExpand'],
     //emit: ['setSelected','refreshList'],
-    components: {TeamBtn,},
+    components: {TeamBtn,MessageButton,ProfileModal},
     data() {return {
         STAT: STAT,
     }},
