@@ -1,16 +1,18 @@
 <template>
-    <v-app>
-        <v-card-text class='p-0' style='margin-top: 100px; margin-bottom: 40px'>
-            <v-chip-group v-model="amenities" column="column" multiple="multiple">
+<div>
+    <div class='container'>
+        <!-- <p style='font-size: 5em;'>GoSpec</p> -->
+        <v-card-text class='p-0' style='margin-top: 40px; margin-bottom: 40px'>
+            <v-chip-group v-model="amenities" column="column" multiple="multiple"
+          active-class="primary white--text" >
                 <div class='mx-auto'>
                     <v-chip
-                        style='height: 50px;'
+                        style='height: 50px; color: black;'
                         class='mx-2 my-4'
                         v-for='event in events'
                         @click="giveInterest(event.real_interest)"
                         :key='event.id'
-                        filter="filter"
-                        outlined="outlined">
+                        color='white'>
                         <div class="my-4 mx-2">
                             <v-btn class='mr-2' :color="event.color" fab="fab" x-small="x-small">
                                 <v-icon>mdi-dialpad</v-icon>
@@ -29,7 +31,8 @@
                 <v-btn @click='homepage' color='blue-grey lighten-3' text>GUEST로 입장하기</v-btn>
             </div>
         </div>
-    </v-app>
+    </div>
+</div>
 </template>
 
 <script>
@@ -167,8 +170,8 @@ import Modal from '../accounts/Modal.vue'
 </script>
 
 <style scoped="scoped">
-    div {
-        font-weight: bolder;
-        font-size: large;
-    }
+div {
+    font-weight: bolder;
+    font-size: large;
+}
 </style>

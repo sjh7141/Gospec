@@ -2,10 +2,10 @@
   <div id="app">
     <main-header @checkLogin='checkLogin'></main-header>
     <v-app>
-      <div class='container'>
-      <router-view/>
+      <router-view name="a"></router-view>
+      <div class='container p-0' style='margin-top: 100px'>
+        <router-view />
       </div>
-  <router-view name="a"></router-view>
     </v-app>
   </div>
 </template>
@@ -45,6 +45,8 @@ export default {
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); 
   font-weight: 1000; 
   font-style: normal; }
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
 #app {
   font-family: NanumSquareRound, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 700;
@@ -53,11 +55,9 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
