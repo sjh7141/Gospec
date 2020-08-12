@@ -15,7 +15,7 @@
                         color='white'>
                         <div class="my-4 mx-2">
                             <v-btn class='mr-2' :color="event.color" fab="fab" x-small="x-small">
-                                <v-icon>mdi-dialpad</v-icon>
+                                <v-icon>{{ event.interestIcon }}</v-icon>
                             </v-btn>
                             {{ event.interest }}
                         </div>
@@ -107,6 +107,24 @@ import Modal from '../accounts/Modal.vue'
                     'grey lighten-2',
                     'grey lighten-1'
                 ],
+                interestIcons : 
+                ["far fa-lightbulb interest", 
+                "fas fa-bullhorn ml-2 interest",
+                 "fas fa-scroll interest", 
+                 "fas fa-video interest", 
+                 "fas fa-palette interest", 
+                 "fas fa-mobile-alt interest", 
+                 "fas fa-gamepad interest", 
+                 "fas fa-flask interest", 
+                 "fas fa-book-open interest", 
+                 "fas fa-building interest", 
+                 "fas fa-quote-left interest", 
+                 "fas fa-music interest",
+                "fas fa-hands-helping interest",
+                "fas fa-people-carry interest",
+                "fas fa-id-card-alt interest",
+                "fas fa-plane-departure interest",
+                "fas fa-ellipsis-h interest"],
                 events: [],
                 check: false,
                 isLoggedIn: false,
@@ -128,6 +146,7 @@ import Modal from '../accounts/Modal.vue'
                     this
                         .events
                         .push({
+                            interestIcon: this.interestIcons[i],
                             real_interest: this.real_interests[i],
                             interest: this.interests[i],
                             color: this.colors[this.rnd(0, this.colors.length - 1)]
