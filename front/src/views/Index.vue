@@ -1,18 +1,27 @@
 <template>
   <div>
-      <MainPageInterest />
-      <AboutUs />
+      <MainPage />
+      <MainPageInterest v-if='false' />
+      <OurTeamInfo />
+      <OurService />
+      <Footer />
   </div>
 </template>
 
 <script>
 import MainPageInterest from '../components/index/MainPageInterest.vue'
-import AboutUs from '../components/index/AboutUs.vue'
+import OurService from '../components/index/OurService.vue'
+import OurTeamInfo from '../components/index/OurTeamInfo.vue'
+import Footer from '../components/common/Footer.vue'
+import MainPage from '../components/index/MainPage.vue'
 
 export default {
     components: {
         MainPageInterest,
-        AboutUs,
+        OurService,
+        Footer,
+        OurTeamInfo,
+        MainPage
     }
 
 }

@@ -2,7 +2,7 @@
     <div id="header">
         <nav
             class="navbar navbar-expand-lg navbar-dark"
-            style="background-color: black;">
+            style="background-color: black; position: fixed; z-index: 4; width: 100%;">
             <button
                 class="navbar-toggler"
                 type="button"

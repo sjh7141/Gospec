@@ -39,6 +39,7 @@ import Banner from './calendar/Banner.vue'
     margin-bottom: 50px;
     margin-right: 70px;
     margin-left: 10px;
+    margin-top: 80px;
 }
 
 .banner{

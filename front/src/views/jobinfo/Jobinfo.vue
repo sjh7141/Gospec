@@ -1,15 +1,15 @@
 <template>
     <div>
         here is Jobinfo
-        <ProfileModal :username='username' />
+        <test />
     </div>
 </template>
 
 <script>
-import ProfileModal from '../../components/accounts/ProfileModal.vue'
+import test from '../../components/team/test.vue'
     export default {
         components: {
-            ProfileModal,
+            test,
         },
         created(){
         },
