@@ -164,12 +164,14 @@ export default {
   grid-column: 2/7;
   grid-row: 1/3;
   font-size: 30px;
+  color:black;
 
 }
 .study {
   grid-column: 2/7;
   grid-row: 3/5;
   font-size: 30px;
+  color:black;
 
 }
 

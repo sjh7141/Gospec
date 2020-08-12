@@ -106,4 +106,7 @@
     .nav-item.nav-link {
         color: white;
     }
+    a {
+        text-decoration: none;
+    }
 </style>>

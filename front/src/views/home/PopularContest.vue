@@ -25,18 +25,23 @@
           </div>
         </v-expand-transition>
       </v-img>
-      <v-card-subtitle class="pb-0" v-text="each.totalReward"></v-card-subtitle>
-    <v-card-text class="text--primary" v-text="each.startDate + ' ~ ' +each.endDate">
+      <div class="ddayhome"><dday :data='each'/></div>
+      <v-card-text class="text--primary">
+        {{each.totalReward}} 
+      <br/> 
+        {{each.startDate + ' ~ ' +each.endDate}}
+      </v-card-text>
 
-    </v-card-text>
     <v-card-actions>
       <LikeState2 class='_inlineBlock' :selectedEvent="each"/>
 
       <v-btn
-        text
+        text        
       >
-      <router-link :to="{ path: '/contest/' + each.contestNo}">
+      <router-link :to="{ path: '/contest/' + each.contestNo}" style ="text-decoration: none; color:black;">
+      
       자세히 보기
+      
       </router-link>
       </v-btn>
       
@@ -49,10 +54,12 @@
 </template>
 
 <script>
+import Dday from '@/components/contest/Dday.vue'
 import LikeState2 from '@/components/common/LikeState2.vue'
   export default {
     components:{
       LikeState2,
+      Dday
     },
     props:{
       contest: {
@@ -79,4 +86,9 @@ import LikeState2 from '@/components/common/LikeState2.vue'
   position: absolute;
   width: 100%;
 }
+.ddayhome {
+  display: inline-block;
+  font-size: 20px;
+}
+
 </style>
