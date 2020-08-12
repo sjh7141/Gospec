@@ -7,6 +7,7 @@
       <v-card color='grey lighten-3'>
       <v-card-title class='d-flex justify-content-between'>
         <div>{{ modalTitle }}</div>
+        <div>{{ myInterest }}</div>
         <i type='button' class="fas fa-times"
         @click="show = false" style='font-size:20px'></i>
       </v-card-title>
@@ -38,6 +39,7 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
     props: {
+        myInterest: Array,
         check: Boolean,
         modalState: String,
         modalSize: String,
@@ -98,6 +100,7 @@ export default {
             this.modalTitle = '비밀번호찾기'
         },
         signup(signupData) {
+            signupData.fields = this.myInterest
             axios.post(API_URL + '/api/users/', signupData)
             .then(() => {
                 // this.modalState = 'completeSignup'
