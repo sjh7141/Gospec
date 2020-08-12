@@ -9,6 +9,7 @@
         <message-button :receiver="profile.username" />
         </div>
        -->
+       
         <div class="profile mx-auto">
             <div class="photo">
                 <ProfileModal :username='profile.username' style='margin : 0px'/>
@@ -72,7 +73,7 @@ export default {
 
 
 .profile {
-  font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
+  
   width: 40%;
   left: 20%;
   position: relative;
@@ -80,7 +81,7 @@ export default {
   transform: translate(-50%, -50%);
   border-radius: 5px;
   background-color: #fafafa;
-  box-shadow: 0 0 1rem powderblue;
+  box-shadow: 0 0 2rem gainsboro;
   animation: show-profile 0.5s forwards ease-in-out;
 }
 @keyframes show-profile {
@@ -122,9 +123,9 @@ export default {
 .profile .content::before {
   content: "";
   position: absolute;
-  width: 80%;
+  width: 35%;
   height: 300px;
-  background-color:white;
+background-color:khaki;
   left: 0;
   top: -100px;
   z-index: -1;
@@ -136,10 +137,11 @@ align-items: center;
 }
 .profile .content .text h3 {
   font-weight: normal;
-  margin: 3px 0;
+  margin-top: 25px;
   letter-spacing: 0.5px;
   white-space: nowrap;
   position: absolute;
+  font-size: 1rem;
 }
 
 .field {
