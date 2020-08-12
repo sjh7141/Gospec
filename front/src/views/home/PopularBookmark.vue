@@ -3,9 +3,10 @@
 <div class="contestcard">
   <v-row dense
   >
-  <v-col v-for="each in contest" v-bind:key="each.contestNo">
+  <v-col v-for="each in bcontest" v-bind:key="each.contestNo">
   <v-hover v-slot:default="{ hover }">
     <v-card
+      
       max-width="300"
     >
       <v-img
@@ -17,26 +18,30 @@
         <v-expand-transition>
           <div
             v-if="hover"
-            class="d-flex transition-fast-in-fast-out black v-card--reveal white--text"
-            style="height: 100%; font-size:30px;"
+            class="d-flex transition-fast-in-fast-out black v-card--reveal"
+            style="height: 100%; font-size:20px; color:white;"
             v-text="each.title"
           >
           </div>
         </v-expand-transition>
       </v-img>
-      <v-card-subtitle class="pb-0" v-text="each.totalReward"></v-card-subtitle>
-    <v-card-text class="text--primary" v-text="each.startDate + ' ~ ' +each.endDate">
+      <div class="ddayhome"><dday :data='each'/></div>
+      <v-card-text class="text--primary">
+        {{each.totalReward}} 
+      <br/> 
+        {{each.startDate + ' ~ ' +each.endDate}}
+      </v-card-text>
 
-    </v-card-text>
     <v-card-actions>
       <LikeState2 class='_inlineBlock' :selectedEvent="each"/>
 
       <v-btn
-        color="orange"
-        text
+        text        
       >
-      <router-link :to="{ path: '/contest/' + each.contestNo}">
+      <router-link :to="{ path: '/contest/' + each.contestNo}" style ="text-decoration: none; color:black;">
+      
       자세히 보기
+      
       </router-link>
       </v-btn>
       
@@ -49,13 +54,15 @@
 </template>
 
 <script>
+import Dday from '@/components/contest/Dday.vue'
 import LikeState2 from '@/components/common/LikeState2.vue'
   export default {
     components:{
       LikeState2,
+      Dday
     },
     props:{
-      contest: {
+      bcontest: {
         type:Array
       }
     },
@@ -79,4 +86,9 @@ import LikeState2 from '@/components/common/LikeState2.vue'
   position: absolute;
   width: 100%;
 }
+.ddayhome {
+  display: inline-block;
+  font-size: 20px;
+}
+
 </style>
