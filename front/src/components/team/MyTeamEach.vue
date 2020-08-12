@@ -8,7 +8,7 @@
     <!-- <span>{{ T.title }}</span> -->
     <h5>{{ T.title }}</h5>
 
-    <ProfileModal :username='T.username' />
+    <ProfileModal :username='T.username'/>
     <span style='color:gray;'>{{ T.username }}</span>
     <message-button :receiver="T.username"/>
 
@@ -18,37 +18,41 @@
 
             <div id='contentArea' class="col-7" style="padding: 10px; white-space:pre-line;">
                 <!-- 일단은 고정해서 개발하고 나중에 유동적으로 너비 조절하쟈...ㅠㅍㅍ -->
-                <router-link :to="'/contest/'+T.contestNo">공모전 이동</router-link><br><br>
-                {{ T.content }}<br><br>
                 <div class='btn-wrapper'>
-                    <button class='updateBtn' v-show='isLeader' @click.stop='updateMove'>수정</button>
-                    <button class='delBtn' v-show='isLeader' @click.stop='deletePost'>삭제</button>
+                    <router-link :to="'/contest/'+T.contestNo" style="margin: 0 10px;text-decoration: none;">공모전 보기</router-link>
+                    <i class="fas fa-pen _icon" v-show='isLeader' @click.stop='updateMove' type="button" title="수정"/>
+                    <i class="fas fa-trash-alt _icon" v-show='isLeader' @click.stop='deletePost' type="button" title="삭제"/>
                 </div>
+                {{ T.content }}
             </div>
 
             <div class="col-5">
-                <h5 :class="{invisible: !(isLeader || isMember)}">팀원 목록</h5>
-                <div v-for="(memb, i) in T.approvalList.filter(x => x.approvalFlag)" :key="i">
-                    <div :class="{invisible: !(isLeader || isMember)}">
-                        <ProfileModal :username='memb.memberUsername' />
-                        <span style="color: gray;">{{ memb.memberUsername }}</span>
-                        <message-button :receiver="memb.memberUsername"/>
-                        <button class='btn btn-danger btn-sm' :class="{invisible: !isLeader}" @click.stop="kick(memb)">강퇴</button>
+                <div style="min-height: 100px;">
+                    <h5 :class="{invisible: !(isLeader || isMember)}">팀원 목록</h5>
+                    <div v-for="(memb, i) in T.approvalList.filter(x => x.approvalFlag)" :key="i">
+                        <div :class="{invisible: !(isLeader || isMember)}" class="profilewrapper">
+                            <ProfileModal :username='memb.memberUsername' />
+                            <span style="color: gray;">{{ memb.memberUsername }}</span>
+                            <message-button :receiver="memb.memberUsername"/>
+                            <i class="fas fa-times kickoutbtn" :class="{invisible: !isLeader}" @click.stop="kick(memb)"/>
+                        </div>
                     </div>
                 </div>
 
                 <hr :class="{invisible: !isLeader}">
 
-                <h5 :class="{invisible: !isLeader}">지원자 목록</h5>
-                <div v-for="(applic, j) in T.approvalList.filter(x => !x.approvalFlag)" :key="`B${j}`"> <!--키중복경고 피하기위한 키꼼수-->
-                    <div :class="{invisible: !isLeader}">
-                        <ProfileModal :username='applic.memberUsername' />
-                        <span style="color: gray;">{{ applic.memberUsername }}</span>
-                        <message-button :receiver="applic.memberUsername"/>
-                        <br>
-                        <button class='btn btn-primary btn-sm' :class="{invisible: !isLeader}" @click.stop="assign(applic)">승인</button>
-                        &nbsp;
-                        <button class='btn btn-danger btn-sm' :class="{invisible: !isLeader}" @click.stop="reject(applic)">거절</button>
+                <div style="min-height: 100px;">
+                    <h5 :class="{invisible: !isLeader}">지원자 목록</h5>
+                    <div v-for="(applic, j) in T.approvalList.filter(x => !x.approvalFlag)" :key="`B${j}`"> <!--키중복경고 피하기위한 키꼼수-->
+                        <div :class="{invisible: !isLeader}">
+                            <ProfileModal :username='applic.memberUsername' />
+                            <span style="color: gray;">{{ applic.memberUsername }}</span>
+                            <message-button :receiver="applic.memberUsername"/>
+                            <br>
+                            <button class='btn btn-primary btn-sm' :class="{invisible: !isLeader}" @click.stop="assign(applic)">승인</button>
+                            &nbsp;
+                            <button class='btn btn-danger btn-sm' :class="{invisible: !isLeader}" @click.stop="reject(applic)">거절</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,7 +207,6 @@ export default {
                 }).catch(error => console.log(error));
             }
         },
-
     },
 }
 </script>
@@ -215,9 +218,8 @@ export default {
 
 .eachCtst {
     width: 80%;
-    /* height: 80px; */
     margin: 5px auto;
-    padding: 10px 30px;
+    padding: 30px 30px 10px 30px;
     border-radius: 20px;
     border: 1px solid #eeeeee;
     text-align: left;
@@ -242,26 +244,6 @@ export default {
 
 .applyBtn {
     float: right;
-    /* border-radius: 10px;
-    background-color: pink;
-    color: white;
-    padding: 7px; */
-}
-
-.delBtn {
-    background-color: red;
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
-}
-
-.updateBtn {
-    background-color: gray;
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
 }
 
 .invisible {
@@ -273,5 +255,40 @@ export default {
     min-width: 60px;
     height: 27px;
     background-color: rgb(48, 116, 161);
+}
+
+.btn-wrapper {
+    border: 1px solid lightgray;
+    /* background-color: #eeeeee; */
+    margin: 10px;
+    border-radius: 15px;
+    min-height: 50px;
+    line-height: 50px;
+    margin-bottom: 30px;
+    padding-left: 10px;
+}
+
+._icon {
+    margin: 5px 5px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+._icon:hover {
+    border: 1px solid lightgray;
+}
+
+.profilewrapper {
+    display: inline-flex;
+    /* display: flex; */
+    align-items: center;
+}
+
+.kickoutbtn {
+    padding: 5px;
+}
+.kickoutbtn:hover {
+    color: #C82333;
 }
 </style>

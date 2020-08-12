@@ -102,21 +102,6 @@ export default {
 </script>
 
 <style scoped>
-.eachCtst {
-    width: 80%;
-    /* height: 80px; */
-    margin: 5px auto;
-    padding: 10px 30px;
-    border-radius: 20px;
-    border: 1px solid #eeeeee;
-    text-align: left;
-    vertical-align: center;
-}
-
-.eachCtst:hover {
-    background-color: #eeeeee;
-}
-
 .createBtn {
     margin: 10px;
     padding: 5px 10px;
@@ -127,29 +112,5 @@ export default {
 
 .createBtn:hover {
     background-color: #48A77C;
-}
-
-.applyBtn {
-    float: right;
-    /* border-radius: 10px;
-    background-color: pink;
-    color: white;
-    padding: 7px; */
-}
-
-.delBtn {
-    background-color: red;
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
-}
-
-.updateBtn {
-    background-color: gray;
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
 }
 </style>

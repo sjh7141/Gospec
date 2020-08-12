@@ -1,5 +1,5 @@
 <template>
-    <button class='btn' :style="'background-color: ' + getStatus.COLOR" :disabled='!getStatus.BTN' @click.stop='action'>
+    <button class='teambtn' :style="'background-color: ' + getStatus.COLOR" :disabled='!getStatus.BTN' @click.stop='action'>
         {{getStatus.TEXT}}
     </button>
 </template>
@@ -97,13 +97,15 @@ export default {
 }
 </script>
 
-<style>
-.btn {
+<style scoped>
+.teambtn {
     border-radius: 10px;
     color: white;
+    min-width: 85px;
+    height: 35px;
 }
 
-.btn:disabled {
-    color: white;
+.teambtn:disabled {
+    color: lightgray;
 }
 </style>
