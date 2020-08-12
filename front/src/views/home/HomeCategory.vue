@@ -13,7 +13,7 @@
           :item="item"
           :field="item.text"
           @click ="getfield(item.text,item.fieldtype)"
-          @change ="getContest"
+          @change ="getContest(); getBookmark();"
           color="error"
         >
           <v-list-item-content>
@@ -25,24 +25,26 @@
   </v-card>
 <div class="contest">{{ fieldtype }} 인기 공모전
    
-  <PopularContest :contest.sync ="contest"/>
+  <PopularContest :contest ="contest"/>
   </div>
-<div class="study">{{ fieldtype }} 인기 스터디<PopularStudy :contest.sync ="contest"/></div>
+<div class="study">Gospec 회원픽<PopularBookmark :bcontest ="bcontest"/></div>
 </div>
 
 </template>
 
 <script>
 import PopularContest from './PopularContest.vue'
-import PopularStudy from './PopularStudy.vue'
+import PopularBookmark from './PopularBookmark.vue'
 import axios from 'axios'
 export default {
   components: {
     PopularContest,
-    PopularStudy,
+    PopularBookmark,
   },
   created() {
     this.getContest()
+    this.getBookmark()
+
   },
   methods: {
     getfield(field,fieldtype) {
@@ -58,11 +60,22 @@ export default {
       console.log("getContest")
       })
     .catch(error => { console.log(error) })
-      },
-  },
+    },
+    getBookmark() {
+      console.log(this.field)
+      axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top-bookmark/"+this.field)
+      .then(response => {
+        this.bcontest = response.data
+        console.log("고스펙회원픽")
+        })
+      .catch(error => { console.log(error) })
+    },
+    },
+
     data() {
     return {
         contest:[],
+        bcontest:[],
         item:'',
         field:'all',
         fieldtype: '모든',
