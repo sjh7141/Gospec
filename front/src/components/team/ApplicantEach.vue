@@ -1,4 +1,5 @@
 <template>
+        <!--
     <div id='applicant'>
         <ProfileModal :username='profile.username' />
         <span style="color:gray;">{{profile.nickname}}</span>
@@ -6,7 +7,31 @@
             {{interest}}
         </span>
         <message-button :receiver="profile.username" />
-    </div>
+        </div>
+       -->
+        <div class="profile mx-auto">
+            <div class="photo">
+                <ProfileModal :username='profile.username' style='margin : 0px'/>
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/764024/profile/profile-512.jpg"/>--></div>
+                <div class="content">
+                    <div class="text">
+                        <h3 style="color:gray;">{{profile.nickname}}</h3>
+                        <h6 v-for="(interest, i) in profile.interestFieldList" :key="i" class="field">
+                            {{interest}}
+                        </h6>
+                    </div>
+                    
+                    <!--
+                    <div class="text">
+                    <h3>Kelly Chen</h3>
+                    <h6>Front-end Web Designer</h6>
+                    </div>
+                    -->
+                    <div class="btn"><span><message-button :receiver="profile.username" /></span></div>
+                </div>
+        </div>
+    
+    
 </template>
 
 <script>
@@ -15,42 +40,253 @@ import MessageButton from '@/components/message/MessageButton.vue'
 
 export default {
     props: ['data'],
+    data() {
+        return {
+            size: '78'
+        }
+    },
     components: {MessageButton, ProfileModal},
     computed: {
         profile() { return this.$props.data; },
-    },
+    }
 
 }
 </script>
 
 <style scoped>
+@import 'https://fonts.googleapis.com/css?family=Raleway';
 #applicant {
     padding: 10px;
     margin: 20px auto;
     border-radius: 50px;
     width: 80%;
     min-height: 60px;
+    background-color:bisque;
     border: 1px solid #eeeeee;
+    
 }
 
 #applicant:hover {
     background-color: #eeeeee;
 }
 
+
 .profile {
-    display: block;
-    float: left;
-    margin-left: 30px;
-    width: 30px;
-    border-radius: 50%;
-    border: 1px solid #eeeeee;
+  font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
+  width: 40%;
+  left: 20%;
+  position: relative;
+  margin-bottom: 20px;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: #fafafa;
+  box-shadow: 0 0 1rem powderblue;
+  animation: show-profile 0.5s forwards ease-in-out;
+}
+@keyframes show-profile {
+  0% {
+    width: 0;
+  }
+}
+.profile .photo, .profile .content {
+  box-sizing: border-box;
+}
+.profile .photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #fafafa;
+  background-color: #fafafa;
+  margin-left: -50px;
+  box-shadow: 0 0 0.5rem #babbbc;
+  animation: rotate-photo 0.5s forwards ease-in-out;
+}
+@keyframes rotate-photo {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.profile .photo img {
+  width: 100%;
+}
+.profile .content {
+  padding: 10px;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.profile .content::before {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 300px;
+  background-color:white;
+  left: 0;
+  top: -100px;
+  z-index: -1;
+  transform: rotate(-8deg);
+}
+.profile .content .text {
+align-items: center;
+  margin-left: 50px;
+}
+.profile .content .text h3 {
+  font-weight: normal;
+  margin: 3px 0;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  position: absolute;
 }
 
-.interest {
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #eeeeee;
-    border-radius: 20px;
-    background-color: white;
+.field {
+      font-weight: normal;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
+.profile .content .text h6 {
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.profile .content .btn {
+  background-color: #abc;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  border-radius: 50%;
+  z-index: 1;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  animation: pop-btn 0.3s both ease-in-out 0.5s;
+}
+@keyframes pop-btn {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.profile .content .btn:hover {
+  box-shadow: 0 0 0 5px rgba(170, 187, 204, 0.5);
+}
+.profile .content .btn span {
+  width: 60%;
+  height: 2px;
+  position: absolute;
+  background-color: white;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+  animation: to-hamburger 0.3s forwards ease-in-out;
+}
+.profile .content .btn span::before, .profile .content .btn span::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  background-color: white;
+  transition-duration: 0.3s;
+  transform: rotate(0deg);
+  right: 0;
+}
+.profile .content .btn span::before {
+  margin-top: -7px;
+}
+.profile .content .btn span::after {
+  margin-top: 7px;
+}
+.profile .content .btn.active span {
+  animation: to-arrow 0.3s forwards ease-in-out;
+}
+.profile .content .btn.active span::before, .profile .content .btn.active span::after {
+  width: 60%;
+  right: -1px;
+}
+.profile .content .btn.active span::before {
+  transform: rotate(45deg);
+}
+.profile .content .btn.active span::after {
+  transform: rotate(-45deg);
+}
+@keyframes to-hamburger {
+  from {
+    transform: translateY(-50%) rotate(-180deg);
+  }
+}
+@keyframes to-arrow {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+.profile .box {
+  width: 150px;
+  height: 150px;
+  opacity: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  top: 50%;
+  right: -40%;
+  transform: translate(-50%, -50%);
+  transition-duration: 0.3s;
+}
+.profile .box i {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ececec;
+  font-size: 26px;
+  text-align: center;
+  line-height: 50px;
+  position: absolute;
+  left: 18px;
+  top: calc(75px - 50px/2);
+  box-shadow: 0 0 0.5rem #babbbc;
+  transition-duration: 0.3s;
+}
+.profile .box i:hover {
+  transition-delay: initial !important;
+  box-shadow: 0 0 0 5px #babbbc;
+}
+.profile .box.open {
+  opacity: 1;
+}
+.profile .box.open i {
+  left: 60px;
+}
+.profile .box.open i:nth-of-type(1) {
+  transform: rotate(-90deg) translateX(120px) rotate(90deg);
+  transition-delay: 0s;
+}
+.profile .box.open i:nth-of-type(2) {
+  transform: rotate(-45deg) translateX(120px) rotate(45deg);
+  transition-delay: 0.1s;
+}
+.profile .box.open i:nth-of-type(3) {
+  transform: rotate(0deg) translateX(120px) rotate(0deg);
+  transition-delay: 0.2s;
+}
+.profile .box.open i:nth-of-type(4) {
+  transform: rotate(45deg) translateX(120px) rotate(-45deg);
+  transition-delay: 0.3s;
+}
+.profile .box.open i:nth-of-type(5) {
+  transform: rotate(90deg) translateX(120px) rotate(-90deg);
+  transition-delay: 0.4s;
+}
+
+
 </style>
