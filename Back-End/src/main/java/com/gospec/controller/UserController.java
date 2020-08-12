@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
@@ -44,6 +43,9 @@ public class UserController {
 	
 	@Autowired
 	private MailAuthenticationService mailService;
+	
+	@Autowired
+	private KMeansClustering kmean;
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
 	@GetMapping(value = "/email-duplication/{username}")
@@ -73,6 +75,11 @@ public class UserController {
 				interestList.add(new InterestFieldDto(field,user.getUsername()));
 			}
 			userService.saveInterestField(interestList);
+			userService.resetCluster();
+			synchronized (kmean) {
+				kmean.makeFile(userService.findByInterestFieldWithCluster());
+				userService.makeCluster(kmean.readData());
+			}
 		}
 		
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
@@ -123,6 +130,11 @@ public class UserController {
 			userService.deleteInterestField(username);
 			if(fields.size() > 0) {
 				userService.saveInterestField(interestList);
+				userService.resetCluster();
+				synchronized (kmean) {
+					kmean.makeFile(userService.findByInterestFieldWithCluster());
+					userService.makeCluster(kmean.readData());
+				}
 			}
 		}
 		
