@@ -15,6 +15,7 @@ public interface ContestMapper {
 	public List<ContestDto> findByBookMarkWithDurationAndEmail(String email, String startDate, String endDate);
 	public List<ContestDto> findByCategory(@Param("type") String type, @Param("mode") String mode, int startIndex, int perPageNum);
 	public List<ContestDto> findByBestView(@Param("type") String type);
+	public List<ContestDto> findByBestBookMark(@Param("type") String type);
 	public int getCountByCategory(@Param("type") String type, @Param("mode") String mode);
 	public List<String> teamSearchByContest(int contestNo);
 	public int registBookMark(@Param("username") String username, @Param("contestNo") int contestNo);

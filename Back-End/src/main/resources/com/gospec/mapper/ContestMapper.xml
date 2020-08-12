@@ -59,6 +59,29 @@
 		limit 0, 3
 	</select>
 	
+	<select id="findByBestBookMark" resultType="com.gospec.domain.ContestDto">
+		select c.*
+		from (
+				select b.contest_no
+					from bookmark_contest b inner join contest_field f 
+		        		on f.contest_no = b.contest_no
+		        		<choose>
+		        			<when test="type.equals('all')">
+		        			</when>
+		        			<otherwise>
+		        				and f.field = #{type}
+		        			</otherwise>
+		        		</choose>
+				group by b.contest_no
+				having count(*)
+				order by count(*) desc
+				limit 0, 3
+			 )
+		sub inner join contest_info c
+		on sub.contest_no = c.contest_no;
+
+	</select>
+	
 	<select id="getCountByCategory" resultType="Integer">
 		select count(distinct i.contest_no) as total
 		from contest_info i, contest_field f

@@ -41,6 +41,11 @@ public class ContestServiceImpl implements ContestService {
 	}
 	
 	@Override
+	public List<ContestDto> findByBestBookMark(String type) {
+		return contestMapper.findByBestBookMark(type);
+	}
+	
+	@Override
 	public List<String> teamSearchByContest(int contestNo) {
 		return contestMapper.teamSearchByContest(contestNo);
 	}

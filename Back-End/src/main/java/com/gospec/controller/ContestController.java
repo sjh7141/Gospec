@@ -98,6 +98,13 @@ public class ContestController {
 		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "북마크 인기 공모전 3개 가져오기")
+	@GetMapping(value = "/field/top-bookmark/{type}")
+	public ResponseEntity<List<ContestDto>> getContestBestListByBookMark(@PathVariable("type") String type) {
+		List<ContestDto> list = contestService.findByBestBookMark(type);
+		return new ResponseEntity<List<ContestDto>>(list, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "타입별 공모전 정보 가져오기")
 	@GetMapping(value = "/field/{type}")
 	public ResponseEntity<List<ContestDto>> getContestByType(@PathVariable("type") String type) {
