@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" style="display:inline-block; margin: 10px;">
-    <v-avatar class='mx-auto' size='60'
+    <v-avatar type="button" class='mx-auto' size='50'
       color="primary"
       dark
       @click.stop="dialog = true">
