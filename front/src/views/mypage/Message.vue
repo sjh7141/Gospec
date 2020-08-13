@@ -38,35 +38,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-        <!-- <div class="nano-content">
-          <div class="logo-container"><span class="logo glyphicon glyphicon-envelope"></span>쪽지</div>
-          <menu class="menu-segment">
-            <ul>
-              <li class="active"><a href="#">Inbox<span> (43)</span></a></li>
-              <li><a href="#">Important</a></li>
-              <li><a href="#">Sent</a></li>
-              <li><a href="#">Drafts</a></li>
-              <li><a href="#">Trash</a></li>
-            </ul>
-          </menu>
-          <div class="separator"></div>
-          <div class="menu-segment">
-            <ul class="labels">
-              <li class="title">Labels <span class="icon">+</span></li>
-              <li><a href="#">Dribbble <span class="ball pink"></span></a></li>
-              <li><a href="#">Roommates <span class="ball green"></span></a></li>
-              <li><a href="#">Bills <span class="ball blue"></span></a></li>
-            </ul>
-          </div>
-          <div class="separator"></div>
-          <div class="bottom-padding"></div>
-        </div> -->
-    </aside>
-    <div id="right">
-        <!-- <h2 style='margin: 30px;'>{{typeString}}</h2> -->
         <div id="box">
-            <div class="dot"></div>
-            <div class="dot two"></div>
             <div class="face">
                 <div class="eye"></div>
                 <div class="eye right"></div>
@@ -74,66 +46,176 @@
             </div>
             <div class="shadow scale"></div>
         </div>
-        <div style='text-align: right; margin: 30px 10%;'>
-            <v-btn small color="error" @click="deleteMessage">삭제</v-btn>
+    </aside>
+    <div id="right">
+        <header class="header">
+          <div class="search-box">
+            <input placeholder="Search..."><span class="icon glyphicon glyphicon-search"></span>
+          </div>
+          <h1 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>{{typeString}}</h1>
+        </header>
+        <div style='text-align: right; margin: 10px 0;'>
+            <v-btn small color="error" @click="deleteMessage" v-if="isTable">삭제</v-btn>
         </div>
-        <div>
-        <table id='list' class='centered' style="z-index: 5; position: relative;">
-            <colgroup>
-            <col :style="{ width: '5%' }" />
-            <col :style="{ width: '20%' }" />
-            <col :style="{ width: '50%' }" />
-            <col :style="{ width: '25%' }" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>삭제</th>
-                    <th>보낸사람</th>
-                    <th>내용</th>
-                    <th>날짜</th>
-                </tr>
-            </thead>
+
+        <div style='text-align: left; margin:5px 0px' v-if="isTable">
+          <v-data-table
+            v-if="typeMail==1"
+            v-model="checkedNo"
+            :headers="header"
+            :items="receiveMessages"
+          >
+            <template v-slot:body="props">
             <tbody>
-                <template  v-if="isReceive">
-                    <tr v-for="(message, idx) in receiveMessages" :key="idx">
-                        <td><input type="checkbox" :id="message.no" :value="message.no" v-model="checkedNo"></td>
-                        <td>{{message.sender}}
-                        <td><router-link :to="'/readReceiveMessage?no='+message.no">{{message.contents}}</router-link></td>
-                        <td>{{message.registTime}}</td>
-                    </tr>
-                </template>
-                <template v-else>
-                    <tr v-for="(message, idx) in sendMessages" :key="idx">
-                        <td><input type="checkbox" :id="message.no" :value="message.no" v-model="checkedNo"></td>
-                        <td>{{message.sender}}
-                        <td><router-link :to="'/readSendMessage?no='+message.no">{{message.contents}}</router-link></td>
-                        <td>{{message.registTime}}</td>
-                    </tr>
-                </template>
+              <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]">
+                <td>
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                            hide-details />
+                </td>
+                <td>{{item.sender}}</td>
+                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td>{{item.registTime}}</td>
+              </tr>
+              <tr v-if="props.items.length==0">
+                <td></td>
+                <td></td>
+                <td>받은 쪽지함이 비었습니다.</td>
+                <td></td>
+              </tr>
             </tbody>
-        </table>
+            </template>
+          </v-data-table>
+
+          <v-data-table
+            v-if="typeMail==5"
+            v-model="checkedNo"
+            :headers="headers"
+            :items="sendMessages"
+          >
+            <template v-slot:body="props">
+            <tbody>
+              <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]">
+                <td>
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                            hide-details />
+                </td>
+                <td>{{item.receiver}}</td>
+                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td>{{item.registTime}}</td>
+              </tr>
+              <tr v-if="props.items.length==0">
+                <td></td>
+                <td></td>
+                <td>보낸 쪽지함이 비었습니다.</td>
+                <td></td>
+              </tr>
+            </tbody>
+            </template>
+          </v-data-table>
+
+          <v-data-table
+            v-if="typeMail==2"
+            v-model="checkedNo"
+            :headers="header"
+            :items="allMessages"
+          >
+            <template v-slot:body="props">
+            <tbody>
+              <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]" >
+                <td>
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                            hide-details />
+                </td>
+                <td >{{item.sender}}</td>
+                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td >{{item.registTime}}</td>
+              </tr>
+              <tr v-if="props.items.length==0">
+                <td></td>
+                <td></td>
+                <td>전체 쪽지함이 비었습니다.</td>
+                <td></td>
+              </tr>
+            </tbody>
+            </template>
+          </v-data-table>
+
+          <v-data-table
+            v-if="typeMail==3"
+            v-model="checkedNo"
+            :headers="header"
+            :items="importantMessages"
+          >
+            <template v-slot:body="props">
+            <tbody>
+              <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]">
+                <td>
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                            hide-details />
+                </td>
+                <td>{{item.sender}}</td>
+                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td>{{item.registTime}}</td>
+              </tr>
+              <tr v-if="props.items.length==0">
+                <td></td>
+                <td></td>
+                <td>보관함이 비었습니다.</td>
+                <td></td>
+              </tr>
+            </tbody>
+            </template>
+          </v-data-table>
+
+          <v-data-table
+            v-if="typeMail==4"
+            v-model="checkedNo"
+            :headers="header"
+            :items="deleteMessages"
+          >
+            <template v-slot:body="props">
+            <tbody>
+              <tr v-for="item in props.items" v-bind:key="item.no">
+                <td>
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                            hide-details />
+                </td>
+                <td>{{item.sender}}</td>
+                <td>{{item.contents}}</td>
+                <td>{{item.registTime}}</td>
+              </tr>
+              <tr v-if="props.items.length==0">
+                <td></td>
+                <td></td>
+                <td>휴지통이 비었습니다.</td>
+                <td></td>
+              </tr>
+            </tbody>
+            </template>
+          </v-data-table>
         </div>
-        <pagination v-bind:type="type"></pagination>
+        <div v-if="!isTable" style='text-align: left; margin:5px 0px'>
+          <detail-message :messageNo="mailNo" :type="typeMail" @childs-event="closeMessage"></detail-message>
+        </div>
     </div>
 </div>
 </template>
 
 <script>
-import Pagination from '@/components/message/Pagination.vue'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
-const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
+import DetailMessage from '@/components/message/ReadMessage.vue';
 
+//const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
+const URL = 'http://localhost:8181/api/message'
 export default {
     components: {
-        Pagination,
+      DetailMessage,
     },
     data(){
         return{
-            isReceive : true,
-            type : 'receive',
             typeString : '받은 쪽지함',
-            typeElseString : '보낸',
+            typeMail : 1,
             checkedNo:[],
             username: '',
             nickname: '',
@@ -145,43 +227,52 @@ export default {
                 { text: '보관함', icon: 'mdi-folder-open' },
                 { text: '휴지통', icon: 'mdi-trash-can' },
             ],
+            header: [
+              {text: '', value:'box'},
+              {text: '보낸사람', value: 'sender', width:'25%',},
+              {text: '내용', value: 'contents', width: '55%'},
+              {text: '보낸시간', value: 'registTime', width: '20%'},
+            ],
+            headers: [
+              {text: '', value:'box'},
+              {text: '받는사람', value: 'sender', width:'25%',},
+              {text: '내용', value: 'contents', width: '55%'},
+              {text: '보낸시간', value: 'registTime', width: '20%'},
+            ],
+            readClass : 'read',
+            unreadClass : 'unread',
+            isTable : true,
+            mailNo : 0,
+
         }
     },
     computed:{
-        ...mapGetters(['receiveMessages', 'sendMessages']),
+        ...mapGetters(['receiveMessages', 'sendMessages', 'allMessages', 'importantMessages', 'deleteMessages']),
     },
     created(){
         this.checkusername();
-        this.$store.commit('setMessagePage', 1);
         this.$store.commit('setUsername', this.username);
         this.$store.dispatch('getReceiveMessages');
         this.$store.dispatch('getSendMessages');
+        this.$store.dispatch('getAllMessages');
+        this.$store.dispatch('getImportantMessages');
+        this.$store.dispatch('getDeleteMessages');
     },
     methods: {
-        changeType(){
-            this.isReceive = !this.isReceive;
-            this.checkedNo = [];
-            if(this.type == 'receive'){
-                this.type = 'send';
-                this.typeString = '보낸';
-                this.typeElseString = '받은';
-            }else{
-                this.type = 'receive';
-                this.typeString = '받은';
-                this.typeElseString = '보낸';
-            }
-        },
         deleteMessage(){
-            console.log("###");
-            console.log(this.checkedNo);
             if(this.checkedNo.length == 0){
                 alert('삭제할 메세지를 선택해주세요.')
                 return;
             }
-            if(window.confirm("쪽지를 삭제하시겠습니까?")) {
-                this.delete();
+            if(this.typeMail >= 4){
+              if(window.confirm("쪽지를 지우면 지워진 쪽지는 복구할 수 없습니다.\n 삭제하시겠습니까?")) {
+                  this.delete();
+              }
+            }else {
+              if(window.confirm("휴지통으로 선택한 쪽지들이 이동됩니다.")) {
+                  this.moveToDelete();
+              }
             }
-            
         },
         delete(){
             var checkedNo = this.checkedNo;
@@ -190,31 +281,28 @@ export default {
                 Authorization: this.$cookies.get("auth-token")
                 },
             }
-            if(this.type == 'receive'){
+            if(this.typeMail == 4){
                 config.data = {no : checkedNo};
                 axios.delete(URL+'/receiver', config)
                     .then(({ data }) => {
-                        let msg = '삭제 처리시 문제가 발생했습니다.';
-                        if (data) {
-                            msg = '삭제가 완료되었습니다.';
+                        if(!data){
+                          let msg = '삭제 처리시 문제가 발생했습니다.';
+                          alert(msg);
                         }
-                        alert(msg);
                         this.checkedNo = [];
-                        this.$store.dispatch('getReceiveMessages');
+                        this.$store.dispatch('getDeleteMessages');
                     })
                     .catch(() => {
                         alert('삭제 처리시 에러가 발생했습니다.');
                     });
-            }else{
-                console.log(config);
+            }else if(this.typeMail == 5){
                 config.data = {no : checkedNo};
                 axios.delete(URL+'/sender', config)
                     .then(({ data }) => {
-                        let msg = '삭제 처리시 문제가 발생했습니다.';
-                        if (data) {
-                            msg = '삭제가 완료되었습니다.';
+                        if(!data){
+                          let msg = '삭제 처리시 문제가 발생했습니다.';
+                          alert(msg);
                         }
-                        alert(msg);
                         this.checkedNo = [];
                         this.$store.dispatch('getSendMessages');
                     })
@@ -222,6 +310,31 @@ export default {
                         alert('삭제 처리시 에러가 발생했습니다.');
                     });
             }
+        },
+        moveToDelete(){
+           var checkedNo = this.checkedNo;
+            const config = {
+                headers: {
+                Authorization: this.$cookies.get("auth-token")
+                },
+            }
+            let data = {no : checkedNo};
+            axios.patch(URL+'/trash-can', data ,config)
+                .then(({ data }) => {
+                    if(!data){
+                      let msg = '휴지통 이동시 문제가 발생했습니다.';
+                      alert(msg);
+                    }
+                    this.checkedNo = [];
+                    if(this.typeMail == 1) this.$store.dispatch('getReceiveMessages');
+                    else if(this.typeMail == 3) this.$store.dispatch('getImportantMessages');
+                    this.$store.dispatch('getAllMessages');
+                    this.$store.dispatch('getDeleteMessages');
+                })
+                .catch(() => {
+                    alert('휴지통 이동시 에러가 발생했습니다.');
+                });
+            
         },
         checkusername() {
           var ca = this.$cookies.get("auth-token")
@@ -236,21 +349,53 @@ export default {
           }
         },
         change(name){
-            console.log(name);
+            this.checkedNo = [];
             this.typeString = name;
-            this.changeType
+            this.isTable = true;
+            if(name == '받은 쪽지함') this.typeMail = 1;
+            else if(name == '전체 쪽지함') this.typeMail = 2;
+            else if(name == '보관함') this.typeMail = 3;
+            else if(name == '휴지통') this.typeMail = 4;
+            else if(name == '보낸 쪽지함') this.typeMail = 5;
+
         },
+        openMessage(no){
+          this.isTable = false;
+          this.mailNo = no;
+          if(this.typeMail == 5) this.$store.dispatch('getSendMessage', no);
+          else this.$store.dispatch('getReceiveMessage', no);
+        },
+        closeMessage(isDelete){
+          this.isTable = true;
+          if(isDelete){
+            if(this.typeMail == 5){
+               this.$store.dispatch('getSendMessages');
+            }else{
+              if(this.typeMail == 1) this.$store.dispatch('getReceiveMessages');
+              else if(this.typeMail == 3) this.$store.dispatch('getImportantMessages');
+              this.$store.dispatch('getAllMessages');
+            }
+          }
+        }
     },
 }
 </script>
 
-<style>
+<style> 
 .button {
   border: none;
   border-radius: 2px;
   background-color: red;
 }
-
+.unread{
+  color : rgb(60, 139, 217);
+}
+.read {
+  color : black !important;
+}
+.read a{
+  color : black !important;
+}
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
 html {
@@ -262,7 +407,6 @@ body {
   display: grid;
   overflow: hidden;
   font-family: 'Lato', sans-serif;
-  text-transform: uppercase;
   text-align: center;
 }
 
@@ -280,13 +424,12 @@ button, .dot {
 
 #box {
   position: absolute;
-  width: 30%;
-  height: 40%;
-  left: -2%;
-  top: 10px;
-  border-radius: 20px;
-  box-shadow: 5px 5px 20px rgba(#CBCDD3, 10%);
+  width: 25%;
+  height: 30%;
+  left: 31%;
+  top: 15px;
   perspective: 40px;
+  z-index: 0;
 }
 
 .dot {
@@ -342,6 +485,8 @@ button, .dot {
 
 .right {
   left: 68%;
+  padding : 0;
+  margin : 0;
 }
 
 .mouth {
@@ -479,5 +624,117 @@ button, .dot {
     border-radius: 100px;
     text-indent: 1px;
     color: #61c7b3;
+  }
+  .header {
+    padding: 44.5px 0px 43px 60px;
+    border-bottom: 1px solid #efefef;
+    overflow: hidden;
+  }
+  .header .page-title {
+    display: block;
+    text-align: left;
+  }
+  .header .page-title .sidebar-toggle-btn {
+    width: 0;
+    margin-top: 1px;
+    padding: 11px 0 0 0;
+    float: left;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transition-delay: 0.5s;
+    opacity: 0;
+    margin-right: 0;
+  }
+  .header .page-title .sidebar-toggle-btn {
+    transition-delay: 0s;
+  }
+  .header .page-title .sidebar-toggle-btn .line {
+    height: 3px;
+    display: block;
+    background: #888;
+    margin-bottom: 4px;
+    transition-duration: 0.5s;
+    transition-delay: 0.5s;
+  }
+  .header .page-title .sidebar-toggle-btn .line-angle1 {
+    transform: rotate(-120deg);
+  }
+  .header .page-title .sidebar-toggle-btn .line-angle2 {
+    transform: rotate(120deg);
+  }
+  .header .page-title .sidebar-toggle-btn .line-angle1 {
+    width: 8px;
+    margin: 0;
+    position: absolute;
+    top: 15px;
+    left: -11px;
+    transform: rotate(-60deg);
+  }
+  .header .page-title .sidebar-toggle-btn .line-angle2 {
+    width: 8px;
+    margin: 0;
+    position: absolute;
+    top: 21px;
+    left: -11px;
+    transform: rotate(60deg);
+  }
+  .header .page-title .icon {
+    font-size: 15px;
+    margin-left: 20px;
+    position: relative;
+    top: -5px;
+    cursor: pointer;
+  }
+    .header .search-box {
+    float: right;
+    width: 150px;
+    height: 40px;
+    position: relative;
+  }
+  .header .search-box input,
+  .header .search-box .icon {
+    transition-duration: 0.3s;
+  }
+  .header .search-box input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    text-indent: 15px;
+    height: 40px;
+    z-index: 1;
+    outline: none;
+    color: #999;
+    background: transparent;
+    border: 2px solid #efefef;
+    border-radius: 5px;
+    transition-timing-function: cubic-bezier(0.3, 1.5, 0.6, 1);
+  }
+  .header .search-box input:focus {
+    color: #333;
+    border-color: #d6d6d6;
+    width: 150%;
+  }
+  .header .search-box input:focus ~ .icon {
+    opacity: 1;
+    z-index: 2;
+    color: #61c7b3;
+  }
+  .header .search-box .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    opacity: 0.5;
   }
 </style>

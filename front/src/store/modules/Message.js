@@ -1,17 +1,17 @@
 import axios from 'axios'
-const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
-
+//const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
+const URL = 'http://localhost:8181/api/message'
 export default ({
     state: {
         socket : {},
         client : {},
         receiveMessages : [],
         sendMessages : [],
+        allMessages : [],
+        importantMessages : [],
+        deleteMessages : [],
         message : {},
         username : '',
-        messagePage : 1,
-        receivePagination : {},
-        sendPagination : {},
     },
     getters: {
         socket(state){
@@ -26,20 +26,20 @@ export default ({
         sendMessages(state){
             return state.sendMessages;
         },
+        allMessages(state){
+            return state.allMessages;
+        },
+        importantMessages(state){
+            return state.importantMessages;
+        },
+        deleteMessages(state){
+            return state.deleteMessages;
+        },
         message(state){
             return state.message;
         },
         username(state){
             return state.username;
-        },
-        receivePagination(state){
-            return state.receivePagination;
-        },
-        sendPagination(state){
-            return state.sendPagination;
-        },
-        messagePage(state){
-            return state.messagePage;
         },
     },
     mutations: {
@@ -55,40 +55,56 @@ export default ({
         setSendMessages(state, payload){
             state.sendMessages = payload;
         },
+        setAllMessages(state, payload){
+            state.allMessages = payload;
+        },
+        setImportantMessages(state, payload){
+            state.importantMessages = payload;
+        },
+        setDeleteMessages(state, payload){
+            state.deleteMessages = payload;
+        },
         setMessage(state, payload){
             state.message = payload;
         },
         setUsername(state, payload){
             state.username = payload;
         },
-        setReceivePagination(state, payload){
-            state.receivePagination = payload;
-
-        },
-        setSendPagination(state, payload){
-            state.sendPagination = payload;
-        },
-        setMessagePage(state, payload){
-            state.messagePage = payload;
-        }
     },
     actions: {
        getReceiveMessages(context){
         axios
-            .get(URL+'/receiver/'+context.state.username+'/'+context.state.messagePage)
+            .get(URL+'/receiver/1/'+context.state.username)
             .then(({data})=>{
                 context.commit('setReceiveMessages', data.list);
-                context.commit('setReceivePagination', data.page);
-                context.commit('setMessagePage', data.page.curPage);
+            });
+       },
+       getAllMessages(context){
+        axios
+            .get(URL+'/receiver/2/'+context.state.username)
+            .then(({data})=>{
+                context.commit('setAllMessages', data.list);
+            });
+       },
+       getImportantMessages(context){
+        axios
+            .get(URL+'/receiver/3/'+context.state.username)
+            .then(({data})=>{
+                context.commit('setImportantMessages', data.list);
+            });
+       },
+       getDeleteMessages(context){
+        axios
+            .get(URL+'/receiver/4/'+context.state.username)
+            .then(({data})=>{
+                context.commit('setDeleteMessages', data.list);
             });
        },
        getSendMessages(context){
         axios
-            .get(URL+'/sender/'+context.state.username+'/'+context.state.messagePage)
+            .get(URL+'/sender/all/'+context.state.username)
             .then(({data})=>{
                 context.commit('setSendMessages', data.list);
-                context.commit('setSendPagination', data.page);
-                context.commit('setMessagePage', data.page.curPage);
             });
        },
        getReceiveMessage(context, payload){
