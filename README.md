@@ -8,7 +8,7 @@
 
 | 이름   | 역할            | 담당 기능                    |
 | ------ | --------------- | ---------------------------- |
-| 김현수 | 팀장 및 Backend |                              |
+| 김현수 | 팀장 및 Backend | Restful API 설계, DB 설계 및 구축, Security 보안처리, JWT 토큰 구현, 팀 매칭 서비스 구현, Docker 구축, Jeknins CI/CD 구축, Swagger 문서 관리|
 | 김호연 | Frontend        | Calendar, Home               |
 | 남동규 | Frontend        | Accounts                     |
 | 서지훈 | Backend         |                              |
@@ -17,6 +17,7 @@
 
 
 ## 개발 일정
+   - 일정관리.cell 참고
 
 ![image-20200810154318124](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200810154318124.png)
 
@@ -26,14 +27,38 @@
 
 ### 공통
 
+- JIRA
+- GitLab
+- Notion
+
 ### Back-end
+
+- Java 8
+- Spring Boot 2.2.8.RELEASE
+- Apache Maven 3.6.3
+- Spring Security 5.2.5.RELEASE
+- WebSocket 2.2.8.RELEASE
+- Swagger 2.9.2
+- Java JWT 3.8.3
+- Weka 3.9.3
+- Gson 2.8.5
+- MyBatis 1.3.0
+- MySql 8.0.21
+- Ubuntu 18.04.5
+- Docker Client 17.04.0-ce
+- Docker Server 19.03.12
+- Jenkins 2.251
+#### 기타
+- MySql WorkBeanch 8.0
+- Mobaxterm
+- AWS EC2
+- Spring Tool Suite 3
+- Postman
 
 ### Front-end
 
 1. Vue.js
 2. 
-
-
 
 ## 배포 및 자동화 과정
 
@@ -110,6 +135,8 @@
    => 구성원 프로필 확인 기능과 관심사, 지역별 구분을 통해 보다 쉽고 빠르고 안전하게 스터디 참여 가능
 
 ## 데이터베이스 모델링(ERD)
+
+![image](img/GoSpec_Model.jpg)
 
 ## 주요 기능
 
