@@ -41,8 +41,10 @@
                             filled="filled"
                             prepend-icon="mdi-camera"
                             v-model='imgData.imgFile'
+                            show-size
                             @change='onChangeImages'
                             ></v-file-input>
+                        <span class='file-input-label'>* 1.0Mb 이상 파일은 업로드 할 수 없습니다.</span>
 
                     </div>
                     <div class="modal-footer">
@@ -88,3 +90,13 @@
         },
     }
 </script>
+<style>
+v-file-input{ 
+    margin-bottom: 2px
+}
+.file-input-label {
+    font-size: 12px;
+    margin-left: 20px;
+    color: gray;
+}
+</style>

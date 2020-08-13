@@ -1,18 +1,21 @@
 <template>
-    <v-app>
-        <v-card-text class='p-0' style='margin-top: 100px; margin-bottom: 40px'>
-            <v-chip-group v-model="amenities" column="column" multiple="multiple">
+<div>
+    <div class='container'>
+        <!-- <p style='font-size: 5em;'>GoSpec</p> -->
+        <v-card-text class='p-0' style='margin-top: 40px; margin-bottom: 40px'>
+            <v-chip-group v-model="amenities" column="column" multiple="multiple"
+          active-class="primary white--text" >
                 <div class='mx-auto'>
                     <v-chip
-                        style='height: 50px;'
+                        style='height: 50px; color: black;'
                         class='mx-2 my-4'
                         v-for='event in events'
+                        @click="giveInterest(event.real_interest)"
                         :key='event.id'
-                        filter="filter"
-                        outlined="outlined">
+                        color='white'>
                         <div class="my-4 mx-2">
                             <v-btn class='mr-2' :color="event.color" fab="fab" x-small="x-small">
-                                <v-icon>mdi-dialpad</v-icon>
+                                <v-icon>{{ event.interestIcon }}</v-icon>
                             </v-btn>
                             {{ event.interest }}
                         </div>
@@ -23,12 +26,13 @@
         <div class="my-4">
             <v-btn @click='signup' style='width: 40%; height: 60px' color='teal' class='mx-4'><h2 class='mb-0' style='color: white; '>GoSpec</h2></v-btn>
             <!-- <v-btn @click='login' x-large="x-large" color='' class='mx-4'>LOGIN</v-btn> -->
-            <Modal :checkParent='checkParent' :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @closeModal='closeModal' />
+            <Modal :myInterest= 'myInterest' :checkParent='checkParent' :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @closeModal='closeModal' />
             <div class="my-2">
                 <v-btn @click='homepage' color='blue-grey lighten-3' text>GUEST로 입장하기</v-btn>
             </div>
         </div>
-    </v-app>
+    </div>
+</div>
 </template>
 
 <script>
@@ -39,6 +43,7 @@ import Modal from '../accounts/Modal.vue'
         },
         data() {
             return {
+                myInterest: [],
                 modalState: '',
                 modalSize: '',
                 modalTitle: '',
@@ -59,6 +64,25 @@ import Modal from '../accounts/Modal.vue'
                     '대외활동 / 서포터즈',
                     '봉사활동',
                     '취업 / 창업',
+                    '해외',
+                    '기타'
+                ],
+                real_interests: [
+                    '기획-아이디어',
+                    '광고-마케팅',
+                    '논문-리포트',
+                    '영상-UCC-사진',
+                    '디자인-캐릭터-웹툰',
+                    '웹-모바일-플래시',
+                    '게임-소프트웨어',
+                    '과학-공학',
+                    '문학-글-시나리오',
+                    '건축-건설-인테리어',
+                    '네이밍-슬로건',
+                    '예체능-미술-음악',
+                    '대외활동-서포터즈',
+                    '봉사활동',
+                    '취업-창업',
                     '해외',
                     '기타'
                 ],
@@ -83,12 +107,37 @@ import Modal from '../accounts/Modal.vue'
                     'grey lighten-2',
                     'grey lighten-1'
                 ],
+                interestIcons : 
+                ["far fa-lightbulb interest", 
+                "fas fa-bullhorn ml-2 interest",
+                 "fas fa-scroll interest", 
+                 "fas fa-video interest", 
+                 "fas fa-palette interest", 
+                 "fas fa-mobile-alt interest", 
+                 "fas fa-gamepad interest", 
+                 "fas fa-flask interest", 
+                 "fas fa-book-open interest", 
+                 "fas fa-building interest", 
+                 "fas fa-quote-left interest", 
+                 "fas fa-music interest",
+                "fas fa-hands-helping interest",
+                "fas fa-people-carry interest",
+                "fas fa-id-card-alt interest",
+                "fas fa-plane-departure interest",
+                "fas fa-ellipsis-h interest"],
                 events: [],
                 check: false,
                 isLoggedIn: false,
             }
         },
         methods: {
+            giveInterest(interest) {
+
+                this.myInterest.push(interest)
+                console.log(this.myInterest)
+
+
+            },
             getEvents() {
                 const interests = this.interests
                 const eventCount = interests.length
@@ -97,6 +146,8 @@ import Modal from '../accounts/Modal.vue'
                     this
                         .events
                         .push({
+                            interestIcon: this.interestIcons[i],
+                            real_interest: this.real_interests[i],
                             interest: this.interests[i],
                             color: this.colors[this.rnd(0, this.colors.length - 1)]
                         })
@@ -138,8 +189,8 @@ import Modal from '../accounts/Modal.vue'
 </script>
 
 <style scoped="scoped">
-    div {
-        font-weight: bolder;
-        font-size: large;
-    }
+div {
+    font-weight: bolder;
+    font-size: large;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <v-container class='p-0'>
     <v-navigation-drawer
-      style ="z-index: 2; "
+      style ="z-index: 10001; position: fixed;"
       v-model="drawer"
       :color="color"
       :expand-on-hover="expandOnHover"
