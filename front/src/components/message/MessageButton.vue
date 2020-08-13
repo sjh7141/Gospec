@@ -6,20 +6,10 @@
       max-width="400"
     >
       <v-card > 
-        <!-- <v-card-title class="headline justify-center" >{{$props.receiver}}에게 쪽지보내기</v-card-title> -->
         <v-img
         :aspect-ratio="16/9"
         src="@/assets/messageInBottle.jpg"
       >
-        <v-expand-transition>
-          <div
-            v-if="hover"
-            class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-            style="height: 100%;"
-          >
-            $14.99
-          </div>
-        </v-expand-transition>
       </v-img>
       <div style="text-align : right; margin: 10px">받는사람 : {{$props.receiver}}</div>
         <v-col>

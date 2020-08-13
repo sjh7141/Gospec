@@ -1,50 +1,65 @@
 <template>
     <div>
-        <div style='text-align: right; margin: 30px;'>
-
-                <v-btn v-if="type=='receive'" small color="primary" @click.stop="validation">답장</v-btn> &nbsp;
-                <v-btn small color="error" @click="deleteMessage">삭제</v-btn>
+        <div style='text-align: right; margin: 10px 0;'>
                 <v-dialog
                 v-model="dialog"
                 max-width="400"
                 >
-                <v-card>
-                    <v-card-title class="headline justify-center" >쪽지보내기</v-card-title>
-                    <v-col>
-                    <v-textarea v-model="newMessage"
-                        solo
-                        name="input-7-4"
-                        label="쪽지 내용을 적어주세요."
-                    ></v-textarea>
-                    </v-col>
+                    <v-card > 
+                        <v-img
+                        :aspect-ratio="16/9"
+                        src="../../assets/messageInBottle.jpg"
+                        >
+                        </v-img>
+                        <div style="text-align : right; margin: 10px">받는사람 : {{message.sender}}</div>
+                        <v-col>
+                        <v-textarea v-model="newMessage"
+                            solo
+                            name="input-7-4"
+                            label="쪽지 내용을 적어주세요."
+                            height="250px"
+                        ></v-textarea>
+                        </v-col>
 
-                    <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="green darken-1"
-                        text
-                        @click="sendMessage"
-                        class="justify-center"
-                    >
-                        전송
-                    </v-btn>
-                    </v-card-actions>
-                </v-card>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="green darken-1"
+                            text
+                            @click="sendMessage"
+                            class="justify-center"
+                        >
+                            전송
+                        </v-btn>
+                        </v-card-actions>
+                    </v-card>
                 </v-dialog>
         </div>
-        <table class="table table-hover table-bordered" style="height: 600px; width: 95%;" >
-            <tr style="height: 5%; text-align:left;">
-                <td>보낸사람: {{message.sender}}</td>
-            </tr>
-            <tr style="height: 5%; text-align:left;">
-                <td>보낸시간: {{message.registTime}}</td>
-            </tr>
-            <tr style="border-top: 1px solid black; ">
-                <td style=" text-align:left;">{{message.contents}}</td>
-            </tr>
-        </table>
-        <v-btn small color="primary" @click="moveMessage">쪽지함 이동</v-btn> &nbsp;
-
+        <v-card
+            max-width="100%"
+        >
+            <v-img
+            class="white--text align-end"
+            :aspect-ratio="16/3"
+            src="@/assets/sunrise.jpg"
+            >
+            </v-img>
+            <div style="text-align : left; margin: 10px">보낸사람 : {{message.sender}}</div>
+            <div style="text-align : left; margin: 10px">보낸시간 :  {{message.registTime}}</div>
+            <hr>
+            <v-card-text>
+                <div>{{message.contents}}</div>
+            </v-card-text>
+            <v-row justify="end">
+            <v-card-actions>
+                <v-btn color="primary" text v-if="type!=5" @click.stop="validation">답장</v-btn>
+                <v-btn color="red" text @click="deleteMessage">삭제</v-btn>
+            </v-card-actions>
+            </v-row>
+        </v-card>
+        <div style='text-align: right; margin: 10px 0;'>
+            <v-btn small color="primary" @click="moveMessage">쪽지함 보기</v-btn> 
+        </div>
     </div>
 </template>
 
@@ -61,6 +76,7 @@ export default {
         dialog: false,
         newMessage: '',
         username: '',
+        flag: false,
       }
     },
     props:['messageNo', 'type'],
@@ -71,7 +87,7 @@ export default {
     },
     methods:{
       moveMessage(){
-          this.$router.push('/mypage/message');
+          this.$emit('childs-event', this.flag);
       },
       deleteMessage(){
            if(window.confirm("쪽지를 삭제하시겠습니까?")) {
@@ -85,7 +101,7 @@ export default {
                 Authorization: this.$cookies.get("auth-token")
                 },
             }
-            if(this.type == 'receive'){
+            if(this.type != 5){
                 config.data = {no : checkedNo};
                 axios.delete(URL+'/receiver', config)
                     .then(({ data }) => {
@@ -94,7 +110,7 @@ export default {
                             msg = '삭제가 완료되었습니다.';
                         }
                         alert(msg);
-                        this.$store.dispatch('getReceiveMessages');
+                        this.flag = true;
                         this.moveMessage();
                     })
                     .catch(() => {
@@ -109,7 +125,7 @@ export default {
                             msg = '삭제가 완료되었습니다.';
                         }
                         alert(msg);
-                        this.$store.dispatch('getSendMessages');
+                        this.flag = true;
                         this.moveMessage();
                     })
                     .catch(() => {
@@ -149,7 +165,7 @@ export default {
                 Authorization: this.$cookies.get("auth-token")
                 },
             }
-            if(this.type == 'receive'){
+            if(this.type != 5){
                 let data = {no : checkedNo};
                 axios.patch(URL+'/receiver', data, config)
                     .then(() => {
