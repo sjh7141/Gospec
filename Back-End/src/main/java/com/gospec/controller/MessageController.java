@@ -63,7 +63,7 @@ public class MessageController {
 	}
 	
 	@ApiOperation(value = "보낸 쪽지  조회, 사용자 아이디로 보낸 쪽지을 전체 조회한다.", response = Map.class)
-	@GetMapping(value="/api/message/sender/{username}")
+	@GetMapping(value="/api/message/sender/all/{username}")
 	public ResponseEntity<Map<String, Object>> getSendList(@PathVariable("username") String username){
 		List<MessageDto> messageList = messageService.findSendMessage(username);
 		Map<String, Object> data = new HashMap<String, Object>();
