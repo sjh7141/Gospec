@@ -1,10 +1,11 @@
 <template>
   <v-row justify="center" style="display:inline-block; margin: 10px;">
-    <v-avatar type="button" class='mx-auto' size='50'
+    <v-avatar class='mx-auto' size='100'
       color="primary"
       dark
       @click.stop="dialog = true">
-      <v-img :src=userData.profileImg></v-img>
+      <v-img v-if='userData.profileImg' :src=userData.profileImg></v-img>
+      <v-img v-else src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/764024/profile/profile-512.jpg'></v-img>
     </v-avatar>
 
     <v-dialog
