@@ -7,6 +7,8 @@ public class MessageDto {
 	private String receiver;
 	private boolean reading;
 	private String registTime;
+	private boolean isDelete;
+	private boolean isImportant;
 	
 	public int getNo() {
 		return no;
@@ -43,6 +45,18 @@ public class MessageDto {
 	}
 	public void setRegistTime(String registTime) {
 		this.registTime = registTime;
+	}	
+	public boolean isDelete() {
+		return isDelete;
+	}
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+	public boolean isImportant() {
+		return isImportant;
+	}
+	public void setImportant(boolean isImportant) {
+		this.isImportant = isImportant;
 	}
 	public MessageDto() {
 	

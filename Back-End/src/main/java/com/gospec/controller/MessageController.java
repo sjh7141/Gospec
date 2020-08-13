@@ -44,30 +44,54 @@ public class MessageController {
 	}
 	
 	@ApiOperation(value = "받은 쪽지  조회, 사용자 아이디로 받은 쪽지을 전체 조회한다.", response = Map.class)
-	@GetMapping(value="/api/message/receiver/{username}/{page}")
-	public ResponseEntity<Map<String, Object>> getReceiveList(@PathVariable("username") String username, @PathVariable("page") int curPage){
-		PageDto page = new PageDto(curPage, 10);
-		page.setTotalCount(messageService.countTotalReceiveMessage(username));
-		List<MessageDto> messageList = messageService.findReceiveMessage(username, page.getStartIndex(), page.getPerPageNum());
+	@GetMapping(value="/api/message/receiver/{type}/{username}")
+	public ResponseEntity<Map<String, Object>> getReceiveList(@PathVariable("type") int type, @PathVariable("username") String username){
+		List<MessageDto> messageList = null;
+		switch(type) {
+			case 1 : messageList = messageService.findReceiveMessage(username);
+					 break;
+			case 2 : messageList = messageService.findAllMessage(username);
+					 break;
+			case 3 : messageList = messageService.findImportantMessage(username);
+					 break;
+			case 4 : messageList = messageService.findDeleteMessage(username);
+					 break;
+		}		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("list", messageList);
-		data.put("page", page);
 		return new ResponseEntity<Map<String, Object>>(data, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "보낸 쪽지  조회, 사용자 아이디로 보낸 쪽지을 전체 조회한다.", response = MessageDto.class)
-	@GetMapping(value="/api/message/sender/{username}/{page}")
-	public ResponseEntity<Map<String, Object>> getSendList(@PathVariable("username") String username, @PathVariable("page") int curPage){
-		PageDto page = new PageDto(curPage, 10);
-		page.setTotalCount(messageService.countTotalSendMessage(username));
-		List<MessageDto> messageList = messageService.findSendMessage(username, page.getStartIndex(), page.getPerPageNum());
+	@ApiOperation(value = "보낸 쪽지  조회, 사용자 아이디로 보낸 쪽지을 전체 조회한다.", response = Map.class)
+	@GetMapping(value="/api/message/sender/{username}")
+	public ResponseEntity<Map<String, Object>> getSendList(@PathVariable("username") String username){
+		List<MessageDto> messageList = messageService.findSendMessage(username);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("list", messageList);
-		data.put("page", page);
 		return new ResponseEntity<Map<String, Object>>(data, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "받은 쪽지 정보 삭제, 쪽지 번호로 해당 쪽지를 삭제한다.", response = Boolean.class)
+	@ApiOperation(value = "휴지통으로 이동, 쪽지 번호로 해당 쪽지를 이동한다.", response = Boolean.class)
+	@PatchMapping(value="/api/message/trash-can")
+	public ResponseEntity<Boolean> moveToTrashCan(@RequestBody Map<String, Object> param){
+		List<Integer> noList = (List<Integer>) param.get("no");
+		for(Integer no : noList) {
+			if(!messageService.updateDelete(no, true)) {
+				new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "보관함 이동, 쪽지 번호로 해당 쪽지를 이동한다.", response = Boolean.class)
+	@PatchMapping(value="/api/message/important-box")
+	public ResponseEntity<Boolean> moveToImportantBox(@RequestBody Map<String, Object> param){
+		int no = (int) param.get("no");
+		return new ResponseEntity<Boolean>(messageService.updateImportant(no, true), HttpStatus.OK);
+	}
+	
+	
+	@ApiOperation(value = "휴지통 쪽지 정보 삭제, 쪽지 번호로 해당 쪽지를 삭제한다.", response = Boolean.class)
 	@DeleteMapping(value="/api/message/receiver")
 	public ResponseEntity<Boolean> deleteReceiveMessage(@RequestBody Map<String, Object> param){
 		List<Integer> noList = (List<Integer>) param.get("no");
@@ -92,17 +116,10 @@ public class MessageController {
 	}
 	
 	@ApiOperation(value = "해당 쪽지 번호 읽음상태로 변환", response = Boolean.class)
-	@PatchMapping(value="/api/message/receiver")
-	public ResponseEntity<Boolean> updateReceiveMessage(@RequestBody Map<String, Object> param){
+	@PatchMapping(value="/api/message/reading")
+	public ResponseEntity<Boolean> updateReading(@RequestBody Map<String, Object> param){
 		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.updateReceiveMessage(no), HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "해당 쪽지 번호 읽음상태로 변환", response = Boolean.class)
-	@PatchMapping(value="/api/message/sender")
-	public ResponseEntity<Boolean> updateSendMessage(@RequestBody Map<String, Object> param){
-		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.updateSendMessage(no), HttpStatus.OK);
+		return new ResponseEntity<Boolean>(messageService.updateReading(no), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "해당 받은쪽지 조회", response = MessageDto.class)
