@@ -136,6 +136,8 @@
 
 ## 데이터베이스 모델링(ERD)
 
+![image](img/GoSpec_Model.jpg)
+
 ## 주요 기능
 
 1. 일정
