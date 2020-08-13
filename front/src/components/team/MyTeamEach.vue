@@ -1,12 +1,12 @@
 <template>
-<div class='eachCtst' @click="emitSelectedPost">
+<div class='eachCtst' :class="{expanded: isExpand}" @click="emitSelectedPost">
     <div class="applyBtn">
         <span style='color:gray; margin-right: 40px;'>{{ 1 + T.approvalList.filter(x => x.approvalFlag).length }} / {{ T.memberMax }}</span>
         <team-btn :status="getStatus" :team="T" @refreshList="emitRefreshList"/>
     </div>
 
     <!-- <span>{{ T.title }}</span> -->
-    <h5>{{ T.title }}</h5>
+    <h5 class="minititle">{{ T.title }}</h5>
 
     <ProfileModal :username='T.username'/>
     <span style='color:gray;'>{{ T.username }}</span>
@@ -19,22 +19,26 @@
             <div id='contentArea' class="col-7" style="padding: 10px; white-space:pre-line;">
                 <!-- 일단은 고정해서 개발하고 나중에 유동적으로 너비 조절하쟈...ㅠㅍㅍ -->
                 <div class='btn-wrapper'>
-                    <router-link :to="'/contest/'+T.contestNo" style="margin: 0 10px;text-decoration: none;">공모전 보기</router-link>
+                    <router-link :to="'/contest/'+T.contestNo" style="margin: 0 10px;text-decoration: none;">공모전 상세보기</router-link>
                     <i class="fas fa-pen _icon" v-show='isLeader' @click.stop='updateMove' type="button" title="수정"/>
                     <i class="fas fa-trash-alt _icon" v-show='isLeader' @click.stop='deletePost' type="button" title="삭제"/>
                 </div>
                 {{ T.content }}
             </div>
 
-            <div class="col-5">
+            <div class="col-5" style="padding: 20px 0 0 20px;">
                 <div style="min-height: 100px;">
-                    <h5 :class="{invisible: !(isLeader || isMember)}">팀원 목록</h5>
-                    <div v-for="(memb, i) in T.approvalList.filter(x => x.approvalFlag)" :key="i">
-                        <div :class="{invisible: !(isLeader || isMember)}" class="profilewrapper">
-                            <ProfileModal :username='memb.memberUsername' />
-                            <span style="color: gray;">{{ memb.memberUsername }}</span>
-                            <message-button :receiver="memb.memberUsername"/>
-                            <i class="fas fa-times kickoutbtn" :class="{invisible: !isLeader}" @click.stop="kick(memb)"/>
+                    <h5 class="minititle">팀원 목록</h5>
+                    <div v-if="!(isLeader||isMember)" class="restrict_msg">팀원에게 제공되는 정보입니다.</div>
+                    <div v-if="(isLeader||isMember)">
+                        <div v-for="(memb, i) in T.approvalList.filter(x => x.approvalFlag)" :key="i">
+                            <div :class="{invisible: !(isLeader || isMember)}" class="profilewrapper">
+                                <ProfileModal :username='memb.memberUsername' />
+                                <span style="color: gray;">{{ memb.memberUsername }}</span>
+                                <message-button :receiver="memb.memberUsername"/>
+                                <span style="flex-grow:1;text-align:right;"><i class="fas fa-times kickoutbtn" :class="{invisible: !isLeader}" @click.stop="kick(memb)" title="강퇴"/></span>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,16 +46,20 @@
                 <hr :class="{invisible: !isLeader}">
 
                 <div style="min-height: 100px;">
-                    <h5 :class="{invisible: !isLeader}">지원자 목록</h5>
-                    <div v-for="(applic, j) in T.approvalList.filter(x => !x.approvalFlag)" :key="`B${j}`"> <!--키중복경고 피하기위한 키꼼수-->
-                        <div :class="{invisible: !isLeader}">
-                            <ProfileModal :username='applic.memberUsername' />
-                            <span style="color: gray;">{{ applic.memberUsername }}</span>
-                            <message-button :receiver="applic.memberUsername"/>
-                            <br>
-                            <button class='btn btn-primary btn-sm' :class="{invisible: !isLeader}" @click.stop="assign(applic)">승인</button>
-                            &nbsp;
-                            <button class='btn btn-danger btn-sm' :class="{invisible: !isLeader}" @click.stop="reject(applic)">거절</button>
+                    <h5 :class="{invisible: !isLeader}" class="minititle">지원자 목록</h5>
+                    <div v-if="isLeader">
+                        <div v-for="(applic, j) in T.approvalList.filter(x => !x.approvalFlag)" :key="`B${j}`" style="margin-bottom:10px;"> <!--키중복경고 피하기위한 키꼼수-->
+                            <!-- <div :class="{invisible: !isLeader}" style="display:flex; align-items:center;"> -->
+                            <div :class="{invisible: !isLeader}" class="profilewrapper">
+                                <ProfileModal :username='applic.memberUsername' style="flex-grow:0;"/>
+                                    <span style="color: gray;">{{ applic.memberUsername }}</span>
+                                    <message-button :receiver="applic.memberUsername" style="margin:0; margin-left:10px; "/>
+                                    <!-- <br> -->
+                                <div style="flex-grow:1;text-align:right;">
+                                    <i class="fas fa-check assignicon" @click.stop="assign(applic)" title="승인"/>
+                                    <i class="fas fa-times rejecticon" @click.stop="reject(applic)" title="거절"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -216,6 +224,10 @@ export default {
     display: flex;
 }
 
+.expanded {
+    background-color: #eeeeee;
+}
+
 .eachCtst {
     width: 80%;
     margin: 5px auto;
@@ -280,15 +292,56 @@ export default {
 }
 
 .profilewrapper {
-    display: inline-flex;
-    /* display: flex; */
+    /* display: inline-flex; */
+    display: flex;
     align-items: center;
 }
 
+.profilewrapper * {
+    flex-grow: 0;
+    flex-shrink: 1;
+}
+
 .kickoutbtn {
+    flex-grow: 1;
+    text-align: right;
     padding: 5px;
 }
 .kickoutbtn:hover {
     color: #C82333;
+}
+.assignicon {
+    padding: 7px;
+    margin-left: 10px;
+}
+.assignicon:hover {
+    color: #41B883;
+}
+.rejecticon {
+    padding: 7px;
+}
+.rejecticon:hover {
+    color: #C82333;
+}
+.minititle {
+    border-left: 10px solid lightgray;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.asdf {
+    flex: 1 1 0;
+}
+
+.qwer {
+    flex: 0 1 400px;
+}
+
+.restrict_msg {
+    color: gray;
+    text-align: center;
+    min-height: 70px;
+    line-height: 70px;
+    vertical-align: middle;
 }
 </style>

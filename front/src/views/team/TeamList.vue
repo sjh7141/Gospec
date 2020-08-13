@@ -6,7 +6,7 @@
         :eachTeam="eachT" :isExpand="isDetailView(eachT)"
         @setSelected="setSelectedPost" @refreshList="reloadPage"/>
 
-    <button v-show="!isLastPage" @click='loadPage'>더 보기</button>
+    <button v-show="!isLastPage" @click='loadPage' style="text-decoration:none; padding: 10px;">더 보기</button>
 </div>
 </template>
 
