@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" style="display:inline-block; margin: 10px;">
-    <v-avatar class='mx-auto' size='100'
+    <v-avatar class='mx-auto' :size='defaultSize'
       color="primary"
       dark
       @click.stop="dialog = true">
@@ -40,7 +40,8 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
       ProfileModalDetail,
     },
     props: {
-      username: String
+      username: String,
+      size: String,
     },
     methods: {
       getUserInfo() {
@@ -53,6 +54,11 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
     },
     mounted() {
       this.getUserInfo()
+    },
+    computed: {
+      defaultSize() {
+        return this.$props.size ? this.$props.size : '100';
+      },
     }
   }
 </script>

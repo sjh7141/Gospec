@@ -8,7 +8,7 @@
     <!-- <span>{{ T.title }}</span> -->
     <h5 class="minititle">{{ T.title }}</h5>
 
-    <ProfileModal :username='T.username'/>
+    <ProfileModal :username='T.username' size="60"/>
     <span style='color:gray;'>{{ T.username }}</span>
     <message-button :receiver="T.username"/>
 
@@ -33,7 +33,7 @@
                     <div v-if="(isLeader||isMember)">
                         <div v-for="(memb, i) in T.approvalList.filter(x => x.approvalFlag)" :key="i">
                             <div :class="{invisible: !(isLeader || isMember)}" class="profilewrapper">
-                                <ProfileModal :username='memb.memberUsername' />
+                                <ProfileModal :username='memb.memberUsername' size="60"/>
                                 <span style="color: gray;">{{ memb.memberUsername }}</span>
                                 <message-button :receiver="memb.memberUsername"/>
                                 <span style="flex-grow:1;text-align:right;"><i class="fas fa-times kickoutbtn" :class="{invisible: !isLeader}" @click.stop="kick(memb)" title="강퇴"/></span>
@@ -51,7 +51,7 @@
                         <div v-for="(applic, j) in T.approvalList.filter(x => !x.approvalFlag)" :key="`B${j}`" style="margin-bottom:10px;"> <!--키중복경고 피하기위한 키꼼수-->
                             <!-- <div :class="{invisible: !isLeader}" style="display:flex; align-items:center;"> -->
                             <div :class="{invisible: !isLeader}" class="profilewrapper">
-                                <ProfileModal :username='applic.memberUsername' style="flex-grow:0;"/>
+                                <ProfileModal :username='applic.memberUsername' size="60" style="flex-grow:0;"/>
                                     <span style="color: gray;">{{ applic.memberUsername }}</span>
                                     <message-button :receiver="applic.memberUsername" style="margin:0; margin-left:10px; "/>
                                     <!-- <br> -->
