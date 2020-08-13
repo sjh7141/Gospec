@@ -13,74 +13,35 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Autowired
 	private MessageMapper messageMapper;
-	
+
 	@Override
-	public List<MessageDto> findReceiveMessage(String username, int startIndex, int perPageNum) {
-		return messageMapper.findReceiveMessage(username, startIndex, perPageNum);
+	public List<MessageDto> findReceiveMessage(String username) {
+		return messageMapper.findReceiveMessage(username, false, false);
 	}
 
 	@Override
-	public List<MessageDto> findSendMessage(String username, int startIndex, int perPageNum) {
-		return messageMapper.findSendMessage(username, startIndex, perPageNum);
+	public List<MessageDto> findAllMessage(String username) {
+		return messageMapper.findAllMessage(username, false);
 	}
 
 	@Override
-	public boolean saveReceiveMessage(MessageDto message) {
-		if(messageMapper.saveReceiveMessage(message) > 0) {
-			return true;
-		}else {
-			return false;
-		}
+	public List<MessageDto> findImportantMessage(String username) {
+		return messageMapper.findImportantMessage(username, true, false);
 	}
 
 	@Override
-	public boolean saveSendMessage(MessageDto message) {
-		if(messageMapper.saveSendMessage(message) > 0) {
-			return true;
-		}else {
-			return false;
-		}
+	public List<MessageDto> findDeleteMessage(String username) {
+		return messageMapper.findDeleteMessage(username, true);
+	}
+
+	@Override
+	public List<MessageDto> findSendMessage(String username) {
+		return messageMapper.findSendMessage(username);
 	}
 
 	@Override
 	public int countNewReceiveMessage(String username) {
-		return messageMapper.countNewReceiveMessage(username, false);
-	}
-
-	@Override
-	public boolean deleteReceiveMessage(int no) {
-		if(messageMapper.deleteReceiveMessage(no) > 0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean deleteSendMessage(int no) {
-		if(messageMapper.deleteSendMessage(no) > 0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean updateSendMessage(int no) {
-		if(messageMapper.updateSendMessage(no, true) > 0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean updateReceiveMessage(int no) {
-		if(messageMapper.updateRecieveMessage(no, true) > 0) {
-			return true;
-		}else {
-			return false;
-		}
+		return messageMapper.countNewReceiveMessage(username, false, false);
 	}
 
 	@Override
@@ -94,6 +55,62 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
+	public boolean saveReceiveMessage(MessageDto message) {
+		if(messageMapper.saveReceiveMessage(message) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean saveSendMessage(MessageDto message) {
+		if(messageMapper.saveSendMessage(message) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteReceiveMessage(int no) {
+		if(messageMapper.deleteReceiveMessage(no) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteSendMessage(int no) {
+		if(messageMapper.deleteSendMessage(no) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateReading(int no) {
+		if(messageMapper.updateReading(no, true) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateDelete(int no, boolean isDelete) {
+		if(messageMapper.updateDelete(no, isDelete) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateImportant(int no, boolean isImportant) {
+		if(messageMapper.updateImportant(no, isImportant) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public MessageDto findOneSendMessage(int no) {
 		return messageMapper.findOneSendMessage(no);
 	}
@@ -102,6 +119,8 @@ public class MessageServiceImpl implements MessageService {
 	public MessageDto findOneReceiveMessage(int no) {
 		return messageMapper.findOneReceiveMessage(no);
 	}
+	
+	
 	
 	
 	

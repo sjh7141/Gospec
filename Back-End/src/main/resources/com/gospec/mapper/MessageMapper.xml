@@ -6,8 +6,33 @@
 		select * 
 		from receive_message
 		where receiver=#{username}
+		and is_important=#{isImportant}
+		and is_delete=#{isDelete}
 		order by no desc
-		limit #{startIndex}, #{perPageNum}
+	</select>
+	
+	<select id="findAllMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_delete=#{isDelete}
+		order by no desc
+	</select>
+	
+	<select id="findImportantMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_important=#{isImportant}
+		order by no desc
+	</select>
+	
+	<select id="findDeleteMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_delete=#{isDelete}
+		order by no desc
 	</select>
 	
 	<select id="findSendMessage" resultType="com.gospec.domain.MessageDto">
@@ -15,7 +40,6 @@
 		from send_message
 		where sender=#{username}
 		order by no desc
-		limit #{startIndex}, #{perPageNum}
 	</select>
 	
 	<select id="countNewReceiveMessage" resultType="Integer">
@@ -23,6 +47,7 @@
 		from receive_message
 		where receiver=#{username}
 		and reading=#{reading}
+		and is_delete=#{isDelete}
 	</select>
 	
 	<select id="countTotalReceiveMessage" resultType="Integer">
@@ -57,16 +82,22 @@
 		where no=#{no}
 	</delete>
 	
-	<update id="updateSendMessage">
-		update send_message
+	<update id="updateReading">
+		update receive_message
 		set reading=#{reading}
 		where no=#{no}	
 	</update>
 	
-	<update id="updateRecieveMessage">
+	<update id="updateDelete">
 		update receive_message
-		set reading=#{reading}
+		set is_delete=#{isDelete}
 		where no=#{no}	
+	</update>
+	
+	<update id="updateImportant">
+		update receive_message
+		set is_important=#{isImportant}
+		where no=#{no}
 	</update>
 	
 	<select id="findOneSendMessage" resultType="com.gospec.domain.MessageDto">
