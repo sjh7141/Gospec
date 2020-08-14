@@ -11,8 +11,9 @@ export default {
 
 <style scoped>
 .content {
+    width: 80%;
     white-space: pre-line;
     text-align: left;
-    margin: 30px;
+    margin: 30px auto 0 auto;
 }
 </style>
