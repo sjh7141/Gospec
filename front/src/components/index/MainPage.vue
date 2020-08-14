@@ -6,7 +6,21 @@
       <img src="../../assets/images/index/mountain.png" id='mountain'>
       <img src="../../assets/images/index/road.png" id='road'>
       <MainPageInterest id='text' />
-      <h2 id='gospec'>GOSPEC</h2>
+      <div class="main_logo">
+      <h2 id='gospec'>
+      <ul>
+      <li>
+        GOSPEC
+      </li>
+        <span style="font-size:35px;"> 
+      <li class="image blinking">
+          <i class=" fas fa-angle-double-down"></i>
+      </li>
+      <li class="image blinking">scroll</li>
+      </span>
+      </ul>
+      </h2>
+      </div>
     </div>
   </div>
 </template>
@@ -111,5 +125,30 @@ export default {
 }
 #body #moon {
   top: 20;
+}
+.main_logo{
+  display: inline;
+  vertical-align: middle;
+
+}
+ul {
+  list-style:none;
+}
+.blinking{
+	-webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate;
+    animation:blink 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 </style>
