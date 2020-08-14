@@ -167,15 +167,7 @@ export default {
             }
             if(this.type != 5){
                 let data = {no : checkedNo};
-                axios.patch(URL+'/receiver', data, config)
-                    .then(() => {
-                    })
-                    .catch(() => {
-                        alert('읽기 처리시 에러가 발생했습니다.');
-                    });
-            }else{
-                let data = {no : checkedNo};
-                axios.patch(URL+'/sender', data, config)
+                axios.patch(URL+'/reading', data, config)
                     .then(() => {
                     })
                     .catch(() => {
