@@ -11,62 +11,36 @@
                     <div class="fw row">
                         <div class="col-md-4 col-sm-6 item ">
                             <div layout="row">
-                                <i class="mdi mdi-apple-keyboard-command nino-icon fsr"></i>
+                        
+                                <i class="far fa-calendar-alt nino-icon fsr"></i>
                                 <div>
-                                    <h4 class="nino-serviceTitle">Photography</h4>
-                                    <p>Photography is the science, art and practice of creating durable images by
-                                        recording light or other electromagnetic radiation</p>
+                                    <h4 class="nino-serviceTitle">공모전 달력</h4>
+                                    <p>국내 공모전 데이터를 달력 형식으로 한눈에 볼 수 있습니다. 
+                                        또한 Gospec 회원은 관심 있는 공모전을 북마크 할 수 있는 기능을 제공합니다. 
+                                        회원이 북마크한 공모전만 달력 형식으로 볼 수 있습니다. </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 item ">
                             <div layout="row">
-                                <i class="mdi mdi-blender nino-icon fsr"></i>
+                                <i class="fas fa-comments nino-icon fsr"></i>
                                 <div>
-                                    <h4 class="nino-serviceTitle">Web Design</h4>
-                                    <p>Web design encompasses many different skills and disciplines in the
-                                        production and maintenance of websites.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 item ">
-                            <div layout="row">
-                                <i class="mdi mdi-bookmark-plus-outline nino-icon fsr"></i>
-                                <div>
-                                    <h4 class="nino-serviceTitle">Creativity</h4>
-                                    <p>Creativity is a phenomenon whereby something new and somehow valuable is
-                                        formed. The created item may be intangible or a physical object.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 item ">
-                            <div layout="row">
-                                <i class="mdi mdi-buffer nino-icon fsr"></i>
-                                <div>
-                                    <h4 class="nino-serviceTitle">seo</h4>
-                                    <p>Search engine optimization (SEO) is the process of affecting the visibility
-                                        of a website or a web page in a web search engine's unpaid results.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 item ">
-                            <div layout="row">
-                                <i class="mdi mdi-desktop-mac nino-icon fsr"></i>
-                                <div>
-                                    <h4 class="nino-serviceTitle">Css/Html</h4>
-                                    <p>HyperText Markup Language, commonly abbreviated as HTML, is the standard
-                                        markup language used to create web pages.
+                                    <h4 class="nino-serviceTitle">공모전 팀 커뮤니티</h4>
+                                    <p>공모전 별로 팀찾기, 팀원찾기 게시판을 통해 팀원, 팀을 찾을 수 있는 커뮤니티 서비스를 제공합니다.
+                                        팀 찾기 게시판에서 글을 작성 한 뒤, 해당 글에 다른 유저가 팀 신청을 할 경우 수락/거절을 통해
+                                        팀원을 구성할 수 있습니다.
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 item ">
                             <div layout="row">
-                                <i class="mdi mdi-diamond nino-icon fsr"></i>
+                                <i class="fas fa-american-sign-language-interpreting nino-icon fsr"></i>
                                 <div>
-                                    <h4 class="nino-serviceTitle">digital</h4>
-                                    <p>With digital signals, system noise, provided it is not too great, will not
-                                        change the quantification whereas with signals handled using analog processing.</p>
+                                    <h4 class="nino-serviceTitle">공모전 팀매칭</h4>
+                                    <p>GoSpec의 k-means clustering 알고리즘으로 Gospec 회원별로 공모전 팀원/ 팀을 매칭해줍니다.
+                                        매칭된 회원의 프로필을 확인 기능과 쪽지 기능을 제공합니다.
+                                    </p>
                                 </div>
                             </div>
                         </div>
