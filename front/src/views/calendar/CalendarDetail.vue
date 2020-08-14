@@ -1,6 +1,7 @@
 <template>
       <v-card 
         color="grey lighten-4"
+
       >
         <v-toolbar
           :color="selectedEvent.color"
@@ -13,6 +14,7 @@
         
         <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
+      
           <v-btn
             icon
             dark
@@ -22,23 +24,29 @@
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
-          <v-btn>
-            <a :href= this.selectedEvent.homepage >
-            공모전 사이트
-            </a>
-          </v-btn>
+        <v-list>
+          <v-list-item>
+          <a :href= this.selectedEvent.homepage style="color:black;">
+          공모전 사이트
+          </a>
+          </v-list-item>
+          <v-list-item>
+          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo}">
+          <a href=""  style="color:black;">공모전 자세히 보기</a>
+          </router-link>
+          </v-list-item>
+          <v-list-item>
+          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo +'/teams'}">
+          <a href=""  style="color:black;">공모전 팀찾기</a>
+          </router-link>
+        </v-list-item>
+        </v-list>
       </v-menu>
         </v-toolbar>
         <v-card-text>
-          <div class="content">{{selectedEvent.details}}</div> 
+          <div class="content" style="color:black;">{{selectedEvent.details}}</div> 
 
         </v-card-text>
-        <v-btn>
-          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo}">공모전 자세히 보기</router-link>
-        </v-btn>
-        <v-btn>
-          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo +'/teams'}">공모전 팀찾기</router-link>
-        </v-btn>
         <v-card-actions>
           <v-btn
             text
@@ -120,5 +128,8 @@ export default {
     text-align: left;
     margin: 30px;
 }
+  a {
+      text-decoration: none;
+  }
 
 </style>

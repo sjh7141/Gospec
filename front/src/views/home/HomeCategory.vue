@@ -11,8 +11,7 @@
           v-for="(item,i) in items"
           :key="i"
           :item="item"
-          :field="item.text"
-          @click ="getfield(item.text,item.fieldtype)"
+          @click ="getfield(item.text,item.fieldtype,item.icons,item.color)"
           @change ="getContest(); getBookmark();"
           color="error"
         >
@@ -23,11 +22,23 @@
       </v-list-item-group>
     </v-list>
   </v-card>
-<div class="contest">{{ fieldtype }} 인기 공모전
-   
+<div class="contest">
+  <div class="home_title">
+    <v-btn :color="color" fab="fab" x-small="x-small">
+    <v-icon>{{ icons }}</v-icon> 
+  </v-btn>
+  {{ fieldtype }} 인기 공모전
+   </div>
   <PopularContest :contest ="contest"/>
   </div>
-<div class="study">Gospec 회원픽<PopularBookmark :bcontest ="bcontest"/></div>
+<div class="study">
+  <div class="home_title">
+  <v-btn :color="color" fab="fab" x-small="x-small">
+    <v-icon>{{ icons }}</v-icon> 
+  </v-btn>
+  Gospec 회원픽
+  </div>
+  <PopularBookmark :bcontest ="bcontest"/></div>
 </div>
 
 </template>
@@ -47,9 +58,11 @@ export default {
 
   },
   methods: {
-    getfield(field,fieldtype) {
+    getfield(field,fieldtype,icons,color) {
       this.field = field
       this.fieldtype = fieldtype
+      this.icons = icons
+      this.color = color
       console.log(fieldtype)
     },
     getContest() {
@@ -72,6 +85,7 @@ export default {
     },
     },
 
+              
     data() {
     return {
         contest:[],
@@ -79,80 +93,121 @@ export default {
         item:'',
         field:'all',
         fieldtype: '모든',
+        icons: "fas fa-arrow-right", 
+        color: "error",
         items:[
         {
           text: 'all',
-          fieldtype: '모든'
+          fieldtype: '모든',
+          icons: "fas fa-arrow-right", 
+          color: 'error',
+          
         },
         {
           text: '기획-아이디어',
-          fieldtype: '기획/아이디어'
+          fieldtype: '기획/아이디어',
+          icons: "far fa-lightbulb interest", 
+          color:'pink lighten-2',
         },
         {
           text: '광고-마케팅',
-          fieldtype: '광고/마케팅'
+          fieldtype: '광고/마케팅',
+          icons: "fas fa-bullhorn ml-2 interest",
+          color:'purple lighten-2',
         },
         {
           text: '논문-리포트',
-          fieldtype: '논문/리포트'
+          fieldtype: '논문/리포트',
+          icons:"fas fa-scroll interest", 
+          color:'blue lighten-4',
         },
         {
           text: '영상-UCC-사진',
-          fieldtype: '영상/UCC/사진'
+          fieldtype: '영상/UCC/사진',
+          icons: "fas fa-video interest", 
+          color:'indigo darken-1',
         },
         {
           text: '디자인-캐릭터-웹툰',
-          fieldtype: '디자인/캐릭터/웹툰'
+          fieldtype: '디자인/캐릭터/웹툰',
+          icons: "fas fa-palette interest", 
+          color:'cyan',
         },
         {
           text: '웹-모바일-플래시',
-          fieldtype: '웹/모바일/플래시'
+          fieldtype: '웹/모바일/플래시',
+          icons:"fas fa-mobile-alt interest", 
+          color:'teal lighten-1',
         },
         {
           text: '게임-소프트웨어',
-          fieldtype: '게임/소프트웨어'
+          fieldtype: '게임/소프트웨어',
+          icons:"fas fa-gamepad interest", 
+          color:'light-blue lighten-1',
         },
         {
           text: '과학-공학',
-          fieldtype: '과학/공학'
+          fieldtype: '과학/공학',
+          icons:"fas fa-flask interest", 
+          color:'lime lighten-3',
+
         },
         {
           text: '문학-글-시나리오',
-          fieldtype: '문학/글/시나리오'
+          fieldtype: '문학/글/시나리오',
+          icons:"fas fa-book-open interest", 
+          color:'green lighten-2',
         },
         {
           text: '건축-건설-인테리어',
-          fieldtype: '건축/건설/인테리어'
+          fieldtype: '건축/건설/인테리어',
+          icons:"fas fa-building interest", 
+          color:'lime accent-2',
         },
         {
           text: '네이밍-슬로건',
           fieldtype: '네이밍/슬로건',
+          icons:"fas fa-quote-left interest", 
+          color:'orange lighten-2',
         },
         {
           text: '예체능-미술-음악',
-          fieldtype: '예체능/미술/음악'
+          fieldtype: '예체능/미술/음악',
+          icons:"fas fa-music interest",
+           color:'yellow lighten-2',
         },
         {
           text: '대외활동-서포터즈',
           fieldtype: '대외활동/서포터즈',
+          icons:"fas fa-hands-helping interest",
+          color:'amber darken-3',
         },
         {
           text: '봉사활동',
           fieldtype: '봉사활동',
+          icons:"fas fa-people-carry interest",
+          color:'brown darken-1',
         },
         {
           text: '취업-창업',
-          fieldtype: '취업/창업'
+          fieldtype: '취업/창업',
+          icons:"fas fa-id-card-alt interest",
+          color:'blue-grey darken-1',
         },
         {
           text: '해외',
-          fieldtype: '해외'
+          fieldtype: '해외',
+          icons:"fas fa-plane-departure interest",
+          color:'grey lighten-2',
         },
         {
           text: '기타',
           fieldtype: '기타',
+          icons:"fas fa-ellipsis-h interest",
+          color:'grey lighten-1'
         },
       ],
+
       model: 0,
     }
 },
@@ -187,5 +242,7 @@ export default {
   color:black;
 
 }
-
+.home_title {
+  margin-bottom: 10px ;
+}
 </style>
