@@ -159,7 +159,7 @@ import CalendarDetail from './CalendarDetail.vue'
         for (let i = 0; i < this.contest.length; i++){
           events.push({
 
-            name: this.contest[i].title,
+            name: '(시)'+ this.contest[i].title,
             start: this.contest[i].startDate,
             end: this.contest[i].startDate,
             details : this.contest[i].content,
@@ -169,7 +169,7 @@ import CalendarDetail from './CalendarDetail.vue'
             color: 'black',
           })
           events.push({
-            name: this.contest[i].title,
+            name: '(끝)'+ this.contest[i].title,
             start: this.contest[i].endDate,
             end: this.contest[i].endDate,
             details : this.contest[i].content,

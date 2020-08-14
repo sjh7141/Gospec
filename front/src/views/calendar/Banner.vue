@@ -3,10 +3,14 @@
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://www.wevity.com/upload/banner/20200713080142_72c56c20.jpg" class="d-block w-100" alt="...">
+      <a href="https://www.ibs.re.kr/cop/bbs/BBSMSTR_000000000736/selectBoardArticle.do?nttId=18928">
+            <img src="https://www.wevity.com/upload/banner/20200805102917_6b737529.jpg" class="d-block w-100" alt="...">
+      </a>
     </div>
     <div class="carousel-item">
-      <img src="https://www.wevity.com/upload/banner/20200615114729_5586529d.jpg" class="d-block w-100" alt="...">
+      <a href="http://kawc.or.kr/page/bbs/board.php?bo_table=notice&wr_id=247">
+      <img src="https://www.wevity.com/upload/banner/20200805102959_aacbb439.jpg" class="d-block w-100" alt="...">
+      </a>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
