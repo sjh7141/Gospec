@@ -17,7 +17,8 @@
                 class="collapse navbar-collapse d-flex justify-content-between align-items-center"
                 id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="navbar-brand nav-item nav-link" href="/">GoSpec</a>
+                    <a v-if='!isLoggedIn' class="navbar-brand nav-item nav-link" href="/">GoSpec</a>
+                    <a v-else class="navbar-brand nav-item nav-link" href="/home">GoSpec</a>
                     <a class="nav-item nav-link" href="/home">HOME</a>
                     <a class="nav-item nav-link" href="/schedule">전체일정</a>
                     <a class="nav-item nav-link" href="/contest">공모전</a>

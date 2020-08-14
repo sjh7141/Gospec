@@ -11,11 +11,11 @@
                     <div class="col-md-6 mx-auto">
                         <div class="item row align-items-center">
                             <div class='col-4'>
-                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
+                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/현수1.jpg" alt="">
                                 <p class='mb-0 mt-3' style='font-size: 18px;'>김현수</p>
                                 <p class='' style='color: gray'>Kim Hyun soo</p>
                                 <div class='under-border mx-auto'></div>
-                                <p class='role'>Web-Designer</p>
+                                <p class='role'>Back-end Developer</p>
                             </div>
                             <div class='col-8'>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
@@ -26,25 +26,25 @@
                     <div class="col-md-6">
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
-                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
+                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/호연.jpg" alt="">
                                 <p class='mb-0 mt-3' style='font-size: 18px;'>김호연</p>
                                 <p class='' style='color: gray'>Kim Ho Yeon</p>
                                 <div class='under-border mx-auto'></div>
-                                <p class='role'>Web-Designer</p>
+                                <p class='role'>Front-end Developer</p>
                             </div>
                             <div class='col-8'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
+                                <p>세상의 소리에 귀기울이는 개발자 김호연입니다. 사람들이 원하고 필요로 하는 서비스에 귀기울임과 동시에 팀원들의 개발 효율성을 위해 귀기울이는 것이 저의 개발자로서의 비전입니다.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
-                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
+                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/동규.jpg" alt="">
                                 <p class='mb-0 mt-3' style='font-size: 18px;'>남동규</p>
                                 <p class='' style='color: gray'>Nam Dong Gyu</p>
                                 <div class='under-border mx-auto'></div>
-                                <p class='role'>Web-Designer</p>
+                                <p class='role'>Front-end Developer</p>
                             </div>
                             <div class='col-8'>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
@@ -54,11 +54,11 @@
                     <div class="col-md-6">
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
-                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
+                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/지훈.jpg" alt="">
                                 <p class='mb-0 mt-3' style='font-size: 18px;'>서지훈</p>
                                 <p class='' style='color: gray'>Seo Ji Hoon</p>
                                 <div class='under-border mx-auto'></div>
-                                <p class='role'>Web-Designer</p>
+                                <p class='role'>Back-end Developer</p>
                             </div>
                             <div class='col-8'>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
@@ -68,11 +68,11 @@
                     <div class="col-md-6">
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
-                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
+                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/명주.jpg" alt="">
                                 <p class='mb-0 mt-3' style='font-size: 18px;'>정명주</p>
                                 <p class='' style='color: gray'>Jung Myung Ju</p>
                                 <div class='under-border mx-auto'></div>
-                                <p class='role'>Web-Designer</p>
+                                <p class='role'>Front-end Developer</p>
                             </div>
                             <div class='col-8'>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>

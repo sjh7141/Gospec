@@ -7,7 +7,7 @@
       <v-card color='grey lighten-3'>
       <v-card-title class='d-flex justify-content-between'>
         <div>{{ modalTitle }}</div>
-        <div>{{ myInterest }}</div>
+
         <i type='button' class="fas fa-times"
         @click="show = false" style='font-size:20px'></i>
       </v-card-title>
