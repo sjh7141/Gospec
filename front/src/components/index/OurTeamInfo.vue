@@ -40,7 +40,7 @@
                     <div class="col-md-6">
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
-                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
+                                <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/동규.jpg" alt="">
                                 <p class='mb-0 mt-3' style='font-size: 18px;'>남동규</p>
                                 <p class='' style='color: gray'>Nam Dong Gyu</p>
                                 <div class='under-border mx-auto'></div>
