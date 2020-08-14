@@ -28,7 +28,7 @@
             <!-- <v-btn @click='login' x-large="x-large" color='' class='mx-4'>LOGIN</v-btn> -->
             <Modal :myInterest= 'myInterest' :checkParent='checkParent' :modalState='modalState' :modalTitle='modalTitle' :modalSize='modalSize' :check='check' @closeModal='closeModal' />
             <div class="my-2">
-                <v-btn @click='homepage' color='white' text>GUEST로 입장하기</v-btn>
+                <v-btn @click='homepage' color='white' text style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">GUEST로 입장하기</v-btn>
             </div>
         </div>
     </div>
