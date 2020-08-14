@@ -1,8 +1,9 @@
 <template>
   <div>
     <ProfileImage :userData='userData'/>
-      <div v-if="!isInfoChanged">
-        <h6>개인정보 수정을 위해 비밀번호를 작성해주세요.</h6>
+      <div v-if="!isInfoChanged" class='password-check'>
+        <h6>고객님의 안전한 정보보호를 위하여 비밀번호를 다시 한 번 확인합니다.</h6>
+          <h6 style='margin-bottom: 40px;'> 비밀번호가 타인에게 노출되지 않도록 주의하여 주세요.</h6>
           <v-text-field
           v-model="password"
           @keypress.enter="passwordCheck"
@@ -10,11 +11,11 @@
           solo
           label="비밀번호를 입력해주세요."
           clearable
-          class='mx-auto mt-4'
-          style='width:50%'
+          class='mx-auto'
+          style='width:50%; text-align:center;'
         ></v-text-field>
-        <p v-if='!checkPassword' style='color: red;'>{{ errorMessage }}</p>
-        <button class='btn btn-primary' @click="passwordCheck">확인</button>
+        <p v-if='!checkPassword' style='color: red; margin: 0;'>{{ errorMessage }}</p>
+        <button class='btn btn-primary' style='margin-top: 10px;' @click="passwordCheck">확인</button>
       </div>
       <div v-else>
         <UserInfoList />
@@ -100,4 +101,10 @@ export default {
 </script>
 
 <style scoped>
+.password-check {
+  background-color: #f8f8f8;
+  padding: 4rem;
+  padding-bottom: 2rem;
+  
+}
 </style>

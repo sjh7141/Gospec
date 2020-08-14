@@ -12,8 +12,8 @@
                         <div class="item row align-items-center">
                             <div class='col-4'>
                                 <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
-                                <p class='mb-0 mt-3' style='font-size: 18px;'>남동규</p>
-                                <p class='' style='color: gray'>Nam Dong Gyu</p>
+                                <p class='mb-0 mt-3' style='font-size: 18px;'>김현수</p>
+                                <p class='' style='color: gray'>Kim Hyun soo</p>
                                 <div class='under-border mx-auto'></div>
                                 <p class='role'>Web-Designer</p>
                             </div>
@@ -27,8 +27,8 @@
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
                                 <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
-                                <p class='mb-0 mt-3' style='font-size: 18px;'>남동규</p>
-                                <p class='' style='color: gray'>Nam Dong Gyu</p>
+                                <p class='mb-0 mt-3' style='font-size: 18px;'>김호연</p>
+                                <p class='' style='color: gray'>Kim Ho Yeon</p>
                                 <div class='under-border mx-auto'></div>
                                 <p class='role'>Web-Designer</p>
                             </div>
@@ -55,8 +55,8 @@
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
                                 <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
-                                <p class='mb-0 mt-3' style='font-size: 18px;'>남동규</p>
-                                <p class='' style='color: gray'>Nam Dong Gyu</p>
+                                <p class='mb-0 mt-3' style='font-size: 18px;'>서지훈</p>
+                                <p class='' style='color: gray'>Seo Ji Hoon</p>
                                 <div class='under-border mx-auto'></div>
                                 <p class='role'>Web-Designer</p>
                             </div>
@@ -69,8 +69,8 @@
                         <div class="item d-flex row align-items-center">
                             <div class='col-4'>
                                 <img class='nino-avatar fsr img-circle' src="../../assets/images/ourteam/img-1.jpg" alt="">
-                                <p class='mb-0 mt-3' style='font-size: 18px;'>남동규</p>
-                                <p class='' style='color: gray'>Nam Dong Gyu</p>
+                                <p class='mb-0 mt-3' style='font-size: 18px;'>정명주</p>
+                                <p class='' style='color: gray'>Jung Myung Ju</p>
                                 <div class='under-border mx-auto'></div>
                                 <p class='role'>Web-Designer</p>
                             </div>
@@ -117,7 +117,6 @@ section {
 }
 .nino-sectionHeading .nino-subHeading {
 	display: block;
-	text-transform: none;
 	font-weight: 400;
 	font-family: 'Kaushan Script', cursive;
 	font-size: 20px;

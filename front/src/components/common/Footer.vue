@@ -29,43 +29,42 @@
                     <div class="col-md-4">
                         <div class="colInfo">
                             <div class="footerLogo">
-                                <a href="#">GoSpec</a>
+                                GoSpec
                             </div>
+                            <h5 class='mt-3 mb-4'>스펙쌓기 필수 사이트 고스펙!</h5>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                
+                                고스펙은 취업, 자기 개발을 위해 공모전에 참가를 원하는 사용자를 위해 맞춤 팀 매칭을 지원하는 웹 사이트로
+                                , 최신 공모전, 인기 공모전 정보들을 다양한 카테고리를 통해 확인할 수 있습니다.
                             </p>
-                            <div class="nino-followUs">
-                                <div class="totalFollow">
-                                    <span>15k</span>
-                                    followers</div>
+                            
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="colInfo">
+                                <h3 class="nino-colHeading footerLogo">SITE MAP</h3>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="colInfo">
+                                <h3 class="nino-colHeading footerLogo">SHARE</h3>
+                                <div class="nino-followUs">
                                 <div class="socialNetwork">
-                                    <span class="text">Follow Us:
-                                    </span>
-                                    <a href="" class="nino-icon">
+                                    <a @click="openFacebook()" class="nino-icon">
                                         <i class="mdi mdi-facebook"></i>
                                     </a>
-                                    <a href="" class="nino-icon">
+                                    <a @click="opentwitter()" class="nino-icon">
                                         <i class="mdi mdi-twitter"></i>
                                     </a>
-                                    <a href="" class="nino-icon">
+                                    <a @click="openinstagram()" class="nino-icon">
                                         <i class="mdi mdi-instagram"></i>
                                     </a>
-                                    <a href="" class="nino-icon">
+                                    <a @click="openpinterest()" class="nino-icon">
                                         <i class="mdi mdi-pinterest"></i>
                                     </a>
-                                    <a href="" class="nino-icon">
+                                    <a @click="opengoogle()" class="nino-icon">
                                         <i class="mdi mdi-google-plus"></i>
-                                    </a>
-                                    <a href="" class="nino-icon">
-                                        <i class="mdi mdi-youtube-play"></i>
-                                    </a>
-                                    <a href="" class="nino-icon">
-                                        <i class="mdi mdi-dribbble"></i>
-                                    </a>
-                                    <a href="" class="nino-icon">
-                                        <i class="mdi mdi-tumblr"></i>
                                     </a>
                                 </div>
                             </div>
@@ -83,91 +82,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="colInfo">
-                                <h3 class="nino-colHeading">Blogs</h3>
-                                <ul class="listArticles">
-                                    <li layout="row" class="verticalCenter">
-                                        <a class="articleThumb fsr" href="#">
-                                            <img src="images/our-blog/img-4.jpg" alt=""></a>
-                                            <div class="info">
-                                                <h3 class="articleTitle">
-                                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing</a>
-                                                </h3>
-                                                <div class="date">Jan 9, 2016</div>
-                                            </div>
-                                        </li>
-                                        <li layout="row" class="verticalCenter">
-                                            <a class="articleThumb fsr" href="#">
-                                                <img src="images/our-blog/img-5.jpg" alt=""></a>
-                                                <div class="info">
-                                                    <h3 class="articleTitle">
-                                                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing</a>
-                                                    </h3>
-                                                    <div class="date">Jan 9, 2016</div>
-                                                </div>
-                                            </li>
-                                            <li layout="row" class="verticalCenter">
-                                                <a class="articleThumb fsr" href="#">
-                                                    <img src="images/our-blog/img-6.jpg" alt=""></a>
-                                                    <div class="info">
-                                                        <h3 class="articleTitle">
-                                                            <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing</a>
-                                                        </h3>
-                                                        <div class="date">Jan 9, 2016</div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="colInfo">
-                                            <h3 class="nino-colHeading">instagram</h3>
-                                            <div class="instagramImages clearfix">
-                                                <a href="#">
-                                                    <img src="images/instagram/img-1.jpg" alt=""></a>
-                                                    <a href="#">
-                                                        <img src="images/instagram/img-2.jpg" alt=""></a>
-                                                        <a href="#">
-                                                            <img src="images/instagram/img-3.jpg" alt=""></a>
-                                                            <a href="#">
-                                                                <img src="images/instagram/img-4.jpg" alt=""></a>
-                                                                <a href="#">
-                                                                    <img src="images/instagram/img-5.jpg" alt=""></a>
-                                                                    <a href="#">
-                                                                        <img src="images/instagram/img-6.jpg" alt=""></a>
-                                                                        <a href="#">
-                                                                            <img src="images/instagram/img-7.jpg" alt=""></a>
-                                                                            <a href="#">
-                                                                                <img src="images/instagram/img-8.jpg" alt=""></a>
-                                                                                <a href="#">
-                                                                                    <img src="images/instagram/img-9.jpg" alt=""></a>
-                                                                                    <a href="#">
-                                                                                        <img src="images/instagram/img-3.jpg" alt=""></a>
-                                                                                        <a href="#">
-                                                                                            <img src="images/instagram/img-4.jpg" alt=""></a>
-                                                                                            <a href="#">
-                                                                                                <img src="images/instagram/img-5.jpg" alt=""></a>
-                                                                                            </div>
-                                                                                            <a href="#" class="morePhoto">View more photos</a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="nino-copyright">Copyright &copy; 2020
-                                                                                    <a
-                                                                                        target="_blank"
-                                                                                        href="#"
-                                                                                        title="Ninodezign.com - Top quality open source resources for web developer and web designer">Gospec.com</a>
-                                                                                        . All Rights Reserved.
-                                                                                    <br/>
-                                                                                    GoSpec template by
-                                                                                    <a href="#">깜냥</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </footer>
-                                                                        <!--/#footer-->
+                    </div>
+                </div>
+            </footer>
+                        <!--/#footer-->
 
-                                                                    </div>
+                    </div>
 </template>
 
 <script > 
@@ -186,7 +106,12 @@
                 document.querySelector('#nino-map').classList.remove('showMap')
             }
             this.show = !this.show
-        }
+        },
+        openFacebook() {window.open('http://facebook.com')},
+        opentwitter() {window.open('http://twitter.com')},
+        openinstagram() {window.open('http://instagram.com')},
+        openpinterest() {window.open('http://pinterest.com')},
+        opengoogle() {window.open('http://google.com')},
     }
 
 }
@@ -243,7 +168,7 @@ footer .colInfo {
     margin-bottom: 30px;
 }
 /* ----------- COL 1 ----------- */
-footer .footerLogo a {
+footer .footerLogo {
     color: #ccc;
     font-size: 40px;
     font-family: 'Montserrat', sans-serif;
@@ -276,7 +201,7 @@ footer .nino-followUs .socialNetwork .text {
 footer .nino-followUs .socialNetwork .nino-icon {
     display: inline-block;
     margin: 0 3px;
-    font-size: 18px;
+    font-size: 40px;
     color: #95e1d3;
 }
 footer .nino-subscribeForm .input-group .btn,
@@ -290,43 +215,11 @@ footer .nino-subscribeForm .input-group input {
     font-size: 15px;
 }
 footer .nino-subscribeForm .input-group .btn {
-    text-transform: uppercase;
     font-weight: 700;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     background: #95e1d3;
     border: none;
-}
-/* ----------- COL 2 ----------- */
-footer .listArticles > li {
-    margin-bottom: 20px;
-}
-footer .listArticles > li:last-child {
-    margin-bottom: 0;
-}
-footer .listArticles .articleThumb {
-    width: 120px;
-    margin-right: 15px;
-}
-footer .listArticles .articleTitle {
-    font-size: 12px;
-    margin: 0 0 5px;
-    line-height: 1.4;
-}
-footer .listArticles .date {
-    font-style: italic;
-}
-/* ----------- COL 3 ----------- */
-footer .instagramImages a {
-    float: left;
-    width: 82px;
-    margin: 1px;
-}
-footer .morePhoto {
-    color: #999;
-    font-style: italic;
-    margin-top: 10px;
-    display: inline-block;
 }
 /* ----------- COPYRIGHT ----------- */
 footer .nino-copyright {
