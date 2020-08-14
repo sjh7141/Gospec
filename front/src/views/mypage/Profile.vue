@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='profile'>
         <v-card class='row' style='padding: 50px;' color='grey lighten-4'>
             <div class='col-12 text-right'>
                 <button @click='clickEditBtn' class='btn btn-primary'>
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class='col-3'>
-                <h3 class='my-4'>
+                <h3 style='margin-top:40px; margin-bottom:20px;'>
                     <i class="fas fa-square mr-1" style='color: red; font-size:15px;'></i>Profile</h3>
                 <v-avatar class='mx-auto' size='200'>
                     <v-img v-if="profileImg" :src="profileImg"></v-img>
@@ -17,9 +17,10 @@
                         v-else
                         src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
                 </v-avatar>
-                <p style='margin-bottom: 50px; margin-top: 50px;'>{{ name }}
-                    |
-                    {{ nickname }}</p>
+                <div style='margin-bottom: 50px; margin-top: 30px;'>
+                    <p class='mb-1' style='font-size: 1.2rem; font-weight: 700;'>{{ name }}</p>
+                    <p>{{ nickname }}</p>
+                </div>
                 <i class="fas fa-phone-square-alt"></i>
                 {{ phone }}
                 <br>
@@ -36,52 +37,77 @@
                         <div style='min-height: 250px;'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 23px;'></i>경력사항</h5>
-                            <div v-for='career in careerList' :key='career.id' class='d-flex row' style='margin-left: 1px;'>
-                                <p class='m-0' style='color: gray; width:50px;'>{{ career.startYear }}</p>
-                                <p class='m-0' style='width: 180px;'>{{ career.careername }}</p>
-                                <p class='m-0' style='color: #78909C;'>{{ career.status }}</p>
+                            <div v-if='careerList[0]'>
+                                <div v-for='career in careerList' :key='career.id' class='d-flex row' style='margin-left: 1px;'>
+                                    <p class='m-0' style='color: gray; width:50px;'>{{ career.startYear }}</p>
+                                    <p class='m-0' style='width: 180px;'>{{ career.careername }}</p>
+                                    <p class='m-0' style='color: #78909C;'>{{ career.status }}</p>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <p class='none-info'> * 경력사항을 등록해주세요.</p>
                             </div>
                         </div>
                         <div>
-                            <h5>
-                                <i
-                                    class="fas fa-square mr-1"
-                                    style='color: red; font-size:10px; margin-bottom:18px;'></i>자기소개</h5>
-                            {{ selfIntroduction }}
+                            <div v-if='selfIntroduction'>
+                                <h5>
+                                    <i
+                                        class="fas fa-square mr-1"
+                                        style='color: red; font-size:10px; margin-bottom:18px;'></i>자기소개</h5>
+                                {{ selfIntroduction }}
+                            </div>
+                            <div v-else>
+                                <p class='none-info'> * 자기소개를 입력해주세요.</p>
+                            </div>
                         </div>
                     </div>
                     <div class='col-6 pb-0'>
                         <div style='min-height: 180px'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>수상내역 / 자격증</h5>
-                            <div v-for='license in licenseList' :key='license.id'>{{ license }}</div>
+                            <div v-if='licenseList[0]'>
+                                <div v-for='license in licenseList' :key='license.id'>{{ license }}</div>
+                            </div>
+                            <div v-else>
+                                <p class='none-info'> * 수상내역 및 자격증을 등록해주세요.</p>
+                            </div>
                         </div>
                         
                         <div style='min-height: 160px'>
 
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>활동 지역</h5>
-                            <v-chip
-                                :ripple="false"
-                                class='mr-2'
-                                v-for='region in activeRegionList'
-                                :key='region.id'>{{ region }}</v-chip>
+                            <div v-if='activeRegionList[0]'>
+                                <v-chip
+                                    :ripple="false"
+                                    class='mr-2'
+                                    v-for='region in activeRegionList'
+                                    :key='region.id'>{{ region }}</v-chip>
+                            </div>
+                            <div v-else>
+                                <p class='none-info'> * 활동 지역을 등록해주세요.</p>
+                            </div>
                         </div>
 
                         <div style='min-height: 140px;'>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
-                            <div style='margin-top: 30px'>
-                                <v-tooltip bottom="bottom" v-for='icon in interestIcon' :key='icon.id'>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <i
-                                                :class='icon[0]'
-                                                v-bind="attrs"
-                                                v-on="on"
-                                                style="color: gray"></i>
-                                        </template>
-                                        <span>{{icon[1]}}</span>
-                                </v-tooltip>
+                            <div v-if='interestIcon[0]'>
+                                <div style='margin-top: 30px'>
+                                    <v-tooltip bottom="bottom" v-for='icon in interestIcon' :key='icon.id'>
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <i
+                                                    :class='icon[0]'
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                    style="color: gray"></i>
+                                            </template>
+                                            <span>{{icon[1]}}</span>
+                                    </v-tooltip>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <p class='none-info'> * 관심사를 등록해주세요.</p>
                             </div>
                         </div>
                     </div>
@@ -180,6 +206,7 @@
                                     <v-chip v-for='interest in interests' :key='interest.id' filter outlined>{{ interest }}</v-chip>
                                 </v-chip-group>
                                 </v-card-text>
+                                <button @click='check'>check</button>
                         </div>
 
                     </div>
@@ -265,6 +292,11 @@
             clickEditBtn() {
                 this.editBtn = !this.editBtn
                 if (!this.editBtn) {
+                    this.interestFieldList = []
+                    
+                    for(let i=0; i<this.amenities.length; i++) {
+                        this.interestFieldList.push(this.interestsData.indexOf(this.amenities[i]))
+                    }
                     this.updateProfileData()
                 }
                 else {
@@ -331,6 +363,9 @@
                     .catch(err => {
                         console.log(err.response.data)
                     })
+                },
+                check() {
+                    console.log(this.amenities)
                 }
         },
         mounted() {
@@ -371,5 +406,9 @@
     }
     .hide {
         display: none;
+    }
+    .none-info {
+        font-size: 0.8rem;
+        color: gray;
     }
 </style>

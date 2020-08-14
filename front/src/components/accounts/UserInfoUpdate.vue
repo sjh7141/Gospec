@@ -12,7 +12,7 @@
             </v-avatar>
           </div>
           <div class="col-9 text-left">
-            <h4>{{ username }}</h4>
+            <h4 style='margin-top: 20px; margin-bottom: 0; margin-left: 20px;'>{{ username }}</h4>
             <ProfileImgChange @submit-image-data='inputImg' :profileImg="profileImg" />
           </div>
         </div>

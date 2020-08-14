@@ -345,3 +345,16 @@ export default {
   }
 }
 </script>
+<style scoped>
+label {
+  margin-top: 7px;
+  font-size: 1rem;
+  color:#263238;
+  display: flex;
+  justify-content: left;
+}
+.btn-primary {
+    background-color: #0277BD;
+    border-color: #0277BD;
+}
+</style>

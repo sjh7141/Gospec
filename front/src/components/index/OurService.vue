@@ -5,8 +5,7 @@
         <section id="nino-services">
             <div class="container">
                 <h2 class="nino-sectionHeading">
-                    <span class="nino-subHeading">We work with</span>
-                    Amazing Services
+                    Services
                 </h2>
                 <div class="sectionContent">
                     <div class="fw row">
@@ -86,6 +85,28 @@
 <style scoped>
 
 /* =============== SECTION SERVICES =============== */
+.nino-sectionHeading {
+    font-family: 'NanumSquare';
+	font-weight: 1000;
+	font-size: 25px;
+	line-height: 1;
+	position: relative;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+    margin-top: 40px;
+	text-align: center;
+	color: #333;
+}
+.nino-sectionHeading:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 50px;
+	height: 2px;
+	background: #f38181;
+	transform: translateX(-50%);
+}
 #nino-services .nino-icon {
 	font-size: 30px;
 	margin-right: auto;
