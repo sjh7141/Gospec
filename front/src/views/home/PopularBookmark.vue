@@ -9,6 +9,8 @@
       
       max-width="300"
     >
+  
+      <router-link :to="{ path: '/contest/' + each.contestNo}">
       <v-img
         :aspect-ratio="16/9"
         class="white--text align-end"
@@ -25,6 +27,9 @@
           </div>
         </v-expand-transition>
       </v-img>
+      </router-link>
+
+
       <div class="ddayhome"><dday :data='each'/></div>
       <v-card-text class="text--primary">
         {{each.totalReward}} 

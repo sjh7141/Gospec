@@ -172,7 +172,7 @@ import CalendarDetail from './CalendarDetail.vue'
         const events = []
         for (let i = 0; i < this.myContest.length; i++){
           events.push({
-            name: this.myContest[i].title,
+            name: '(시)' + this.myContest[i].title,
             start: this.myContest[i].startDate,
             end: this.myContest[i].startDate,
             details : this.myContest[i].content,
@@ -183,7 +183,7 @@ import CalendarDetail from './CalendarDetail.vue'
           })
           
           events.push({
-            name: this.myContest[i].title,
+            name: '(끝)'+this.myContest[i].title,
             start: this.myContest[i].endDate,
             end: this.myContest[i].endDate,
             details : this.myContest[i].content,
