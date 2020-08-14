@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-4 col-sm-6 item ">
                             <div layout="row">
-                                <i class="mdi mdi-bookmark-plus-outline nino-icon fsr"></i>
+                                <i class="fas fa-american-sign-language-interpreting nino-icon fsr"></i>
                                 <div>
                                     <h4 class="nino-serviceTitle">공모전 팀매칭</h4>
                                     <p>GoSpec의 k-means clustering 알고리즘으로 Gospec 회원별로 공모전 팀원/ 팀을 매칭해줍니다.
