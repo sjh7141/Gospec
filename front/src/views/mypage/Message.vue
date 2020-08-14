@@ -206,7 +206,7 @@ import { mapGetters } from 'vuex'
 import axios from 'axios'
 import DetailMessage from '@/components/message/ReadMessage.vue';
 
- const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
+const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
 export default {
     components: {
       DetailMessage,
@@ -423,10 +423,10 @@ button, .dot {
 
 #box {
   position: absolute;
-  width: 400px;
-  height: 400px;
-  left: 31%;
-  top: 50px;
+  width: 350px;
+  height: 300px;
+  left: 32%;
+  top: 80px;
   perspective: 40px;
   z-index: 0;
 }
