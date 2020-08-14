@@ -2,6 +2,7 @@
 <div>
     <div class='container'>
         <!-- <p style='font-size: 5em;'>GoSpec</p> -->
+        <div style="font-size: 20px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">관심사를 클릭해주세요</div>
         <v-card-text class='p-0' style='margin-top: 40px; margin-bottom: 40px'>
             <v-chip-group v-model="amenities" column="column" multiple="multiple"
           active-class="indigo darken-3 white--text" >
