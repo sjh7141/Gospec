@@ -1,20 +1,15 @@
 <template>
 <div class="flex_container">
     <div>
-        <!-- <hr style="margin: 20px;"> -->
         <h4 class="smallTitle">이 공모전에 관심있는 회원</h4>
-        <div class='mx-auto' style='margin-top: 80px'>
-            <applicant-each v-for="(each, idx) in bookmarkedList.filter( (x, idx) => idx < bookmarkItemCount)" :key="idx" :data="each"/>
-        </div>
+        <applicant-each v-for="(each, idx) in bookmarkedList.filter( (x, idx) => idx < bookmarkItemCount)" :key="idx" :data="each"/>
         <button @click="loadBookmarkedPage" v-show="!isLastPage">더보기</button>
     </div>
 
     <div>
         <h4 class="smallTitle">관심사가 비슷한 회원 추천</h4>
         <div class="loginInfo" v-show="!isLoggedIn">로그인이 필요한 서비스입니다.</div>
-        <div class='mx-auto' style='margin-top: 80px'>
-            <applicant-each v-for="(each, idx) in recomList" :key="idx" :data="each"/>
-        </div>
+        <applicant-each v-for="(each, idx) in recomList" :key="idx" :data="each"/>
     </div>
 </div>
 </template>
@@ -64,8 +59,8 @@ export default {
     },
     computed: {
         isLoggedIn() { return this.$cookies.isKey('auth-token'); },
-        isLastPage() { return this.bookmarkItemCount >= this.bookmarkedList.length },
         bookmarkItemCount() { return this.page * 5 },
+        isLastPage() { return this.bookmarkItemCount >= this.bookmarkedList.length },
     },
 }
 </script>
