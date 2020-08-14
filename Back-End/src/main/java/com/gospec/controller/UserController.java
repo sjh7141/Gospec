@@ -69,7 +69,7 @@ public class UserController {
 		boolean check = userService.save(user);
 		
 		List<String> fields = (List<String>) param.get("fields");
-		if(fields.size() > 0) {
+		if(fields != null && fields.size() > 0) {
 			List<InterestFieldDto> interestList = new ArrayList<InterestFieldDto>();
 			for(String field : fields) {
 				interestList.add(new InterestFieldDto(field,user.getUsername()));
