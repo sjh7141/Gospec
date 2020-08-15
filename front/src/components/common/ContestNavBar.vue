@@ -13,6 +13,9 @@ export default {
             this.$router.push(`/contest/${this.$route.params.contest_id}/${param}`)
         },
         isSelected(param) {
+            if (param == '') {
+                return this.l == 3 || this.c_path == param;
+            }
             return this.c_path == param;
         },
     },

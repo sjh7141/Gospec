@@ -29,10 +29,8 @@
     <router-view :content='this.info.content'></router-view>
 
     <hr>
-    <button>공모전 목록</button>
-    <ul style='list-style:none;'>
-      <li><router-link to='/contest'>공모전 목록</router-link></li>
-    </ul>
+    <button class="listBackBtn" @click="$router.push('/contest')">공모전 목록</button>
+    <div style="min-height: 100px;"/>
   </div>
 </template>
 
@@ -125,5 +123,16 @@ export default {
   padding: 2px 6px;
   color: darkblue;
   margin-right: 5px;
+}
+
+.listBackBtn {
+  border-radius: 10px;
+  background-color: #41B883;
+  padding: 7px;
+  color: white;
+}
+
+.listBackBtn:hover {
+  background-color: #48A77C;
 }
 </style>
