@@ -50,7 +50,7 @@
           <v-calendar
             ref="calendar"
             v-model="focus"
-            color="primary"
+            color="error"
             :events="events"
             :event-color="getEventColor"
             :type="type"
@@ -58,6 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
+            interval-height= '0'
             style ="z-index: 1; min-height: 750px;"
           ></v-calendar>
           <v-dialog 
@@ -146,8 +147,6 @@ import CalendarDetail from './CalendarDetail.vue'
         this.$refs.calendar.next()
       },
       updateRange() {
-        console.log("update부분")
-        console.log(this.contest);
         this.name = ''
         this.start = ''
         this.end = ''
@@ -180,9 +179,7 @@ import CalendarDetail from './CalendarDetail.vue'
           })
     
           this.events = events
-        }
-        console.log(this.events.length)
-        
+        }        
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
@@ -199,8 +196,6 @@ import CalendarDetail from './CalendarDetail.vue'
 	
           })
         .catch(err => console.log(err.response))
-        console.log(event)
-        console.log(this.likestate)
         const open = () => {
           
           this.selectedEvent = event

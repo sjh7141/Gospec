@@ -154,18 +154,17 @@ export default {
     },
 
     totalCalBtn() {
-      console.log(this.field);
       axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/"+this.field)
         .then(response => {
           this.calState = 'total'
           this.contest = response.data
-          console.log(this.contest)
+
 
         })
         .catch(() => { console.log("여기에러남") })
     },
     myCalBtn() {
-      console.log(this.field)
+
       var ca = this.$cookies.get("auth-token")
         if (ca == null) {
           alert('로그인이 필요한 서비스 입니다!')
@@ -179,8 +178,6 @@ export default {
       axios.get('http://i3a202.p.ssafy.io:8181/api/contest/bookmark/field/' + this.field, config)
         .then(res => {
           this.myContest = res.data
-          console.log("이건 새로운버튼")
-          console.log(this.myContest)
           this.calState = 'my'
 	
           })
