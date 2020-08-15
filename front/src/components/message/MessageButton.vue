@@ -74,7 +74,9 @@
         validation(){
           if(this.$cookies.get("auth-token")){
             this.checkusername();
-            this.dialog = true;
+            if(this.username != this.receiver){
+              this.dialog = true;
+            }
           }else{
             this.dialog = false;
             alert('로그인이 필요한 서비스입니다.');
