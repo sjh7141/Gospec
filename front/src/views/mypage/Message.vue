@@ -5,7 +5,7 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-              <v-icon large color="teal darken-2">mdi-email</v-icon>
+              <v-icon large color="error">mdi-email</v-icon>
           </v-list-item-avatar>
         </v-list-item>
 
@@ -49,14 +49,18 @@
     </aside>
     <div id="right">
         <header class="header">
-          <div class="search-box">
+          <!-- <div class="search-box">
             <input placeholder="Search..."><span class="icon glyphicon glyphicon-search"></span>
-          </div>
+          </div> -->
           <h1 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>{{typeString}}</h1>
         </header>
         <div style='text-align: right; margin: 10px 0;'>
-            <v-btn small color="error" @click="deleteMessage" v-if="isTable">삭제</v-btn>
+          <template v-if="isTable">
+            <v-btn small color="primary" @click="moveToMail" v-if="typeMail == 4">복원</v-btn> &nbsp;
+            <v-btn small color="error" @click="deleteMessage" >삭제</v-btn>
+          </template>
         </div>
+        
 
         <div style='text-align: left; margin:5px 0px' v-if="isTable">
           <v-data-table
@@ -72,11 +76,13 @@
                 <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
                             hide-details />
                 </td>
+                <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
                 <td>{{item.sender}}</td>
                 <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>받은 쪽지함이 비었습니다.</td>
@@ -100,7 +106,7 @@
                             hide-details />
                 </td>
                 <td>{{item.receiver}}</td>
-                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td class="contents"><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
@@ -126,11 +132,13 @@
                 <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
                             hide-details />
                 </td>
+                <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
                 <td >{{item.sender}}</td>
                 <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
                 <td >{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>전체 쪽지함이 비었습니다.</td>
@@ -153,11 +161,13 @@
                 <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
                             hide-details />
                 </td>
+                <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
                 <td>{{item.sender}}</td>
                 <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>보관함이 비었습니다.</td>
@@ -180,11 +190,13 @@
                 <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
                             hide-details />
                 </td>
+                <td><td>
                 <td>{{item.sender}}</td>
                 <td>{{item.contents}}</td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>휴지통이 비었습니다.</td>
@@ -205,11 +217,14 @@
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 import DetailMessage from '@/components/message/ReadMessage.vue';
+import LikeState from '@/components/message/MessageLikeState.vue';
 
 const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
+
 export default {
     components: {
       DetailMessage,
+      LikeState,
     },
     data(){
         return{
@@ -227,9 +242,10 @@ export default {
                 { text: '휴지통', icon: 'mdi-trash-can' },
             ],
             header: [
-              {text: '', value:'box'},
-              {text: '보낸사람', value: 'sender', width:'25%',},
-              {text: '내용', value: 'contents', width: '55%'},
+              {text: '', value:'box', width:'5%'},
+              {text: '', value:'star', width:'5%'},
+              {text: '보낸사람', value: 'sender', width:'20%'},
+              {text: '내용', value: 'contents', width: '50%'},
               {text: '보낸시간', value: 'registTime', width: '20%'},
             ],
             headers: [
@@ -256,6 +272,7 @@ export default {
         this.$store.dispatch('getAllMessages');
         this.$store.dispatch('getImportantMessages');
         this.$store.dispatch('getDeleteMessages');
+        console.log(this.importantMessages);
     },
     methods: {
         deleteMessage(){
@@ -317,7 +334,9 @@ export default {
                 Authorization: this.$cookies.get("auth-token")
                 },
             }
-            let data = {no : checkedNo};
+            let data = {no : checkedNo,
+                        state : true,
+            };
             axios.patch(URL+'/trash-can', data ,config)
                 .then(({ data }) => {
                     if(!data){
@@ -325,8 +344,8 @@ export default {
                       alert(msg);
                     }
                     this.checkedNo = [];
-                    if(this.typeMail == 1) this.$store.dispatch('getReceiveMessages');
-                    else if(this.typeMail == 3) this.$store.dispatch('getImportantMessages');
+                    if(this.typeMail == 1 || this.typeMail == 2) this.$store.dispatch('getReceiveMessages');
+                    else if(this.typeMail == 3 || this.typeMail == 2) this.$store.dispatch('getImportantMessages');
                     this.$store.dispatch('getAllMessages');
                     this.$store.dispatch('getDeleteMessages');
                 })
@@ -341,7 +360,7 @@ export default {
             var base64Url = ca.split('.')[1]
             var decodedValue = JSON.parse(window.atob(base64Url))
             this.username = decodedValue.sub
-            this.nickname = decodedValue.nickname;
+            this.nickname = this._utf8_decode(decodedValue.nickname)
           }else{
               alert("로그인이 필요한 서비스입니다.");
               this.$router.push('/home');
@@ -375,7 +394,67 @@ export default {
               this.$store.dispatch('getAllMessages');
             }
           }
+        },
+        
+      _utf8_decode : function (utftext) {
+        var string = "";
+        var i = 0;
+        var c = 0
+        var c2 = 0
+        var c3 = 0
+ 
+        while ( i < utftext.length ) {
+ 
+            c = utftext.charCodeAt(i);
+ 
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            }
+            else if((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i+1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            }
+            else {
+                c2 = utftext.charCodeAt(i+1);
+                c3 = utftext.charCodeAt(i+2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+ 
         }
+ 
+        return string;
+      },
+      moveToMail(){
+        if(window.confirm("선택한 메일들을 복구하시겠습니까?")) {
+          var checkedNo = this.checkedNo;
+              const config = {
+                  headers: {
+                  Authorization: this.$cookies.get("auth-token")
+                  },
+              }
+              let data = {no : checkedNo,
+                          state : false,
+              };
+              axios.patch(URL+'/trash-can', data ,config)
+                  .then(({ data }) => {
+                      if(!data){
+                        let msg = '메일함 이동시 문제가 발생했습니다.';
+                        alert(msg);
+                      }
+                      this.checkedNo = [];
+                      this.$store.dispatch('getReceiveMessages');
+                      this.$store.dispatch('getImportantMessages');
+                      this.$store.dispatch('getAllMessages');
+                      this.$store.dispatch('getDeleteMessages');
+                  })
+                  .catch(() => {
+                      alert('메일함 이동시 에러가 발생했습니다.');
+                  });
+        }
+      },
     },
 }
 </script>
@@ -394,6 +473,13 @@ export default {
 }
 .read a{
   color : black !important;
+}
+.content{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
+  height: 5px;
 }
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
@@ -593,9 +679,7 @@ button, .dot {
   #sidebar{
       float : left;
       width : 20%;
-      background: #1d2127;
       height: 100%;
-      background: #1d2127;
       transition-duration: 0.3s;
   }
   #right{
