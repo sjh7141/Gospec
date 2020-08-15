@@ -19,8 +19,8 @@
         <v-expand-transition>
           <div
             v-if="hover"
-            class="d-flex transition-fast-in-fast-out black v-card--reveal"
-            style="height: 100%; font-size:20px; color:white;"
+            class="d-flex transition-fast-in-fast-out grey darken-4 v-card--reveal"
+            style="height: 100%; font-size:20px; color:white; "
             v-text="each.title"
           >
           </div>

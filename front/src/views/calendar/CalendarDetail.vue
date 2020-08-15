@@ -89,7 +89,6 @@ export default {
       }),
       methods: {
         OnDeleteContest(contestNo) {
-          console.log("열로옴");
         this.$emit('delete-change',contestNo)
 
 
