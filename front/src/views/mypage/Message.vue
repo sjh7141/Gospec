@@ -20,6 +20,7 @@
       <v-list
         nav
         dense
+        :min-height="630" 
       >
         <v-list-item-group v-model="item" color="primary">
           <v-list-item
@@ -56,7 +57,7 @@
         </header>
         <div style='text-align: right; margin: 10px 0;'>
           <template v-if="isTable">
-            <v-btn small color="primary" @click="moveToMail" v-if="typeMail == 4">복원</v-btn> &nbsp;
+            <v-btn small color="primary" @click="moveToMail" v-if="typeMail == 4">복구</v-btn> &nbsp;
             <v-btn small color="error" @click="deleteMessage" >삭제</v-btn>
           </template>
         </div>
@@ -80,12 +81,19 @@
                 <td>{{item.sender}}</td>
                 <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
                 <td>{{item.registTime}}</td>
-              </tr>
+              </tr> 
               <tr v-if="props.items.length==0">
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>받은 쪽지함이 비었습니다.</td>
+                <td></td>
+              </tr>
+              <tr v-for="(value,key) in length()" :key="key">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
               </tr>
             </tbody>
@@ -113,6 +121,13 @@
                 <td></td>
                 <td></td>
                 <td>보낸 쪽지함이 비었습니다.</td>
+                <td></td>
+              </tr>
+              <tr v-for="(value,key) in length()" :key="key">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
               </tr>
             </tbody>
@@ -144,6 +159,13 @@
                 <td>전체 쪽지함이 비었습니다.</td>
                 <td></td>
               </tr>
+             <tr v-for="(value,key) in length()" :key="key">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
             </tbody>
             </template>
           </v-data-table>
@@ -173,6 +195,13 @@
                 <td>보관함이 비었습니다.</td>
                 <td></td>
               </tr>
+              <tr v-for="(value,key) in length()" :key="key">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
             </tbody>
             </template>
           </v-data-table>
@@ -200,6 +229,13 @@
                 <td></td>
                 <td></td>
                 <td>휴지통이 비었습니다.</td>
+                <td></td>
+              </tr>
+              <tr v-for="(value,key) in length()" :key="key">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
               </tr>
             </tbody>
@@ -258,6 +294,21 @@ export default {
             unreadClass : 'unread',
             isTable : true,
             mailNo : 0,
+            length : ()=>{
+              let list = [];
+              let cur = 0;
+              if(this.typeMail==1) cur = this.receiveMessages.length;
+              else if(this.typeMail==2) cur = this.allMessages.length;
+              else if(this.typeMail==3) cur = this.importantMessages.length;
+              else if(this.typeMail==4) cur = this.deleteMessages.length;
+              else cur = this.sendMessages.length;
+              let size = (10-cur>0)?10-cur:0;
+              if(size == 10) size--;
+              for(let i=0; i<size; i++){
+                list.push(i);
+              }
+              return list;
+            },
 
         }
     },
@@ -374,7 +425,6 @@ export default {
             else if(name == '보관함') this.typeMail = 3;
             else if(name == '휴지통') this.typeMail = 4;
             else if(name == '보낸 쪽지함') this.typeMail = 5;
-
         },
         openMessage(no){
           this.isTable = false;
@@ -511,7 +561,7 @@ button, .dot {
   width: 350px;
   height: 300px;
   left: 32%;
-  top: 80px;
+  top: 68px;
   perspective: 40px;
   z-index: 0;
 }
