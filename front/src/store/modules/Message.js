@@ -11,6 +11,7 @@ export default ({
         deleteMessages : [],
         message : {},
         username : '',
+        messageColor : false,
     },
     getters: {
         socket(state){
@@ -40,6 +41,9 @@ export default ({
         username(state){
             return state.username;
         },
+        messageColor(state){
+            return state.messageColor;
+        }
     },
     mutations: {
         setSocket(state, payload){
@@ -68,6 +72,9 @@ export default ({
         },
         setUsername(state, payload){
             state.username = payload;
+        },
+        setMessageColor(state, payload){
+            state.messageColor = payload;
         },
     },
     actions: {
@@ -119,6 +126,6 @@ export default ({
             .then(({data})=>{
                 context.commit('setMessage', data);
             });
-       }
+       },
     },
 })

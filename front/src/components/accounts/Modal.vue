@@ -154,12 +154,12 @@ export default {
           this.$store.socket = new SockJS(API_URL+"/socket");
           this.$store.client = Stomp.over(this.$store.socket);
 
-          this.$store.client.connect({}, frame => {
+          this.$store.client.connect({}, () => {
             this.$store.client.subscribe("/topic/"+this.username, res => {
-              console.log(res.body);
+              let flag = (res.body==0)?false:true;
+              this.$store.commit('setMessageColor', flag);
             })
-            console.log(frame);
-          })
+          })     
         },
         checkusername() {
           var ca = this.$cookies.get("auth-token")

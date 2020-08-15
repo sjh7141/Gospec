@@ -12,6 +12,9 @@
   
 <script>
 import MainHeader from './components/common/Header.vue'
+import Stomp from 'stompjs'
+import SockJS from 'sockjs-client'
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
   components: {
@@ -20,6 +23,23 @@ export default {
   data() {
     return {
       isLoggedIn: '',
+    }
+  },
+  created(){ // 새로고침시 소켓 재연결
+    let ca = this.$cookies.get("auth-token")
+    if(ca != null){
+          let base64Url = ca.split('.')[1]
+          let decodedValue = JSON.parse(window.atob(base64Url))
+          let username = decodedValue.sub
+          this.$store.socket = new SockJS(API_URL+"/socket");
+          this.$store.client = Stomp.over(this.$store.socket);
+          
+          this.$store.client.connect({}, () => {
+            this.$store.client.subscribe("/topic/"+username, res => {
+              let flag = (res.body==0)?false:true;
+              this.$store.commit('setMessageColor', flag);
+            })
+          })        
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-<div v-if ="likeState==true">
+<div v-if ="state==true">
 <v-btn id="dislike" icon color='#FDD835'>
     <v-icon @click='clickDisLike()'>mdi-star</v-icon>
 </v-btn>
@@ -17,13 +17,19 @@ const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
 
 export default {
     props: ['likeState', 'mailNo'],
+    data() {return{
+      state: {type:Boolean,}
+    }},
+    created() {
+      this.state = this.likeState;
+    },
     methods: {
       clickLike() {
-        this.likeState = true;
+        this.state = true;
         this.changeState();
       },
       clickDisLike() {
-        this.likeState = false;
+        this.state = false;
         this.changeState();
       },
       changeState(){
@@ -33,7 +39,7 @@ export default {
               },
             }
             let data = {no : this.mailNo,
-                        state : this.likeState,
+                        state : this.state,
                       };
             axios.patch(URL+'/important-box', data ,config)
                 .then(({ data }) => {
@@ -41,7 +47,6 @@ export default {
                       let msg = '보관함 이동시 문제가 발생했습니다.';
                       alert(msg);
                     }
-                    this.checkedNo = [];
                     this.$store.dispatch('getReceiveMessages');
                     this.$store.dispatch('getImportantMessages');
                     this.$store.dispatch('getAllMessages');

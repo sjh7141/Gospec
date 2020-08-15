@@ -272,7 +272,6 @@ export default {
         this.$store.dispatch('getAllMessages');
         this.$store.dispatch('getImportantMessages');
         this.$store.dispatch('getDeleteMessages');
-        console.log(this.importantMessages);
     },
     methods: {
         deleteMessage(){
