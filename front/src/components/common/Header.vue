@@ -96,7 +96,7 @@
     }
     .navbar_logo {
         margin-left: 10px;
-        font-size: 20px;
+        font-size: 24px;
     }
     .navbar_logo i {
         color: #D32F2F;
@@ -109,7 +109,7 @@
         
     }
     .navbar_menu li {
-        padding: 8px 10px;
+        padding: 10px 12px;
         font-size: 16px;
     }
 

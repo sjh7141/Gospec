@@ -75,7 +75,7 @@
                                 <p class='role'>Front-end Developer</p>
                             </div>
                             <div class='col-8'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
+                                <p>호기심 많은 구글러입니다. <br> Es muss sein!</p>
                             </div>
                         </div>
                     </div>
