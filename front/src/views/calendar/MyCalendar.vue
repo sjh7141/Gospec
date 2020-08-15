@@ -50,7 +50,7 @@
           <v-calendar
             ref="calendar"
             v-model="focus"
-            color="primary"
+            color="error"
             :events="events"
             :event-color="getEventColor"
             :type="type"
@@ -58,6 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
+            interval-height= '0'
             style= "z-index: 1; min-height: 750px;"
           ></v-calendar>
           <v-dialog 
@@ -133,15 +134,12 @@ import CalendarDetail from './CalendarDetail.vue'
     
     methods: {
       deleteRange(contestNo) {
-        console.log("deleteRange")
         let idx = this.events.findIndex(item => item.contestNo === contestNo);
-        console.log("삭제 번째 " + idx);
+
         this.events.splice(idx,2);
         if(this.events.length === 1){
-          console.log("한개남음")
           this.events = [];
         }
-        console.log("deleteRange")
       },
       onDialogChange (dialog) {
         this.dialog = dialog
@@ -211,8 +209,6 @@ import CalendarDetail from './CalendarDetail.vue'
 	
           })
         .catch(err => console.log(err.response))
-        console.log(event)
-        console.log(this.likestate)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event
