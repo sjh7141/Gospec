@@ -75,8 +75,9 @@ public class MessageController {
 	@PatchMapping(value="/api/message/trash-can")
 	public ResponseEntity<Boolean> moveToTrashCan(@RequestBody Map<String, Object> param){
 		List<Integer> noList = (List<Integer>) param.get("no");
+		boolean state = (boolean) param.get("state");
 		for(Integer no : noList) {
-			if(!messageService.updateDelete(no, true)) {
+			if(!messageService.updateDelete(no, state)) {
 				new ResponseEntity<Boolean>(false, HttpStatus.OK);
 			}
 		}
@@ -87,7 +88,8 @@ public class MessageController {
 	@PatchMapping(value="/api/message/important-box")
 	public ResponseEntity<Boolean> moveToImportantBox(@RequestBody Map<String, Object> param){
 		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.updateImportant(no, true), HttpStatus.OK);
+		boolean state = (boolean) param.get("state");
+		return new ResponseEntity<Boolean>(messageService.updateImportant(no, state), HttpStatus.OK);
 	}
 	
 	
