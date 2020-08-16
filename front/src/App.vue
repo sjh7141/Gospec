@@ -32,8 +32,8 @@ export default {
           let decodedValue = JSON.parse(window.atob(base64Url))
           let username = decodedValue.sub
           this.$store.socket = new SockJS(API_URL+"/socket");
-          this.$store.client = Stomp.over(this.$store.socket);
-          
+          this.$store.client = Stomp.over(this.$store.socket)
+          this.$store.dispatch('getIsLogin', true);
           this.$store.client.connect({}, () => {
             this.$store.client.subscribe("/topic/"+username, res => {
               let flag = (res.body==0)?false:true;
