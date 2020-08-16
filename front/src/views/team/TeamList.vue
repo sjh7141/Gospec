@@ -16,6 +16,7 @@
 <script>
 import axios from 'axios'
 import MyTeamEach from '@/components/team/MyTeamEach.vue'
+import { mapGetters } from 'vuex'
 
 const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
 const URL_WRITE = URL_PART + '/isWrite/';
@@ -32,7 +33,7 @@ export default {
     methods: {
         createMove() {
             // 로그인 여부 체크, 로그인 창 뜨게 할 것
-            if (!this.isLoggedIn) {alert('로그인!');return;}
+            if (!this.isLogin) {alert('로그인!');return;}
 
             // 비동기로 서버응답받아서 체크하는 방식
             this.isWritable().then(flag => {
@@ -100,6 +101,8 @@ export default {
                 return '';
             }
         },
+        ...mapGetters(['isLogin']),
+
     },
 }
 </script>

@@ -11,6 +11,8 @@ export default ({
         deleteMessages : [],
         message : {},
         username : '',
+        isLogin : false,
+
         messageColor : false,
     },
     getters: {
@@ -40,6 +42,9 @@ export default ({
         },
         username(state){
             return state.username;
+        },
+        isLogin(state){
+            return state.isLogin;
         },
         messageColor(state){
             return state.messageColor;
@@ -72,6 +77,9 @@ export default ({
         },
         setUsername(state, payload){
             state.username = payload;
+        },
+        setIsLogin(state, payload){
+            state.isLogin = payload;
         },
         setMessageColor(state, payload){
             state.messageColor = payload;
@@ -126,6 +134,9 @@ export default ({
             .then(({data})=>{
                 context.commit('setMessage', data);
             });
+       },
+       getIsLogin(context, payload){
+        context.commit('setIsLogin', payload);
        },
     },
 })

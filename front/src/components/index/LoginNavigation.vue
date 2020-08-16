@@ -100,7 +100,6 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
         var decodedValue = JSON.parse(window.atob(base64Url))
         this.username = decodedValue.sub
         this.nickname = this._utf8_decode(decodedValue.nickname)
-        console.log(decodedValue)
       },
       link(event){
         this.$router.push(event)

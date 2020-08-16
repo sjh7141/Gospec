@@ -253,7 +253,6 @@ export default {
       axios.get(API_URL + '/api/users/email-authentication/' + this.email)
       .then(res => {
         this.certificationNumberConfirm = res.data
-        console.log(res.data)
       })
     },
     certification() {
