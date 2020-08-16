@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>팀 찾기 게시물 등록</h3>
+    <h3 class="smallTitle">팀 찾기 게시물 등록</h3>
     <form class='_form' action="">
       <label for='_title'>제목: </label><br>
       <input class='_input' type="text" name="title" id="_title" v-model='post.title' placeholder="제목을 입력하세요"/><br>
@@ -11,14 +11,17 @@
       <label for="_memberMax">최대인원: </label>
       <input class='_input _numInput' type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
 
-      <button class='_btn' @click.prevent='registPost'>등록</button>
+      <div style="text-align: center;">
+        <button class='_btn' @click.prevent="$router.push('/contest/'+ $route.params.contest_id +'/teams')">팀찾기 목록</button>
+        <button class='_btn' @click.prevent='registPost'>등록</button>
+      </div>
     </form>
-    <br><br>
+    <!-- <br><br>
 
     <router-link :to="{path: '/contest/' + $route.params.contest_id + '/teams'}">
       등록 성공시 팀 목록으로 이동할 링크
     </router-link>
-    할일: 정상등록되는지 확인하고, 잘 등록되었으면 본인 팀찾기 게시물 상세페이지로 이동하기. 근데 그냥 모달로 상세내용만띄우는것도 나쁘지않아보임
+    할일: 정상등록되는지 확인하고, 잘 등록되었으면 본인 팀찾기 게시물 상세페이지로 이동하기. 근데 그냥 모달로 상세내용만띄우는것도 나쁘지않아보임 -->
   </div>
 </template>
 
@@ -84,6 +87,14 @@ export default {
 </script>
 
 <style>
+.smallTitle {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+  width: 60%;
+  margin: auto;
+  margin-top: 40px;
+}
+
 ._form {
   width: 80%;
   margin: 10px auto;
@@ -98,7 +109,7 @@ export default {
   width: 100%;
   border-radius: 30px;
   border: 1px solid #dddddd;
-  padding: 5px;
+  padding: 15px;
   margin: 5px;
 }
 
@@ -109,14 +120,16 @@ export default {
 }
 
 ._btn {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
+  display: inline-block;
+  margin: 5px 15px;
+  min-width: 80px;
+  padding: 7px;
   background-color: lightgray;
   border-radius: 10px;
 }
 
 ._btn:hover {
   background-color: gray;
+  color: white;
 }
 </style>
