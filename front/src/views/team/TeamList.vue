@@ -24,6 +24,7 @@ const URL_WRITE = URL_PART + '/isWrite/';
 export default {
     name: 'teamList',
     components: {MyTeamEach},
+    props: ['endDate'],
     data() { return {
         teamList: [],
         sPage: 0,
@@ -33,7 +34,10 @@ export default {
     methods: {
         createMove() {
             // 로그인 여부 체크, 로그인 창 뜨게 할 것
-            if (!this.isLogin) {alert('로그인!');return;}
+            if (!this.isLogin) {alert('로그인이 필요한 서비스입니다.');return;}
+
+            // 만료되었으면 더 이상 모집글을 작성할 필요가 없다.
+            if ( this.isContestExpired() ) {alert('모집종료된 공모전입니다.'); return;}
 
             // 비동기로 서버응답받아서 체크하는 방식
             this.isWritable().then(flag => {
@@ -76,6 +80,11 @@ export default {
             const config = {headers: {Authorization: this.$cookies.get("auth-token"),}};
             let res = await axios.get(URL_WRITE + this.ctst_id, config) //이러면 응답객체가 들어간다
             return res.data;    //응답객체의 data 안에 true/false가 들어있다
+        },
+        isContestExpired() {
+            let endTime = new Date(this.$props.endDate);
+            let now = new Date();
+            return (now.getTime()/1000/60/60/24) >= (endTime.getTime()/1000/60/60/24 + 1);
         },
     },
     created() {
