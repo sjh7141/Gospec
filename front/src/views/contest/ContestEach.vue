@@ -26,7 +26,7 @@
 
     <contest-nav-bar/>
 
-    <router-view :content='this.info.content'></router-view>
+    <router-view :content='this.info.content' :endDate='this.info.endDate'></router-view>
 
     <hr>
     <button class="listBackBtn" @click="$router.push('/contest')">공모전 목록</button>

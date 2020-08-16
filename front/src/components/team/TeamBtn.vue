@@ -7,6 +7,7 @@
 <script>
 import STAT from '@/constants/TeamStatus.js'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 const URL = 'http://i3a202.p.ssafy.io:8181/api/teams'
 // const URL = 'http://localhost:8181/api/teams'
 
@@ -19,7 +20,7 @@ export default {
             let dto = {
                 approvalFlag: false,
                 leaderUsername: this.$props.team.username,
-                memberUsername: this.userName,
+                memberUsername: this.username,
                 teamId: this.$props.team.teamId,
             };
             const config = {
@@ -81,6 +82,7 @@ export default {
                 return '';
             }
         },
+        ...mapGetters(['username']),
         // isLeader() {
         //     return this.userName == this.$props.team.username;
         // },

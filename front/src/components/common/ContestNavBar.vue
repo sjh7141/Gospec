@@ -20,7 +20,7 @@ export default {
         },
     },
     computed: {
-        c_path() {return this.$route.path.split('/')[this.l - 1]},
+        c_path() {return this.$route.path.split('/')[3]},
         l() {return this.$route.path.split('/').length},
     },
 }

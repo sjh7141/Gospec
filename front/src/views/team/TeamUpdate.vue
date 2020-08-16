@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>팀 찾기 게시물 수정</h3>
+    <h3 class="smallTitle">팀 찾기 게시물 수정</h3>
     <form class='_form' action="">
       <label for='_title'>제목: </label><br>
       <input class='_input' type="text" name="title" id="_title" v-model='post.title'/><br>
@@ -11,7 +11,10 @@
       <label for="_memberMax">최대인원: </label>
       <input class='_input _numInput' type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
 
-      <button class='_btn' @click.prevent='updatePost'>수정</button>
+      <div style="text-align: center;">
+        <button class='_btn' @click.prevent="$router.go(-1)">뒤로</button>
+        <button class='_btn' @click.prevent='updatePost'>수정</button>
+      </div>
     </form>
   </div>
 </template>
@@ -87,6 +90,14 @@ export default {
 </script>
 
 <style>
+.smallTitle {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+  width: 60%;
+  margin: auto;
+  margin-top: 40px;
+}
+
 ._form {
   width: 80%;
   margin: 10px auto;
@@ -112,14 +123,16 @@ export default {
 }
 
 ._btn {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
+  display: inline-block;
+  margin: 5px 15px;
+  min-width: 80px;
+  padding: 7px;
   background-color: lightgray;
   border-radius: 10px;
 }
 
 ._btn:hover {
   background-color: gray;
+  color: white;
 }
 </style>

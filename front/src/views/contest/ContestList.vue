@@ -118,9 +118,9 @@ export default {
 
 .popular {margin: 20px auto;}
 
-.tb-th-1 {width: 50px;}
+.tb-th-1 {width: 55px;}
 .tb-th-2 {min-width: 300px;}
-.tb-th-3 {width: 200px;}
+.tb-th-3 {width: 220px;}
 .tb-th-4 {width: 76px;}
-.tb-th-5 {width: 52px;}
+.tb-th-5 {width: 55px;}
 </style>

@@ -76,6 +76,7 @@ import axios from 'axios'
 import TeamBtn from '@/components/team/TeamBtn.vue'
 import MessageButton from '@/components/message/MessageButton.vue'
 import ProfileModal from '@/components/accounts/ProfileModal.vue'
+import { mapGetters } from 'vuex'
 
 const URL_PART = 'http://i3a202.p.ssafy.io:8181/api/board/teams'
 const URL_TEAM = 'http://i3a202.p.ssafy.io:8181/api/teams'
@@ -91,7 +92,7 @@ export default {
     computed: {
         T() {return this.$props.eachTeam},  //for aliasing $props.eachTeam as T
         getStatus() {
-            if (!this.isLoggedIn) { //로그인 안했으면, 로그인해
+            if (!this.isLogin) { //로그인 안했으면, 로그인해
                 return STAT.GUEST;
 
             } else if (this.isLeader) { //리더면, 신청버튼 비활성화 또는 수정삭제
@@ -113,6 +114,7 @@ export default {
                 }
             }
         },
+        ...mapGetters(['isLogin', 'username']),
         isLoggedIn() {
             return this.$cookies.isKey('auth-token');
         },
@@ -127,16 +129,16 @@ export default {
             }
         },
         isLeader() {
-            return this.userName == this.T.username;
+            return this.username == this.T.username;
         },
         isInApprovalList() {
-            return this.T.approvalList.filter(x => x.memberUsername == this.userName).length !== 0;
+            return this.T.approvalList.filter(x => x.memberUsername == this.username).length !== 0;
         },
         isListAvailable() {
             return (1 + this.T.approvalList.filter(x => x.approvalFlag).length) < this.T.memberMax;
         },
         isMember() {
-            return this.T.approvalList.filter(x => x.memberUsername == this.userName && x.approvalFlag).length > 0;
+            return this.T.approvalList.filter(x => x.memberUsername == this.username && x.approvalFlag).length > 0;
         },
     },
     methods: {
