@@ -35,7 +35,7 @@ import axios from 'axios'
 import Stomp from 'stompjs'
 import SockJS from 'sockjs-client'
 
-const API_URL = 'http://localhost:8181'
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
     props: {

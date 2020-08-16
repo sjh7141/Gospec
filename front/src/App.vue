@@ -27,6 +27,8 @@ export default {
   },
   created(){ // 새로고침시 소켓 재연결
     let ca = this.$cookies.get("auth-token")
+    this.$store.dispatch('getIsLogin', false);
+    this.$store.commit('setMessageColor', false);
     if(ca != null){
           let base64Url = ca.split('.')[1]
           let decodedValue = JSON.parse(window.atob(base64Url))
