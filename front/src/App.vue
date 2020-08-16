@@ -38,6 +38,10 @@ export default {
             this.$store.client.subscribe("/topic/"+username, res => {
               let flag = (res.body==0)?false:true;
               this.$store.commit('setMessageColor', flag);
+              if(flag){
+                  this.$store.dispatch('getReceiveMessages');
+                  this.$store.dispatch('getAllMessages');
+              }
             })
           })        
     }

@@ -134,7 +134,8 @@ export default {
                 this.checkusername();
                 this.connect();
                 this.$store.dispatch('getIsLogin', true);
-        })
+                this.$store.dispatch('getMessageColor', this.username)
+            })
             .catch(err => {
                 console.log(err.response)
                 alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
@@ -160,6 +161,10 @@ export default {
             this.$store.client.subscribe("/topic/"+this.username, res => {
               let flag = (res.body==0)?false:true;
               this.$store.commit('setMessageColor', flag);
+              if(flag){
+                  this.$store.dispatch('getReceiveMessages');
+                  this.$store.dispatch('getAllMessages');
+              }
             })
           })     
         },

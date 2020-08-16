@@ -12,7 +12,6 @@ export default ({
         message : {},
         username : '',
         isLogin : false,
-
         messageColor : false,
     },
     getters: {
@@ -137,6 +136,17 @@ export default ({
        },
        getIsLogin(context, payload){
         context.commit('setIsLogin', payload);
+       },
+       getMessageColor(context, payload){
+        axios
+            .get(URL+'/unreadMessage/'+payload)
+            .then(({data})=>{
+                if(data==0){
+                    context.commit('setMessageColor', false);
+                }else{
+                    context.commit('setMessageColor', true);
+                }
+            });
        },
     },
 })

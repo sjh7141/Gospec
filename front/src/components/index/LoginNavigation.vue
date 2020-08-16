@@ -39,7 +39,7 @@
           >
       
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon :style="checkMessage(item.title)">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -64,6 +64,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
@@ -150,11 +151,20 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
       disconnect() {
         this.$store.socket.close();
       },
+      checkMessage(title){
+        if(title=="쪽지" && this.messageColor){
+          return "color:red;";
+        }
+        else return ''; 
+      }
     },
     mounted() {
       this.checkusername()
       this.getUserInfo()
-    }
+    },
+    computed:{
+        ...mapGetters(['messageColor']),
+    },
     
   }
 </script>
