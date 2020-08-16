@@ -1,30 +1,33 @@
 <template>
-  <div>
-    <prime-classify/>
-    <div class="popular" style="margin-top:20px; margin-bottom:20px; margin-left:50px;"><PopularContest :contest.sync ="topContestList"/></div>    
-    <div style="margin-bottom:20px;"><secondary-classify/></div>
-    <table id='list' class='centered'>
-      <tr>
-        <th>글번호</th>
-        <th>공모전명</th>
-        <th>주최사</th>
-        <th>현재현황</th>
-        <th>조회수</th>
-      </tr>
-      <tr v-for="eachC in contestList" v-bind:key="eachC.contestNo">
-        <td>{{ eachC.contestNo }}</td>
-        <td class='right'>
-          <LikeState2 class='_inlineBlock' :selectedEvent="eachC"/>
-          <router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>{{ eachC.title }}</router-link>
-        </td>
-        <td>{{ maxLengthFilter(eachC.host) }}</td>
-        <td><dday :data='eachC'/></td>
-        <td>{{ eachC.viewCount }}</td>
-      </tr>
-    </table>
-    <pagination/>
-    <!--<router-link to='/contest/write'>새공모전올리기</router-link>-->
-  </div>
+<div>
+  <prime-classify/>
+
+  <div class="popular"><PopularContest :contest.sync ="topContestList"/></div>
+
+  <secondary-classify/>
+
+  <table id='list' class='centered'>
+    <tr>
+      <th class="tb-th-1">글번호</th>
+      <th class="tb-th-2">공모전명</th>
+      <th class="tb-th-3">주최사</th>
+      <th class="tb-th-4">현재현황</th>
+      <th class="tb-th-5">조회수</th>
+    </tr>
+    <tr v-for="eachC in contestList" v-bind:key="eachC.contestNo">
+      <td>{{ eachC.contestNo }}</td>
+      <td class='right'>
+        <LikeState2 class='_inlineBlock' :selectedEvent="eachC"/>
+        <router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>{{ eachC.title }}</router-link>
+      </td>
+      <td>{{ maxLengthFilter(eachC.host) }}</td>
+      <td><dday :data='eachC'/></td>
+      <td>{{ eachC.viewCount }}</td>
+    </tr>
+  </table>
+
+  <pagination/>
+</div>
 </template>
 
 <script>
@@ -88,7 +91,8 @@ export default {
 
 <style scoped>
 #list {
-  min-width: 80%;
+  margin-top: 20px;
+  min-width: 90%;
 }
 
 #list th {
@@ -111,8 +115,12 @@ export default {
 ._inlineBlock {
   display: inline-block;
 }
-.style {
-  max-width: 600px;
-}
 
+.popular {margin: 20px auto;}
+
+.tb-th-1 {width: 50px;}
+.tb-th-2 {min-width: 300px;}
+.tb-th-3 {width: 200px;}
+.tb-th-4 {width: 76px;}
+.tb-th-5 {width: 52px;}
 </style>

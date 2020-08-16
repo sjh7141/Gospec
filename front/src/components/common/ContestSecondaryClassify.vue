@@ -1,5 +1,5 @@
 <template>
-<div class="middle">
+<div class="middle" style="width: 90%;">
 <div class="horizontal">
 <v-card outlined>
 <v-tabs
@@ -52,5 +52,4 @@ export default {
     display: inline-block;
     margin: auto;
 }
-
 </style>>
