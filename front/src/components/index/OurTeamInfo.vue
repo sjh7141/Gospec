@@ -75,7 +75,7 @@
                                 <p class='role'>Front-end Developer</p>
                             </div>
                             <div class='col-8'>
-                                <p>호기심 많은 구글러입니다. <br> Es muss sein!</p>
+                                <p>호기심 많은 프로구글러입니다. <br> Es muss sein!</p>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@
     <div>
         <h4 class="smallTitle">관심사가 비슷한 회원 추천</h4>
         <div class="loginInfo" v-show="!isLogin">로그인이 필요한 서비스입니다.</div>
+        <div class="loginInfo" v-show="isLogin && recomList.length == 0">관심사를 선택해야 합니다.</div>
         <applicant-each v-for="(each, idx) in recomList" :key="idx" :data="each"/>
     </div>
 </div>
