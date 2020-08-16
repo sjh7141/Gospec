@@ -7,14 +7,14 @@
                 <a v-else href="/home">GoSpec</a>
             </div>
             <ul class="navbar_menu">
-                <li>
-                <a href="/home">HOME</a>
+                <li :class="{_selected: isSelected('home')}" @click="$router.push('/home')" type='button'>
+                HOME
                 </li>
-                <li>
-                <a href="/schedule">전체일정</a>
+                <li :class="{_selected: isSelected('schedule')}" @click="$router.push('/schedule')" type='button'>
+                전체일정
                 </li>
-                <li>
-                <a href="/contest">공모전</a>
+                <li :class="{_selected: isSelected('contest')}" @click="$router.push('/contest')" type='button'>
+                공모전
                 </li>
             </ul>
             <div class="navbar_login">
@@ -62,7 +62,10 @@
             logout() {
                 this.isLoggedIn = false
                 this.$router.push('/home')
-            }
+            },
+            isSelected(path) {
+                return this.$route.path.split('/')[1] == path;
+            },
         },
         data: function () {
             return {
@@ -113,17 +116,16 @@
         
     }
     .navbar_menu li {
+        margin: 0 10px;
         padding: 10px 12px;
         font-size: 16px;
+        background-color: transparent;
+        border-radius:4px;
+        color: white;
     }
 
     .navbar_menu li:hover {
         background-color: #D32F2F;
-        border-radius:4px;
-    }
-    .navbar_menu li:active {
-        background-color: #D32F2F;
-        border-radius:4px;
     }
     .navbar_login {
         margin-right: 10px;
@@ -141,6 +143,8 @@
         text-decoration: none;
         color:white;
     }
-    
+    ._selected {
+        background-color: #D32F2F !important;
+    }
 
 </style>>
