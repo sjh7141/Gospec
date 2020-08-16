@@ -317,7 +317,6 @@ export default {
     },
     created(){
         this.checkusername();
-        this.$store.commit('setUsername', this.username);
         this.$store.dispatch('getReceiveMessages');
         this.$store.dispatch('getSendMessages');
         this.$store.dispatch('getAllMessages');
@@ -410,7 +409,7 @@ export default {
         },
         checkusername() {
           var ca = this.$cookies.get("auth-token")
-          if(ca){
+          if(ca != null){
             var base64Url = ca.split('.')[1]
             var decodedValue = JSON.parse(window.atob(base64Url))
             this.username = decodedValue.sub

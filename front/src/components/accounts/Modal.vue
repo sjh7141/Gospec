@@ -133,6 +133,7 @@ export default {
                 //쪽지 소켓 오픈
                 this.checkusername();
                 this.connect();
+                this.$store.commit('setUsername', this.username);
                 this.$store.dispatch('getIsLogin', true);
                 this.$store.dispatch('getMessageColor', this.username)
             })
