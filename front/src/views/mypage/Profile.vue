@@ -36,7 +36,7 @@
                     <div class='col-6 pb-0'>
                         <div style='min-height: 250px;'>
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 23px;'></i>경력사항</h5>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 12px;'></i>경력사항</h5>
                             <div v-if='careerList[0]'>
                                 <div v-for='career in careerList' :key='career.id' class='d-flex row' style='margin-left: 1px;'>
                                     <p class='m-0' style='color: gray; width:50px;'>{{ career.startYear }}</p>
@@ -49,11 +49,10 @@
                             </div>
                         </div>
                         <div>
+                            <h5>
+                                    <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 12px;'></i>자기소개</h5>
                             <div v-if='selfIntroduction'>
-                                <h5>
-                                    <i
-                                        class="fas fa-square mr-1"
-                                        style='color: red; font-size:10px; margin-bottom:18px;'></i>자기소개</h5>
+                                
                                 {{ selfIntroduction }}
                             </div>
                             <div v-else>
@@ -64,7 +63,7 @@
                     <div class='col-6 pb-0'>
                         <div style='min-height: 180px'>
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>수상내역 / 자격증</h5>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 12px;'></i>수상내역 / 자격증</h5>
                             <div v-if='licenseList[0]'>
                                 <div v-for='license in licenseList' :key='license.id'>{{ license }}</div>
                             </div>
@@ -76,7 +75,7 @@
                         <div style='min-height: 160px'>
 
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>활동 지역</h5>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 12px;'></i>활동 지역</h5>
                             <div v-if='activeRegionList[0]'>
                                 <v-chip
                                     :ripple="false"
@@ -89,11 +88,11 @@
                             </div>
                         </div>
 
-                        <div style='min-height: 140px;'>
+                        <div style='min-height: 110px;'>
                             <h5>
-                                <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>관심 분야</h5>
+                                <i class="fas fa-square mr-1" style='color: red; font-size:10px; margin-bottom: 12px;'></i>관심 분야</h5>
                             <div v-if='interestIcon[0]'>
-                                <div style='margin-top: 30px'>
+                                <div style='margin-top: 15px'>
                                     <v-tooltip bottom="bottom" v-for='icon in interestIcon' :key='icon.id'>
                                             <template v-slot:activator="{ on, attrs }">
                                                 <i
@@ -206,7 +205,6 @@
                                     <v-chip v-for='interest in interests' :key='interest.id' filter outlined>{{ interest }}</v-chip>
                                 </v-chip-group>
                                 </v-card-text>
-                                <button @click='check'>check</button>
                         </div>
 
                     </div>
@@ -285,7 +283,6 @@
                             const data = [this.interestIconClass[index], this.interests[index]]
                             this.interestIcon.push(data)
                         }
-                        console.log(this.interestIcon)
                     })
                     .catch(err => console.log(err.response))
                 },
@@ -293,9 +290,13 @@
                 this.editBtn = !this.editBtn
                 if (!this.editBtn) {
                     this.interestFieldList = []
-                    
                     for(let i=0; i<this.amenities.length; i++) {
-                        this.interestFieldList.push(this.interestsData.indexOf(this.amenities[i]))
+                        this.interestFieldList.push(this.interestsData[this.amenities[i]])
+                    }
+                    this.interestIcon = []
+                    for(let i=0; i<this.interestFieldList.length; i++) {
+                        const data = [this.interestIconClass[this.amenities[i]], this.interests[this.amenities[i]]]
+                        this.interestIcon.push(data)
                     }
                     this.updateProfileData()
                 }
@@ -351,7 +352,6 @@
                             .get("auth-token")
                     }
                 }
-                console.log('check')
                 axios
                     .patch(API_URL + '/api/users', this.profileData, config)
                     .then(res => {
@@ -364,9 +364,6 @@
                         console.log(err.response.data)
                     })
                 },
-                check() {
-                    console.log(this.amenities)
-                }
         },
         mounted() {
             this.getUserInfo()
@@ -409,6 +406,6 @@
     }
     .none-info {
         font-size: 0.8rem;
-        color: gray;
+        color: #00897B;
     }
 </style>

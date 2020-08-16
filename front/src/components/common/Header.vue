@@ -34,14 +34,14 @@
                 </div>
             </div>
         </nav>
-        <LoginNavigation @logout='logout' v-if='isLoggedIn'/>
+        <LoginNavigation @logout='logout' v-if='isLogin'/>
     </div>
 </template>
 
 <script>
     import LoginNavigation from '../index/LoginNavigation.vue'
     import Modal from '../accounts/Modal.vue'
-
+    import { mapGetters } from 'vuex'
     export default {
         name: 'Header',
         components: {
@@ -49,8 +49,11 @@
             LoginNavigation
         },
         props: ['isHeader'],
-        computed: {},
-        watch: {},
+        computed: {
+            ...mapGetters(['isLogin']),
+        },
+        watch: {
+        },
         created() {},
         methods: {
             clickLogin() {

@@ -28,7 +28,7 @@ export default {
     }
   },
   props: {
-    interestFieldList: Object
+    interestFieldList: Array
   },
   methods: {
     submitAmenities() {

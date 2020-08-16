@@ -35,7 +35,7 @@ import axios from 'axios'
 import Stomp from 'stompjs'
 import SockJS from 'sockjs-client'
 
-const API_URL = 'http://i3a202.p.ssafy.io:8181'
+const API_URL = 'http://localhost:8181'
 
 export default {
     props: {
@@ -133,7 +133,8 @@ export default {
                 //쪽지 소켓 오픈
                 this.checkusername();
                 this.connect();
-            })
+                this.$store.dispatch('getIsLogin', true);
+        })
             .catch(err => {
                 console.log(err.response)
                 alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
@@ -148,6 +149,7 @@ export default {
         },
         logout(res) {
             this.isLoggedIn = res
+            this.$store.dispatch('getIsLogin', false);
             this.$router.push('/home')
         },
         connect() {

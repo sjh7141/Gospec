@@ -12,12 +12,12 @@
           <input v-model='email' v-if='!certificationNumberCheck' type="text" class="form-control is-valid" id="validationServer06" required>
           <div class="valid-feedback">
           </div>
-        <button v-if='!clickEmailCertification' class='btn btn-primary' @click='emailCertification'>전송</button>
+        <button v-if='!clickEmailCertification' class='btn btn-primary mt-4' @click='emailCertification'>전송</button>
         <div v-if='clickEmailCertification && !certificationNumberCheck'>
           <p>인증번호가 발송되었습니다.</p>
-          <label for="certification">인증 번호를 입력하세요</label>
-          <input v-model='certificationNumber' id="certification" type="text" style='border: 2px solid'>
-          <button @click="certification">인증번호 확인</button>
+          <label for="certification" class='mr-2'>인증 번호</label>
+          <input v-model='certificationNumber' id="certification" type="text" style='background-color: white; border: 0.2px solid gray; radius: 10%;'>
+          <button @click="certification">확인</button>
           <p v-if="certificationFail" style='color: red;'>인증번호를 다시 한 번 확인해주세요.</p>
         </div>
         <div v-if='certificationNumberCheck'>
@@ -75,7 +75,7 @@
         <div class="invalid-feedback">
           {{ message.email }}
         </div>
-        <button class='btn btn-secondary'>전송</button>
+        <button class='btn btn-secondary mt-4'>전송</button>
       </div>
     </div>
   </div>

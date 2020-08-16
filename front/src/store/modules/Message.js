@@ -11,6 +11,7 @@ export default ({
         deleteMessages : [],
         message : {},
         username : '',
+        isLogin : false,
     },
     getters: {
         socket(state){
@@ -40,6 +41,9 @@ export default ({
         username(state){
             return state.username;
         },
+        isLogin(state){
+            return state.isLogin;
+        },
     },
     mutations: {
         setSocket(state, payload){
@@ -68,6 +72,9 @@ export default ({
         },
         setUsername(state, payload){
             state.username = payload;
+        },
+        setIsLogin(state, payload){
+            state.isLogin = payload;
         },
     },
     actions: {
@@ -119,6 +126,9 @@ export default ({
             .then(({data})=>{
                 context.commit('setMessage', data);
             });
-       }
+       },
+       getIsLogin(context, payload){
+        context.commit('setIsLogin', payload);
+       },
     },
 })

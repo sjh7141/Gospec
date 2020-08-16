@@ -1,5 +1,5 @@
 <template>
-  <div class='p-0'>
+  <div class='px-0 pt-0' style='padding-bottom: 80px'>
     <!-- 프로필 사진 -->
         <div class='row'>
           <div class="col-3 text-right profile-label">
@@ -12,7 +12,7 @@
             </v-avatar>
           </div>
           <div class="col-9 text-left">
-            <h4 style='margin-top: 20px; margin-bottom: 0; margin-left: 20px;'>{{ username }}</h4>
+            <h4 style='margin-top: 20px; margin-bottom: 0; margin-left: 10px;'>{{ username }}</h4>
             <ProfileImgChange @submit-image-data='inputImg' :profileImg="profileImg" />
           </div>
         </div>
@@ -135,7 +135,7 @@
           </div>
         </div>
 
-        <button @click='userInfoChange'>회원정보수정</button>
+        <v-btn @click='userInfoChange' class="ma-2" outlined color="indigo">회원정보수정</v-btn>
         
   </div>
 </template>
