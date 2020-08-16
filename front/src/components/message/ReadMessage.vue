@@ -67,6 +67,7 @@
 import { mapGetters } from 'vuex';
 import axios from 'axios'
 const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
+
 export default {
     computed: {
     ...mapGetters(['message']),
@@ -101,21 +102,23 @@ export default {
                 Authorization: this.$cookies.get("auth-token")
                 },
             }
+            let data = {no : checkedNo,
+                        state : true,
+            };
             if(this.type != 5){
-                config.data = {no : checkedNo};
-                axios.delete(URL+'/receiver', config)
-                    .then(({ data }) => {
-                        let msg = '삭제 처리시 문제가 발생했습니다.';
-                        if (data) {
-                            msg = '삭제가 완료되었습니다.';
-                        }
-                        alert(msg);
-                        this.flag = true;
-                        this.moveMessage();
-                    })
-                    .catch(() => {
-                        alert('삭제 처리시 에러가 발생했습니다.');
-                    });
+                axios.patch(URL+'/trash-can', data ,config)
+                .then(({ data }) => {
+                    if(!data){
+                      let msg = '휴지통 이동시 문제가 발생했습니다.';
+                      alert(msg);
+                    }
+                    this.flag = true;
+                    this.moveMessage();
+                })
+                .catch(() => {
+                    alert('휴지통 이동시 에러가 발생했습니다.');
+                });
+                
             }else{
                 config.data = {no : checkedNo};
                 axios.delete(URL+'/sender', config)
@@ -168,7 +171,12 @@ export default {
             if(this.type != 5){
                 let data = {no : checkedNo};
                 axios.patch(URL+'/reading', data, config)
-                    .then(() => {
+                    .then(({ data }) => {
+                        if(data == 0) {
+                            this.$store.commit("setMessageColor", false);
+                        }else{
+                            this.$store.commit("setMessageColor", true);
+                        } 
                     })
                     .catch(() => {
                         alert('읽기 처리시 에러가 발생했습니다.');

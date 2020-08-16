@@ -219,7 +219,7 @@
                 <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
                             hide-details />
                 </td>
-                <td><td>
+                <td></td>
                 <td>{{item.sender}}</td>
                 <td>{{item.contents}}</td>
                 <td>{{item.registTime}}</td>
@@ -394,8 +394,12 @@ export default {
                       alert(msg);
                     }
                     this.checkedNo = [];
-                    if(this.typeMail == 1 || this.typeMail == 2) this.$store.dispatch('getReceiveMessages');
-                    else if(this.typeMail == 3 || this.typeMail == 2) this.$store.dispatch('getImportantMessages');
+                    if(this.typeMail == 1) this.$store.dispatch('getReceiveMessages');
+                    else if(this.typeMail == 3)  this.$store.dispatch('getImportantMessages');
+                    else if(this.typeMail == 2){
+                      this.$store.dispatch('getReceiveMessages');
+                      this.$store.dispatch('getImportantMessages');
+                    }
                     this.$store.dispatch('getAllMessages');
                     this.$store.dispatch('getDeleteMessages');
                 })
@@ -434,14 +438,19 @@ export default {
         },
         closeMessage(isDelete){
           this.isTable = true;
-          if(isDelete){
-            if(this.typeMail == 5){
+          if(this.typeMail == 5){
                this.$store.dispatch('getSendMessages');
-            }else{
+          }else{
               if(this.typeMail == 1) this.$store.dispatch('getReceiveMessages');
               else if(this.typeMail == 3) this.$store.dispatch('getImportantMessages');
+              else if(this.typeMail == 2){
+                this.$store.dispatch('getReceiveMessages');
+                this.$store.dispatch('getImportantMessages');
+              }
               this.$store.dispatch('getAllMessages');
-            }
+          }
+          if(isDelete){
+              this.$store.dispatch('getDeleteMessages');
           }
         },
         
@@ -560,7 +569,7 @@ button, .dot {
   position: absolute;
   width: 350px;
   height: 300px;
-  left: 32%;
+  left: 75%;
   top: 68px;
   perspective: 40px;
   z-index: 0;
