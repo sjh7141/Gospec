@@ -24,6 +24,7 @@
 		from receive_message
 		where receiver=#{username}
 		and is_important=#{isImportant}
+		and is_delete=#{isDelete}
 		order by no desc
 	</select>
 	
