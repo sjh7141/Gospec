@@ -24,21 +24,18 @@
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
-        <v-list>
-          <v-list-item>
-          <a :href= this.selectedEvent.homepage style="color:black;">
+        <v-list class="detail" style="display:block margin:0px;">
+          <v-list-item
+          >
+          <a :href= this.selectedEvent.homepage>
           공모전 사이트
           </a>
           </v-list-item>
           <v-list-item>
-          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo}">
-          <a href=""  style="color:black;">공모전 자세히 보기</a>
-          </router-link>
+          <a :href="'/contest/'+selectedEvent.contestNo">공모전 자세히 보기</a>
           </v-list-item>
           <v-list-item>
-          <router-link :to="{ path: '/contest/' + selectedEvent.contestNo +'/teams'}">
-          <a href=""  style="color:black;">공모전 팀찾기</a>
-          </router-link>
+          <a :href="'/contest/'+selectedEvent.contestNo+'/teams'">공모전 팀찾기</a>
         </v-list-item>
         </v-list>
       </v-menu>
@@ -91,21 +88,7 @@ export default {
       addcontest: {}
       }),
       methods: {
-        /*OnAddContest(contestNo) {
-          this.contestNo = contestNo
-        // axios.get("http://i3a202.p.ssafy.io:8181/api/contest/"+this.contestNo)
-        // .then(response => {
-        //     this.addcontest = response.data
-        //     console.log("onAddContest")
-        //     console.log(this.addcontest)
-        this.$emit('add-event',this.contestNo)
-        this.$emit('delete-event',this.contestNo)
-        //     })
-        // .catch(error => { console.log(error) })
-
-        },*/
         OnDeleteContest(contestNo) {
-          console.log("열로옴");
         this.$emit('delete-change',contestNo)
 
 
@@ -113,10 +96,6 @@ export default {
         onDialog() {
           this.$emit('dialog-change', false)
         },
-      //   onStateChange() {
-      //     this.likestate = !this.likestate
-      //     console.log(this.likestate);
-      // }
       }
 
 }
@@ -128,8 +107,13 @@ export default {
     text-align: left;
     margin: 30px;
 }
-  a {
+  .detail a {
       text-decoration: none;
+      color:black;
+      padding: 8px 10px;
+      vertical-align: center;
+      display: inline;
   }
+
 
 </style>

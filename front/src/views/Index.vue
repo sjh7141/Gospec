@@ -1,5 +1,6 @@
 <template>
   <div>
+      
       <MainPage />
       <OurTeamInfo />
       <OurService id='our-service' />
@@ -13,6 +14,7 @@
             <br/>
             GoSpec template by
             <a href="#">깜냥</a>
+            
         </div>
   </div>
 </template>
@@ -52,4 +54,5 @@ export default {
     padding-top: 40px;
     background: #f8f8f8;
 }
+
 </style>

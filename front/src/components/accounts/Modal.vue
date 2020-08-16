@@ -7,7 +7,7 @@
       <v-card color='grey lighten-3'>
       <v-card-title class='d-flex justify-content-between'>
         <div>{{ modalTitle }}</div>
-        <div>{{ myInterest }}</div>
+
         <i type='button' class="fas fa-times"
         @click="show = false" style='font-size:20px'></i>
       </v-card-title>
@@ -156,12 +156,12 @@ export default {
           this.$store.socket = new SockJS(API_URL+"/socket");
           this.$store.client = Stomp.over(this.$store.socket);
 
-          this.$store.client.connect({}, frame => {
+          this.$store.client.connect({}, () => {
             this.$store.client.subscribe("/topic/"+this.username, res => {
-              console.log(res.body);
+              let flag = (res.body==0)?false:true;
+              this.$store.commit('setMessageColor', flag);
             })
-            console.log(frame);
-          })
+          })     
         },
         checkusername() {
           var ca = this.$cookies.get("auth-token")

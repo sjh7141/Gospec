@@ -50,7 +50,7 @@
           <v-calendar
             ref="calendar"
             v-model="focus"
-            color="primary"
+            color="error"
             :events="events"
             :event-color="getEventColor"
             :type="type"
@@ -58,6 +58,7 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
+            interval-height= '0'
             style= "z-index: 1; min-height: 750px;"
           ></v-calendar>
           <v-dialog 
@@ -133,15 +134,12 @@ import CalendarDetail from './CalendarDetail.vue'
     
     methods: {
       deleteRange(contestNo) {
-        console.log("deleteRange")
         let idx = this.events.findIndex(item => item.contestNo === contestNo);
-        console.log("삭제 번째 " + idx);
+
         this.events.splice(idx,2);
         if(this.events.length === 1){
-          console.log("한개남음")
           this.events = [];
         }
-        console.log("deleteRange")
       },
       onDialogChange (dialog) {
         this.dialog = dialog
@@ -172,7 +170,7 @@ import CalendarDetail from './CalendarDetail.vue'
         const events = []
         for (let i = 0; i < this.myContest.length; i++){
           events.push({
-            name: this.myContest[i].title,
+            name: '(시)' + this.myContest[i].title,
             start: this.myContest[i].startDate,
             end: this.myContest[i].startDate,
             details : this.myContest[i].content,
@@ -183,7 +181,7 @@ import CalendarDetail from './CalendarDetail.vue'
           })
           
           events.push({
-            name: this.myContest[i].title,
+            name: '(끝)'+this.myContest[i].title,
             start: this.myContest[i].endDate,
             end: this.myContest[i].endDate,
             details : this.myContest[i].content,
@@ -211,8 +209,6 @@ import CalendarDetail from './CalendarDetail.vue'
 	
           })
         .catch(err => console.log(err.response))
-        console.log(event)
-        console.log(this.likestate)
         const open = () => {
           this.dialog=true,
           this.selectedEvent = event

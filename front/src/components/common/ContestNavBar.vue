@@ -1,44 +1,58 @@
 <template>
-    <div class="middle">
-        <ul class="horizontal">
-            <li><router-link :to="{ path: '/contest/' + $route.params.contest_id}">상세설명</router-link></li>
-            <!-- <li><router-link :to="{ path: '/contest/' + $route.params.contest_id + '/myteam'}">내팀관리</router-link></li> -->
-            <li><router-link :to="{ path: '/contest/' + $route.params.contest_id + '/teams'}">팀찾기</router-link></li>
-            <li><router-link :to="{ path: '/contest/' + $route.params.contest_id + '/applicants'}">팀원찾기</router-link></li>
-        </ul>
-    </div>
+<div class="wrapper">
+    <button class="routeBtn" :class="{active: isSelected('')}" @click="movePage('')">상세설명</button>
+    <button class="routeBtn" :class="{active: isSelected('teams')}" @click="movePage('teams')">팀찾기</button>
+    <button class="routeBtn" :class="{active: isSelected('applicants')}" @click="movePage('applicants')">팀원찾기</button>
+</div>
 </template>
 
-<script> 
-    export default {
-        name: '',
-        components: { 
-
+<script>
+export default {
+    methods: {
+        movePage(param) {
+            this.$router.push(`/contest/${this.$route.params.contest_id}/${param}`)
         },
-        computed:{
+        isSelected(param) {
+            if (param == '') {
+                return this.l == 3 || this.c_path == param;
+            }
+            return this.c_path == param;
         },
-        watch: {
-        },
-        created() {
-        },
-        methods : {
-        },
-        data: function() {
-           return {
-               
-           }
-        },
-    }
+    },
+    computed: {
+        c_path() {return this.$route.path.split('/')[this.l - 1]},
+        l() {return this.$route.path.split('/').length},
+    },
+}
 </script>
 
 <style scoped>
-    .middle {
-        display: block;
-        margin: auto;
-    }
+* { all: unset; box-sizing: border-box; }
 
-    .horizontal li {
-        display: inline-block;
-        margin: 10px;
-    }
+.wrapper {
+    display: block;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 30px;
+    background-color: #eeeeee;
+}
+
+.routeBtn {
+    padding: 15px 30px 8px 30px;
+    min-width: 110px;
+    margin: 0 30px;
+    color: gray;
+    border-bottom: 7px solid #dddddd;
+}
+
+.routeBtn:hover {
+    background-color: #dddddd;
+    color: black;
+    border-bottom: 7px solid #41B883;
+}
+
+.active {
+    color: black;
+    border-bottom: 7px solid #41B883;
+}
 </style>>

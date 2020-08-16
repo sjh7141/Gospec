@@ -12,6 +12,8 @@ export default ({
         message : {},
         username : '',
         isLogin : false,
+
+        messageColor : false,
     },
     getters: {
         socket(state){
@@ -44,6 +46,9 @@ export default ({
         isLogin(state){
             return state.isLogin;
         },
+        messageColor(state){
+            return state.messageColor;
+        }
     },
     mutations: {
         setSocket(state, payload){
@@ -75,6 +80,9 @@ export default ({
         },
         setIsLogin(state, payload){
             state.isLogin = payload;
+        },
+        setMessageColor(state, payload){
+            state.messageColor = payload;
         },
     },
     actions: {

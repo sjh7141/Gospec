@@ -6,35 +6,36 @@
   <v-col v-for="each in bcontest" v-bind:key="each.contestNo">
   <v-hover v-slot:default="{ hover }">
     <v-card
-      
+      class ="rounded-xl"
       max-width="300"
     >
+  
+      <router-link :to="{ path: '/contest/' + each.contestNo}">
       <v-img
         :aspect-ratio="16/9"
-        class="white--text align-end"
+        class="white--text align-end rounded-lg"
         height="300px"
         :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + each.imgSrc"
       >
         <v-expand-transition>
           <div
             v-if="hover"
-            class="d-flex transition-fast-in-fast-out black v-card--reveal"
+            class="d-flex transition-fast-in-fast-out indigo grey darken-4 v-card--reveal"
             style="height: 100%; font-size:20px; color:white;"
             v-text="each.title"
           >
           </div>
         </v-expand-transition>
       </v-img>
+      </router-link>
       <div class="ddayhome"><dday :data='each'/></div>
-      <v-card-text class="text--primary">
+      <div class="text_detail">
         {{each.totalReward}} 
       <br/> 
         {{each.startDate + ' ~ ' +each.endDate}}
-      </v-card-text>
-
+      </div>
     <v-card-actions>
       <LikeState2 class='_inlineBlock' :selectedEvent="each"/>
-
       <v-btn
         text        
       >
@@ -44,8 +45,8 @@
       
       </router-link>
       </v-btn>
-      
     </v-card-actions>
+
     </v-card>
     </v-hover>
   </v-col>
@@ -90,5 +91,10 @@ import LikeState2 from '@/components/common/LikeState2.vue'
   display: inline-block;
   font-size: 20px;
 }
+.text_detail {
+  margin-top:4px;
+  color:black;
+  font-size: 15px;
+} 
 
 </style>

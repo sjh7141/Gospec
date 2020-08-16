@@ -2,6 +2,9 @@
 <div>
     <button class='createBtn' @click='createMove'>게시물 작성하기</button>
 
+    <div v-if="teamList.length == 0" class="noListInfo">
+        게시물이 없습니다
+    </div>
     <my-team-each v-for="(eachT, idx) in teamList" :key="idx" 
         :eachTeam="eachT" :isExpand="isDetailView(eachT)"
         @setSelected="setSelectedPost" @refreshList="reloadPage"/>
@@ -115,5 +118,12 @@ export default {
 
 .createBtn:hover {
     background-color: #48A77C;
+}
+
+.noListInfo {
+    min-height: 200px;
+    line-height: 200px;
+    color: gray;
+    vertical-align: middle;
 }
 </style>
