@@ -79,7 +79,7 @@
                 </td>
                 <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
                 <td>{{item.sender}}</td>
-                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td><a @click.prevent="openMessage(item.no)">{{checkLength(item.contents)}}</a></td>
                 <td>{{item.registTime}}</td>
               </tr> 
               <tr v-if="props.items.length==0">
@@ -114,7 +114,7 @@
                             hide-details />
                 </td>
                 <td>{{item.receiver}}</td>
-                <td class="contents"><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td class="contents"><a @click.prevent="openMessage(item.no)">{{checkLength(item.contents)}}</a></td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
@@ -149,7 +149,7 @@
                 </td>
                 <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
                 <td >{{item.sender}}</td>
-                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td><a @click.prevent="openMessage(item.no)">{{checkLength(item.contents)}}</a></td>
                 <td >{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
@@ -185,7 +185,7 @@
                 </td>
                 <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
                 <td>{{item.sender}}</td>
-                <td><a @click.prevent="openMessage(item.no)">{{item.contents}}</a></td>
+                <td><a @click.prevent="openMessage(item.no)">{{checkLength(item.contents)}}</a></td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
@@ -221,7 +221,7 @@
                 </td>
                 <td></td>
                 <td>{{item.sender}}</td>
-                <td>{{item.contents}}</td>
+                <td>{{checkLength(item.contents)}}</td>
                 <td>{{item.registTime}}</td>
               </tr>
               <tr v-if="props.items.length==0">
@@ -511,6 +511,13 @@ export default {
                   .catch(() => {
                       alert('메일함 이동시 에러가 발생했습니다.');
                   });
+        }
+      },
+      checkLength(contents){
+        if(contents.length > 30){
+          return contents.substring(0,29)+"..."
+        }else{
+          return contents;
         }
       },
     },

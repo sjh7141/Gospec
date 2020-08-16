@@ -11,7 +11,7 @@
 | 김현수 | 팀장 및 Backend | Restful API 설계, DB 설계 및 구축, Security 보안처리, JWT 토큰 구현, 팀 매칭 서비스 구현, Docker 구축, Jeknins CI/CD 구축, Swagger 문서 관리|
 | 김호연 | Frontend        | Calendar, Home               |
 | 남동규 | Frontend        | Accounts                     |
-| 서지훈 | Backend         |                              |
+| 서지훈 | Backend         | Restful API 설계, DB 설계 및 구축, File 처리, WebSocket 통신처리, Swagger 문서 관리, Message(Frontend)                         |
 | 정명주 | Frontend        | Contest, Front-end 서버 배포 |
 
 
@@ -92,7 +92,7 @@
 
    <!--누가 제대로 써줄사람..? -->
 
-   - SWAGGER로 로그인 토큰 값을 알기 어려워 ..? 사용
+   - Spring Security 사용으로 인한 로그인 api 설정 자동화. 따라서 로그인 토큰 발급을 위해 사용
 
      
 
@@ -151,7 +151,10 @@
    - **weka** 라이브러리를 사용하여 팀매칭 서비스 제공
    - 팀원을 구하는 CRUD 커뮤니티 제공
    - 유저가 작성한 팀원을 구하는 게시글에 팀 참여를 신청한 다른 유저들을 **수락/거절** 하는 기능 제공
-4. 쪽지기능 .. ?? 유저 프로필 확인 기능??
+4. 쪽지기능 
+   - **WebSocket**을 사용한 양방향 통신기능 제공
+   - 실시간 알림 및 메세지 송,수신 가능
+   - 보편화된 메일함 형식으로 CRUD 서비스를 이용
 
 ## 페이지 UI 및 기능
 

@@ -61,7 +61,7 @@
                                 <p class='role'>Back-end Developer</p>
                             </div>
                             <div class='col-8'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
+                                <p>백엔드 개발자 서지훈입니다. <br>다양한 분야에서 불편하다고 느끼는 것은 꼭 해결해낼 수 있는 역량을 갖추고자 합니다. </p>
                             </div>
                         </div>
                     </div>

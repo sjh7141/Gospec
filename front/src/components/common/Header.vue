@@ -78,9 +78,6 @@
             this.isLoggedIn = this
                 .$cookies
                 .isKey('auth-token')
-            console.log("#####");
-            console.log(this.$store.socket);
-            console.log("#####");
         }
     }
 </script>
