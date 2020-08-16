@@ -7,6 +7,7 @@
   <v-hover v-slot:default="{ hover }">
     <v-card
       max-width="300"
+      style="margin: auto;"
       class ="rounded-xl"
     >
     <router-link :to="{ path: '/contest/' + each.contestNo}">
