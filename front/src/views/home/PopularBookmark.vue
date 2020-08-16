@@ -7,6 +7,7 @@
   <v-hover v-slot:default="{ hover }">
     <v-card
       class ="rounded-xl"
+      style="margin: auto;"
       max-width="300"
     >
   
