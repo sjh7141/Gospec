@@ -53,7 +53,7 @@
           <!-- <div class="search-box">
             <input placeholder="Search..."><span class="icon glyphicon glyphicon-search"></span>
           </div> -->
-          <h1 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>{{typeString}}</h1>
+          <h2 class="page-title"><a class="sidebar-toggle-btn trigger-toggle-sidebar"><span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span></a>{{typeString}}</h2>
         </header>
         <div style='text-align: right; margin: 10px 0;'>
           <template v-if="isTable">
@@ -773,7 +773,7 @@ button, .dot {
     color: #61c7b3;
   }
   .header {
-    padding: 44.5px 0px 43px 60px;
+    padding: 54.5px 0px 54px 60px;
     border-bottom: 1px solid #efefef;
     overflow: hidden;
   }
