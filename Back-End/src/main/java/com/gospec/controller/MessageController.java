@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -117,11 +118,21 @@ public class MessageController {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "해당 쪽지 번호 읽음상태로 변환", response = Boolean.class)
+	@ApiOperation(value = "해당 쪽지 번호 읽음상태로 변환", response = Integer.class)
 	@PatchMapping(value="/api/message/reading")
-	public ResponseEntity<Boolean> updateReading(@RequestBody Map<String, Object> param){
+	public ResponseEntity<Integer> updateReading(@RequestBody Map<String, Object> param){
 		int no = (int) param.get("no");
-		return new ResponseEntity<Boolean>(messageService.updateReading(no), HttpStatus.OK);
+		boolean flag = messageService.updateReading(no);
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		int cnt = messageService.countNewReceiveMessage(username);
+		return new ResponseEntity<Integer>(cnt, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "읽지않은 쪽지 개수확인", response = Integer.class)
+	@GetMapping(value="/api/message/unreadMessage/{username}")
+	public ResponseEntity<Integer> unreadMessage(@PathVariable("username") String username){
+		int cnt = messageService.countNewReceiveMessage(username);
+		return new ResponseEntity<Integer>(cnt, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "해당 받은쪽지 조회", response = MessageDto.class)
@@ -135,5 +146,9 @@ public class MessageController {
 	public ResponseEntity<MessageDto> findOneSendMessage(@PathVariable int no){
 		return new ResponseEntity<MessageDto>(messageService.findOneSendMessage(no), HttpStatus.OK);
 	}
+	
+	
+	
+	
 
 }
