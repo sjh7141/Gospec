@@ -56,5 +56,6 @@ export default {
     border-radius: 7px;
     color: white;
     font-size: 0.8em;
+    padding: 3px;
 }
 </style>
