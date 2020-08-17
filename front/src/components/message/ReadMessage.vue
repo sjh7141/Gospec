@@ -48,7 +48,7 @@
             <div style="text-align : left; margin: 10px">보낸시간 :  {{message.registTime}}</div>
             <hr>
             <v-card-text>
-                <div>{{message.contents}}</div>
+                <pre><div>{{message.contents}}</div></pre>
             </v-card-text>
             <v-row justify="end">
             <v-card-actions>
