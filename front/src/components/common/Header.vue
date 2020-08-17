@@ -3,8 +3,8 @@
         <nav class="navbar">
             <div class="navbar_logo">
                 <i class="fas fa-external-link-square-alt"></i>
-                <a v-if='!isLoggedIn' href="/">GoSpec</a>
-                <a v-else href="/home">GoSpec</a>
+                <router-link to="/" v-if='!isLoggedIn'>GoSpec</router-link>
+                <router-link to="/home" v-else>GoSpec</router-link>
             </div>
             <ul class="navbar_menu">
                 <li :class="{_selected: isSelected('home')}" @click="$router.push('/home')" type='button'>
