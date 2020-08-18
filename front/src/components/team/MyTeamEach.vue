@@ -185,6 +185,8 @@ export default {
                         // console.dir(response);
                         if (response.status == 200) {
                             this.$emit('refreshList');
+                            // 알림 코드
+                            this.$store.dispatch('sendSystemMessage', this.msgDtoBuilder(applicant, '회원님 팀원승인'));
                         }
                     }).catch(error => console.log(error));
             }
@@ -199,6 +201,8 @@ export default {
                     // console.dir(response);
                     if (response.status == 200) {
                         this.$emit('refreshList');
+                        // 알림 코드
+                        this.$store.dispatch('sendSystemMessage', this.msgDtoBuilder(memb, '회원님 팀원강퇴'));
                     }
                 }).catch(error => console.log(error));
             }
@@ -213,9 +217,14 @@ export default {
                     // console.dir(response);
                     if (response.status == 200) {
                         this.$emit('refreshList');
+                        // 알림 코드
+                        this.$store.dispatch('sendSystemMessage', this.msgDtoBuilder(applicant, '회원님 승인거절'));
                     }
                 }).catch(error => console.log(error));
             }
+        },
+        msgDtoBuilder({ memberUsername }, action) {
+            return { receiver: memberUsername, title: this.T.title, contestNo: this.T.contestNo, action: action };
         },
     },
 }
