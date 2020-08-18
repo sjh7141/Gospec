@@ -2,8 +2,8 @@
   <div>
       
       <MainPage />
-      <OurTeamInfo />
       <OurService id='our-service' />
+      <OurTeamInfo />
       <Footer id='index-footer' />
         <div class="nino-copyright">Copyright &copy; 2020
             <a
