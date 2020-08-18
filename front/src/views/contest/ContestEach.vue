@@ -7,8 +7,14 @@
     </h3>
     <div class='content-area'>
       <div class='img'>
-        <img :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
+        <img @click.stop='dialog=true' :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
+        <v-row justify="center" style="flex:0 0 0">
+          <v-dialog v-model="dialog" max-width='600'>
+            <img :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
+          </v-dialog>
+        </v-row>
       </div>
+
       <div class='_info'>
         <ul class='info-list'>
           <li><span class='label'>응모대상: </span>{{ this.info.target }}</li>
@@ -54,6 +60,7 @@ export default {
       contest_id: null,
       info: null,
       category: null,
+      dialog: false,
     }
   },
   methods: {
@@ -85,11 +92,14 @@ export default {
   color: gray;
 }
 .img {
-  /* border: 1px solid lightgray; */
   min-width: 100px;
   min-height: 200px;
-  /* float: left; */
   flex: 1 1 0;
+
+  /* 아래 항목은 이 클래스의 하위항목 가운데정렬위한 코드 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 ._info {
   text-align: left;
