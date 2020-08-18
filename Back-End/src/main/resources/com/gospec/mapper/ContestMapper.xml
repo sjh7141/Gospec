@@ -56,6 +56,10 @@
 		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
 		from contest_info i, contest_field f
 		<include refid="contestTypeFilter"></include>
+		<![CDATA[
+			and current_date() <= end_date
+		]]>
+		order by view_count desc
 		limit 0, 3
 	</select>
 	
@@ -75,11 +79,13 @@
 				group by b.contest_no
 				having count(*)
 				order by count(*) desc
-				limit 0, 3
 			 )
 		sub inner join contest_info c
-		on sub.contest_no = c.contest_no;
-
+		on sub.contest_no = c.contest_no
+		<![CDATA[
+			and current_date() <= end_date
+		]]>
+		limit 0, 3
 	</select>
 	
 	<select id="getCountByCategory" resultType="Integer">
