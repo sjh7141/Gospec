@@ -25,65 +25,26 @@
         <!-- Footer ================================================== -->
         <footer id="footer">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="colInfo">
-                            <div class="footerLogo">
-                                GoSpec
-                            </div>
-                            <h5 class='mt-3 mb-4'>스펙쌓기 필수 사이트 고스펙!</h5>
-                            <p>
-                                
-                                고스펙은 취업, 자기 개발을 위해 공모전에 참가를 원하는 사용자를 위해 맞춤 팀 매칭을 지원하는 웹 사이트로
-                                , 최신 공모전, 인기 공모전 정보들을 다양한 카테고리를 통해 확인할 수 있습니다.
-                            </p>
-                            
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="colInfo">
-                                <h3 class="nino-colHeading footerLogo">SITE MAP</h3>
-                                
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="colInfo">
-                                <h3 class="nino-colHeading footerLogo">SHARE</h3>
-                                <div class="nino-followUs">
-                                <div class="socialNetwork">
-                                    <a @click="openFacebook()" class="nino-icon">
-                                        <i class="mdi mdi-facebook"></i>
-                                    </a>
-                                    <a @click="opentwitter()" class="nino-icon">
-                                        <i class="mdi mdi-twitter"></i>
-                                    </a>
-                                    <a @click="openinstagram()" class="nino-icon">
-                                        <i class="mdi mdi-instagram"></i>
-                                    </a>
-                                    <a @click="openpinterest()" class="nino-icon">
-                                        <i class="mdi mdi-pinterest"></i>
-                                    </a>
-                                    <a @click="opengoogle()" class="nino-icon">
-                                        <i class="mdi mdi-google-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <form action="" class="nino-subscribeForm">
-                                <div class="input-group input-group-lg">
-                                    <input
-                                        type="email"
-                                        class="form-control"
-                                        placeholder="Your Email"
-                                        required="required">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit">Subscribe</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+
+            <div class="colInfo">
+                <div class="footerLogo">
+                    GoSpec
                 </div>
+                <h5 >스펙쌓기 필수 사이트 고스펙!</h5>
+                <p>
+                    
+                    고스펙은 취업, 자기 개발을 위해 공모전에 참가를 원하는
+                    <br>
+                    사용자를 위해 맞춤 팀 매칭을 지원하는 웹 사이트로, 
+                    <br>
+                    최신 공모전, 인기 공모전 정보들을 다양한 
+                    <br>
+                    카테고리를 통해 확인할 수 있습니다.
+                    
+                </p>
+                
+                </div>
+            </div>
             </footer>
                         <!--/#footer-->
 

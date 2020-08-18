@@ -18,7 +18,11 @@
                                 <p class='role'>Back-end Developer</p>
                             </div>
                             <div class='col-8'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
+                                <p>다양한 경험을 하고자 이것저것 건들여보는 
+                                    <br>
+                                    개발자입니다. 항상 재미있게 프로젝트에 
+                                    <br>
+                                    임하고 있습니다!</p>
                             </div>
                         </div>
                     </div>
