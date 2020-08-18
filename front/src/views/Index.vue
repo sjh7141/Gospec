@@ -54,5 +54,8 @@ export default {
     padding-top: 40px;
     background: #f8f8f8;
 }
+html {
+    scroll-behavior: smooth;
+}
 
 </style>
