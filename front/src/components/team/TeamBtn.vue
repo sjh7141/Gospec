@@ -10,6 +10,7 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 const URL = 'http://i3a202.p.ssafy.io:8181/api/teams'
 // const URL = 'http://localhost:8181/api/teams'
+const dtoBuilder = ({username, title, contestNo}, action) => {return {receiver: username, title: title, contestNo: contestNo, action: action};}
 
 export default {
     props: ['status','team'],
@@ -38,6 +39,8 @@ export default {
                             // console.dir(response);
                             if (response.data == true) {
                                 this.$emit('refreshList');  //목록 새로고침
+                                // 알림 코드
+                                this.$store.dispatch('sendSystemMessage', dtoBuilder(this.$props.team, '팀 탈퇴'));
                             }
                         })
                         .catch(error => console.log(error))
