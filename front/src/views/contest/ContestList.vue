@@ -2,7 +2,10 @@
 <div>
   <prime-classify/>
 
-  <div class="popular"><PopularContest :contest.sync ="topContestList"/></div>
+  <div class="popular">
+    <h4 class="popular_title">인기 공모전</h4>
+    <PopularContest :contest.sync ="topContestList"/>
+  </div>
 
   <secondary-classify/>
 
@@ -116,7 +119,20 @@ export default {
   display: inline-block;
 }
 
-.popular {margin: 20px auto;}
+.popular_title {
+  width: 90%;
+  margin: 5px auto 10px auto;
+  text-align: left;
+  border-left: 10px solid #ff5252;
+  padding: 5px 30px;
+}
+.popular {
+  width: 90%;
+  margin: 20px auto;
+  background-color: #eeeeee;
+  border-radius: 40px;
+  padding: 10px;
+}
 
 .tb-th-1 {width: 55px;}
 .tb-th-2 {min-width: 300px;}
