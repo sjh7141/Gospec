@@ -39,7 +39,7 @@ export default {
         state() {
             if (this.today.getTime() < this.start.getTime()) {
                 return MODES.FUTURE;
-            } else if (this.today.getTime() > this.end.getTime()) {
+            } else if (this.gap(this.today, this.end) > 0) {
                 return MODES.END;
             } else if ( Math.abs(this.gap(this.today, this.end)) <= 7 ) {
                 return MODES.SOON;
