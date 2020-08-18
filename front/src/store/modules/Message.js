@@ -13,6 +13,7 @@ const init_state = {
     username : '',
     isLogin : false,
     messageColor : false,
+    isRegist : false,
 }
 export default ({
     state: init_state,
@@ -49,6 +50,9 @@ export default ({
         },
         messageColor(state){
             return state.messageColor;
+        },
+        isRegist(state){
+            return state.isRegist;
         }
     },
     mutations: {
@@ -88,6 +92,9 @@ export default ({
         setMessageColor(state, payload){
             state.messageColor = payload;
         },
+        setIsRegist(state, payload){
+            state.isRegist = payload;
+        }
     },
     actions: {
        getReceiveMessages(context){

@@ -27,6 +27,7 @@
 import axios from 'axios'
 import ProfileImage from '../../components/accounts/ProfileImage.vue'
 import UserInfoList from '../../components/accounts/UserInfoList.vue'
+import { mapGetters } from 'vuex'
 
 const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
@@ -92,11 +93,19 @@ export default {
       },
   },
   created() {
+    if(this.isRegist){
+      this.isInfoChanged = true;
+      this.checkPassword = true
+      this.$store.commit('setIsRegist', false);
+    }
     this.getUserInfo()
   },
   mounted() {
     this.checkusername()
-  }
+  },
+  computed:{
+    ...mapGetters(['isRegist']),
+  },
 }
 </script>
 
