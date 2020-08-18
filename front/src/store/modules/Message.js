@@ -153,5 +153,23 @@ export default ({
                 }
             });
        },
+       sendSystemMessage(context, payload){
+        let username = context.state.username;
+        axios
+            .get('http://i3a202.p.ssafy.io:8181/api/contest/'+payload.contestNo)
+            .then(({data})=>{
+                let message = "[SYSTEM] '"+username+"' 이(가) 공모전 '"+data.contest.title+"'의 팀 게시물 '"+payload.title+"'에서 "+payload.action+"했습니다.";
+                if(username != null){
+                    const msg = { 
+                        contents : message,
+                        sender : 'SYSTEM',
+                        receiver : payload.receiver,
+                        reading : false
+                    };
+                    this.client.send("/app/"+payload.receiver, {}, JSON.stringify(msg));
+                }
+            });
+        
+       },
     },
 })

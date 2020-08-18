@@ -48,7 +48,7 @@
             <div style="text-align : left; margin: 10px">보낸시간 :  {{message.registTime}}</div>
             <hr>
             <v-card-text>
-                <pre><div>{{message.contents}}</div></pre>
+                <pre>{{message.contents}}</pre>
             </v-card-text>
             <v-row justify="end">
             <v-card-actions>
@@ -187,6 +187,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+pre{
+    font-family: NanumSquareRound, Avenir, Helvetica, Arial, sans-serif;
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */ 
+    white-space: -pre-wrap; /* Opera */ 
+    white-space: -o-pre-wrap; /* Opera */ 
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */ 
+    word-wrap: break-word; /* IE 5.5+ */ 
+    display: block;
+    text-align: left;
 
+}
 </style>
