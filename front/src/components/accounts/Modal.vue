@@ -16,7 +16,7 @@
         <Login @submit-login-data='login' @clickSignupBtn="clickSignupBtn" :isLoggedIn='isLoggedIn' @clickPasswordBtn="clickPasswordBtn" v-if="modalState == 'login'"/>
         <Signup @submit-signup-data="signup" v-if="modalState == 'signup'" />
         <Password @completePasswordChange="completePasswordChange" v-if="modalState == 'password'" />
-        <CompleteSignup v-if="modalState == 'completeSignup'" />
+        <CompleteSignup @childs-event="closeSignup" v-if="modalState == 'completeSignup'" />
         <CompletePasswordChange @loginPage="loginBtn" v-if="modalState == 'completePasswordChange'" />
       </v-card-text>
       </v-card>
@@ -66,6 +66,7 @@ export default {
             },
             isLoggedIn: false,
             dialog: false,
+            checkDetail: false,
         }
     },
     components: {
@@ -103,18 +104,13 @@ export default {
             signupData.fields = this.myInterest
             axios.post(API_URL + '/api/users/', signupData)
             .then(() => {
-                // this.modalState = 'completeSignup'
-                // this.modalSize = '850'
                 this.loginData.username = signupData.user.username
                 this.loginData.password = signupData.user.password
                 axios.post(API_URL + '/login', this.loginData)
                 .then(() => {
-                    this.login(this.loginData)
-                    this.$emit('signup', true)
-                    if (this.checkParent){
-                        this.$router.push('/home')
-                    }
-                    this.checkParent = false
+                    this.show = true;
+                    this.modalState = 'completeSignup'
+                    this.modalSize = '500'                    
                 })
                 .catch(err => console.log(err.response))
             })
@@ -136,6 +132,10 @@ export default {
                 this.$store.commit('setUsername', this.username);
                 this.$store.dispatch('getIsLogin', true);
                 this.$store.dispatch('getMessageColor', this.username)
+                if(this.checkDetail){
+                    this.$store.commit('setIsRegist', true);
+                    this.$router.push('/mypage/userinfo');
+                }
             })
             .catch(err => {
                 console.log(err.response)
@@ -174,6 +174,10 @@ export default {
           var base64Url = ca.split('.')[1]
           var decodedValue = JSON.parse(window.atob(base64Url))
           this.username = decodedValue.sub
+        },
+        closeSignup(flag){
+            this.checkDetail = flag;
+            this.login(this.loginData);
         },
 
     },
