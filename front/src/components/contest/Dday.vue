@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         end() {
-            return new Date(this.data.endDate);
+            return new Date(this.data.endDate.trim());
         },
         start() {
             return new Date(this.data.startDate);
