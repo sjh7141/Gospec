@@ -28,27 +28,16 @@
         </v-expand-transition>
       </v-img>
       </router-link>
-      <div class="ddayhome"><dday :data='each'/></div>
-      <div class="text_detail">
-        {{each.totalReward}} 
-      <br/> 
+      <div class="line1">
+        <LikeState2 class='bookmark' :selectedEvent="each"/>
+        <div class='detailLink'>
+          {{each.totalReward}}
+        </div>
+        <Dday class="dday" :data='each'/>
+      </div>
+      <div class='line2'>
         {{each.startDate + ' ~ ' +each.endDate}}
       </div>
-
-    <v-card-actions>
-      <LikeState2 class='_inlineBlock' :selectedEvent="each"/>
-
-      <v-btn
-        text        
-      >
-      <router-link :to="{ path: '/contest/' + each.contestNo}" style ="text-decoration: none; color:black;">
-      
-      자세히 보기
-      
-      </router-link>
-      </v-btn>
-      
-    </v-card-actions>
     </v-card>
     </v-hover>
   </v-col>
@@ -101,5 +90,28 @@ import LikeState2 from '@/components/common/LikeState2.vue'
   color:black;
   font-size: 15px;
 } 
+.line1 {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+.bookmark {flex: 0 0 auto;}
+.detailLink {flex: 1 1 0; color: gray;}
+.dday {flex: 0 0 auto;}
 
+.linkstyle {
+  text-decoration: none !important;
+  color: black !important;
+  border-radius: 10px;
+  padding: 5px 15px;
+  background-color: #eeeeee;
+}
+.linkstyle:hover {
+  background-color: #dddddd;
+}
+.line2 {
+  font-size: 15px;
+  padding-bottom: 10px;
+}
 </style>
