@@ -25,7 +25,21 @@ export default {
       isLoggedIn: '',
     }
   },
-  created(){ // 새로고침시 소켓 재연결
+  created(){ 
+    
+  },
+  methods: {
+    checkLogin(data){
+      this.isLoggedIn = data
+    },
+    logout(data) {
+      this.isLoggedIn = data 
+      this.$router.push('/home')
+    },
+  },
+  mounted() {
+    this.isLoggedIn = this.$cookies.isKey('auth-token');
+    //새로고침시 재연결
     let ca = this.$cookies.get("auth-token")
     this.$store.dispatch('getIsLogin', false);
     this.$store.commit('setMessageColor', false);
@@ -35,8 +49,6 @@ export default {
           let username = decodedValue.sub
           this.$store.socket = new SockJS(API_URL+"/socket");
           this.$store.client = Stomp.over(this.$store.socket)
-          this.$store.dispatch('getIsLogin', true);
-          this.$store.commit('setUsername', username);
           this.$store.client.connect({}, () => {
             this.$store.client.subscribe("/topic/"+username, res => {
               let flag = (res.body==0)?false:true;
@@ -46,20 +58,12 @@ export default {
                   this.$store.dispatch('getAllMessages');
               }
             })
-          })        
+          })
+          this.$store.dispatch('getIsLogin', true);
+          this.$store.commit('setUsername', username);
+          this.$store.dispatch('getMessageColor', username)        
     }
-  },
-  methods: {
-    checkLogin(data){
-      this.isLoggedIn = data
-    },
-    logout(data) {
-      this.isLoggedIn = data 
-      this.$router.push('/home')
-    }
-  },
-  mounted() {
-      this.isLoggedIn = this.$cookies.isKey('auth-token')
+    
   },
   watch: {
   }
