@@ -89,7 +89,7 @@ export default {
 }
 .switch {
     float: right;
-    background-color: #41B883;
+    background-color: #ff5252;
     border-radius: 10px;
     padding: 5px;
     min-width: 50px;
@@ -97,6 +97,6 @@ export default {
     color: white;
 }
 .switch:hover {
-    background-color: #48A77C;
+    background-color: #ff5252cc;
 }
 </style>

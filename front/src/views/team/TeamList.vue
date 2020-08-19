@@ -121,12 +121,12 @@ export default {
     margin: 10px;
     padding: 5px 10px;
     border-radius: 10px;
-    background-color: #41B883;
+    background-color: #ff5252;
     color: white;
 }
 
 .createBtn:hover {
-    background-color: #48A77C;
+    background-color: #ff5252cc;
 }
 
 .noListInfo {

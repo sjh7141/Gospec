@@ -137,12 +137,12 @@ export default {
 
 .listBackBtn {
   border-radius: 10px;
-  background-color: #41B883;
+  background-color: #ff5252;
   padding: 7px;
   color: white;
 }
 
 .listBackBtn:hover {
-  background-color: #48A77C;
+  background-color: #ff5252cc;
 }
 </style>
