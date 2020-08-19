@@ -124,8 +124,9 @@ export default {
             axios.post(API_URL + '/login', loginData)
             .then(res => {
                 this.setCookie(res.headers.authorization)
-                this.$emit('login', this.isLoggedIn)
+                this.$emit('login', this.isLoggedIn);
                 this.show = false
+                
                 //쪽지 소켓 오픈
                 this.checkusername();
                 this.connect();
@@ -135,6 +136,8 @@ export default {
                 if(this.checkDetail){
                     this.$store.commit('setIsRegist', true);
                     this.$router.push('/mypage/userinfo');
+                }else{
+                    this.$router.push('/home');
                 }
             })
             .catch(err => {
