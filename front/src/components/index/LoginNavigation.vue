@@ -165,7 +165,19 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
     },
     computed:{
         ...mapGetters(['messageColor']),
+        getIsEditUserInfo(){
+          return this.$store.getters.isEditUserInfo;
+        }
     },
+    watch:{
+      getIsEditUserInfo: function (val){
+        if(val){
+          this.getUserInfo();
+          this.$store.commit('setIsEditUserInfo',false);
+        }
+
+      }
+    }
     
   }
 </script>
