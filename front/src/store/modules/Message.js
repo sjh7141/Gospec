@@ -1,23 +1,25 @@
 import axios from 'axios'
 const URL = 'http://i3a202.p.ssafy.io:8181/api/message'
 
-const init_state = {
-    socket : {},
-    client : {},
-    receiveMessages : [],
-    sendMessages : [],
-    allMessages : [],
-    importantMessages : [],
-    deleteMessages : [],
-    message : {},
-    username : '',
-    isLogin : false,
-    messageColor : false,
-    isRegist : false,
-    isEditUserInfo : false,
+const init_state = () => {
+    return {
+        socket : {},
+        client : {},
+        receiveMessages : [],
+        sendMessages : [],
+        allMessages : [],
+        importantMessages : [],
+        deleteMessages : [],
+        message : {},
+        username : '',
+        isLogin : false,
+        messageColor : false,
+        isRegist : false,
+        isEditUserInfo : false,
+    }
 }
 export default ({
-    state: init_state,
+    state: init_state(),
     getters: {
         socket(state){
             return state.socket;
@@ -61,7 +63,7 @@ export default ({
     },
     mutations: {
         clearStore(state){
-            Object.assign(state, init_state);
+            Object.assign(state, init_state());
         },
         setSocket(state, payload){
             state.socket = payload;
