@@ -2,7 +2,7 @@
     <div class='profile'>
         <v-card class='row' style='padding: 50px;' color='grey lighten-4'>
             <div class='col-12 text-right'>
-                <button @click='clickEditBtn' class='btn btn-primary'>
+                <button @click='clickEditBtn' class='btn btn-primary btnStyle' style="margin-right: 25px;">
                     <i class="fas fa-pen mr-2"></i>
                     <p v-if='!editBtn' class='d-inline'>Edit</p>
                     <p v-else class='d-inline'>OK</p>
@@ -132,20 +132,21 @@
                             </div>
                             <div class='d-flex'>
 
-                                <v-text-field label="Date" v-model='startYear' style='width: 20%'></v-text-field>
-                                <v-text-field label="Content" v-model='careername' style='width: 60%'></v-text-field>
+                                <v-text-field label="Date" color="#ff5252" v-model='startYear' style='width: 20%'></v-text-field>
+                                <v-text-field label="Content" color="#ff5252" v-model='careername' style='width: 60%'></v-text-field>
                                 <v-text-field
                                     label="State"
                                     v-model='status'
                                     style='width: 20%'
-                                    @keypress.enter="addCareer"></v-text-field>
+                                    @keypress.enter="addCareer"
+                                    color="#ff5252" ></v-text-field>
                                 <v-icon slot="append" color="green" type='button' @click='addCareer'>mdi-plus</v-icon>
                             </div>
                         </div>
                         <div>
                             <h5>
                                 <i class="fas fa-square mr-1" style='color: red; font-size:10px;'></i>자기소개</h5>
-                            <v-textarea v-model='selfIntroduction' maxlength="150" cors='30' rows='10'></v-textarea>
+                            <v-textarea v-model='selfIntroduction' maxlength="150" cors='30' rows='10' color="#ff5252" ></v-textarea>
                         </div>
                     </div>
                     <div class='col-6 pb-0'>
@@ -162,7 +163,8 @@
                                 <v-text-field
                                     label="license"
                                     v-model='licenseInput'
-                                    @keypress.enter="addLicense"></v-text-field>
+                                    @keypress.enter="addLicense"
+                                    color="#ff5252" ></v-text-field>
                                 <v-icon slot="append" color="green" type='button' @click='addLicense'>mdi-plus</v-icon>
                             </div>
                         </div>
@@ -178,7 +180,8 @@
                                 v-model="activeRegionList"
                                 :items="items"
                                 chips="chips"
-                                multiple="multiple">
+                                multiple="multiple"
+                                color="#ff5252" >
                                 <template v-slot:selection="{ attrs, item, select, selected }">
                                     <v-chip
                                         v-bind="attrs"
@@ -408,4 +411,7 @@
         font-size: 0.8rem;
         color: #00897B;
     }
+    .btnStyle {background-color: #ff5252;}
+    .btnStyle:hover {background-color: #ff3030;}
+    .btnStyle:active:focus {background-color: #ff3030;}
 </style>

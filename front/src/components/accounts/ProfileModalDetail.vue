@@ -3,7 +3,7 @@
         <v-card class='row' style='padding: 50px;' color='grey lighten-4'>
             <div class='col-12 text-right'>
             </div>
-            <div class='col-3'>
+            <div class='col-4'>
                 <h3 class='my-4'>
                     <i class="fas fa-square mr-1" style='color: red; font-size:15px;'></i>Profile</h3>
                 <v-avatar class='mx-auto' size='200'>
@@ -12,7 +12,7 @@
                         v-else
                         src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
                 </v-avatar>
-                <p style='margin-bottom: 50px; margin-top: 50px;'>{{ name }}
+                <p style='margin-bottom: 50px; margin-top: 50px;'><message-button :receiver="username"/>{{ name }}
                     |
                     {{ nickname }}</p>
                 <i class="fas fa-phone-square-alt"></i>
@@ -26,7 +26,7 @@
                 <v-card
                     v-if='!editBtn'
                     class='col-8 row'
-                    style='margin-left: 5%; text-align: left;'>
+                    style=' text-align: left;'>
                     <div class='col-6 pb-0'>
                         <div style='min-height: 200px;'>
                             <h5>
@@ -86,8 +86,10 @@
 </template>
 
 <script>
+    import MessageButton from '@/components/message/MessageButton.vue'
+
     export default {
-        components: {},
+        components: {MessageButton},
         data() {
             return {
                 name: '',

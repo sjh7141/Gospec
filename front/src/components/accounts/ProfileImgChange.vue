@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Button trigger modal -->
-        <v-btn text color="primary"
+        <v-btn text color="#ff5252"
             data-toggle="modal"
             data-target="#exampleModal">프로필 사진 변경</v-btn>
 
@@ -37,14 +37,15 @@
                             prepend-icon="mdi-camera"
                             v-model='imgData.imgFile'
                             show-size
+                            color="#ff5252"
                             @change='onChangeImages'
                             ></v-file-input>
                         <span class='file-input-label'>* 1.0Mb 이상 파일은 업로드 할 수 없습니다.</span>
 
                     </div>
                     <div class="modal-footer">
-                        <button @click="saveImage" type="button" class="btn btn-primary" :data-dismiss=checkModal>확인</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button @click="saveImage" type="button" class="btn btn-primary btnStyle confirm" :data-dismiss=checkModal>확인</button>
+                        <button type="button" class="btn btn-secondary btnStyle" data-dismiss="modal">취소</button>
                     </div>
                 </div>
             </div>
@@ -94,4 +95,10 @@ v-file-input{
     margin-left: 20px;
     color: gray;
 }
+.btnStyle {
+    color: white !important;
+    border: none;
+}
+.confirm {background-color: #ff5252;}
+.confirm:hover {background-color: #ff3030;}
 </style>
