@@ -46,4 +46,7 @@ import Banner from './calendar/Banner.vue'
 
     margin-left:50px;
 }
+html {
+    scroll-behavior: smooth;
+}
 </style>

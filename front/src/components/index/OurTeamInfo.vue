@@ -51,7 +51,7 @@
                                 <p class='role'>Front-end Developer</p>
                             </div>
                             <div class='col-8'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo illo cupiditate temporibus sapiente, sint, voluptatibus tempora esse. Consectetur voluptate nihil quo nulla voluptatem dolorem harum nostrum</p>
+                                <p>성장하기 위해 끊임없이 노력하는 개발자 남동규입니다. 더 많은 것을 경험하고 배워 더 뛰어난 개발자가 되는것이 목표입니다.</p>
                             </div>
                         </div>
                     </div>
