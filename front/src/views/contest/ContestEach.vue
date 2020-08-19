@@ -7,7 +7,7 @@
     </h3>
     <div class='content-area'>
       <div class='img'>
-        <img @click.stop='dialog=true' :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
+        <img class='hover' @click.stop='dialog=true' :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title" title="크게보기">
         <v-row justify="center" style="flex:0 0 0">
           <v-dialog v-model="dialog" max-width='600'>
             <img :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
@@ -144,5 +144,9 @@ export default {
 
 .listBackBtn:hover {
   background-color: #ff5252cc;
+}
+
+.hover:hover {
+  opacity: 0.6;
 }
 </style>
