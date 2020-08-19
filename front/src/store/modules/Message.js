@@ -14,6 +14,7 @@ const init_state = {
     isLogin : false,
     messageColor : false,
     isRegist : false,
+    isEditUserInfo : false,
 }
 export default ({
     state: init_state,
@@ -53,7 +54,10 @@ export default ({
         },
         isRegist(state){
             return state.isRegist;
-        }
+        },
+        isEditUserInfo(state){
+            return state.isEditUserInfo;
+        },
     },
     mutations: {
         clearStore(state){
@@ -94,7 +98,10 @@ export default ({
         },
         setIsRegist(state, payload){
             state.isRegist = payload;
-        }
+        },
+        setIsEditUserInfo(state, payload){
+            state.isEditUserInfo = payload;
+        },
     },
     actions: {
        getReceiveMessages(context){

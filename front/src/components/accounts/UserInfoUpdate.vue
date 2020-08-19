@@ -226,6 +226,7 @@ export default {
           console.log('check')
           axios.patch(API_URL + '/api/users', this.userInfo, config2)
           .then(() => {
+            this.$store.commit('setIsEditUserInfo',true);
             this.$router.push('/mypage')
           })
           .catch(err => console.log(err.response.data))
