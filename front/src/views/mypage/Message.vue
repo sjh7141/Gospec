@@ -26,6 +26,7 @@
           <v-list-item
             v-for="(item, i) in items"
             :key="i"
+            color="#ff5252"
             @click="change(item.text)"
           >
             <v-list-item-icon>
@@ -74,7 +75,7 @@
             <tbody>
               <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]">
                 <td>
-                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px" color="#ff5252"
                             hide-details />
                 </td>
                 <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
@@ -110,7 +111,7 @@
             <tbody>
               <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]">
                 <td>
-                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px" color="#ff5252"
                             hide-details />
                 </td>
                 <td>{{item.receiver}}</td>
@@ -144,7 +145,7 @@
             <tbody>
               <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]" >
                 <td>
-                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px" color="#ff5252"
                             hide-details />
                 </td>
                 <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
@@ -180,7 +181,7 @@
             <tbody>
               <tr v-for="item in props.items" v-bind:key="item.no" :class="[item.reading? readClass : '', unreadClass]">
                 <td>
-                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px" color="#ff5252"
                             hide-details />
                 </td>
                 <td><like-state :likeState="item.important" :mailNo="item.no"/></td>
@@ -216,7 +217,7 @@
             <tbody>
               <tr v-for="item in props.items" v-bind:key="item.no">
                 <td>
-                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px"
+                <v-checkbox v-model="checkedNo" :key="item.no" :value="item.no" style="margin:0px; padding:0px" color="#ff5252"
                             hide-details />
                 </td>
                 <td></td>
@@ -529,8 +530,12 @@ export default {
   border-radius: 2px;
   background-color: red;
 }
+a {
+  color: #ff5252 !important;
+}
 .unread{
-  color : rgb(60, 139, 217);
+  /* color : rgb(60, 139, 217); */
+  color : #ff5252;
 }
 .read {
   color : black !important;
