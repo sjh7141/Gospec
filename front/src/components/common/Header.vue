@@ -41,8 +41,14 @@
         props: ['isHeader'],
         computed: {
             ...mapGetters(['isLogin']),
+            getIsLogin(){
+                return this.$store.getters.isLogin;
+            }
         },
         watch: {
+            getIsLogin: function (val){
+                    this.isLoggedIn = val;
+            },
         },
         created() {},
         methods: {

@@ -134,6 +134,7 @@ export default {
                 this.$store.dispatch('getIsLogin', true);
                 this.$store.dispatch('getMessageColor', this.username)
                 if(this.checkDetail){
+                    this.checkDetail = false;
                     this.$store.commit('setIsRegist', true);
                     this.$router.push('/mypage/userinfo');
                 }else{
