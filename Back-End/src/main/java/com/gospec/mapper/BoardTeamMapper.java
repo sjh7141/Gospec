@@ -16,4 +16,5 @@ public interface BoardTeamMapper {
 	public int update(BoardTeamDto dto);
 	public int delete(int postNo);
 	public int getCountByContestNo(@Param("contestNo") int contestNo);
+	public boolean checkWriteBoard(@Param("teamId") String teamId);
 }

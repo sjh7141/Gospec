@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gospec.domain.BoardTeamDto;
 import com.gospec.domain.TeamApprovalDto;
-import com.gospec.domain.TeamDto;
+import com.gospec.domain.UserDto;
 import com.gospec.mapper.TeamMapper;
 
 @Service
@@ -16,8 +17,12 @@ public class TeamServiceImpl implements TeamService {
 	private TeamMapper teamMapper;
 	
 	@Override
-	public List<TeamDto> findAll() {
-		return teamMapper.findAll();
+	public List<BoardTeamDto> findAll(String username) {
+		List<BoardTeamDto> boardTeamList = teamMapper.findAll(username);
+		for(BoardTeamDto boardTeam :boardTeamList) {
+			boardTeam.setApprovalList(teamMapper.findTeamById(boardTeam.getTeamId()));
+		}
+		return boardTeamList;
 	}
 
 	@Override
@@ -52,7 +57,9 @@ public class TeamServiceImpl implements TeamService {
 		return teamMapper.findTeamById(teamId);
 	}
 	
-	
-	
+	@Override
+	public List<UserDto> recommandByAuto(String username) {
+		return teamMapper.recommandByAuto(username);
+	}
 
 }

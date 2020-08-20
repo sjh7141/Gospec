@@ -16,37 +16,83 @@
 		and contest_info.contest_no = bookmark_contest.contest_no 
 	</select>
 	
+	<select id="findByBookMarkWithField" resultType="com.gospec.domain.ContestDto">
+	select distinct sub.contest_no, sub.title, sub.target, sub.host, sub.sponsor, sub.start_date, sub.end_date, sub.reg_date, sub.total_reward, sub.first_reward, sub.homepage, sub.content, sub.view_count, sub.img_src
+	from
+	(
+		select c.contest_no, title, target, host, sponsor, start_date, end_date, reg_date, total_reward, first_reward, homepage, content, view_count, img_src
+		from contest_info c inner join bookmark_contest b
+		on c.contest_no = b.contest_no and b.username = #{username}
+	) sub inner join contest_field f
+	on sub.contest_no = f.contest_no
+	<choose>
+		<when test="!type.equals('all')">
+			 and f.field = #{type};
+		</when>
+	</choose>
+	</select>
+	
 	<select id="findCategoryByContestNo" resultType="String">
 		select field from contest_field
 		where contest_no = #{contestNo}
 	</select>
 	
 	<select id="findByCategory" resultType="com.gospec.domain.ContestDto" >
-		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
 		from contest_info i, contest_field f
-		<include refid="contestFilter"></include>
+		<include refid="contestTypeFilter"></include>
+		<include refid="contestModeFilter"></include>
 		order by contest_no desc
 		limit #{startIndex}, #{perPageNum}
 	</select>
 	
-	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">
-		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count
+	<select id="findByCategoryWithCalendar" resultType="com.gospec.domain.ContestDto">
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
 		from contest_info i, contest_field f
-		<include refid="contestFilter"></include>
+		<include refid="contestTypeFilter"></include>
+	</select>
+	
+	<select id="findByBestView" resultType="com.gospec.domain.ContestDto">
+		select distinct i.contest_no, i.title, i.target, i.host, i.sponsor, i.start_date, i.end_date, i.total_reward, i.first_reward, i.homepage, i.content, i.view_count, i.img_src
+		from contest_info i, contest_field f
+		<include refid="contestTypeFilter"></include>
+		<![CDATA[
+			and current_date() <= end_date
+		]]>
+		order by view_count desc
+		limit 0, 3
+	</select>
+	
+	<select id="findByBestBookMark" resultType="com.gospec.domain.ContestDto">
+		select c.*
+		from (
+				select b.contest_no
+					from bookmark_contest b inner join contest_field f 
+		        		on f.contest_no = b.contest_no
+		        		<choose>
+		        			<when test="type.equals('all')">
+		        			</when>
+		        			<otherwise>
+		        				and f.field = #{type}
+		        			</otherwise>
+		        		</choose>
+				group by b.contest_no
+				having count(*)
+				order by count(*) desc
+			 )
+		sub inner join contest_info c
+		on sub.contest_no = c.contest_no
+		<![CDATA[
+			and current_date() <= end_date
+		]]>
 		limit 0, 3
 	</select>
 	
 	<select id="getCountByCategory" resultType="Integer">
 		select count(distinct i.contest_no) as total
 		from contest_info i, contest_field f
-		<choose>
-			<when test="type.equals('all')">
-				where i.contest_no = f.contest_no
-			</when>
-			<otherwise>
-				where f.field = #{type} and i.contest_no = f.contest_no
-			</otherwise>
-		</choose>
+		<include refid="contestTypeFilter"></include>
+		<include refid="contestModeFilter"></include>
 	</select>
 	
 	<update id="updateViewCount">
@@ -70,7 +116,7 @@
 		select count(*) from bookmark_contest where username = #{username} and contest_no = #{contestNo}
 	</select>
 	
-	<sql id="contestFilter">
+	<sql id="contestTypeFilter">
 		<choose>
 			<when test="type.equals('all')">
 				where i.contest_no = f.contest_no
@@ -79,7 +125,9 @@
 				where f.field = #{type} and i.contest_no = f.contest_no
 			</otherwise>
 		</choose>
-		
+	</sql>
+	
+	<sql id="contestModeFilter">		
 		<choose>
 			<when test="mode.equals('new')">
 				and CURRENT_date() - Date(reg_date) between 0 and 5
@@ -98,6 +146,9 @@
 			<when test="mode.equals('end')">
 				and CURRENT_date() > Date(end_date)
 			</when>
+			<otherwise>
+			
+			</otherwise>
 		</choose>
 	</sql>
 	

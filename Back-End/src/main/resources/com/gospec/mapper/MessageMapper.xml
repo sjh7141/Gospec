@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gospec.mapper.MessageMapper">
+
+	<select id="findReceiveMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_important=#{isImportant}
+		and is_delete=#{isDelete}
+		order by no desc
+	</select>
+	
+	<select id="findAllMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_delete=#{isDelete}
+		order by no desc
+	</select>
+	
+	<select id="findImportantMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_important=#{isImportant}
+		and is_delete=#{isDelete}
+		order by no desc
+	</select>
+	
+	<select id="findDeleteMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from receive_message
+		where receiver=#{username}
+		and is_delete=#{isDelete}
+		order by no desc
+	</select>
+	
+	<select id="findSendMessage" resultType="com.gospec.domain.MessageDto">
+		select * 
+		from send_message
+		where sender=#{username}
+		order by no desc
+	</select>
+	
+	<select id="countNewReceiveMessage" resultType="Integer">
+		select count(*) 
+		from receive_message
+		where receiver=#{username}
+		and reading=#{reading}
+		and is_delete=#{isDelete}
+	</select>
+	
+	<select id="countTotalReceiveMessage" resultType="Integer">
+		select count(*) 
+		from receive_message
+		where receiver=#{username}
+	</select>
+	
+	<select id="countTotalSendMessage" resultType="Integer">
+		select count(*) 
+		from send_message
+		where sender=#{username}
+	</select>
+	
+	<insert id="saveReceiveMessage">
+		insert into receive_message (contents, receiver, sender)
+		values (#{contents}, #{receiver}, #{sender})
+	</insert>
+	
+	<insert id="saveSendMessage">
+		insert into send_message (contents, receiver, sender)
+		values (#{contents}, #{receiver}, #{sender})
+	</insert>
+	
+	<delete id="deleteReceiveMessage">
+		delete from receive_message
+		where no=#{no}
+	</delete>
+	
+	<delete id="deleteSendMessage">
+		delete from send_message
+		where no=#{no}
+	</delete>
+	
+	<update id="updateReading">
+		update receive_message
+		set reading=#{reading}
+		where no=#{no}	
+	</update>
+	
+	<update id="updateDelete">
+		update receive_message
+		set is_delete=#{isDelete}
+		where no=#{no}	
+	</update>
+	
+	<update id="updateImportant">
+		update receive_message
+		set is_important=#{isImportant}
+		where no=#{no}
+	</update>
+	
+	<select id="findOneSendMessage" resultType="com.gospec.domain.MessageDto">
+		select *
+		from send_message
+		where no=#{no}
+	</select>
+	
+	<select id="findOneReceiveMessage" resultType="com.gospec.domain.MessageDto">
+		select *
+		from receive_message
+		where no=#{no}
+	</select>
+</mapper>

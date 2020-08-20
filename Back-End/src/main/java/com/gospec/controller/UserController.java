@@ -1,20 +1,12 @@
 package com.gospec.controller;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,19 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.google.gson.Gson;
 import com.gospec.domain.ActiveRegionDto;
 import com.gospec.domain.BookMarkDto;
+import com.gospec.domain.CareerDto;
 import com.gospec.domain.InterestFieldDto;
-import com.gospec.domain.TeamDto;
+import com.gospec.domain.LicenseDto;
 import com.gospec.domain.UserDto;
-import com.gospec.property.FileUploadResponse;
+import com.gospec.recommend.KMeansClustering;
 import com.gospec.security.GoUserDetailsService;
-import com.gospec.service.FileUploadDownloadService;
 import com.gospec.service.MailAuthenticationService;
 
 import io.swagger.annotations.ApiOperation;
@@ -53,6 +43,9 @@ public class UserController {
 	
 	@Autowired
 	private MailAuthenticationService mailService;
+	
+	@Autowired
+	private KMeansClustering kmean;
 
 	@ApiOperation(value = "이메일 중복을 확인하다. true : 중복, false: 존재하지않음", response = Boolean.class)
 	@GetMapping(value = "/email-duplication/{username}")
@@ -68,38 +61,124 @@ public class UserController {
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "새로운 사용자 정보를 입력한다.", response = UserDto.class)
+	@ApiOperation(value = "새로운 사용자 정보를 입력한다. user, fields객체 입력", response = UserDto.class)
 	@PostMapping
-	public ResponseEntity<Boolean> save(@RequestBody UserDto user){
+	public ResponseEntity<Boolean> save(@RequestBody Map<String, Object> param){
+		Gson gson = new Gson();
+		UserDto user = gson.fromJson(gson.toJson(param.get("user")), UserDto.class);
 		boolean check = userService.save(user);
+		
+		List<String> fields = (List<String>) param.get("fields");
+		if(fields != null && fields.size() > 0) {
+			List<InterestFieldDto> interestList = new ArrayList<InterestFieldDto>();
+			for(String field : fields) {
+				interestList.add(new InterestFieldDto(field,user.getUsername()));
+			}
+			userService.saveInterestField(interestList);
+			userService.resetCluster();
+			synchronized (kmean) {
+				kmean.makeFile(userService.findByInterestFieldWithCluster());
+				userService.makeCluster(kmean.readData());
+			}
+		}
+		
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "비밀번호찾기, 새로운 비밀번호로 수정한다.", response = Boolean.class)
 	@PatchMapping(value = "/password")
-	public ResponseEntity<Boolean> findpwd(@RequestBody Map<String, Object> param){
+	public ResponseEntity<Boolean> newPwd(@RequestBody Map<String, Object> param){
 		String username = (String) param.get("username");
 		String password = (String) param.get("password");
 		boolean check = userService.newPwd(username, password);
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "사용자 정보조회, 해당 아이디 정보조회", response = UserDto.class)
+	@ApiOperation(value = "사용자 정보조회, 자기자신 정보 및 프로필 조회", response = UserDto.class)
 	@GetMapping
 	public ResponseEntity<UserDto> findInfo(){
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserDto user = userService.findByUsername(username);
+		user.setPassword(null);
+		user.setActiveRegionList(userService.findAllActiveRegion(username));
+		user.setInterestFieldList(userService.findAllInterestField(username));
+		user.setLicenseList(userService.findAllLicense(username));
+		user.setCareerList(userService.findAllCareer(username));
+		
 		return new ResponseEntity<UserDto>(user,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "내정보수정, 해당 아이디 정보 수정, 헤더내용과 불일치시 403에러", response = Boolean.class)
+	@ApiOperation(value = "내정보수정, 해당 아이디 정보 및 프로필 수정, 헤더내용과 불일치시 403에러, type('profile','user'),user,fields,regions,licenses,careers 객체 입력가능", response = Boolean.class)
 	@PatchMapping
-	public ResponseEntity<Boolean> updateInfo(@RequestBody UserDto user){
+	public ResponseEntity<Boolean> updateInfo(@RequestBody Map<String, Object> param){
 		String headername = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(!headername.equals(user.getUsername())) {
+		Gson gson = new Gson();
+		UserDto user = gson.fromJson(gson.toJson(param.get("user")), UserDto.class);
+		String type = (String)param.get("type");
+		String username = user.getUsername();
+		
+		if(!headername.equals(username)) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.FORBIDDEN);
 		}
+		
+		List<String> fields = (List<String>) param.get("fields");
+		if(fields != null) {
+			List<InterestFieldDto> interestList = new ArrayList<InterestFieldDto>();
+			for(String field : fields) {
+				interestList.add(new InterestFieldDto(field,username));
+			}
+			userService.deleteInterestField(username);
+			if(fields.size() > 0) {
+				userService.saveInterestField(interestList);
+				userService.resetCluster();
+				synchronized (kmean) {
+					kmean.makeFile(userService.findByInterestFieldWithCluster());
+					userService.makeCluster(kmean.readData());
+				}
+			}
+		}
+		
+		if(type.equals("profile")){
+			List<String> regions = (List<String>) param.get("regions");
+			if(regions != null) {
+				List<ActiveRegionDto> regionList = new ArrayList<ActiveRegionDto>();
+				for(String region : regions) {
+					regionList.add(new ActiveRegionDto(region, username));
+				}
+				userService.deleteActiveRegion(username);
+				if(regions.size() > 0) {
+					userService.saveActiveRegion(regionList);
+				}
+			}
+			
+			List<String> licenses = (List<String>) param.get("licenses");
+			if(licenses != null) {
+				List<LicenseDto> licenseList = new ArrayList<LicenseDto>();
+				for(String license : licenses) {
+					licenseList.add(new LicenseDto(license, username));
+				}
+				userService.deleteLicense(username);
+				if(licenses.size() > 0) {
+					userService.saveLicense(licenseList);
+				}
+			}
+			
+			List<Object> careers = (List<Object>) param.get("careers");
+			List<CareerDto> careerList = new ArrayList<CareerDto>();
+			for(Object str : careers) {
+				careerList.add(gson.fromJson(gson.toJson(str), CareerDto.class));
+				careerList.get(careerList.size()-1).setUsername(username);
+			}
+			if(careerList != null) {
+				userService.deleteCareer(username);
+				if(careerList.size() > 0) {
+					userService.saveCareer(careerList);
+				}
+			}
+		}
+		
 		boolean check = userService.updateByUsername(user);
+		
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
@@ -111,13 +190,6 @@ public class UserController {
 		return new ResponseEntity<Boolean>(check,HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "활동지역 조회, 헤더의 사용자 아이디로 활동지역을 전체 조회한다.", response = ActiveRegionDto.class)
-	@GetMapping(value ="/regions")
-	public ResponseEntity<List<ActiveRegionDto>> getActiveRegionList(){
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new ResponseEntity<List<ActiveRegionDto>>(userService.findAllActiveRegion(username), HttpStatus.OK);
-	}
-	
 	@ApiOperation(value = "북마크 조회, 헤더의 사용자 아이디로 북마크를 전체 조회한다.", response = BookMarkDto.class)
 	@GetMapping(value ="/bookmarks")
 	public ResponseEntity<List<BookMarkDto>> getBookMarkList(){
@@ -125,18 +197,36 @@ public class UserController {
 		return new ResponseEntity<List<BookMarkDto>>(userService.findAllBookMark(username), HttpStatus.OK);
 	}
 	
-	
-	@ApiOperation(value = "관심지역 조회, 헤더의 사용자 아이디로 관심영역을 전체 조회한다.", response = InterestFieldDto.class)
-	@GetMapping(value ="/fields")
-	public ResponseEntity<List<InterestFieldDto>> getInterestFieldList(){
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new ResponseEntity<List<InterestFieldDto>>(userService.findAllInterestField(username), HttpStatus.OK);
-	}
-	
 	@ApiOperation(value = "인증 이메일 전송, 입련된 아이디로 이메일 전송", response = String.class)
 	@GetMapping(value ="/email-authentication/{username}")
 	public ResponseEntity<String> sendEmail(@PathVariable("username") String username){
 		return new ResponseEntity<String>(mailService.sendMail(username), HttpStatus.OK);
 	}
-
+	
+	@ApiOperation(value = "다른 사용자 정보조회, 해당 아이디 정보 및 프로필 조회", response = UserDto.class)
+	@GetMapping(value ="/other/{username}")
+	public ResponseEntity<UserDto> otherUserFindInfo(@PathVariable("username") String username){
+		UserDto user = userService.findByUsername(username);
+		user.setPassword(null);
+		user.setActiveRegionList(userService.findAllActiveRegion(username));
+		user.setInterestFieldList(userService.findAllInterestField(username));
+		user.setLicenseList(userService.findAllLicense(username));
+		user.setCareerList(userService.findAllCareer(username));
+		
+		return new ResponseEntity<UserDto>(user,HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "해당 공모전 북마크한 사용자 정보조회", response = List.class)
+	@GetMapping(value="bookmark-user/{no}")
+	public ResponseEntity<List<UserDto>> findByNoBookmarkUser(@PathVariable("no") int no){
+		List<UserDto> userList = userService.findByNoBookmarkUser(no);
+		for(UserDto user : userList) {
+			user.setPassword(null);
+			user.setActiveRegionList(userService.findAllActiveRegion(user.getUsername()));
+			user.setInterestFieldList(userService.findAllInterestField(user.getUsername()));
+			user.setLicenseList(userService.findAllLicense(user.getUsername()));
+			user.setCareerList(userService.findAllCareer(user.getUsername()));
+		}
+		return new ResponseEntity<List<UserDto>>(userList,HttpStatus.OK);
+	}
 }

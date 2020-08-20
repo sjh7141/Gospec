@@ -1,16 +1,26 @@
 package com.gospec.domain;
 
+import java.util.List;
+
 public class BoardTeamDto {
 
 	private String username;
 	private int postNo;
 	private String title;
-	private String contest;
-	private int memeberMax;
-	private int memberCur;
+	private String content;
+	private int memberMax;
 	private String registTime;
 	private int contestNo;
 	private String teamId;
+	private List<TeamApprovalDto> approvalList;
+
+	public List<TeamApprovalDto> getApprovalList() {
+		return approvalList;
+	}
+
+	public void setApprovalList(List<TeamApprovalDto> approvalList) {
+		this.approvalList = approvalList;
+	}
 
 	public String getUsername() {
 		return username;
@@ -36,28 +46,20 @@ public class BoardTeamDto {
 		this.title = title;
 	}
 
-	public String getContest() {
-		return contest;
+	public String getContent() {
+		return content;
 	}
 
-	public void setContest(String contest) {
-		this.contest = contest;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public int getMemeberMax() {
-		return memeberMax;
+	public int getMemberMax() {
+		return memberMax;
 	}
 
-	public void setMemeberMax(int memeberMax) {
-		this.memeberMax = memeberMax;
-	}
-
-	public int getMemberCur() {
-		return memberCur;
-	}
-
-	public void setMemberCur(int memberCur) {
-		this.memberCur = memberCur;
+	public void setMemberMax(int memberMax) {
+		this.memberMax = memberMax;
 	}
 
 	public String getRegistTime() {

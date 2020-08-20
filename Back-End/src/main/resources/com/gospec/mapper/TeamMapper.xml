@@ -2,11 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gospec.mapper.TeamMapper">
 
-	<select id="findAll" resultType="com.gospec.domain.TeamDto">
-		select * 
-		from find_team_board
+	<select id="findAll" resultType="com.gospec.domain.BoardTeamDto">
+		select *
+		from find_team_board as a
+		where a.team_id in 
+			(select distinct(team_id) from team_approval
+			where member_username = #{username})
+		or username = #{username}
+		
 	</select>
-	
+
 	<insert id="saveTeamApproval">
 		insert into team_approval (team_id, leader_username, member_username, approval_flag)
 		values (#{teamId}, #{leaderUsername}, #{memberUsername}, #{approvalFlag})
@@ -32,4 +37,23 @@
 		where team_id=#{teamId}
 	</select>
 	
+	<select id="recommandByAuto" resultType="com.gospec.domain.UserDto">
+		select username, nickname, profile_img
+		from (
+				select no 
+				from(
+						select cluster
+						from cluster_table c
+						inner join user_info u
+						on u.username = #{username} and c.no = u.no
+					 ) d
+				inner join cluster_table ct
+				on d.cluster = ct.cluster
+			  ) n
+		inner join user_info ui
+		on ui.no = n.no
+        order by rand() limit 5;
+	</select>
+	
 </mapper>
+

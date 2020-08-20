@@ -41,6 +41,11 @@ public class ContestServiceImpl implements ContestService {
 	}
 	
 	@Override
+	public List<ContestDto> findByBestBookMark(String type) {
+		return contestMapper.findByBestBookMark(type);
+	}
+	
+	@Override
 	public List<String> teamSearchByContest(int contestNo) {
 		return contestMapper.teamSearchByContest(contestNo);
 	}
@@ -73,5 +78,15 @@ public class ContestServiceImpl implements ContestService {
 	@Override
 	public void updateViewCount(int contestNo) {
 		contestMapper.updateViewCount(contestNo);
+	}
+	
+	@Override
+	public List<ContestDto> findByCategoryWithCalendar(String type) {
+		return contestMapper.findByCategoryWithCalendar(type);
+	}
+	
+	@Override
+	public List<ContestDto> findByBookMarkWithField(String username, String type) {
+		return contestMapper.findByBookMarkWithField(username, type);
 	}
 }
