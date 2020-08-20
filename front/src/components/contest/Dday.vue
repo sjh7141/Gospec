@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         end() {
-            return new Date(this.data.endDate);
+            return new Date(this.data.endDate.trim());
         },
         start() {
             return new Date(this.data.startDate);
@@ -39,7 +39,7 @@ export default {
         state() {
             if (this.today.getTime() < this.start.getTime()) {
                 return MODES.FUTURE;
-            } else if (this.today.getTime() > this.end.getTime()) {
+            } else if (this.gap(this.today, this.end) > 0) {
                 return MODES.END;
             } else if ( Math.abs(this.gap(this.today, this.end)) <= 7 ) {
                 return MODES.SOON;
@@ -56,5 +56,6 @@ export default {
     border-radius: 7px;
     color: white;
     font-size: 0.8em;
+    padding: 3px;
 }
 </style>

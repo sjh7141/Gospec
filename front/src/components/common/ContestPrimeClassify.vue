@@ -1,12 +1,17 @@
 <template>
 <div class="middle">
-    <ul class="horizontal">
-        <li :class="{selected: typeNow == type}"
-            v-for="type in TYPES" :key="type"
-            @click='pageChange(type)'> 
-            {{ typeToTextFilter(type) }}
-        </li>
-    </ul>
+    <div class="horizontal">
+        <v-card outlined>
+            <v-tabs color="error" center-active centered show-arrows>
+
+            <v-tabs-slider color="error"></v-tabs-slider>
+                <v-tab v-for="type in TYPES" :key="type"
+                    @click='pageChange(type)'>
+                    {{ typeToTextFilter(type) }}
+                </v-tab>
+            </v-tabs>
+        </v-card>
+    </div>
 </div>
 </template>
 
@@ -24,9 +29,10 @@ export default {
             this.$store.commit('setMode', 'all');
             this.$store.commit('setPage', 1);
             this.$store.dispatch('getContestList');
+            this.$store.dispatch('getTopContestList');
         },
         typeToTextFilter(string) {
-            return string == 'all' ? '전체' : string.replaceAll('-','/');
+            return string == 'all' ? '전체' : string.replace(/-/g,'/');
         }
     },
     data() {

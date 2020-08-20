@@ -1,6 +1,7 @@
 <template>
-  <v-container>
+  <v-container class='p-0'>
     <v-navigation-drawer
+      style ="z-index: 10001; position: fixed;"
       v-model="drawer"
       :color="color"
       :expand-on-hover="expandOnHover"
@@ -10,6 +11,7 @@
       :src="bg"
       absolute
       dark
+
     >
         <v-list
           dense
@@ -17,13 +19,14 @@
           class="py-0"
         >
           <v-list-item two-line :class="miniVariant && 'px-0'">
-            <v-list-item-avatar>
-              <img src="https://randomuser.me/api/portraits/men/81.jpg">
+            <v-list-item-avatar style='background-color: white'>
+              <img v-if='userData.profileImg' :src="userData.profileImg">
+              <img v-else src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png">
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{ nickname }}</v-list-item-title>
-              <v-list-item-subtitle>{{ username }}</v-list-item-subtitle>
+              <v-list-item-title>{{ userData.nickname }}</v-list-item-title>
+              <v-list-item-subtitle>{{ userData.username }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
@@ -36,7 +39,7 @@
           >
       
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon :style="checkMessage(item.title)">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -60,6 +63,11 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapGetters } from 'vuex'
+
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
+
   export default {
     data () {
       return {
@@ -67,7 +75,9 @@
         items: [
           { title: '프로필', icon: 'mdi-view-dashboard', link: "/mypage" },
           { title: '내정보수정', icon: 'mdi-image',link: "/mypage/userinfo" },
-          { title: '팀정보', icon: 'mdi-help-box', link: "/mypage/myteam" },
+          { title: '북마크', icon: 'mdi-star', link: "/mypage/bookmark" },
+          { title: '팀정보', icon: 'mdi-account-multiple-outline', link: "/mypage/myteam" },
+          { title: '쪽지', icon: 'mdi-message-text-outline', link: "/mypage/message" },
         ],
 
         right:true,
@@ -75,12 +85,16 @@
         miniVariant: true,
         expandOnHover: true,
         nickname: '',
+        userData: null,
       }
     },
     methods: {
       logout() {
         this.$cookies.remove('auth-token')
         this.$emit('logout')
+        //소켓종료
+        this.disconnect();
+        this.$store.commit('clearStore');
       },
       checkusername() {
         var ca = this.$cookies.get("auth-token")
@@ -88,7 +102,6 @@
         var decodedValue = JSON.parse(window.atob(base64Url))
         this.username = decodedValue.sub
         this.nickname = this._utf8_decode(decodedValue.nickname)
-        console.log(decodedValue)
       },
       link(event){
         this.$router.push(event)
@@ -124,9 +137,46 @@
  
         return string;
       },
+      getUserInfo() {
+          const config = {
+              headers: {
+                  Authorization: this.$cookies.get("auth-token")
+              }
+          }
+          axios.get(API_URL + '/api/users', config)
+          .then(res => {
+              this.userData = res.data
+          })
+          .catch(err => console.log(err.response))
+      },
+      disconnect() {
+        this.$store.socket.close();
+      },
+      checkMessage(title){
+        if(title=="쪽지" && this.messageColor){
+          return "color:red;";
+        }
+        else return ''; 
+      }
     },
     mounted() {
       this.checkusername()
+      this.getUserInfo()
+    },
+    computed:{
+        ...mapGetters(['messageColor']),
+        getIsEditUserInfo(){
+          return this.$store.getters.isEditUserInfo;
+        }
+    },
+    watch:{
+      getIsEditUserInfo: function (val){
+        if(val){
+          this.getUserInfo();
+          this.$store.commit('setIsEditUserInfo',false);
+        }
+
+      }
     }
     
   }

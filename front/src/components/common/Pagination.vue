@@ -1,17 +1,16 @@
 <template>
-<div>
+<div id='pagination'>
     <ul class='horizontal no_dot'>
-        <li :class='{deactivated: isPrev == false}'>
-            <button @click="pageChange('prev')" :disabled='isPrev == false'>이전</button>
+        <li>
+            <button class="pageBtn" :class='{deactivated: isPrev == false}' @click="pageChange('prev')" :disabled='isPrev == false'>이전</button>
         </li>
 
-        <li :class='{selected: pageData.curPage == n}'
-            v-for='n in range(pageData.startPage, pageData.endPage)' :key='n'>
-            <button @click="pageChange(n)">{{ n }}</button>
+        <li v-for='n in range(pageData.startPage, pageData.endPage)' :key='n'>
+            <button class="pageBtn numbers" :class='{selected: pageData.curPage == n}' @click="pageChange(n)">{{ n }}</button>
         </li>
 
-        <li :class='{deactivated: isNext == false}'>
-            <button @click="pageChange('next')" :disabled='isNext == false'>다음</button>
+        <li>
+            <button class="pageBtn" :class='{deactivated: isNext == false}' @click="pageChange('next')" :disabled='isNext == false'>다음</button>
         </li>
     </ul>
 </div>
@@ -45,12 +44,17 @@ export default {
 }
 </script>
 
-<style>
-.horizontal li {
-    display: inline;
+<style scoped>
+#pagination {
+    margin-top: 30px;
 }
 
-.no_dot {
+.horizontal li {
+    display: inline;
+    margin: 10px;
+}
+
+.no_dot li {
     list-style: none;
 }
 
@@ -59,6 +63,22 @@ export default {
 }
 
 .selected {
-    background-color: #dddddd;
+    border-bottom: 2px solid #FF5252 !important;
+    color: #FF5252;
+}
+
+.selected:hover {
+    background-color: #FFEAEA !important;
+}
+
+.pageBtn {
+    display: inline-block;
+    padding: 5px 5px 3px 5px;
+    border-bottom: 2px solid transparent;
+    border-radius: 3px 3px 0 0;
+}
+
+.numbers:hover {
+    background-color: #eeeeee;
 }
 </style>

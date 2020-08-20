@@ -13,7 +13,6 @@ import ContestDetail from '../views/contest/ContestDetail.vue'
 import ContestUpdate from '../views/contest/ContestUpdate.vue'
 
 import TeamList from '../views/team/TeamList.vue'
-import TeamEach from '../views/team/TeamEach.vue'
 import TeamUpdate from '../views/team/TeamUpdate.vue'
 import TeamWrite from '../views/team/TeamWrite.vue'
 import ApplicantList from '../views/team/ApplicantList.vue'
@@ -24,7 +23,10 @@ import Mypage from '../views/mypage/Mypage.vue'
 import MyTeam from '../views/mypage/MyTeam.vue'
 import Profile from '../views/mypage/Profile.vue'
 import Userinfo from '../views/mypage/Userinfo.vue'
-
+import Bookmark from '@/views/mypage/Bookmark.vue'
+import Message from '@/views/mypage/Message.vue'
+import ReadReceiveMessage from '@/views/message/ReadReceive.vue'
+import ReadSendMessage from '@/views/message/ReadSend.vue'
 import VueCookies from 'vue-cookies'
 
 Vue.use(VueCookies)
@@ -52,9 +54,12 @@ Vue.use(VueCookies)
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/index', component: Index },
-  { path: '/schedule', component: Schedule },
+  { path: '/home', name: 'Home', component: Home },
+  { path: '/', components: {
+    a: Index}},
+  { path: '/schedule', components: {
+    a: Schedule,
+   }},
   { path: '/contest', component: ContestRoute, children: [
     { path: '', component: ContestList },
     { path: 'write', component: ContestWrite },
@@ -63,7 +68,6 @@ const routes = [
       { path: 'myteam', component: MyTeam },
       { path: 'teams', component: TeamList },
       { path: 'teams/write', component: TeamWrite },
-      { path: 'teams/:team_id', component: TeamEach },
       { path: 'teams/:team_id/update', component: TeamUpdate },
       { path: 'applicants', component: ApplicantList },
     ]},
@@ -74,14 +78,19 @@ const routes = [
   { path: '/mypage', component: Mypage, children: [
     { path: '', component: Profile },
     { path: 'userinfo', component: Userinfo },
+    { path: 'bookmark', component: Bookmark },
     { path: 'myteam', component: MyTeam },
+    { path: 'message', component: Message },
   ]},
+  { path: '/readReceiveMessage', component: ReadReceiveMessage},
+  { path: '/readSendMessage', component: ReadSendMessage},
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) { if (savedPosition) { return savedPosition } else { return { x: 0, y: 0 } } }
 })
 
 export default router

@@ -1,16 +1,16 @@
 <template>
-    <div class="user" id="login">
-        <Banner />
-        <CalendarClassify />
+<div class="schedule">
+<div class="banner">
+<Banner />
+</div>
+<CalendarClassify />
+</div>
 
-
-    </div>
 </template>
 
 <script>
-import CalendarClassify from '../components/common/CalendarClassify.vue'
-import Banner from '../components/common/Banner.vue'
-
+import CalendarClassify from './calendar/CalendarClassify.vue'
+import Banner from './calendar/Banner.vue'
 
     export default {
         components: {
@@ -18,7 +18,7 @@ import Banner from '../components/common/Banner.vue'
             Banner,
 
         },
-        created(){
+        mounted(){
         },
         watch: {
         },
@@ -34,3 +34,19 @@ import Banner from '../components/common/Banner.vue'
 
     }
 </script>
+<style>
+.schedule {
+
+    margin-right: 70px;
+    margin-left: 10px;
+    margin-top: 80px;
+}
+
+.banner{
+
+    margin-left:50px;
+}
+html {
+    scroll-behavior: smooth;
+}
+</style>

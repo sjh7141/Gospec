@@ -1,14 +1,18 @@
 import axios from 'axios'
 
-const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/field'
-const urlBuilder = (p1, p2, p3) => {
-    return Array(API_URL_PART, p1, p2, p3).join('/');
+const URL = {
+    DOMAIN: 'http://i3a202.p.ssafy.io:8181',
+    CONTEST: 'api/contest/field',
+    TOP: 'api/contest/field/top',
+    contestBuild({ type, mode, page }) { return Array(this.DOMAIN, this.CONTEST, type, mode, page).join('/') },
+    topBuild(type) { return Array(this.DOMAIN, this.TOP, type).join('/') },
 }
 
 export default {
     state: {
         params: {type: 'all', mode: 'all', page: 1,},
         list: [],
+        topList: [],
         pagination: {},
     },
     getters: {  // store.getters.asdf로 사용(computed비슷). 첫 인자는 vuex.state. 두번째 인자는 vuex.getters
@@ -32,15 +36,15 @@ export default {
         setPagination(state, payload) {
             state.pagination = payload;
         },
+        setTopList(state, payload) {
+            state.topList = payload;
+        },
     },
     actions: {  //비동기부분. dispatch로 호출. 첫 인자가 vuex
         getContestList(store) {
             //console.dir(store) 노가다로 유추
             let p = store.state.params;
-            let fullURL = urlBuilder(p.type, p.mode, p.page);
-            
-            // console.log(fullURL);
-            axios.get(fullURL)
+            axios.get(URL.contestBuild(p))
                 .then(response => {
                     // console.dir(response);
                         //response.data.list
@@ -48,6 +52,14 @@ export default {
                     store.commit('setList', response.data.list);
                     store.commit('setPagination', response.data.page);
                     store.commit('setPage', response.data.page.curPage);
+                })
+                .catch(error => console.log(error));
+        },
+        getTopContestList(store) {
+            let t = store.state.params.type;
+            axios.get(URL.topBuild(t))
+                .then(response => {
+                    store.commit('setTopList', response.data);
                 })
                 .catch(error => console.log(error));
         },

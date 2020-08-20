@@ -1,20 +1,36 @@
 <template>
   <div>
-      <div v-if="!isInfoChanged">
-        <h6>개인정보 수정을 위해 비밀번호를 작성해주세요.</h6>
-        <input v-model='password' type="password"><br>
-        <p v-if='!checkPassword' style='color: red;'>{{ errorMessage }}</p>
-        <button class='btn btn-primary' @click="passwordCheck">확인</button>
+    <ProfileImage :userData='userData'/>
+      <div v-if="!isInfoChanged" class='password-check'>
+        <h6>고객님의 안전한 정보보호를 위하여 비밀번호를 다시 한 번 확인합니다.</h6>
+          <h6 style='margin-bottom: 40px;'> 비밀번호가 타인에게 노출되지 않도록 주의하여 주세요.</h6>
+          <v-text-field
+          v-model="password"
+          @keypress.enter="passwordCheck"
+          type="password"
+          solo
+          label="비밀번호를 입력해주세요."
+          clearable
+          class='mx-auto'
+          color='#ff5252'
+          style='width:50%; text-align:center;'
+        ></v-text-field>
+        <p v-if='!checkPassword' style='color: red; margin: 0;'>{{ errorMessage }}</p>
+        <button class='btn btn-primary btncolor' style='margin-top: 10px;' @click="passwordCheck">확인</button>
       </div>
       <div v-else>
-        <UserInfoChange />
+        <UserInfoList />
       </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import UserInfoChange from '../../components/accounts/UserInfoChange.vue'
+import ProfileImage from '../../components/accounts/ProfileImage.vue'
+import UserInfoList from '../../components/accounts/UserInfoList.vue'
+import { mapGetters } from 'vuex'
+
+const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
   data() {
@@ -22,12 +38,14 @@ export default {
       password: '',
       username: '',
       checkPassword: false,
-      isInfoChanged: false,
+      isInfoChanged: '',
       errorMessage: '',
+      userData: null,
     }
   },
   components: {
-    UserInfoChange,
+    UserInfoList,
+    ProfileImage,
   },
   methods: {
     checkusername() {
@@ -41,25 +59,67 @@ export default {
         username: this.username,
         password: this.password
       }
-      axios.post('http://i3a202.p.ssafy.io:8181/login', loginData)
-      .then(() =>
-        this.checkPassword = true,
-        this.isInfoChanged = true,
+      axios.post(API_URL + '/login', loginData)
+      .then((res) =>
+        this.checkThen(res)
       )
       .catch((res) =>
-        console.log(res.response),
-        this.checkPassword = false,
-        this.errorMessage = '비밀번호를 확인해주세요.'
-        
+      this.checkcatch(res)
       )
+    },
+    checkThen(res) {
+      if (res) {
+        this.checkPassword = true
+        this.isInfoChanged = true
+      }
+    },
+    checkcatch(res) {
+      if (res) {
+        this.checkPassword = false
+        this.isInfoChanged = false
+        this.errorMessage = '비밀번호를 확인해주세요.'
+      }
+    },
+      getUserInfo() {
+          const config = {
+              headers: {
+                  Authorization: this.$cookies.get("auth-token")
+              }
+          }
+          axios.get(API_URL + '/api/users', config)
+          .then(res => {
+              this.userData = res.data
+          })
+          .catch(err => console.log(err.response))
+      },
+  },
+  created() {
+    if(this.isRegist){
+      this.isInfoChanged = true;
+      this.checkPassword = true
+      this.$store.commit('setIsRegist', false);
     }
+    this.getUserInfo()
   },
   mounted() {
     this.checkusername()
-  }
+  },
+  computed:{
+    ...mapGetters(['isRegist']),
+  },
 }
 </script>
 
-<style>
-
+<style scoped>
+.password-check {
+  background-color: #f8f8f8;
+  padding: 4rem;
+  padding-bottom: 2rem;
+  
+}
+.btncolor {
+  background-color: #ff5252;
+  border: none;
+}
+.btncolor:active:focus {background-color: #ff5252;}
 </style>

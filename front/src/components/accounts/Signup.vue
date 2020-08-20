@@ -4,10 +4,7 @@
   <div>
     <label for="validationServer01">닉네임</label>
     <div v-if="checkNickname">
-        <input v-if='!possibleNickname' v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
-        <fieldset v-else disabled>
-          <input v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="닉네임을 입력해주세요." required>
-        </fieldset>
+        <input v-model='nickname' type="text" class="form-control is-valid" id="validationServer01" placeholder="" required>
         <button @click='doubleCheckNickname' class='btn btn-primary'>닉네임 중복확인</button>
       <div class="valid-feedback">
         {{ message.nickname }}
@@ -39,13 +36,10 @@
         <div v-if="!certificationNumberCheck">
           <p>인증번호가 발송되었습니다.</p>
           <label for="certification">인증 번호를 입력하세요</label>
-          <input v-model='certificationNumber' id="certification" type="text">
+          <input v-model='certificationNumber' id="certification" type="text" style='border: 2px solid'>
           <button @click="certification">인증번호 확인</button>
         </div>
         <div v-else>
-          <fieldset disabled>
-            <input v-model='certificationNumber' id="certification" type="text">
-          </fieldset>
           <button v-if='certificationNumberCheck'>인증완료</button>
         </div>
         <p v-if="certificationFail" style='color: red;'>인증번호를 다시 한 번 확인해주세요.</p>
@@ -90,21 +84,22 @@
       </div>
     </div>
   </div>
+  <!-- 이용 약관 -->
+  <Terms @submit-terms-data='checkTermsData' />
 
   <!-- 회원가입 정보 입력이 정확하지 않을 때 -->
   <div v-if="checkError" >
-    <div v-for="errorMessage in errorMessages" :key='errorMessage'>
+    <div v-for="errorMessage in errorMessages" :key='errorMessage' style='color: red;'>
       {{ errorMessage }}
     </div>
   </div>
-  <input v-model='checkTerms' type="checkbox" id='checkboxLabel' style='margin-right: 10px; margin-top: 10px'>
-  <label for="checkboxLabel">GoSpec 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</label><br>
-  <button v-if="checkTerms && checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname" @click="signup" class="btn btn-primary">회원가입</button>
+  <button v-if="checkEmail && checkNickname && checkPassword && checkPasswordConfirm && certificationNumberCheck && possibleNickname && checkTerms" @click="signup" class="btn btn-primary">회원가입</button>
   <button v-else @click='notAllowSignup' class="btn btn-secondary">회원가입</button>
 </div>
 </template>
 
 <script>
+import Terms from './Terms.vue'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import axios from 'axios'
@@ -112,6 +107,7 @@ import axios from 'axios'
 const API_URL = 'http://i3a202.p.ssafy.io:8181'
 
 export default {
+  components: { Terms },
   data: () => {
     return {
       nickname: '',
@@ -131,7 +127,7 @@ export default {
       },
       clickEmailCertification: false,
       certificationNumber: '',
-      certificationNumberConfirm: '',
+      certificationNumberConfirm: 'ektnkcn11',
       certificationFail: false,
       certificationNumberCheck: false,
       emailFormIsValid: 'form-control',
@@ -147,7 +143,7 @@ export default {
       checkError: false,
       possibleNickname: false,
       emailDuplicationCheck: false,
-      checkTurms: null,
+      checkTerms: false,
     };
   },
   created() {
@@ -167,15 +163,27 @@ export default {
     },
     email() {
       this.checkFormEmail();
+      this.checkemailChange()
     },
     nickname() {
       this.checkFormNickname();
+      this.checkNicknameChange()
     },
     passwordConfirm() {
       this.checkFormPasswordConfirm();
     }
   },
   methods: {
+    checkTermsData(data) {
+      this.checkTerms = data
+    },
+    checkNicknameChange() {
+      this.possibleNickname = false
+    },
+    checkemailChange() {
+      this.emailDuplicationCheck = false
+      this.clickEmailCertification = false
+    },
     checkFormEmail() {
       if (
         this.email.length >= 0 && EmailValidator.validate(this.email)
@@ -189,7 +197,20 @@ export default {
         this.message.email = '이메일 형식으로 작성해주세요.'
       } 
     },
+    checkFormNickname() {
+      if (
+        this.nickname.length >= 3
+      ) {
+        this.checkNickname = true
+        this.message.nickname = ''
+      }
+      else {
+        this.nicknameFormIsValid = 'form-control is-invalid'
+        this.checkNickname = false
+        this.message.nickname = '3자 이상 작성하세요'
+        }
 
+    },
     checkFormPassword() {
       if (
         this.password.length > 0 &&
@@ -205,24 +226,16 @@ export default {
         this.message.password = ''
       }
     },
-    
-    checkFormNickname() {
-      if (
-        this.nickname.length >= 3
-      ) {
-        this.checkNickname = true
-        this.message.nickname = ''
-      }
-      else {
-        this.nicknameFormIsValid = 'form-control is-invalid'
-        this.checkNickname = false
-        this.message.nickname = '3자 이상 작성하세요'
-        }
-
-    },
 
     checkFormPasswordConfirm() {
       if (
+        !this.passwordSchema.validate(this.passwordConfirm)
+      ){
+        this.passwordConfirmFormIsValid = 'form-control is-invalid'
+        this.checkPasswordConfirm = false
+        this.message.passwordConfirm = '영문,숫자 포함 8 자리이상이어야 합니다.'
+      }
+      else if (
         this.password == this.passwordConfirm && this.passwordConfirm.length > 0
       ) {
         this.checkPasswordConfirm = true 
@@ -237,8 +250,10 @@ export default {
     },
     emailCertification() {
       this.clickEmailCertification = true
-      this.certificationNumberConfirm =  Math.floor(Math.random()*(8999)+1000)
-      console.log(this.certificationNumberConfirm)
+      axios.get(API_URL + '/api/users/email-authentication/' + this.email)
+      .then(res => {
+        this.certificationNumberConfirm = res.data
+      })
     },
     certification() {
       if (this.certificationNumber == this.certificationNumberConfirm)
@@ -250,9 +265,25 @@ export default {
     },
     notAllowSignup() {
       this.errorMessages = []
+      if (!this.checkNickname) {
+        this.checkError = true
+        this.errorMessages.push('닉네임을 확인해주세요.')
+      }
+      else {
+        if (!this.possibleNickname) {
+          this.checkError = true
+          this.errorMessages.push('닉네임 중복 확인을 해주세요.')
+        }
+      }
       if (!this.checkEmail) {
         this.checkError = true
         this.errorMessages.push('이메일을 정확히 작성해주세요.')}
+      else {
+        if (!this.certificationNumberCheck) {
+          this.checkError = true
+          this.errorMessages.push('이메일 인증을 완료하세요.')
+      }
+      }
       if (!this.checkPassword) {
         this.checkError = true
         this.errorMessages.push('패스워드를 정확히 입력해주세요.')
@@ -261,17 +292,9 @@ export default {
         this.checkError = true
         this.errorMessages.push('패스워드가 일치하지 않습니다.')
       }
-      if (!this.checkNickname) {
+      if (!this.checkTerms){
         this.checkError = true
-        this.errorMessages.push('닉네임을 확인해주세요.')
-      }
-      if (!this.checkCertificationNumber) {
-        this.checkError = true
-        this.errorMessages.push('이메일 인증을 완료하세요.')
-      }
-      if (!this.possibleNickname) {
-        this.checkError = true
-        this.errorMessages.push('닉네임 중복 확인을 해주세요.')
+        this.errorMessages.push('이용 약관 및 개인정보 수집에 동의해주세요.')
       }
     },
     // 닉네임 중복확인
@@ -305,16 +328,32 @@ export default {
   computed: {
     signupData() {
       return {
-        nickname: this.nickname,
-        username: this.email,
-        password: this.password,
-        profileImg: this.profileImg,
-        selfIntroduction: this.selfIntroduction,
-        name: this.name,
-        phone: this.phone,
-        birthday: this.birthday,
+        user: {
+          nickname: this.nickname,
+          username: this.email,
+          password: this.password,
+          profileImg: this.profileImg,
+          selfIntroduction: this.selfIntroduction,
+          name: this.name,
+          phone: this.phone,
+          birthday: this.birthday,
+        },
+        fields: []
       }
     },
   }
 }
 </script>
+<style scoped>
+label {
+  margin-top: 7px;
+  font-size: 1rem;
+  color:#263238;
+  display: flex;
+  justify-content: left;
+}
+.btn-primary {
+    background-color: #0277BD;
+    border-color: #0277BD;
+}
+</style>
