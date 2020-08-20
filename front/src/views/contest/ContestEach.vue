@@ -7,7 +7,7 @@
     </h3>
     <div class='content-area'>
       <div class='img'>
-        <img class='hover' @click.stop='dialog=true' :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title" title="크게보기">
+        <img class='hover' @click.stop='dialog=true' :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title" title="크게보기" type='button' style='max-width: 300px;'>
         <v-row justify="center" style="flex:0 0 0">
           <v-dialog v-model="dialog" max-width='600'>
             <img :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + info.imgSrc" :alt="this.info.title">
