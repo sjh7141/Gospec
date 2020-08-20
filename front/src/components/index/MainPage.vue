@@ -69,7 +69,7 @@ export default {
 }
 #body {
   /* background: gray; */
-  height: 1500px;
+  height: 1810px;
 }
 #body div {
   position: relative;

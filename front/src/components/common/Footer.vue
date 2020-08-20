@@ -85,7 +85,8 @@
 #nino-map {
 
     padding: 40px 0;
-    background: url(../../assets/images/index/bg-map.jpg) no-repeat center center / cover;
+    /* background: url(../../assets/images/index/bg-map.jpg) no-repeat center center / cover; */
+    background: #f8f8f8;
 }
 #nino-map .nino-sectionHeading {
     color: #f28989;
@@ -119,7 +120,8 @@
 /* =============== LAYOUT - FOOTER AREA =============== */
 footer {
     padding-top: 50px;
-    background: #f8f8f8;
+    /* background: #f8f8f8; */
+    background: url(../../assets/images/index/bg-map.jpg) no-repeat center center / cover;
 }
 footer .nino-colHeading {
     margin: 0 0 25px;
@@ -130,7 +132,7 @@ footer .colInfo {
 }
 /* ----------- COL 1 ----------- */
 footer .footerLogo {
-    color: #ccc;
+    color: #c0c0c0;
     font-size: 40px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
