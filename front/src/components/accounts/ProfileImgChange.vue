@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Button trigger modal -->
-        <v-btn text color="#ff5252"
+        <v-btn text color="primary"
             data-toggle="modal"
             data-target="#exampleModal">프로필 사진 변경</v-btn>
 

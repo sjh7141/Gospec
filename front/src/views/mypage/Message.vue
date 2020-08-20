@@ -530,12 +530,8 @@ export default {
   border-radius: 2px;
   background-color: red;
 }
-a {
-  color: #ff5252 !important;
-}
 .unread{
-  /* color : rgb(60, 139, 217); */
-  color : #ff5252;
+  color : rgb(60, 139, 217);
 }
 .read {
   color : black !important;
