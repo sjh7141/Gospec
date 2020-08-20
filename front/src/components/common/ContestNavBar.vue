@@ -48,11 +48,11 @@ export default {
 .routeBtn:hover {
     background-color: #dddddd;
     color: black;
-    border-bottom: 7px solid #41B883;
+    border-bottom: 7px solid #ff5252;
 }
 
 .active {
     color: black;
-    border-bottom: 7px solid #41B883;
+    border-bottom: 7px solid #ff5252;
 }
 </style>>

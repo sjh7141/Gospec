@@ -12,10 +12,11 @@
           label="비밀번호를 입력해주세요."
           clearable
           class='mx-auto'
+          color='#ff5252'
           style='width:50%; text-align:center;'
         ></v-text-field>
         <p v-if='!checkPassword' style='color: red; margin: 0;'>{{ errorMessage }}</p>
-        <button class='btn btn-primary' style='margin-top: 10px;' @click="passwordCheck">확인</button>
+        <button class='btn btn-primary btncolor' style='margin-top: 10px;' @click="passwordCheck">확인</button>
       </div>
       <div v-else>
         <UserInfoList />
@@ -116,4 +117,9 @@ export default {
   padding-bottom: 2rem;
   
 }
+.btncolor {
+  background-color: #ff5252;
+  border: none;
+}
+.btncolor:active:focus {background-color: #ff5252;}
 </style>

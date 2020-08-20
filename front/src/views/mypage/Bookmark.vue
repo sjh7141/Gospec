@@ -109,6 +109,6 @@ export default {
     margin: auto auto;
     min-width: 60px;
     height: 27px;
-    background-color: rgb(212, 188, 47);
+    background-color: #ff5252;
 }
 </style>

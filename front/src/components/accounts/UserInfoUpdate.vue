@@ -27,6 +27,7 @@
             v-model="name"
             label=""
             clearable
+            color="#ff5252"
           ></v-text-field>
           </div>
         </div>
@@ -63,6 +64,7 @@
               v-model="major"
               label=""
               clearable
+              color="#ff5252"
             ></v-text-field>
           </div>
         </div>
@@ -78,6 +80,7 @@
             v-model="phone"
             label=""
             clearable
+            color="#ff5252"
           ></v-text-field>
           </div>
         </div>
@@ -92,6 +95,7 @@
             v-model="birthday"
             label=""
             clearable
+            color="#ff5252"
           ></v-text-field>
           <i class="far fa-calendar-alt ml-2" type='button' @click='clickCalendar' style='font-size:30px; display:inline;'></i>
           </div>
@@ -114,6 +118,7 @@
             v-model="address"
             label=""
             clearable
+            color="#ff5252"
           ></v-text-field>
           </div>
         </div>
@@ -129,13 +134,14 @@
                 label=""
                 v-model='selfIntroduction'
                  maxlength="200"
+                color="#ff5252"
               ></v-textarea>
             </v-container>
           </template>
           </div>
         </div>
 
-        <v-btn @click='userInfoChange' class="ma-2" outlined color="indigo">회원정보수정</v-btn>
+        <v-btn @click='userInfoChange' class="ma-2" outlined color="#ff5252">회원정보수정</v-btn>
         
   </div>
 </template>

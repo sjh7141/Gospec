@@ -233,7 +233,7 @@ export default {
   grid-row: 1/3;
   font-size: 30px;
   color:black;
-
+  margin-bottom: 50px;
 }
 .study {
   grid-column: 2/7;
@@ -243,6 +243,6 @@ export default {
 
 }
 .home_title {
-  margin-bottom: 10px ;
+  margin-bottom: 30px;
 }
 </style>
