@@ -5,7 +5,6 @@
         <team-btn :status="getStatus" :team="T" @refreshList="emitRefreshList"/>
     </div>
 
-    <!-- <span>{{ T.title }}</span> -->
     <h5 class="minititle">{{ T.title }}</h5>
 
     <ProfileModal :username='T.username' size="60"/>
@@ -63,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end 팀원 & 지원자 목록-->
 
         </div>
     </div>

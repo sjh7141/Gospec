@@ -8,13 +8,21 @@
 import STAT from '@/constants/TeamStatus.js'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+
 const URL = 'http://i3a202.p.ssafy.io:8181/api/teams'
 // const URL = 'http://localhost:8181/api/teams'
-const dtoBuilder = ({username, title, contestNo}, action) => {return {receiver: username, title: title, contestNo: contestNo, action: action};}
+
+const dtoBuilder = ({username, title, contestNo}, action) => {
+    return {receiver: username, title: title, contestNo: contestNo, action: action};
+}
 
 export default {
     props: ['status','team'],
     //emit: ['refreshList'],
+    computed: {
+        getStatus() {return this.$props.status;},
+        ...mapGetters(['username']),
+    },
     methods: {
         action() {
             let c = this.getStatus.C;
@@ -67,37 +75,6 @@ export default {
                     .catch(error => console.log(error))
             }
         },   //end action
-    },
-    computed: {
-        getStatus() {
-            return this.$props.status;
-        },
-        // isLoggedIn() {
-        //     return this.$cookies.isKey('auth-token');
-        // },
-        userName() {
-            try {
-                let ca = this.$cookies.get('auth-token');
-                let base64Url = ca.split('.')[1];
-                let decodedValue = JSON.parse(window.atob(base64Url));
-                return decodedValue.sub;
-            } catch {
-                return '';
-            }
-        },
-        ...mapGetters(['username']),
-        // isLeader() {
-        //     return this.userName == this.$props.team.username;
-        // },
-        // isInApprovalList() {
-        //     return this.$props.team.approvalList.filter(x => x.memberUsername == this.userName).length !== 0;
-        // },
-        // isListAvailable() {
-        //     return (1 + this.$props.team.approvalList.filter(x => x.approvalFlag).length) < this.$props.team.memberMax;
-        // },
-        // isMember() {
-        //     return this.$props.team.approvalList.filter(x => x.memberUsername == this.userName && x.flag).length > 0;
-        // },
     },
 }
 </script>

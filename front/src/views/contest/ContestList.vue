@@ -21,7 +21,9 @@
       <td>{{ eachC.contestNo }}</td>
       <td class='right'>
         <LikeState2 class='_inlineBlock' :selectedEvent="eachC"/>
-        <router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>{{ eachC.title }}</router-link>
+        <router-link :to="'/contest/' + eachC.contestNo" @click.native='addViewCount(eachC)'>
+          {{ eachC.title }}
+        </router-link>
       </td>
       <td>{{ maxLengthFilter(eachC.host) }}</td>
       <td><dday :data='eachC'/></td>
@@ -55,15 +57,7 @@ export default {
     LikeState2,
     PopularContest,
   },
-  data() {
-    return {
-
-    }
-  },
   created() {
-    // this.primeFilterState = 'all';
-    // console.log('asdf'+this.$store.state.ContestList.type);
-    // console.log(this.$store.dispatch('getContestList'))
     this.$store.dispatch('getContestList');
     this.$store.dispatch('getTopContestList');
   },
@@ -73,21 +67,13 @@ export default {
     },
     addViewCount({contestNo}) {
       axios.patch(URL_PART + contestNo)
-        .then(res => {
-          console.dir(res);
-        })
+        .then(res => { if(res.status == 200) '' })  //조회수 증가요청 성공
         .catch(error => console.log(error))
     },
   },
-  watch: {
-  },
   computed: {
-    contestList() {
-      return this.$store.state.ContestList.list;
-    },
-    topContestList() {
-      return this.$store.state.ContestList.topList;
-    }
+    contestList() { return this.$store.state.ContestList.list; },
+    topContestList() { return this.$store.state.ContestList.topList; },
   },
 }
 </script>

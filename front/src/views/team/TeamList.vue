@@ -94,9 +94,6 @@ export default {
         ctst_id() {
             return this.$route.params.contest_id;
         },
-        isLoggedIn() {
-            return this.$cookies.isKey('auth-token');
-        },
         isLastPage() {
             return this.pageInfo.totalCount <= (this.pageInfo.curPage * this.pageInfo.perPageNum);
         },
@@ -111,7 +108,6 @@ export default {
             }
         },
         ...mapGetters(['isLogin']),
-
     },
 }
 </script>

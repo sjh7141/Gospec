@@ -54,7 +54,7 @@ export default {
             return this.expandedPost == postNo;
         },
         setExpandedPost(payload) {
-            (this.expandedPost == payload) ? this.expandedPost = 0 : this.expandedPost = payload;
+            this.expandedPost = (this.expandedPost == payload) ? 0 : payload;
         },
         switchMode() {
             this.mode = (this.mode == MODE.APPLY) ? MODE.LEADER : MODE.APPLY;

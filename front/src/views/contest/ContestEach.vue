@@ -57,24 +57,29 @@ export default {
   },
   data() {
     return {
-      contest_id: null,
       info: null,
       category: null,
       dialog: false,
     }
   },
-  methods: {
-
-  },
   created() {
-    this.contest_id = this.$route.params.contest_id;
-    axios.get(API_URL_PART + this.contest_id)
-      .then(response => {
-        this.info = response.data.contest;
-        this.category = response.data.field;
-      })
-      .catch(error => console.log(error))
-  }
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      axios.get(API_URL_PART + this.contest_id)
+        .then(response => {
+          this.info = response.data.contest;
+          this.category = response.data.field;
+        })
+        .catch(error => console.log(error))
+    },
+  },
+  computed: {
+    contest_id() {
+      return this.$route.params.contest_id;
+    },
+  },
 }
 </script>
 

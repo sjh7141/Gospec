@@ -8,8 +8,7 @@
         <div class="nino-copyright">Copyright &copy; 2020
             <a
                 target="_blank"
-                href="#"
-                title="Ninodezign.com - Top quality open source resources for web developer and web designer">Gospec.com</a>
+                href="#">Gospec.com</a>
                 . All Rights Reserved.
             <br/>
             GoSpec template by

@@ -33,13 +33,11 @@ export default {
       memberMax: 1,
       MemberCur: 1,
       contestNo: this.$route.params.contest_id,
-      // registTime: '',
     },
   }},
   created() {
     axios.get(URL_PART + '/detail/' + this.$route.params.team_id)
       .then(response => {
-        // console.dir(response);
         this.post = response.data;
       })
       .catch(error => console.log(error));
@@ -60,7 +58,6 @@ export default {
           console.dir(response);
           if (response.status == 200) {
             alert('정상수정되었습니다');
-            // this.$router.push('/contest/' + this.$route.params.contest_id + '/teams');
             // 각기 다른 링크로부터 들어올 수 있기 때문에 뒤로가기로 수정
             this.$router.go(-1);
           }

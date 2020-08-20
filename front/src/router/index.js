@@ -13,7 +13,6 @@ import ContestDetail from '../views/contest/ContestDetail.vue'
 import ContestUpdate from '../views/contest/ContestUpdate.vue'
 
 import TeamList from '../views/team/TeamList.vue'
-import TeamEach from '../views/team/TeamEach.vue'
 import TeamUpdate from '../views/team/TeamUpdate.vue'
 import TeamWrite from '../views/team/TeamWrite.vue'
 import ApplicantList from '../views/team/ApplicantList.vue'
@@ -69,7 +68,6 @@ const routes = [
       { path: 'myteam', component: MyTeam },
       { path: 'teams', component: TeamList },
       { path: 'teams/write', component: TeamWrite },
-      { path: 'teams/:team_id', component: TeamEach },
       { path: 'teams/:team_id/update', component: TeamUpdate },
       { path: 'applicants', component: ApplicantList },
     ]},

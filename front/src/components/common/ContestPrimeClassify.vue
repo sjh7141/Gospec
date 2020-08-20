@@ -1,26 +1,17 @@
 <template>
 <div class="middle">
     <div class="horizontal">
-      <v-card outlined>
-    <v-tabs
-    color="error"
-    center-active
-    centered
-    show-arrows
-      
-    >
-      <v-tabs-slider color="error"></v-tabs-slider>
+        <v-card outlined>
+            <v-tabs color="error" center-active centered show-arrows>
 
-      <v-tab
-        v-for="type in  TYPES"
-        :key="type"
-        @click='pageChange(type)'
-      >
-        {{ typeToTextFilter(type) }}
-      </v-tab>
-    </v-tabs>
-  </v-card>
-</div>
+            <v-tabs-slider color="error"></v-tabs-slider>
+                <v-tab v-for="type in TYPES" :key="type"
+                    @click='pageChange(type)'>
+                    {{ typeToTextFilter(type) }}
+                </v-tab>
+            </v-tabs>
+        </v-card>
+    </div>
 </div>
 </template>
 

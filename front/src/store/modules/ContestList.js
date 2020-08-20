@@ -1,9 +1,11 @@
 import axios from 'axios'
 
-const API_URL_PART = 'http://i3a202.p.ssafy.io:8181/api/contest/field'
-const TOP_URL = 'http://i3a202.p.ssafy.io:8181/api/contest/field/top/';
-const urlBuilder = (p1, p2, p3) => {
-    return Array(API_URL_PART, p1, p2, p3).join('/');
+const URL = {
+    DOMAIN: 'http://i3a202.p.ssafy.io:8181',
+    CONTEST: 'api/contest/field',
+    TOP: 'api/contest/field/top',
+    contestBuild({ type, mode, page }) { return Array(this.DOMAIN, this.CONTEST, type, mode, page).join('/') },
+    topBuild(type) { return Array(this.DOMAIN, this.TOP, type).join('/') },
 }
 
 export default {
@@ -42,10 +44,7 @@ export default {
         getContestList(store) {
             //console.dir(store) 노가다로 유추
             let p = store.state.params;
-            let fullURL = urlBuilder(p.type, p.mode, p.page);
-            
-            // console.log(fullURL);
-            axios.get(fullURL)
+            axios.get(URL.contestBuild(p))
                 .then(response => {
                     // console.dir(response);
                         //response.data.list
@@ -57,7 +56,8 @@ export default {
                 .catch(error => console.log(error));
         },
         getTopContestList(store) {
-            axios.get(TOP_URL + store.state.params.type)
+            let t = store.state.params.type;
+            axios.get(URL.topBuild(t))
                 .then(response => {
                     store.commit('setTopList', response.data);
                 })

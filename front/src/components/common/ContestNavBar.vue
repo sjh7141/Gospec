@@ -13,15 +13,12 @@ export default {
             this.$router.push(`/contest/${this.$route.params.contest_id}/${param}`)
         },
         isSelected(param) {
-            if (param == '') {
-                return this.l == 3 || this.c_path == param;
-            }
-            return this.c_path == param;
+            return ( param == '' ) ? ( this.l == 3 || this.c_path == param ) : ( this.c_path == param );
         },
     },
     computed: {
-        c_path() {return this.$route.path.split('/')[3]},
-        l() {return this.$route.path.split('/').length},
+        c_path() { return this.$route.path.split('/')[3] },
+        l() { return this.$route.path.split('/').length },
     },
 }
 </script>

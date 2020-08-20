@@ -1,22 +1,15 @@
 <template>
 <div class="middle" style="width: 90%;">
-<div class="horizontal">
-<v-card outlined>
-<v-tabs
-    color="error"
-    center-active
-    centered
-    
->
-    <v-tab
-
-    v-for="(mode, idx) in MODES" :key="idx"
-    @click="pageChange(mode.CODE)">
-    {{ mode.TEXT }}
-    </v-tab>
-</v-tabs>   
-</v-card>
-</div>
+    <div class="horizontal">
+        <v-card outlined>
+            <v-tabs color="error" center-active centered>
+                <v-tab v-for="(mode, idx) in MODES" :key="idx"
+                    @click="pageChange(mode.CODE)">
+                    {{ mode.TEXT }}
+                </v-tab>
+            </v-tabs>
+        </v-card>
+    </div>
 </div>
 </template>
 

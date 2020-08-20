@@ -33,10 +33,13 @@ import axios from 'axios'
 import Dday from '@/components/contest/Dday.vue'
 import vueConfirmationButton from 'vue-confirmation-button';
 
-const URL = 'http://i3a202.p.ssafy.io:8181/api/contest/bookmark';
-const START_DATE = '2000-01-01';
-const END_DATE = '2100-01-01';
-const urlBuilder = name => Array(URL, name, START_DATE, END_DATE).join('/')
+const URL = {
+    DOMAIN: 'http://i3a202.p.ssafy.io:8181',
+    BOOKMARK: 'api/contest/bookmark',
+    DATE: { START: '2000-01-01', END: '2100-01-01' },
+    build() { return Array(this.DOMAIN, this.BOOKMARK).join('/') },
+    bmkBuild(name) { return Array(this.DOMAIN, this.BOOKMARK, name, this.DATE.START, this.DATE.END).join('/') },
+}
 
 export default {
     name: 'bookmark',
@@ -51,7 +54,7 @@ export default {
     methods: {
         loadList() {
             this.bookmarkList = [];
-            axios.get(urlBuilder(this.userName))
+            axios.get(URL.bmkBuild(this.userName))
                 .then(response => {
                     this.bookmarkList = response.data;
                 }).catch(error => console.log(error));
@@ -61,7 +64,7 @@ export default {
         },
         removeBookmark(ctstNo) {
             const headers = {Authorization: this.$cookies.get("auth-token")};
-            axios.delete(URL,{headers,data: {contestNo:ctstNo}})
+            axios.delete(URL.build(), {headers,data: {contestNo:ctstNo}})
                 .then(response => {if (response.status == 200) this.loadList();})
                 .catch(error => console.log(error))
         },
@@ -69,7 +72,6 @@ export default {
     computed: {
         userName() {
             try {
-                // let ca = this.$cookies.get('auth-token');
                 let base64Url = this.$cookies.get('auth-token').split('.')[1];
                 let decodedValue = JSON.parse(window.atob(base64Url));
                 return decodedValue.sub;
