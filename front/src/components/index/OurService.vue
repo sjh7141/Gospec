@@ -81,10 +81,6 @@
 	background: #f38181;
 	transform: translateX(-50%);
 }
-#nino-services {
-    /* background: url(../../assets/images/ourteam/bg.jpg) no-repeat center center / cover; */
-    background-color: #f8f8f8;
-}
 #nino-services .nino-icon {
 	font-size: 30px;
 	margin-right: auto;
