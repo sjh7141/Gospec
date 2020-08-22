@@ -7,6 +7,9 @@
                 <h2 class="nino-sectionHeading">
                     Services
                 </h2>
+
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/NPnNF8mqAk8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
                 <div class="sectionContent">
                     <div class="fw row">
                         <div class="col-md-4 col-sm-6 item ">
@@ -80,10 +83,6 @@
 	height: 2px;
 	background: #f38181;
 	transform: translateX(-50%);
-}
-#nino-services {
-    /* background: url(../../assets/images/ourteam/bg.jpg) no-repeat center center / cover; */
-    background-color: #f8f8f8;
 }
 #nino-services .nino-icon {
 	font-size: 30px;

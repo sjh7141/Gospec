@@ -135,7 +135,7 @@ section {
 	position: relative;
 }
 .nino-sectionHeading {
-    /* margin-top: 40px; */
+    margin-top: 40px;
     margin-bottom: 10px;
 }
 #nino-happyClient {
