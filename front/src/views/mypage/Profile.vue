@@ -1,16 +1,10 @@
 <template>
     <div class='profile'>
         <v-card class='row' style='padding: 50px;' color='grey lighten-4'>
-            <div class='col-12 text-right'>
-                <button @click='clickEditBtn' class='btn btn-primary btnStyle' style="margin-right: 25px;">
-                    <i class="fas fa-pen mr-2"></i>
-                    <p v-if='!editBtn' class='d-inline'>Edit</p>
-                    <p v-else class='d-inline'>OK</p>
-                </button>
-            </div>
+
             <div class='col-3'>
                 <h3 style='margin-top:40px; margin-bottom:20px;'>
-                    <i class="fas fa-square mr-1" style='color: red; font-size:15px;'></i>Profile</h3>
+                </h3>
                 <v-avatar class='mx-auto' size='200'>
                     <v-img v-if="profileImg" :src="profileImg"></v-img>
                     <v-img
@@ -212,6 +206,13 @@
 
                     </div>
                 </v-card>
+            <div class='col-12 text-right'>
+                <button @click='clickEditBtn' class='btn btn-primary btnStyle' style="margin-right: 25px;">
+                    <i class="fas fa-pen mr-2"></i>
+                    <p v-if='!editBtn' class='d-inline'>Edit</p>
+                    <p v-else class='d-inline'>OK</p>
+                </button>
+            </div>
             </v-card>
 
         </div>
@@ -414,4 +415,7 @@
     .btnStyle {background-color: #ff5252;}
     .btnStyle:hover {background-color: #ff3030;}
     .btnStyle:active:focus {background-color: #ff3030;}
+    .profile {
+        margin-bottom: 60px;
+    }
 </style>
