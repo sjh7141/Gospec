@@ -23,7 +23,7 @@
     </v-list>
   </v-card>
 <div class="contest">
-  <div class="home_title" style="margin-right:100px">
+  <div class="home_title" style="margin-right:100px; margin-left:10px; text-align:left;">
     <v-btn :color="color" fab="fab" x-small="x-small">
     <v-icon>{{ icons }}</v-icon> 
   </v-btn>
@@ -32,7 +32,7 @@
   <PopularContest :contest ="contest"/>
   </div>
 <div class="study">
-  <div class="home_title" style="margin-right:100px">
+  <div class="home_title" style="margin-right:100px; margin-left:10px; text-align:left;">
   <v-btn :color="color" fab="fab" x-small="x-small">
     <v-icon>{{ icons }}</v-icon> 
   </v-btn>
