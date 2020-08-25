@@ -40,16 +40,19 @@ export default {
     margin: 0 30px;
     color: gray;
     border-bottom: 7px solid #dddddd;
+    outline: 0;
 }
 
 .routeBtn:hover {
     background-color: #dddddd;
     color: black;
     border-bottom: 7px solid #ff5252;
+    outline: 0;
 }
 
 .active {
     color: black;
     border-bottom: 7px solid #ff5252;
+    outline: 0;
 }
 </style>>
