@@ -1,7 +1,7 @@
 <template>
 <v-app>
 <div class="cal">
-<div class="filter">
+<div class="filter" style="margin-left:18px;">
   <v-card
     class="category mx-auto"
     max-width="400"
@@ -27,7 +27,7 @@
 </div>
 <div class="cal-body">
   <div class="d-flex">
-  <v-btn color="error" class= 'cal-btn mr-4'  @click="totalCalBtn">전체일정</v-btn>
+  <v-btn style="margin-left:11px;" color="error" class= 'cal-btn mr-4'  @click="totalCalBtn">전체일정</v-btn>
   <v-btn color="error" @click="myCalBtn">내 일정</v-btn>
   </div>
     <div class="calendar">
