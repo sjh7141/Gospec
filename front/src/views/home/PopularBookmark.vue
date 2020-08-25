@@ -9,13 +9,12 @@
       class ="rounded-xl"
       style="margin: auto;"
       max-width="300"
+      :aspect-ratio="16/9"
     >
   
       <router-link :to="{ path: '/contest/' + each.contestNo}">
       <v-img
-        :aspect-ratio="16/9"
         class="white--text align-end rounded-lg"
-        height="300px"
         :src="'http://i3a202.p.ssafy.io:8181/api/file/download/' + each.imgSrc"
       >
         <v-expand-transition>
