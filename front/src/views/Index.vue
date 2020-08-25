@@ -6,13 +6,11 @@
       <OurTeamInfo />
       <Footer id='index-footer' />
         <div class="nino-copyright">Copyright &copy; 2020
-            <a
-                target="_blank"
-                href="#">Gospec.com</a>
+            <a @click.prevent="aTag()">Gospec.com</a>
                 . All Rights Reserved.
             <br/>
             GoSpec template by
-            <a href="#">깜냥</a>
+            <a @click.prevent="aTag()" >깜냥</a>
             
         </div>
   </div>
@@ -30,7 +28,12 @@ export default {
         Footer,
         OurTeamInfo,
         MainPage
-    }
+    },
+    methods: {
+        aTag(){
+            
+        }
+    },
 
 }
 </script>
