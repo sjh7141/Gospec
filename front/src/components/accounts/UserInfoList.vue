@@ -103,4 +103,7 @@ export default {
 <style scoped>
   .v-card {
   }
+  .container{
+    margin-bottom: 60px;
+  }
 </style>
