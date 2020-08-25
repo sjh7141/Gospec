@@ -17,14 +17,14 @@
 
       <div class='_info'>
         <ul class='info-list'>
-          <li><span class='label'>응모대상: </span>{{ this.info.target }}</li>
-          <li><span class='label'>주최/주관: </span>{{ this.info.host }}</li>
-          <li><span class='label'>후원/협찬: </span>{{ this.info.sponsor }}</li>
-          <li><span class='label'>접수기간: </span>{{ this.info.startDate }} ~ {{ this.info.endDate }}</li>
-          <li><span class='label'>총 상금: </span>{{ this.info.totalReward }}</li>
-          <li><span class='label'>1등 상금: </span>{{ this.info.firstReward }}</li>
-          <li><span class='label'>홈페이지: </span><a :href='this.info.homepage'>{{ this.info.homepage }}</a></li>
-          <span class='label'>분야: </span><span class="cat" v-for="(cat, i) in category" :key="i">#{{cat}}</span>
+          <li><span class='label'>응모대상 </span>{{ this.info.target }}</li>
+          <li><span class='label'>주최/주관 </span>{{ this.info.host }}</li>
+          <li><span class='label'>후원/협찬 </span>{{ this.info.sponsor }}</li>
+          <li><span class='label'>접수기간 </span>{{ this.info.startDate }} ~ {{ this.info.endDate }}</li>
+          <li><span class='label'>총 상금 </span>{{ this.info.totalReward }}</li>
+          <li><span class='label'>1등 상금 </span>{{ this.info.firstReward }}</li>
+          <li><span class='label'>홈페이지 </span><a :href='this.info.homepage'>{{ this.info.homepage }}</a></li>
+          <span class='label'>분야 </span><span class='wrap'><span class="cat" v-for="(cat, i) in category" :key="i">#{{cat}}</span></span>
           <li><span class='ddayWrapper'><dday :data="info"/></span></li>
         </ul>
       </div>
@@ -119,7 +119,13 @@ export default {
 .label {
   display: inline-block;
   font-weight: bold;
+  font-family: Avenir;
   width: 100px;
+  vertical-align: top;
+}
+.wrap {
+  display: inline-block;
+  width: 400px;
 }
 .clear {
   clear: both;
