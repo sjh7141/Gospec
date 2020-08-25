@@ -5,7 +5,7 @@
     max-width="400"
     
   >
-    <v-list>
+    <v-list id="stic">
       <v-list-item-group v-model="model">
         <v-list-item
           v-for="(item,i) in items"
@@ -244,5 +244,9 @@ export default {
 }
 .home_title {
   margin-bottom: 30px;
+}
+#stic{
+  Position: sticky;
+  top: 0;
 }
 </style>
