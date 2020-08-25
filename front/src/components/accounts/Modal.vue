@@ -120,7 +120,6 @@ export default {
             })
         },
         login(loginData) {
-            console.log(loginData);
             axios.post(API_URL + '/login', loginData)
             .then(res => {
                 this.setCookie(res.headers.authorization)

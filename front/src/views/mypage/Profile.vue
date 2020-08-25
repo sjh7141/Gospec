@@ -263,7 +263,6 @@
                 axios
                     .get(API_URL + '/api/users', config)
                     .then(res => {
-                        console.log(res.data)
                         this.birthday = res.data.birthday
                         this.address = res.data.address
                         this.gender = res.data.gender
@@ -324,7 +323,6 @@
                 this.careername = ''
                 this.startYear = ''
                 this.status = ''
-                console.log(this.careerList)
             },
             removeLicense(index) {
                 this
@@ -358,12 +356,13 @@
                 }
                 axios
                     .patch(API_URL + '/api/users', this.profileData, config)
-                    .then(res => {
-                        this
-                            .profileData
-                            console
-                            .log(res.data)
-                    })
+                    .then(//res => {
+                        // this
+                        //     .profileData
+                        //     console
+                        //     .log(res.data)
+                    //})
+                    )
                     .catch(err => {
                         console.log(err.response.data)
                     })

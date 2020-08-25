@@ -161,7 +161,7 @@ export default {
 
 
         })
-        .catch(() => { console.log("여기에러남") })
+        .catch(() => { console.log("에러가 발생하였습니다.") })
     },
     myCalBtn() {
 

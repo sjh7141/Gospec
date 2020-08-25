@@ -63,23 +63,23 @@ export default {
       this.fieldtype = fieldtype
       this.icons = icons
       this.color = color
-      console.log(fieldtype)
+      
     },
     getContest() {
-    console.log(this.field)
+    
     axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top/"+this.field)
     .then(response => {
       this.contest = response.data
-      console.log("getContest")
+      
       })
     .catch(error => { console.log(error) })
     },
     getBookmark() {
-      console.log(this.field)
+      
       axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top-bookmark/"+this.field)
       .then(response => {
         this.bcontest = response.data
-        console.log("고스펙회원픽")
+        
         })
       .catch(error => { console.log(error) })
     },

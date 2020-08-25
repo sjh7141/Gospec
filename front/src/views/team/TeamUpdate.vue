@@ -55,7 +55,7 @@ export default {
 
       axios.patch(URL_PART, this.post, config)
         .then(response => {
-          console.dir(response);
+          
           if (response.status == 200) {
             alert('정상수정되었습니다');
             // 각기 다른 링크로부터 들어올 수 있기 때문에 뒤로가기로 수정
