@@ -135,7 +135,6 @@ import Modal from '../accounts/Modal.vue'
             giveInterest(interest) {
 
                 this.myInterest.push(interest)
-                console.log(this.myInterest)
 
 
             },

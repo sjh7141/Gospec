@@ -46,7 +46,6 @@ const API_URL = 'http://i3a202.p.ssafy.io:8181'
       getUserInfo() {
         axios.get(API_URL +'/api/users/other/' + this.username)
         .then(res => {
-          console.log(res.data)
           this.userData = res.data
         })
       }

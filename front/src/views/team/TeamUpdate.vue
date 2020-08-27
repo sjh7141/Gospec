@@ -3,13 +3,13 @@
     <h3 class="smallTitle">팀 찾기 게시물 수정</h3>
     <form class='_form' action="">
       <label for='_title'>제목: </label><br>
-      <input class='_input' type="text" name="title" id="_title" v-model='post.title'/><br>
+      <input class='_input' style="outline : 0;" type="text" name="title" id="_title" v-model='post.title'/><br>
 
       <label for="_content">내용: </label><br>
-      <textarea class='_input' name="content" id="_content" cols="30" rows="10" v-model='post.content'></textarea>
+      <textarea class='_input' style="outline : 0;" name="content" id="_content" cols="30" rows="10" v-model='post.content'></textarea>
 
       <label for="_memberMax">최대인원: </label>
-      <input class='_input _numInput' type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
+      <input class='_input _numInput' style="outline : 0;" type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
 
       <div style="text-align: center;">
         <button class='_btn' @click.prevent="$router.go(-1)">뒤로</button>
@@ -55,7 +55,7 @@ export default {
 
       axios.patch(URL_PART, this.post, config)
         .then(response => {
-          console.dir(response);
+          
           if (response.status == 200) {
             alert('정상수정되었습니다');
             // 각기 다른 링크로부터 들어올 수 있기 때문에 뒤로가기로 수정

@@ -38,15 +38,12 @@ export default {
     methods: {
       clickLike(contestNo) {
         this.likestate = true
-        console.log(this.likestate)
         this.$emit('add-contest',contestNo)
         var ca = this.$cookies.get("auth-token")
         if (ca == null) {
           alert('로그인이 필요한 서비스 입니다!')
           this.likestate = false
         }
-        console.log("이것은 토큰")
-        console.log(ca)
         const data = {
           contestNo: contestNo,
         }
@@ -56,24 +53,18 @@ export default {
             Authorization: ca,
           }
       } 
-  
-      console.log('좋아요')
-    
+
       axios.post("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",data,config)
-      .then(res => {
-        console.log(res.data)
-      })
+      .then(//res => {
+        //console.log(res.data)
+      //})
+      )
       },
 
       clickDisLike(contestNo) {
       this.likestate = false
       this.$emit('delete-contest',contestNo)
       var ca = this.$cookies.get("auth-token")
-      console.log("이것은 토큰")
-
-      console.log(ca)
-      console.log(contestNo)
-      console.log('취소')
 
       axios.delete("http://i3a202.p.ssafy.io:8181/api/contest/bookmark",{
         headers: {
@@ -83,10 +74,10 @@ export default {
           contestNo: contestNo
         }
       })
-      .then(res => {
-        console.log(res.data)
-        console.log('삭제')
-      })
+      .then(//res => {
+        //console.log(res.data)
+      //})
+      )
       }
     }
 

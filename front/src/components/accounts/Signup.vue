@@ -314,7 +314,6 @@ export default {
     emailDuplication() {
       axios.get(API_URL + '/api/users/email-duplication/' + this.email,)
       .then(res => {
-        console.log(res)
         if (res.data) {
           alert('이미 사용 중인 이메일입니다.')}
         else {
