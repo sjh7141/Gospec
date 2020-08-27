@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class='bookmark'>
     <h3 style='margin: 30px;'>북마크한 공모전 목록</h3>
     <table id='list' class='centered'>
         <tr>
@@ -13,7 +13,7 @@
         <tr v-for="(eachB, idx) in bookmarkList" :key="idx">
             <td>{{ eachB.contestNo }}</td>
             <td class='right'>
-                <router-link :to="'/contest/' + eachB.contestNo" @click.native='addViewCount(eachB)'>{{ eachB.title }}</router-link>
+                <router-link style="color:black !important;" :to="'/contest/' + eachB.contestNo" @click.native='addViewCount(eachB)'>{{ eachB.title }}</router-link>
             </td>
             <td>{{ maxLengthFilter(eachB.host) }}</td>
             <td><dday :data='eachB'/></td>
@@ -112,5 +112,8 @@ export default {
     min-width: 60px;
     height: 27px;
     background-color: #ff5252;
+}
+.bookmark {
+    margin-bottom: 60px;
 }
 </style>

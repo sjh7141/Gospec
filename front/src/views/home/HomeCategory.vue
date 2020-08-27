@@ -5,7 +5,7 @@
     max-width="400"
     
   >
-    <v-list>
+    <v-list id="stic">
       <v-list-item-group v-model="model">
         <v-list-item
           v-for="(item,i) in items"
@@ -23,8 +23,8 @@
     </v-list>
   </v-card>
 <div class="contest">
-  <div class="home_title" style="margin-right:100px">
-    <v-btn :color="color" fab="fab" x-small="x-small">
+  <div class="home_title" style="margin-right:100px; margin-left:10px; text-align:left;">
+    <v-btn :color="color" fab="fab" x-small="x-small" style="pointer-events: none !important;">
     <v-icon>{{ icons }}</v-icon> 
   </v-btn>
   {{ fieldtype }} 인기 공모전
@@ -32,7 +32,7 @@
   <PopularContest :contest ="contest"/>
   </div>
 <div class="study">
-  <div class="home_title" style="margin-right:100px">
+  <div class="home_title" style="margin-right:100px; margin-left:10px; text-align:left;">
   <v-btn :color="color" fab="fab" x-small="x-small">
     <v-icon>{{ icons }}</v-icon> 
   </v-btn>
@@ -63,23 +63,23 @@ export default {
       this.fieldtype = fieldtype
       this.icons = icons
       this.color = color
-      console.log(fieldtype)
+      
     },
     getContest() {
-    console.log(this.field)
+    
     axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top/"+this.field)
     .then(response => {
       this.contest = response.data
-      console.log("getContest")
+      
       })
     .catch(error => { console.log(error) })
     },
     getBookmark() {
-      console.log(this.field)
+      
       axios.get("http://i3a202.p.ssafy.io:8181/api/contest/field/top-bookmark/"+this.field)
       .then(response => {
         this.bcontest = response.data
-        console.log("고스펙회원픽")
+        
         })
       .catch(error => { console.log(error) })
     },
@@ -244,5 +244,9 @@ export default {
 }
 .home_title {
   margin-bottom: 30px;
+}
+#stic{
+  Position: sticky;
+  top: 0;
 }
 </style>

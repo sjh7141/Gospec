@@ -201,7 +201,6 @@ export default {
       else this.certificationFail = true
     },
     passwordChange() {
-      console.log(this.passwordData)
       axios.patch(API_URL + '/api/users/password', this.passwordData)
       .then(() => {
         this.$emit('completePasswordChange')

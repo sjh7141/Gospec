@@ -229,7 +229,6 @@ export default {
         axios.post(API_URL + '/api/file/upload', formData, config)
         .then((res) => {
           this.profileImg = res.data.fileDownloadUri
-          console.log('check')
           axios.patch(API_URL + '/api/users', this.userInfo, config2)
           .then(() => {
             this.$store.commit('setIsEditUserInfo',true);

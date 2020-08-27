@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="myTeam">
     <div class="_title_wrapper">
         <h3 class="_title">
             {{mode.C}} 관리
@@ -98,5 +98,8 @@ export default {
 }
 .switch:hover {
     background-color: #ff5252cc;
+}
+.myTeam{
+    margin-bottom: 60px;
 }
 </style>
