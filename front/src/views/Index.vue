@@ -6,11 +6,11 @@
       <OurTeamInfo />
       <Footer id='index-footer' />
         <div class="nino-copyright">Copyright &copy; 2020
-            <a @click.prevent="aTag()">Gospec.com</a>
+            <a @click.prevent="moveToIndex()">Gospec.com</a>
                 . All Rights Reserved.
             <br/>
             GoSpec template by
-            <a @click.prevent="aTag()" >깜냥</a>
+            <a @click.prevent="moveToIndex()" >깜냥</a>
             
         </div>
   </div>
@@ -30,8 +30,8 @@ export default {
         MainPage
     },
     methods: {
-        aTag(){
-            
+        moveToIndex(){
+            this.$router.go();
         }
     },
 

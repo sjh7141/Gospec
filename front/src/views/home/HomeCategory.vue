@@ -24,7 +24,7 @@
   </v-card>
 <div class="contest">
   <div class="home_title" style="margin-right:100px; margin-left:10px; text-align:left;">
-    <v-btn :color="color" fab="fab" x-small="x-small">
+    <v-btn :color="color" fab="fab" x-small="x-small" style="pointer-events: none !important;">
     <v-icon>{{ icons }}</v-icon> 
   </v-btn>
   {{ fieldtype }} 인기 공모전
