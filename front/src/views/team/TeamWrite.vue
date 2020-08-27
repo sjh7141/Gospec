@@ -3,13 +3,13 @@
     <h3 class="smallTitle">팀 찾기 게시물 등록</h3>
     <form class='_form' action="">
       <label for='_title'>제목: </label><br>
-      <input class='_input' type="text" name="title" id="_title" v-model='post.title' placeholder="제목을 입력하세요"/><br>
+      <input class='_input' style="outline : 0;" type="text" name="title" id="_title" v-model='post.title' placeholder="제목을 입력하세요"/><br>
 
       <label for="_content">내용: </label><br>
-      <textarea class='_input' name="content" id="_content" cols="30" rows="10" v-model='post.content' placeholder="내용을 입력하세요"></textarea>
+      <textarea class='_input' style="outline : 0;" name="content" id="_content" cols="30" rows="10" v-model='post.content' placeholder="내용을 입력하세요"></textarea>
 
       <label for="_memberMax">최대인원: </label>
-      <input class='_input _numInput' type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
+      <input class='_input _numInput' style="outline : 0;" type="number" name="memberMax" id="_memberMax" v-model='post.memberMax'/><br>
 
       <div style="text-align: center;">
         <button class='_btn' @click.prevent="$router.push('/contest/'+ $route.params.contest_id +'/teams')">팀찾기 목록</button>
