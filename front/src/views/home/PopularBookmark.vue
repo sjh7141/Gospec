@@ -29,7 +29,7 @@
       </v-img>
       </router-link>
       <div class="line1">
-        <LikeState2 class='bookmark' :selectedEvent="each"/>
+        <LikeState2 class='_bookmark' :selectedEvent="each"/>
         <div class='detailLink'>
           {{each.totalReward}}
         </div>
@@ -94,7 +94,7 @@ import LikeState2 from '@/components/common/LikeState2.vue'
   align-items: center;
   font-size: 15px;
 }
-.bookmark {flex: 0 0 auto;}
+._bookmark {flex: 0 0 auto;}
 .detailLink {flex: 1 1 0; color: gray;}
 .dday {flex: 0 0 auto;}
 
