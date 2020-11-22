@@ -145,7 +145,7 @@
 
 > 아래 이미지를 클릭하면 시연 영상을 시청할 수 있습니다.
 
-[<img src="./img/thumbnail.png" width=70%>](https://www.youtube.com/watch?v=Zy2XhpO35YQ)
+[<img src="./img/thumbnail.PNG" width=70%>](https://www.youtube.com/watch?v=Zy2XhpO35YQ)
 
 
 
