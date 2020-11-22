@@ -4,7 +4,6 @@
 
 팀원: 김현수,김호연,남동규,서지훈,정명주
 
-<!--담당기능 알아서.. 쓰기 -->
 
 | 이름   | 역할            | 담당 기능                    |
 | ------ | --------------- | ---------------------------- |
@@ -15,15 +14,7 @@
 | 정명주 | Frontend        | Contest, Front-end 서버 배포 |
 
 
-
-## 개발 일정
-   - 일정관리.cell 참고
-
-![image-20200810154318124](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200810154318124.png)
-
 ## 개발환경 
-
-<!-- 단순히 framework 명을 적는게 아니라 왜 해당 framework와 tool을 사용했는지 명시할것 -->
 
 ### 공통
 
@@ -57,17 +48,12 @@
 
 ### Front-end
 
-1. Vue.js
-2. 
+-  Vue.js 
 
 ## 배포 및 자동화 과정
 
-### Back-end
-
-1. AWS EC2
-2. JENKINS
-
-### Front-end
+- AWS EC2
+- JENKINS
 
 ## 협업 방법
 
@@ -90,8 +76,6 @@
 
 4. POSTMAN
 
-   <!--누가 제대로 써줄사람..? -->
-
    - Spring Security 사용으로 인한 로그인 api 설정 자동화. 따라서 로그인 토큰 발급을 위해 사용
 
      
@@ -102,13 +86,14 @@
 
   <위비티>
 
-  ![image-20200810145619873](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200810145619873.png)
+<img src="./img/wevity.png" width="50%">
 
   -> 사이트 '위비티'의 경우 리스트 형식으로 공모전 정보를 제공
 
   Gospec
 
-  ![image-20200810145817285](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20200810145817285.png)
+<img src="./img/gospec.PNG" width="50%">
+<img src="./img/gospec2.PNG" width="50%">
 
   -> 달력 형식으로 공모전 정보를 제공함으로써 사용자 중심의 설계
 
@@ -156,35 +141,11 @@
    - 실시간 알림 및 메세지 송,수신 가능
    - 보편화된 메일함 형식으로 CRUD 서비스를 이용
 
-## 페이지 UI 및 기능
+## 시연 영상
 
-1. GoSpec 메인 페이지
-2. 홈 화면
-3. 전체일정
-4. 공모전
-5. 스터디
-6. 취업정보
+> 아래 이미지를 클릭하면 시연 영상을 시청할 수 있습니다.
 
-## 배운점
-
-### 협업시
-
-1. 김현수
-2. 김호연
-3. 남동규
-4. 서지훈
-5. 정명주
-
-### 개발시
-
-<!--겪었던 이슈 및 배운 기술사항-->
-
-1. 김현수
-2. 김호연
-3. 남동규
-4. 서지훈
-5. 정명주
-
+[<img src="./img/thumbnail.png" width=70%>](https://www.youtube.com/watch?v=Zy2XhpO35YQ)
 
 
 
